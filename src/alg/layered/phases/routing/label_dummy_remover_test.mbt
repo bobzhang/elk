@@ -204,8 +204,9 @@ test "label dummy remover vertical up places inline labels in reversed order" {
   assert_eq(origin_edge.get_labels().length(), 2)
   assert_eq(label2.get_position().x, 30.0)
   assert_eq(label1.get_position().x, 35.0)
-  assert_eq(label1.get_position().y, 42.5)
-  assert_eq(label2.get_position().y, 42.5)
+  // Inline labels are centred in the whole dummy: (10 - 2) / 2 below its top.
+  assert_eq(label1.get_position().y, 44.0)
+  assert_eq(label2.get_position().y, 44.0)
 }
 
 ///|

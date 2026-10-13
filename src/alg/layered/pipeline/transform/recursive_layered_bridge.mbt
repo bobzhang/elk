@@ -2765,6 +2765,30 @@ fn recursive_layered_create_context(
       @options.layered_options_spacing_edge_edge_between_layers.get_default()
     },
   )
+  // `spacing.baseValue`: every spacing option the graph does not set itself
+  // is derived from the base value, as ElkGraphImporter does by applying
+  // `LayeredSpacings.withBaseValue` right after creating the LGraph. The base
+  // value is not inherited, so it is read from this node only.
+  let unset = "\u{0}unset"
+  match
+    recursive_layered_parse_double(
+      recursive_layered_primary_option(
+        node,
+        @options.layered_options_spacing_base_value.get_id(),
+        unset,
+      ),
+    ) {
+    Some(base_spacing) =>
+      for
+        entry in @runtime.layered_spacings_with_base_value(base_spacing).factors() {
+        let (option, factor) = entry
+        if recursive_layered_primary_option(node, option.get_id(), unset) ==
+          unset {
+          layered_graph.set_property_double(option, factor * base_spacing)
+        }
+      }
+    None => ()
+  }
   layered_graph.set_property_double(
     @options.layered_options_aspect_ratio,
     if aspect_ratio_value > 0.0 {

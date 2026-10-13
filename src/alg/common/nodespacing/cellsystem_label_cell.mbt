@@ -219,7 +219,7 @@ pub fn LabelCell::add_l_label(
 }
 
 ///|
-pub fn LabelCell::label_count(self : LabelCell) -> Int {
+pub fn LabelCell::label_count(self : LabelCell) -> Int32 {
   label_cell_labels(self).length() + label_cell_l_labels(self).length()
 }
 

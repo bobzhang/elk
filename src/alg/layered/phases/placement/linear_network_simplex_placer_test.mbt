@@ -23,7 +23,7 @@ fn p4nodes_test_strategy(
 ///|
 fn p4nodes_test_contains_factory(
   factories : Array[@core.LayoutProcessorFactory],
-  expected_factory_id : Int,
+  expected_factory_id : Int32,
 ) -> Bool {
   for factory in factories {
     if factory.factory_id() == expected_factory_id {
@@ -34,7 +34,7 @@ fn p4nodes_test_contains_factory(
 }
 
 ///|
-fn p4nodes_test_expected_hierarchical_port_position_factory_id() -> Int {
+fn p4nodes_test_expected_hierarchical_port_position_factory_id() -> Int32 {
   @intermediate.processor_factory(
     @runtime.new_l_graph(),
     p4nodes_test_strategy("HIERARCHICAL_PORT_POSITION_PROCESSOR"),

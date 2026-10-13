@@ -6,7 +6,7 @@ let make_node_shape = @graph.make_node_shape
 
 ///|
 fn new_elk_progress_monitor(
-  task_name? : String = "",
+  task_name~ : String = "",
 ) -> @core.IElkProgressMonitor {
   @core.new_elk_progress_monitor(task_name~)
 }
@@ -30,7 +30,7 @@ let new_recursive_graph_layout_engine = @test.new_recursive_graph_layout_engine
 
 ///|
 fn new_layout_algorithm_resolver(
-  default_layout_algorithm_id? : String = "org.eclipse.elk.layered",
+  default_layout_algorithm_id~ : String = "org.eclipse.elk.layered",
 ) -> @core.LayoutAlgorithmResolver {
   let metadata = @core.new_option_metadata()
   @test.plain_java_initialization_initialize_plain_java_layout(metadata)

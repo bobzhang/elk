@@ -10,12 +10,12 @@ pub fn new_polyomino_compactor() -> PolyominoCompactor {
 
 ///|
 priv struct PolyominoDirectionStats {
-  count : Int
-  horizontal_count : Int
+  count : Int32
+  horizontal_count : Int32
 }
 
 ///|
-fn polyomino_compactor_compare_int(left : Int, right : Int) -> Int {
+fn polyomino_compactor_compare_int(left : Int32, right : Int32) -> Int32 {
   if left < right {
     return -1
   }
@@ -67,7 +67,7 @@ fn polyomino_compactor_direction_stats(
 fn polyomino_compactor_compare_min_perimeter(
   left : Polyomino,
   right : Polyomino,
-) -> Int {
+) -> Int32 {
   let half_peri_left = left.width() + left.height()
   let half_peri_right = right.width() + right.height()
   polyomino_compactor_compare_int(half_peri_left, half_peri_right)
@@ -77,7 +77,7 @@ fn polyomino_compactor_compare_min_perimeter(
 fn polyomino_compactor_compare_min_perimeter_with_shape(
   left : Polyomino,
   right : Polyomino,
-) -> Int {
+) -> Int32 {
   let mut width = left.width()
   let mut height = left.height()
   if width < height {
@@ -103,7 +103,7 @@ fn polyomino_compactor_compare_min_perimeter_with_shape(
 fn polyomino_compactor_compare_min_num_extensions(
   left : Polyomino,
   right : Polyomino,
-) -> Int {
+) -> Int32 {
   polyomino_compactor_compare_int(
     left.get_polyomino_extensions().length(),
     right.get_polyomino_extensions().length(),
@@ -114,7 +114,7 @@ fn polyomino_compactor_compare_min_num_extensions(
 fn polyomino_compactor_compare_min_num_extension_directions(
   left : Polyomino,
   right : Polyomino,
-) -> Int {
+) -> Int32 {
   let stats_left = polyomino_compactor_direction_stats(left)
   let stats_right = polyomino_compactor_direction_stats(right)
   polyomino_compactor_compare_int(stats_left.count, stats_right.count)
@@ -124,7 +124,7 @@ fn polyomino_compactor_compare_min_num_extension_directions(
 fn polyomino_compactor_compare_single_extension_side_greater_than_rest(
   left : Polyomino,
   right : Polyomino,
-) -> Int {
+) -> Int32 {
   let mut left_value = polyomino_compactor_direction_stats(left).count
   let mut right_value = polyomino_compactor_direction_stats(right).count
   left_value = if left_value == 1 { 1 } else { 0 }
@@ -136,7 +136,7 @@ fn polyomino_compactor_compare_single_extension_side_greater_than_rest(
 fn polyomino_compactor_compare_corner_cases_greater_than_rest(
   left : Polyomino,
   right : Polyomino,
-) -> Int {
+) -> Int32 {
   let left_stats = polyomino_compactor_direction_stats(left)
   let mut left_value = if left_stats.count == 2 { 1 } else { 0 }
   if left_value == 1 {
@@ -159,7 +159,7 @@ fn polyomino_compactor_compare_corner_cases_greater_than_rest(
 ///|
 fn[T] polyomino_compactor_sort_in_place(
   array : Array[T],
-  compare : (T, T) -> Int,
+  compare : (T, T) -> Int32,
 ) -> Unit {
   let length = array.length()
   if length <= 1 {

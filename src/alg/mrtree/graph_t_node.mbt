@@ -1,7 +1,7 @@
 ///|
 pub struct MrtreeNode {
   priv mut data : MrtreeNodeData
-  priv handle : Int
+  priv handle : Int32
 }
 
 ///|
@@ -21,7 +21,7 @@ pub impl Hash for MrtreeNode with fn hash_combine(self, hasher) {
 
 ///|
 priv struct MrtreeNodeData {
-  mut id : Int
+  mut id : Int32
   graph : MrtreeGraph
   label : String
   position : @core.KVector
@@ -29,20 +29,20 @@ priv struct MrtreeNodeData {
   mut outgoing_edges : Array[MrtreeEdge]
   mut incoming_edges : Array[MrtreeEdge]
   mut origin : @graph.ElkNode?
-  mut priority : Int
-  mut tree_level : Int
-  mut position_constraint : Int
-  mut fan : Int
-  mut descendants : Int
+  mut priority : Int32
+  mut tree_level : Int32
+  mut position_constraint : Int32
+  mut fan : Int32
+  mut descendants : Int32
   mut internal_id : String
-  mut position_in_level : Int
+  mut position_in_level : Int32
   mut level_height : Double
   mut left_neighbor : MrtreeNode?
   mut right_neighbor : MrtreeNode?
   mut left_sibling : MrtreeNode?
   mut right_sibling : MrtreeNode?
-  mut xcoor : Int
-  mut ycoor : Int
+  mut xcoor : Int32
+  mut ycoor : Int32
   mut level_min : Double
   mut level_max : Double
   mut compact_level_ascension : Bool
@@ -60,9 +60,9 @@ fn set_mrtree_node_data(node : MrtreeNode, data : MrtreeNodeData) -> Unit {
 
 ///|
 pub fn new_mrtree_node(
-  id : Int,
+  id : Int32,
   graph : MrtreeGraph,
-  label? : String = "",
+  label~ : String = "",
 ) -> MrtreeNode {
   let node : MrtreeNode = {
     data: {
@@ -122,12 +122,12 @@ pub fn mrtree_node_copy_properties_from_elk(
 }
 
 ///|
-pub fn mrtree_node_id(node : MrtreeNode) -> Int {
+pub fn mrtree_node_id(node : MrtreeNode) -> Int32 {
   node.data.id
 }
 
 ///|
-pub fn mrtree_node_set_id(node : MrtreeNode, id : Int) -> Unit {
+pub fn mrtree_node_set_id(node : MrtreeNode, id : Int32) -> Unit {
   let node_data = node.data
   node_data.id = id
   set_mrtree_node_data(node, node_data)
@@ -282,43 +282,43 @@ pub fn mrtree_node_is_leaf(node : MrtreeNode) -> Bool {
 }
 
 ///|
-pub fn mrtree_node_priority(node : MrtreeNode) -> Int {
+pub fn mrtree_node_priority(node : MrtreeNode) -> Int32 {
   node.data.priority
 }
 
 ///|
-pub fn mrtree_node_set_tree_level(node : MrtreeNode, value : Int) -> Unit {
+pub fn mrtree_node_set_tree_level(node : MrtreeNode, value : Int32) -> Unit {
   let node_data = node.data
   node_data.tree_level = value
   set_mrtree_node_data(node, node_data)
 }
 
 ///|
-pub fn mrtree_node_tree_level(node : MrtreeNode) -> Int {
+pub fn mrtree_node_tree_level(node : MrtreeNode) -> Int32 {
   node.data.tree_level
 }
 
 ///|
-pub fn mrtree_node_set_fan(node : MrtreeNode, value : Int) -> Unit {
+pub fn mrtree_node_set_fan(node : MrtreeNode, value : Int32) -> Unit {
   let node_data = node.data
   node_data.fan = value
   set_mrtree_node_data(node, node_data)
 }
 
 ///|
-pub fn mrtree_node_fan(node : MrtreeNode) -> Int {
+pub fn mrtree_node_fan(node : MrtreeNode) -> Int32 {
   node.data.fan
 }
 
 ///|
-pub fn mrtree_node_set_descendants(node : MrtreeNode, value : Int) -> Unit {
+pub fn mrtree_node_set_descendants(node : MrtreeNode, value : Int32) -> Unit {
   let node_data = node.data
   node_data.descendants = value
   set_mrtree_node_data(node, node_data)
 }
 
 ///|
-pub fn mrtree_node_descendants(node : MrtreeNode) -> Int {
+pub fn mrtree_node_descendants(node : MrtreeNode) -> Int32 {
   node.data.descendants
 }
 
@@ -337,7 +337,7 @@ pub fn mrtree_node_internal_id(node : MrtreeNode) -> String {
 ///|
 pub fn mrtree_node_set_position_in_level(
   node : MrtreeNode,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   let node_data = node.data
   node_data.position_in_level = value
@@ -345,19 +345,19 @@ pub fn mrtree_node_set_position_in_level(
 }
 
 ///|
-pub fn mrtree_node_position_in_level(node : MrtreeNode) -> Int {
+pub fn mrtree_node_position_in_level(node : MrtreeNode) -> Int32 {
   node.data.position_in_level
 }
 
 ///|
-pub fn mrtree_node_position_constraint(node : MrtreeNode) -> Int {
+pub fn mrtree_node_position_constraint(node : MrtreeNode) -> Int32 {
   node.data.position_constraint
 }
 
 ///|
 pub fn mrtree_node_set_position_constraint(
   node : MrtreeNode,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   let node_data = node.data
   node_data.position_constraint = value
@@ -437,26 +437,26 @@ pub fn mrtree_node_right_sibling(node : MrtreeNode) -> MrtreeNode? {
 }
 
 ///|
-pub fn mrtree_node_set_xcoor(node : MrtreeNode, value : Int) -> Unit {
+pub fn mrtree_node_set_xcoor(node : MrtreeNode, value : Int32) -> Unit {
   let node_data = node.data
   node_data.xcoor = value
   set_mrtree_node_data(node, node_data)
 }
 
 ///|
-pub fn mrtree_node_xcoor(node : MrtreeNode) -> Int {
+pub fn mrtree_node_xcoor(node : MrtreeNode) -> Int32 {
   node.data.xcoor
 }
 
 ///|
-pub fn mrtree_node_set_ycoor(node : MrtreeNode, value : Int) -> Unit {
+pub fn mrtree_node_set_ycoor(node : MrtreeNode, value : Int32) -> Unit {
   let node_data = node.data
   node_data.ycoor = value
   set_mrtree_node_data(node, node_data)
 }
 
 ///|
-pub fn mrtree_node_ycoor(node : MrtreeNode) -> Int {
+pub fn mrtree_node_ycoor(node : MrtreeNode) -> Int32 {
   node.data.ycoor
 }
 

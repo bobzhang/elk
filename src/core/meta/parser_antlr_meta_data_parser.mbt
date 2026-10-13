@@ -36,7 +36,7 @@ pub(all) struct MetaDataParser {
 
 ///|
 pub fn new_meta_data_parser(
-  grammar_access? : MetaDataGrammarAccess = new_meta_data_grammar_access(),
+  grammar_access~ : MetaDataGrammarAccess = new_meta_data_grammar_access(),
 ) -> MetaDataParser {
   {
     name_mappings: new_core_meta_name_mappings(grammar_access),

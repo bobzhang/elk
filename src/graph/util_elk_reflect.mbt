@@ -17,8 +17,8 @@ let elk_reflect_registry_clone : Ref[Map[String, ElkReflectCloneFunction]] = Ref
 ///|
 pub fn elk_reflect_register(
   clazz : String,
-  new_fun? : ElkReflectNewInstanceFunction? = None,
-  clone_fun? : ElkReflectCloneFunction? = None,
+  new_fun~ : ElkReflectNewInstanceFunction? = None,
+  clone_fun~ : ElkReflectCloneFunction? = None,
 ) -> Unit {
   match new_fun {
     Some(new_instance) => elk_reflect_registry_new.val[clazz] = new_instance

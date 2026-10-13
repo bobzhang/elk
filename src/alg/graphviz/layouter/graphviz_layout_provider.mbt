@@ -11,13 +11,13 @@ pub let graphviz_layout_provider_debug_mode : @graph.IProperty[Bool] = @graph.ne
 
 ///|
 pub struct GraphvizLayoutDiagnostic {
-  line : Int
+  line : Int32
   message : String
 }
 
 ///|
 pub fn new_graphviz_layout_diagnostic(
-  line : Int,
+  line : Int32,
   message : String,
 ) -> GraphvizLayoutDiagnostic {
   { line, message, }
@@ -26,7 +26,7 @@ pub fn new_graphviz_layout_diagnostic(
 ///|
 pub fn GraphvizLayoutDiagnostic::get_line(
   self : GraphvizLayoutDiagnostic,
-) -> Int {
+) -> Int32 {
   self.line
 }
 
@@ -73,14 +73,14 @@ pub fn GraphvizLayoutParseResult::get_errors(
 
 ///|
 pub struct GraphvizLayoutResourceSet {
-  serialize_fn : (@dot.DotGraphvizModel) -> Array[Int]
-  parse_fn : (Array[Int]) -> GraphvizLayoutParseResult
+  serialize_fn : (@dot.DotGraphvizModel) -> Array[Int32]
+  parse_fn : (Array[Int32]) -> GraphvizLayoutParseResult
 }
 
 ///|
 pub fn new_graphviz_layout_resource_set(
-  serialize_fn : (@dot.DotGraphvizModel) -> Array[Int],
-  parse_fn : (Array[Int]) -> GraphvizLayoutParseResult,
+  serialize_fn : (@dot.DotGraphvizModel) -> Array[Int32],
+  parse_fn : (Array[Int32]) -> GraphvizLayoutParseResult,
 ) -> GraphvizLayoutResourceSet {
   { serialize_fn, parse_fn, }
 }
@@ -89,21 +89,21 @@ pub fn new_graphviz_layout_resource_set(
 pub fn GraphvizLayoutResourceSet::serialize(
   self : GraphvizLayoutResourceSet,
   model : @dot.DotGraphvizModel,
-) -> Array[Int] {
+) -> Array[Int32] {
   (self.serialize_fn)(model)
 }
 
 ///|
 pub fn GraphvizLayoutResourceSet::parse(
   self : GraphvizLayoutResourceSet,
-  bytes : Array[Int],
+  bytes : Array[Int32],
 ) -> GraphvizLayoutParseResult {
   (self.parse_fn)(bytes)
 }
 
 ///|
 pub fn graphviz_layout_provider_test_default_graph_bytes_for_test() -> Array[
-  Int,
+  Int32,
 ] {
   [100, 105, 103, 114, 97, 112, 104, 32, 123, 125, 10]
 }
@@ -111,13 +111,13 @@ pub fn graphviz_layout_provider_test_default_graph_bytes_for_test() -> Array[
 ///|
 fn graphviz_layout_provider_default_serializer(
   model : @dot.DotGraphvizModel,
-) -> Array[Int] {
+) -> Array[Int32] {
   @dot.graphviz_dot_serialize_model_bytes(model)
 }
 
 ///|
 fn graphviz_layout_provider_default_parser(
-  bytes : Array[Int],
+  bytes : Array[Int32],
 ) -> GraphvizLayoutParseResult {
   if bytes.is_empty() {
     return new_graphviz_layout_parse_result_with_errors([])
@@ -134,12 +134,12 @@ fn graphviz_layout_provider_default_parser(
 
 ///|
 let graphviz_layout_provider_serializer_ref : Ref[
-  (@dot.DotGraphvizModel) -> Array[Int],
+  (@dot.DotGraphvizModel) -> Array[Int32],
 ] = Ref(graphviz_layout_provider_default_serializer)
 
 ///|
 let graphviz_layout_provider_parser_ref : Ref[
-  (Array[Int]) -> GraphvizLayoutParseResult,
+  (Array[Int32]) -> GraphvizLayoutParseResult,
 ] = Ref(graphviz_layout_provider_default_parser)
 
 ///|
@@ -156,37 +156,37 @@ let graphviz_layout_provider_resource_set_provider_ref : Ref[
 ] = Ref(graphviz_layout_provider_default_resource_set_provider)
 
 ///|
-let graphviz_layout_provider_serial_call_no_ref : Ref[Int] = Ref(0)
+let graphviz_layout_provider_serial_call_no_ref : Ref[Int32] = Ref(0)
 
 ///|
-let graphviz_layout_provider_debug_bytes_ref : Ref[Map[String, Array[Int]]] = Ref(
+let graphviz_layout_provider_debug_bytes_ref : Ref[Map[String, Array[Int32]]] = Ref(
   Map([]),
 )
 
 ///|
 pub fn graphviz_layout_provider_set_serializer_for_test(
-  serializer : (@dot.DotGraphvizModel) -> Array[Int],
+  serializer : (@dot.DotGraphvizModel) -> Array[Int32],
 ) -> Unit {
   graphviz_layout_provider_set_serializer(serializer)
 }
 
 ///|
 pub fn graphviz_layout_provider_set_serializer(
-  serializer : (@dot.DotGraphvizModel) -> Array[Int],
+  serializer : (@dot.DotGraphvizModel) -> Array[Int32],
 ) -> Unit {
   graphviz_layout_provider_serializer_ref.val = serializer
 }
 
 ///|
 pub fn graphviz_layout_provider_set_parser_for_test(
-  parser : (Array[Int]) -> GraphvizLayoutParseResult,
+  parser : (Array[Int32]) -> GraphvizLayoutParseResult,
 ) -> Unit {
   graphviz_layout_provider_set_parser(parser)
 }
 
 ///|
 pub fn graphviz_layout_provider_set_parser(
-  parser : (Array[Int]) -> GraphvizLayoutParseResult,
+  parser : (Array[Int32]) -> GraphvizLayoutParseResult,
 ) -> Unit {
   graphviz_layout_provider_parser_ref.val = parser
 }
@@ -208,7 +208,7 @@ pub fn graphviz_layout_provider_set_resource_set_provider(
 ///|
 pub fn graphviz_layout_provider_get_debug_bytes_for_test(
   file_name : String,
-) -> Array[Int]? {
+) -> Array[Int32]? {
   graphviz_layout_provider_debug_bytes_ref.val.get(file_name)
 }
 
@@ -228,7 +228,7 @@ pub struct GraphvizLayoutProvider {
   mut dot_resource_set_provider : @transform.DotResourceSetProvider[
     GraphvizLayoutResourceSet,
   ]
-  mut my_call_no : Int
+  mut my_call_no : Int32
 }
 
 ///|
@@ -270,7 +270,7 @@ fn graphviz_layout_provider_tool_of(
 ///|
 fn graphviz_layout_provider_store_debug_bytes(
   key : String,
-  value : Array[Int],
+  value : Array[Int32],
 ) -> Unit {
   graphviz_layout_provider_debug_bytes_ref.val[key] = value
 }
@@ -278,8 +278,8 @@ fn graphviz_layout_provider_store_debug_bytes(
 ///|
 fn graphviz_layout_provider_read_all(
   stream : GraphvizInputStream,
-) -> Array[Int] {
-  let bytes : Array[Int] = []
+) -> Array[Int32] {
+  let bytes : Array[Int32] = []
   let mut next = stream.read()
   while next >= 0 {
     bytes.push(next)
@@ -301,8 +301,8 @@ fn graphviz_layout_provider_command_is_invalid(
 ///|
 fn graphviz_layout_provider_read_all_forwarding(
   stream : ForwardingInputStream,
-) -> Array[Int] {
-  let bytes : Array[Int] = []
+) -> Array[Int32] {
+  let bytes : Array[Int32] = []
   let mut next = stream.read()
   while next >= 0 {
     bytes.push(next)

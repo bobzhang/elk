@@ -73,7 +73,7 @@ fn breaking_point_inserter_test_connect(
 
 ///|
 fn breaking_point_inserter_test_new_path_graph(
-  layer_count : Int,
+  layer_count : Int32,
 ) -> (
   @runtime.LGraph,
   Array[@runtime.Layer],

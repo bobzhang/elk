@@ -52,7 +52,7 @@ pub struct GraphvizDotConfigurationElement {
 
 ///|
 pub fn new_graphviz_dot_configuration_element(
-  contributor? : String? = None,
+  contributor~ : String? = None,
 ) -> GraphvizDotConfigurationElement {
   { contributor, }
 }
@@ -83,7 +83,7 @@ pub struct GraphvizDotExecutableExtension {
 
 ///|
 pub fn new_graphviz_dot_executable_extension(
-  set_initialization_data_fn? : (
+  set_initialization_data_fn~ : (
     GraphvizDotConfigurationElement?,
     String?,
     GraphvizDotInitializationData?,
@@ -131,18 +131,18 @@ pub fn graphviz_dot_object_tag(value : GraphvizDotObject) -> String {
 }
 
 ///|
-pub let graphviz_dot_status_error : Int = 4
+pub let graphviz_dot_status_error : Int32 = 4
 
 ///|
 pub struct GraphvizDotStatus {
-  severity : Int
+  severity : Int32
   symbolic_name : String
   message : String
 }
 
 ///|
 pub fn new_graphviz_dot_status(
-  severity : Int,
+  severity : Int32,
   symbolic_name : String,
   message : String,
 ) -> GraphvizDotStatus {
@@ -150,7 +150,7 @@ pub fn new_graphviz_dot_status(
 }
 
 ///|
-pub fn GraphvizDotStatus::get_severity(self : GraphvizDotStatus) -> Int {
+pub fn GraphvizDotStatus::get_severity(self : GraphvizDotStatus) -> Int32 {
   self.severity
 }
 
@@ -191,7 +191,7 @@ pub struct GraphvizDotBundle {
 
 ///|
 pub fn new_graphviz_dot_bundle(
-  symbolic_name? : String = graphviz_dot_plugin_id,
+  symbolic_name~ : String = graphviz_dot_plugin_id,
 ) -> GraphvizDotBundle {
   { symbolic_name, class_registry: Map([]), }
 }
@@ -218,7 +218,7 @@ pub fn GraphvizDotBundle::get_symbolic_name(self : GraphvizDotBundle) -> String 
 }
 
 ///|
-pub fn GraphvizDotBundle::class_count(self : GraphvizDotBundle) -> Int {
+pub fn GraphvizDotBundle::class_count(self : GraphvizDotBundle) -> Int32 {
   self.class_registry.length()
 }
 
@@ -264,7 +264,7 @@ pub fn GraphvizDotInjector::provider_class_names(
 }
 
 ///|
-pub fn GraphvizDotInjector::provider_count(self : GraphvizDotInjector) -> Int {
+pub fn GraphvizDotInjector::provider_count(self : GraphvizDotInjector) -> Int32 {
   self.providers.length()
 }
 
@@ -319,7 +319,9 @@ pub fn GraphvizDotActivator::register_bundle_class(
 }
 
 ///|
-pub fn GraphvizDotActivator::injector_count(self : GraphvizDotActivator) -> Int {
+pub fn GraphvizDotActivator::injector_count(
+  self : GraphvizDotActivator,
+) -> Int32 {
   self.injectors.length()
 }
 

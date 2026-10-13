@@ -1,8 +1,8 @@
 ///|
-pub type ServiceWorkbenchPart = Int
+pub type ServiceWorkbenchPart = Int32
 
 ///|
-pub type ServiceDiagramElement = Int
+pub type ServiceDiagramElement = Int32
 
 ///|
 pub type ServiceGraphElement = @graph.ElkNode
@@ -34,7 +34,7 @@ pub(all) struct LayoutMapping {
 
 ///|
 pub fn new_layout_mapping(
-  workbench_part? : ServiceWorkbenchPart? = None,
+  workbench_part~ : ServiceWorkbenchPart? = None,
 ) -> LayoutMapping {
   {
     graph_elem_map: Map([]),
@@ -94,7 +94,7 @@ pub fn LayoutMapping::graph_map_entries(
 }
 
 ///|
-pub fn LayoutMapping::graph_map_size(self : LayoutMapping) -> Int {
+pub fn LayoutMapping::graph_map_size(self : LayoutMapping) -> Int32 {
   self.graph_elem_map.length()
 }
 

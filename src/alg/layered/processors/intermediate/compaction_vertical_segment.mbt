@@ -6,7 +6,7 @@ fn[T] vertical_segment_add_all(target : Array[T], source : Array[T]) -> Unit {
 }
 
 ///|
-fn vertical_segment_compare_double(left : Double, right : Double) -> Int {
+fn vertical_segment_compare_double(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -33,10 +33,10 @@ fn vertical_segment_represented_edges_to_string(
 }
 
 ///|
-let vertical_segment_next_id_ref : Ref[Int] = Ref(0)
+let vertical_segment_next_id_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn vertical_segment_next_id() -> Int {
+fn vertical_segment_next_id() -> Int32 {
   let id = vertical_segment_next_id_ref.val
   vertical_segment_next_id_ref.val = id + 1
   id
@@ -44,7 +44,7 @@ fn vertical_segment_next_id() -> Int {
 
 ///|
 pub struct VerticalSegment {
-  id : Int
+  id : Int32
   potential_group_parents : Array[@compaction.CNode]
   represented_l_edges : Array[@runtime.LEdge]
   affected_bends : Array[@core.KVector]
@@ -111,7 +111,7 @@ pub fn new_vertical_segment(
 }
 
 ///|
-pub fn VerticalSegment::get_id(self : VerticalSegment) -> Int {
+pub fn VerticalSegment::get_id(self : VerticalSegment) -> Int32 {
   self.id
 }
 
@@ -194,7 +194,7 @@ pub fn VerticalSegment::intersects(
 pub fn VerticalSegment::compare_to(
   self : VerticalSegment,
   other : VerticalSegment,
-) -> Int {
+) -> Int32 {
   if @compaction.compare_fuzzy_lt(self.hitbox.x, other.hitbox.x) {
     -1
   } else if @compaction.compare_fuzzy_gt(self.hitbox.x, other.hitbox.x) {

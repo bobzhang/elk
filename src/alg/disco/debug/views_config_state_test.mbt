@@ -1,5 +1,5 @@
 ///|
-fn expect_some_int(value : Int?) -> Int {
+fn expect_some_int(value : Int32?) -> Int32 {
   match value {
     Some(v) => v
     None => abort("Expected Some(Int)")

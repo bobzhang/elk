@@ -2,7 +2,7 @@
 pub let orthogonal_routing_generator_tolerance : Double = 0.001
 
 ///|
-let orthogonal_routing_generator_critical_conflicts_detected : Int = -1
+let orthogonal_routing_generator_critical_conflicts_detected : Int32 = -1
 
 ///|
 let orthogonal_routing_generator_conflict_threshold_factor : Double = 0.5
@@ -11,10 +11,10 @@ let orthogonal_routing_generator_conflict_threshold_factor : Double = 0.5
 let orthogonal_routing_generator_critical_conflict_threshold_factor : Double = 0.2
 
 ///|
-let orthogonal_routing_generator_conflict_penalty : Int = 1
+let orthogonal_routing_generator_conflict_penalty : Int32 = 1
 
 ///|
-let orthogonal_routing_generator_crossing_penalty : Int = 16
+let orthogonal_routing_generator_crossing_penalty : Int32 = 16
 
 ///|
 fn orthogonal_routing_generator_sort_doubles(values : Array[Double]) -> Unit {
@@ -87,7 +87,7 @@ pub fn new_orthogonal_routing_generator(
   direction : RoutingDirection,
   edge_spacing : Double,
   debug_prefix : String?,
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> OrthogonalRoutingGenerator {
   {
     state,
@@ -146,7 +146,7 @@ fn OrthogonalRoutingGenerator::create_hyper_edge_segments(
   nodes : Array[@runtime.LNode]?,
   port_side : @core.PortSide,
   hyper_edges : Array[HyperEdgeSegment],
-  port_to_hyper_edge_segment_map : Map[Int, HyperEdgeSegment],
+  port_to_hyper_edge_segment_map : Map[Int32, HyperEdgeSegment],
 ) -> Unit {
   match nodes {
     Some(layer_nodes) =>
@@ -195,15 +195,15 @@ pub fn OrthogonalRoutingGenerator::route_edges(
   monitor : @core.IElkProgressMonitor,
   layered_graph : @runtime.LGraph,
   source_layer_nodes : Array[@runtime.LNode]?,
-  source_layer_index : Int,
+  source_layer_index : Int32,
   target_layer_nodes : Array[@runtime.LNode]?,
   start_pos : Double,
-) -> Int raise {
+) -> Int32 raise {
   ignore(monitor)
   ignore(source_layer_index)
   ignore(self.debug_prefix)
 
-  let port_to_edge_segment_map : Map[Int, HyperEdgeSegment] = Map([])
+  let port_to_edge_segment_map : Map[Int32, HyperEdgeSegment] = Map([])
   let edge_segments = []
 
   self.create_hyper_edge_segments(
@@ -301,7 +301,7 @@ fn OrthogonalRoutingGenerator::count_conflicts(
   self : OrthogonalRoutingGenerator,
   positions_1 : Array[Double],
   positions_2 : Array[Double],
-) -> Int {
+) -> Int32 {
   let mut conflicts = 0
 
   if positions_1.is_empty() || positions_2.is_empty() {
@@ -342,7 +342,7 @@ pub fn OrthogonalRoutingGenerator::create_dependency_if_necessary(
   self : OrthogonalRoutingGenerator,
   first_segment : HyperEdgeSegment,
   second_segment : HyperEdgeSegment,
-) -> Int {
+) -> Int32 {
   if (first_segment.get_start_coordinate() - first_segment.get_end_coordinate()).abs() <
     orthogonal_routing_generator_tolerance ||
     (second_segment.get_start_coordinate() - second_segment.get_end_coordinate()).abs() <
@@ -455,7 +455,7 @@ pub fn orthogonal_routing_generator_count_crossings(
   positions : Array[Double],
   start : Double,
   end : Double,
-) -> Int {
+) -> Int32 {
   let mut crossings = 0
   for position in positions {
     if position > end {

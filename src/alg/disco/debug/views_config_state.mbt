@@ -3,9 +3,9 @@ pub type ConfigStateObserver = (State) -> Unit
 
 ///|
 pub struct ConfigState {
-  mut lower_lvl : Int
-  mut upper_lvl : Int
-  mut max_depth : Int?
+  mut lower_lvl : Int32
+  mut upper_lvl : Int32
+  mut max_depth : Int32?
   observers : Array[ConfigStateObserver]
 }
 
@@ -34,7 +34,7 @@ let config_state_make_patterns_solid : Bool = false
 let config_state_line_thickness_scale : Double = 1.0
 
 ///|
-let config_state_pattern_scale : Int = 1
+let config_state_pattern_scale : Int32 = 1
 
 ///|
 let config_state_remove_level_number : Bool = false
@@ -60,7 +60,7 @@ fn config_state_notify(config : ConfigState, state : State) -> Unit {
 }
 
 ///|
-pub fn config_state_set_low(config : ConfigState, low : Int) -> Unit {
+pub fn config_state_set_low(config : ConfigState, low : Int32) -> Unit {
   config.lower_lvl = low
   config_state_notify(config, Lower)
   if config.lower_lvl > config.upper_lvl {
@@ -70,7 +70,7 @@ pub fn config_state_set_low(config : ConfigState, low : Int) -> Unit {
 }
 
 ///|
-pub fn config_state_set_high(config : ConfigState, high : Int) -> Unit {
+pub fn config_state_set_high(config : ConfigState, high : Int32) -> Unit {
   config.upper_lvl = high
   config_state_notify(config, Upper)
   if config.lower_lvl > config.upper_lvl {
@@ -80,23 +80,23 @@ pub fn config_state_set_high(config : ConfigState, high : Int) -> Unit {
 }
 
 ///|
-pub fn config_state_set_depth(config : ConfigState, depth : Int) -> Unit {
+pub fn config_state_set_depth(config : ConfigState, depth : Int32) -> Unit {
   config.max_depth = Some(depth)
   config_state_notify(config, Depth)
 }
 
 ///|
-pub fn config_state_get_lower_lvl(config : ConfigState) -> Int {
+pub fn config_state_get_lower_lvl(config : ConfigState) -> Int32 {
   config.lower_lvl
 }
 
 ///|
-pub fn config_state_get_upper_lvl(config : ConfigState) -> Int {
+pub fn config_state_get_upper_lvl(config : ConfigState) -> Int32 {
   config.upper_lvl
 }
 
 ///|
-pub fn config_state_get_max_depth(config : ConfigState) -> Int? {
+pub fn config_state_get_max_depth(config : ConfigState) -> Int32? {
   config.max_depth
 }
 
@@ -143,7 +143,7 @@ pub fn config_state_get_thickness_scale(_config : ConfigState) -> Double {
 }
 
 ///|
-pub fn config_state_get_pattern_scale(_config : ConfigState) -> Int {
+pub fn config_state_get_pattern_scale(_config : ConfigState) -> Int32 {
   config_state_pattern_scale
 }
 

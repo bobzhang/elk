@@ -22,13 +22,13 @@ pub fn dis_co_layout_mapping_get_layout_graph(
 
 ///|
 pub struct DisCoLayoutListener {
-  id : Int
+  id : Int32
   layout_about_to_start : (DisCoLayoutMapping, @core.IElkProgressMonitor) -> Unit
   layout_done : (DisCoLayoutMapping, @core.IElkProgressMonitor) -> Unit
 }
 
 ///|
-let dis_co_layout_listener_id_ref : Ref[Int] = Ref(0)
+let dis_co_layout_listener_id_ref : Ref[Int32] = Ref(0)
 
 ///|
 let dis_co_layout_listeners_ref : Ref[Array[DisCoLayoutListener]] = Ref([])

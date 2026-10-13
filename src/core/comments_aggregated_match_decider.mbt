@@ -21,7 +21,7 @@ fn aggregated_match_decider_exception_message(
 
 ///|
 fn aggregated_match_decider_heuristic_values(
-  matcher_results : Array[(Int, Double)],
+  matcher_results : Array[(Int32, Double)],
 ) -> Array[Double] {
   let values = []
   for matcher_result in matcher_results {

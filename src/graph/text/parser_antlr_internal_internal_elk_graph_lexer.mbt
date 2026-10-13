@@ -8,42 +8,42 @@ pub let graph_text_lexer_token_names : Array[String] = [
 ]
 
 ///|
-pub let graph_text_lexer_rule_id : Int = 4
+pub let graph_text_lexer_rule_id : Int32 = 4
 
 ///|
-pub let graph_text_lexer_rule_string : Int = 5
+pub let graph_text_lexer_rule_string : Int32 = 5
 
 ///|
-pub let graph_text_lexer_rule_signed_int : Int = 6
+pub let graph_text_lexer_rule_signed_int : Int32 = 6
 
 ///|
-pub let graph_text_lexer_rule_float : Int = 7
+pub let graph_text_lexer_rule_float : Int32 = 7
 
 ///|
-pub let graph_text_lexer_rule_int : Int = 8
+pub let graph_text_lexer_rule_int : Int32 = 8
 
 ///|
-pub let graph_text_lexer_rule_ml_comment : Int = 9
+pub let graph_text_lexer_rule_ml_comment : Int32 = 9
 
 ///|
-pub let graph_text_lexer_rule_sl_comment : Int = 10
+pub let graph_text_lexer_rule_sl_comment : Int32 = 10
 
 ///|
-pub let graph_text_lexer_rule_ws : Int = 11
+pub let graph_text_lexer_rule_ws : Int32 = 11
 
 ///|
-pub let graph_text_lexer_rule_any_other : Int = 12
+pub let graph_text_lexer_rule_any_other : Int32 = 12
 
 ///|
 pub struct ElkGraphLexToken {
-  token_type : Int
+  token_type : Int32
   token_name : String
   lexeme : String
 }
 
 ///|
 pub fn new_elk_graph_lex_token(
-  token_type : Int,
+  token_type : Int32,
   token_name : String,
   lexeme : String,
 ) -> ElkGraphLexToken {
@@ -77,7 +77,7 @@ pub fn InternalElkGraphLexer::get_token_names(
 }
 
 ///|
-fn graph_text_lexer_token_name(token_type : Int) -> String {
+fn graph_text_lexer_token_name(token_type : Int32) -> String {
   if token_type >= 0 && token_type < graph_text_lexer_token_names.length() {
     graph_text_lexer_token_names[token_type]
   } else {
@@ -101,7 +101,7 @@ fn graph_text_lexer_is_digit(ch : Char) -> Bool {
 }
 
 ///|
-fn graph_text_lexer_keyword_token_type(lexeme : String) -> Int? {
+fn graph_text_lexer_keyword_token_type(lexeme : String) -> Int32? {
   if lexeme == "graph" {
     Some(13)
   } else if lexeme == "node" {
@@ -142,7 +142,7 @@ fn graph_text_lexer_keyword_token_type(lexeme : String) -> Int? {
 }
 
 ///|
-fn graph_text_lexer_symbol_token_type(lexeme : String) -> Int? {
+fn graph_text_lexer_symbol_token_type(lexeme : String) -> Int32? {
   if lexeme == "{" {
     Some(15)
   } else if lexeme == "}" {
@@ -167,7 +167,7 @@ fn graph_text_lexer_symbol_token_type(lexeme : String) -> Int? {
 }
 
 ///|
-fn graph_text_lexer_scan_number(text : String, start : Int) -> (Int, Bool)? {
+fn graph_text_lexer_scan_number(text : String, start : Int32) -> (Int32, Bool)? {
   let mut index = start
   if index < text.length() {
     let sign = text[index].unsafe_to_char()

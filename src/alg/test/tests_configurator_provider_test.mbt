@@ -34,7 +34,7 @@ test "ConfiguratorProviderTest applies layout configurator provider" {
     }
   })
 
-  let runner : LayoutTestRunner[Unit, Int] = new_layout_test_runner(
+  let runner : LayoutTestRunner[Unit, Int32] = new_layout_test_runner(
     () => (),
     [test_algorithm_identity()],
     [configuration],

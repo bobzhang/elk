@@ -19,11 +19,11 @@ pub struct GraphTextUiContentAssistContext {
 
 ///|
 pub fn new_graph_text_ui_content_assist_context(
-  prefix? : String = "",
-  current_model? : @text.GraphTextElement? = None,
-  current_property_key? : @text.GraphTextPropertyKey? = None,
-  current_edge_section? : @graph.ElkEdgeSection? = None,
-  conflict_on_a? : Bool = false,
+  prefix~ : String = "",
+  current_model~ : @text.GraphTextElement? = None,
+  current_property_key~ : @text.GraphTextPropertyKey? = None,
+  current_edge_section~ : @graph.ElkEdgeSection? = None,
+  conflict_on_a~ : Bool = false,
 ) -> GraphTextUiContentAssistContext {
   {
     prefix,

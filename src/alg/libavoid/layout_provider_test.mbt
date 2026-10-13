@@ -1,6 +1,6 @@
 ///|
-fn libavoid_test_ascii(text : String) -> Array[Int] {
-  let bytes : Array[Int] = []
+fn libavoid_test_ascii(text : String) -> Array[Int32] {
+  let bytes : Array[Int32] = []
   for ch in text {
     bytes.push(ch.to_int())
   }
@@ -8,7 +8,7 @@ fn libavoid_test_ascii(text : String) -> Array[Int] {
 }
 
 ///|
-fn libavoid_test_bytes_contains(bytes : Array[Int], token : String) -> Bool {
+fn libavoid_test_bytes_contains(bytes : Array[Int32], token : String) -> Bool {
   let needle = libavoid_test_ascii(token)
   if needle.is_empty() {
     return true

@@ -5,13 +5,13 @@ pub let instance_pool_infinite = -1
 pub(all) struct InstancePool[T] {
   factory : IFactory[T]
   instances : Array[T]
-  limit : Int
+  limit : Int32
 }
 
 ///|
 pub fn[T] new_instance_pool(
   factory : IFactory[T],
-  limit? : Int = instance_pool_infinite,
+  limit~ : Int32 = instance_pool_infinite,
 ) -> InstancePool[T] {
   { factory, instances: [], limit, }
 }

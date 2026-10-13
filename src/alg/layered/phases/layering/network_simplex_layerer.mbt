@@ -177,7 +177,7 @@ fn network_simplex_layerer_connected_components(
 ///|
 priv struct NetworkSimplexLayererInitResult {
   graph : @networksimplex.NGraph
-  node_map : Map[Int, @runtime.LNode]
+  node_map : Map[Int32, @runtime.LNode]
 }
 
 ///|
@@ -185,8 +185,8 @@ fn network_simplex_layerer_initialize(
   the_nodes : Array[@runtime.LNode],
 ) -> NetworkSimplexLayererInitResult raise {
   let graph = @networksimplex.new_ngraph()
-  let lnode_to_nnode : Map[Int, @networksimplex.NNode] = Map([])
-  let node_map : Map[Int, @runtime.LNode] = Map([])
+  let lnode_to_nnode : Map[Int32, @networksimplex.NNode] = Map([])
+  let node_map : Map[Int32, @runtime.LNode] = Map([])
 
   for lnode in the_nodes {
     let nnode = @networksimplex.nnode_of()
@@ -282,7 +282,7 @@ fn network_simplex_layerer_process(
   } noraise {
     value => value
   }
-  let mut previous_layering_node_counts : Array[Int]? = None
+  let mut previous_layering_node_counts : Array[Int32]? = None
 
   for conn_comp in connected_components {
     let iter_limit = thoroughness *

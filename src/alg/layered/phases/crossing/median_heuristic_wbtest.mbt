@@ -9,7 +9,7 @@ fn median_test_seeded_random() -> @random.Rand {
 }
 
 ///|
-fn median_test_new_node(layer : @runtime.Layer, id : Int) -> @runtime.LNode {
+fn median_test_new_node(layer : @runtime.Layer, id : Int32) -> @runtime.LNode {
   let node = @runtime.new_l_node()
   node.set_layer(Some(layer))
   node.set_id(id)
@@ -37,7 +37,7 @@ fn median_test_connect(
 }
 
 ///|
-fn median_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int] {
+fn median_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int32] {
   let ids = []
   for node in nodes {
     ids.push(node.get_id())
@@ -46,7 +46,7 @@ fn median_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int] {
 }
 
 ///|
-fn median_test_weight_ranks(nodes : Array[@runtime.LNode]) -> Array[Int] {
+fn median_test_weight_ranks(nodes : Array[@runtime.LNode]) -> Array[Int32] {
   let ranks = []
   for node in nodes {
     ranks.push(

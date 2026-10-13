@@ -3,8 +3,8 @@ fn sc_connectivity_find_nodes(
   graph : @runtime.LGraph,
   strongly_connected_components : Array[Array[@runtime.LNode]],
   rev_edges : Array[@runtime.LEdge],
-  offset : Int,
-  big_offset : Int,
+  offset : Int32,
+  big_offset : Int32,
 ) -> Unit raise SCCModelOrderCycleBreakerException {
   let enforce_group_model_order = scc_model_order_cycle_breaker_enforce_group_model_order(
     graph,

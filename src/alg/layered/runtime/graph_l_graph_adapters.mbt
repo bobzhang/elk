@@ -38,7 +38,7 @@ fn l_graph_adapters_port_constraints_from_string(
 }
 
 ///|
-fn l_graph_adapters_port_side_rank(side : @core.PortSide) -> Int {
+fn l_graph_adapters_port_side_rank(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -49,7 +49,7 @@ fn l_graph_adapters_port_side_rank(side : @core.PortSide) -> Int {
 }
 
 ///|
-fn l_graph_adapters_compare_double(left : Double, right : Double) -> Int {
+fn l_graph_adapters_compare_double(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -70,7 +70,7 @@ fn l_graph_adapters_node_type_is_north_south_port(node_type : NodeType) -> Bool 
 ///|
 fn l_graph_adapters_insertion_sort_ports(
   ports : Array[LPort],
-  comparator : (LPort, LPort) -> Int raise?,
+  comparator : (LPort, LPort) -> Int32 raise?,
 ) -> Unit raise? {
   let mut i = 1
   while i < ports.length() {
@@ -106,7 +106,7 @@ pub fn adapt_l_graph_with_options(
   transparent_north_south_edges : Bool,
   transparent_comment_nodes : Bool,
   node_filter : (LNode) -> Bool,
-  state? : LayeredRunState? = None,
+  state~ : LayeredRunState? = None,
 ) -> LGraphAdapter {
   new_l_graph_adapter(
     graph,
@@ -146,7 +146,7 @@ pub fn new_l_graph_adapter(
   transparent_north_south_edges : Bool,
   transparent_comment_nodes : Bool,
   node_filter : (LNode) -> Bool,
-  state? : LayeredRunState? = None,
+  state~ : LayeredRunState? = None,
 ) -> LGraphAdapter {
   {
     element,
@@ -210,15 +210,15 @@ pub fn LGraphAdapter::get_graph(self : LGraphAdapter) -> LGraph {
 ///|
 pub fn LGraphAdapter::get_property_int(
   self : LGraphAdapter,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   self.element.get_property_int(property)
 }
 
 ///|
 pub fn LGraphAdapter::has_property_int(
   self : LGraphAdapter,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   self.element.has_property_int(property)
 }
@@ -359,14 +359,14 @@ fn LGraphAdapter::cleanup(self : LGraphAdapter) -> Unit {
 }
 
 ///|
-pub fn LGraphAdapter::get_volatile_id(self : LGraphAdapter) -> Int {
+pub fn LGraphAdapter::get_volatile_id(self : LGraphAdapter) -> Int32 {
   self.element.get_id()
 }
 
 ///|
 pub fn LGraphAdapter::set_volatile_id(
   self : LGraphAdapter,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.element.set_id(volatile_id)
 }
@@ -386,7 +386,7 @@ pub fn new_l_node_adapter(
   parent_graph_adapter : LGraphAdapter?,
   element : LNode,
   transparent_north_south_edges : Bool,
-  state? : LayeredRunState? = None,
+  state~ : LayeredRunState? = None,
 ) -> LNodeAdapter {
   {
     parent_graph_adapter,
@@ -434,15 +434,15 @@ pub fn LNodeAdapter::get_node(self : LNodeAdapter) -> LNode {
 ///|
 pub fn LNodeAdapter::get_property_int(
   self : LNodeAdapter,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   self.element.get_property_int(property)
 }
 
 ///|
 pub fn LNodeAdapter::has_property_int(
   self : LNodeAdapter,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   self.element.has_property_int(property)
 }
@@ -512,14 +512,14 @@ pub fn LNodeAdapter::has_property_string_array(
 }
 
 ///|
-pub fn LNodeAdapter::get_volatile_id(self : LNodeAdapter) -> Int {
+pub fn LNodeAdapter::get_volatile_id(self : LNodeAdapter) -> Int32 {
   self.element.get_id()
 }
 
 ///|
 pub fn LNodeAdapter::set_volatile_id(
   self : LNodeAdapter,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.element.set_id(volatile_id)
 }
@@ -601,7 +601,7 @@ pub fn LNodeAdapter::sort_port_list_with(
 ///|
 pub fn LNodeAdapter::sort_port_list_with_comparator(
   self : LNodeAdapter,
-  comparator : (LPort, LPort) -> Int raise?,
+  comparator : (LPort, LPort) -> Int32 raise?,
 ) -> Unit raise? {
   let port_constraints_value = self.element.get_property_string(
     @core.port_constraints,
@@ -675,7 +675,7 @@ pub struct LPortAdapter {
 pub fn new_l_port_adapter(
   element : LPort,
   transparent_north_south_edges : Bool,
-  state? : LayeredRunState? = None,
+  state~ : LayeredRunState? = None,
 ) -> LPortAdapter {
   {
     element,
@@ -718,15 +718,15 @@ pub fn LPortAdapter::set_position(
 ///|
 pub fn LPortAdapter::get_property_int(
   self : LPortAdapter,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   self.element.get_property_int(property)
 }
 
 ///|
 pub fn LPortAdapter::has_property_int(
   self : LPortAdapter,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   self.element.has_property_int(property)
 }
@@ -780,14 +780,14 @@ pub fn LPortAdapter::has_property_l_node(
 }
 
 ///|
-pub fn LPortAdapter::get_volatile_id(self : LPortAdapter) -> Int {
+pub fn LPortAdapter::get_volatile_id(self : LPortAdapter) -> Int32 {
   self.element.get_id()
 }
 
 ///|
 pub fn LPortAdapter::set_volatile_id(
   self : LPortAdapter,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.element.set_id(volatile_id)
 }
@@ -1054,14 +1054,14 @@ pub fn LLabelAdapter::has_property_label_side(
 }
 
 ///|
-pub fn LLabelAdapter::get_volatile_id(self : LLabelAdapter) -> Int {
+pub fn LLabelAdapter::get_volatile_id(self : LLabelAdapter) -> Int32 {
   self.element.get_id()
 }
 
 ///|
 pub fn LLabelAdapter::set_volatile_id(
   self : LLabelAdapter,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.element.set_id(volatile_id)
 }
@@ -1120,7 +1120,7 @@ pub fn PortComparator::compare(
   self : PortComparator,
   port1 : LPort,
   port2 : LPort,
-) -> Int raise {
+) -> Int32 raise {
   ignore(self)
   let ordinal_difference = l_graph_adapters_port_side_rank(port1.get_side()) -
     l_graph_adapters_port_side_rank(port2.get_side())

@@ -9,7 +9,7 @@ fn is_finite_double(value : Double) -> Bool {
 }
 
 ///|
-fn pad_three_digits(value : Int) -> String {
+fn pad_three_digits(value : Int32) -> String {
   if value < 10 {
     "00" + value.to_string()
   } else if value < 100 {
@@ -65,7 +65,7 @@ pub struct SvgImage {
   groups : Map[String, String]
   mut group_order : Array[String]
   file_name : String?
-  mut index : Int
+  mut index : Int32
   mut debug : Bool
   max_area : Double
   mut last_output : String
@@ -242,8 +242,8 @@ pub fn SvgImage::add_circle(
   self : SvgImage,
   x : Double,
   y : Double,
-  r? : Double = 5.0,
-  attributes? : String = "stroke=\"black\" stroke-width=\"1\" fill=\"none\"",
+  r~ : Double = 5.0,
+  attributes~ : String = "stroke=\"black\" stroke-width=\"1\" fill=\"none\"",
 ) -> Unit {
   if self.debug {
     self.add_element_str(
@@ -263,7 +263,7 @@ pub fn SvgImage::add_line(
   y1 : Double,
   x2 : Double,
   y2 : Double,
-  attributes? : String = "stroke=\"black\" stroke-width=\"1\"",
+  attributes~ : String = "stroke=\"black\" stroke-width=\"1\"",
 ) -> Unit {
   if self.debug {
     self.add_element_str(
@@ -341,7 +341,7 @@ pub fn SvgImage::add_text(
 }
 
 ///|
-pub fn SvgImage::save(self : SvgImage, f_name? : String? = None) -> Unit {
+pub fn SvgImage::save(self : SvgImage, f_name~ : String? = None) -> Unit {
   if self.debug {
     ignore(f_name)
     self.last_output = svg_content(self)
@@ -349,7 +349,7 @@ pub fn SvgImage::save(self : SvgImage, f_name? : String? = None) -> Unit {
 }
 
 ///|
-pub fn SvgImage::isave(self : SvgImage, f_name? : String? = None) -> Unit {
+pub fn SvgImage::isave(self : SvgImage, f_name~ : String? = None) -> Unit {
   if self.debug {
     let base_name = match f_name {
       Some(value) => value

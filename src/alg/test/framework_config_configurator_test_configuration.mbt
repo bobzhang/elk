@@ -8,7 +8,7 @@ pub struct ConfiguratorTestConfiguration[T] {
 pub fn[T] new_configurator_test_configuration(
   configurator_method_name : String,
   configurator_provider_fn : (T) -> LayoutConfigurator,
-  default_configuration? : DefaultConfiguration? = None,
+  default_configuration~ : DefaultConfiguration? = None,
 ) -> ConfiguratorTestConfiguration[T] {
   let cache : Ref[LayoutConfigurator?] = Ref(None)
   let base = new_test_configuration(default_configuration~, apply_base_configuration_fn=(
@@ -33,7 +33,7 @@ pub fn[T] new_configurator_test_configuration(
 ///|
 pub fn[T] configurator_test_configuration_from_providers(
   providers : Array[(String, (T) -> LayoutConfigurator)],
-  default_configuration? : DefaultConfiguration? = None,
+  default_configuration~ : DefaultConfiguration? = None,
 ) -> Array[ConfiguratorTestConfiguration[T]] {
   let configurations : Array[ConfiguratorTestConfiguration[T]] = []
   for provider in providers {

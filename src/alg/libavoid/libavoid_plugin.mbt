@@ -8,7 +8,7 @@ pub struct LibavoidBundle {
 
 ///|
 pub fn new_libavoid_bundle(
-  symbolic_name? : String = libavoid_plugin_id,
+  symbolic_name~ : String = libavoid_plugin_id,
 ) -> LibavoidBundle {
   { symbolic_name, }
 }
@@ -28,7 +28,7 @@ let libavoid_plugin_ref : Ref[LibavoidPlugin?] = Ref(None)
 
 ///|
 pub fn new_libavoid_plugin(
-  bundle? : LibavoidBundle = new_libavoid_bundle(),
+  bundle~ : LibavoidBundle = new_libavoid_bundle(),
 ) -> LibavoidPlugin {
   { bundle, }
 }
@@ -36,7 +36,7 @@ pub fn new_libavoid_plugin(
 ///|
 pub fn LibavoidPlugin::start(
   self : LibavoidPlugin,
-  _context? : String = "",
+  _context~ : String = "",
 ) -> Unit {
   libavoid_plugin_ref.val = Some(self)
 }
@@ -44,7 +44,7 @@ pub fn LibavoidPlugin::start(
 ///|
 pub fn LibavoidPlugin::stop(
   self : LibavoidPlugin,
-  _context? : String = "",
+  _context~ : String = "",
 ) -> Unit {
   ignore(self)
   libavoid_plugin_ref.val = None

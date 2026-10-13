@@ -87,7 +87,7 @@ test "spline edge router break cycles ensures dependencies point rightward" {
   ignore(@runtime.new_spline_dependency(edge_b, edge_c, 1))
   ignore(@runtime.new_spline_dependency(edge_c, edge_a, 1))
 
-  let random = @random.Rand::new()
+  let random = @random.Rand()
   let edges = [edge_a, edge_b, edge_c]
   spline_edge_router_break_cycles(edges, random)
 
@@ -164,9 +164,9 @@ test "spline edge router edge chain and spline path follow successor map" {
   let segment_1 = @runtime.new_spline_segment_single_edge(edge_1, Left, Right)
   let segment_2 = @runtime.new_spline_segment_single_edge(edge_2, Left, Right)
 
-  let successing_edge : Map[Int, @runtime.LEdge] = Map([])
+  let successing_edge : Map[Int32, @runtime.LEdge] = Map([])
   successing_edge[@runtime.ledge_internal_handle(edge_1)] = edge_2
-  let edge_to_segment_map : Map[Int, @runtime.SplineSegment] = Map([])
+  let edge_to_segment_map : Map[Int32, @runtime.SplineSegment] = Map([])
   edge_to_segment_map[@runtime.ledge_internal_handle(edge_1)] = segment_1
   edge_to_segment_map[@runtime.ledge_internal_handle(edge_2)] = segment_2
 
@@ -206,7 +206,7 @@ test "spline edge router find and add successor maps through dummy target node" 
 
   let first = spline_edge_router_wb_new_edge(source_port, dummy_in)
   let second = spline_edge_router_wb_new_edge(dummy_out, next_target)
-  let successors : Map[Int, @runtime.LEdge] = Map([])
+  let successors : Map[Int32, @runtime.LEdge] = Map([])
   spline_edge_router_find_and_add_successor(first, successors)
 
   let next = successors.get(@runtime.ledge_internal_handle(first)).unwrap()
@@ -222,7 +222,7 @@ test "spline edge router create hyper edge segments groups upward edges" {
   let right_ports : Array[@runtime.LPort] = []
   let edges_remaining : Array[@runtime.LEdge] = []
   let hyper_edges : Array[@runtime.SplineSegment] = []
-  let edge_to_segment_map : Map[Int, @runtime.SplineSegment] = Map([])
+  let edge_to_segment_map : Map[Int32, @runtime.SplineSegment] = Map([])
 
   let source_node = @runtime.new_l_node()
   ignore(source_node.get_position().set_xy(0.0, 10.0))
@@ -268,7 +268,7 @@ test "spline edge router create segments and ranking assigns topological ranks" 
   let right_ports : Array[@runtime.LPort] = []
   let edges_remaining : Array[@runtime.LEdge] = []
   let spline_segments : Array[@runtime.SplineSegment] = []
-  let edge_to_segment_map : Map[Int, @runtime.SplineSegment] = Map([])
+  let edge_to_segment_map : Map[Int32, @runtime.SplineSegment] = Map([])
 
   let edge_a = spline_edge_router_wb_new_edge(
     spline_edge_router_wb_new_port(0.0, West),
@@ -291,7 +291,7 @@ test "spline edge router create segments and ranking assigns topological ranks" 
     spline_edge_router_edge_set_add(edges_remaining, edge)
   }
 
-  let random = @random.Rand::new()
+  let random = @random.Rand()
   spline_edge_router_create_segments_and_compute_ranking(
     left_ports, right_ports, edges_remaining, spline_segments, edge_to_segment_map,
     random,
@@ -352,7 +352,7 @@ test "spline edge router clear then fill mappings collects layer-local sets" {
   let spline_segments_layer : Array[@runtime.SplineSegment] = []
   let self_loops_layer : Array[@runtime.LEdge] = []
   let start_edges : Array[@runtime.LEdge] = []
-  let successing_edge : Map[Int, @runtime.LEdge] = Map([])
+  let successing_edge : Map[Int32, @runtime.LEdge] = Map([])
 
   spline_edge_router_clear_then_fill_mappings(
     Some(left_layer),

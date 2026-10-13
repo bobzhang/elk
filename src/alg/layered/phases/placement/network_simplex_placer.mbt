@@ -17,13 +17,13 @@ let network_simplex_node_size_weight_flexible : Double = 1.0
 let network_simplex_offset_integral_epsilon : Double = 0.00001
 
 ///|
-let network_simplex_visited : Int = -1
+let network_simplex_visited : Int32 = -1
 
 ///|
-let network_simplex_other : Int = 0
+let network_simplex_other : Int32 = 0
 
 ///|
-let network_simplex_junction : Int = 2
+let network_simplex_junction : Int32 = 2
 
 ///|
 pub suberror NetworkSimplexPlacerException {
@@ -65,15 +65,15 @@ priv struct NetworkSimplexAuxiliaryState {
   spacings : @runtime.Spacings
   node_reps : Array[NetworkSimplexNodeRep?]
   edge_reps : Array[NetworkSimplexEdgeRep?]
-  port_map : Map[Int, @networksimplex.NNode]
+  port_map : Map[Int32, @networksimplex.NNode]
   flexible_where_space_permits_edges : Array[@networksimplex.NEdge]
-  node_state : Array[Int]
+  node_state : Array[Int32]
   two_paths : Array[Array[@runtime.LEdge]]
   crossing : Array[Bool]
 }
 
 ///|
-fn network_simplex_int_max(left : Int, right : Int) -> Int {
+fn network_simplex_int_max(left : Int32, right : Int32) -> Int32 {
   if left >= right {
     left
   } else {
@@ -82,7 +82,7 @@ fn network_simplex_int_max(left : Int, right : Int) -> Int {
 }
 
 ///|
-fn network_simplex_int_abs(value : Int) -> Int {
+fn network_simplex_int_abs(value : Int32) -> Int32 {
   if value < 0 {
     -value
   } else {
@@ -364,8 +364,8 @@ fn network_simplex_reverse_ports(
 ///|
 fn network_simplex_new_auxiliary_state(
   layered_graph : @runtime.LGraph,
-  node_count : Int,
-  edge_count : Int,
+  node_count : Int32,
+  edge_count : Int32,
 ) -> NetworkSimplexAuxiliaryState {
   {
     n_graph: @networksimplex.new_ngraph(),
@@ -464,7 +464,7 @@ fn network_simplex_node_is_flexible(node : @runtime.LNode) -> Bool {
 }
 
 ///|
-fn network_simplex_prepare(layered_graph : @runtime.LGraph) -> (Int, Int) {
+fn network_simplex_prepare(layered_graph : @runtime.LGraph) -> (Int32, Int32) {
   let mut node_idx = 0
   let mut edge_idx = 0
 
@@ -723,7 +723,9 @@ fn network_simplex_transform_edge(
 }
 
 ///|
-fn network_simplex_edge_rep_not_straight_by(rep : NetworkSimplexEdgeRep) -> Int {
+fn network_simplex_edge_rep_not_straight_by(
+  rep : NetworkSimplexEdgeRep,
+) -> Int32 {
   rep.left.get_target().get_layer() -
   rep.left.get_delta() -
   (rep.right.get_target().get_layer() - rep.right.get_delta())
@@ -735,7 +737,7 @@ fn network_simplex_edge_rep_is_straight(rep : NetworkSimplexEdgeRep) -> Bool {
 }
 
 ///|
-fn network_simplex_nedge_length(edge : @networksimplex.NEdge) -> Int {
+fn network_simplex_nedge_length(edge : @networksimplex.NEdge) -> Int32 {
   network_simplex_int_abs(
     edge.get_source().get_layer() - edge.get_target().get_layer(),
   ) -
@@ -855,7 +857,7 @@ fn network_simplex_insert_in_layer_edge_auxiliary_edges(
   layered_graph : @runtime.LGraph,
   state : NetworkSimplexAuxiliaryState,
 ) -> Unit raise {
-  let processed_edges : Map[Int, Bool] = Map([])
+  let processed_edges : Map[Int32, Bool] = Map([])
   for layer in layered_graph.get_layers() {
     for node in layer.get_nodes() {
       if !network_simplex_node_type_is_normal(node.get_type()) {
@@ -1022,7 +1024,7 @@ fn network_simplex_favor_straight_edges(
 }
 
 ///|
-fn network_simplex_get_node_state(node : @runtime.LNode) -> Int {
+fn network_simplex_get_node_state(node : @runtime.LNode) -> Int32 {
   let mut incoming = 0
   let mut outgoing = 0
   for port in node.get_ports() {

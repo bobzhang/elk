@@ -6,10 +6,10 @@
 /// temporary references to graph nodes, edges, labels, and routing objects.
 pub struct LayeredRunState {
   random_state : @state.LayeredLayoutState
-  end_label_cells : Map[Int, Array[EndLabelCell]]
-  breaking_points : Map[Int, BPInfo]
-  self_loop_holders : Map[Int, SelfLoopHolder]
-  spline_segments : Map[Int, Array[SplineSegment]]
+  end_label_cells : Map[Int32, Array[EndLabelCell]]
+  breaking_points : Map[Int32, BPInfo]
+  self_loop_holders : Map[Int32, SelfLoopHolder]
+  spline_segments : Map[Int32, Array[SplineSegment]]
 }
 
 ///|
@@ -26,7 +26,7 @@ pub fn new_layered_run_state() -> LayeredRunState {
 ///|
 pub fn LayeredRunState::initialize_random(
   self : LayeredRunState,
-  seed_value : Int,
+  seed_value : Int32,
 ) -> Unit {
   self.random_state.initialize_random(seed_value)
 }
@@ -34,7 +34,7 @@ pub fn LayeredRunState::initialize_random(
 ///|
 pub fn LayeredRunState::random(
   self : LayeredRunState,
-  seed_value : Int,
+  seed_value : Int32,
 ) -> @state.GreedySwitchMockRandom {
   self.random_state.random(seed_value)
 }

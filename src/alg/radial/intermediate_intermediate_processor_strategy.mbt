@@ -10,7 +10,7 @@ pub enum RadialIntermediateProcessorStrategy {
 ///|
 fn radial_intermediate_strategy_ordinal(
   strategy : RadialIntermediateProcessorStrategy,
-) -> Int {
+) -> Int32 {
   match strategy {
     OVERLAP_REMOVAL => 0
     COMPACTION => 1

@@ -2,8 +2,8 @@
 pub struct DCPolyomino {
   polyomino : @polyomino.Polyomino
   representee : DCComponent
-  p_width : Int
-  p_height : Int
+  p_width : Int32
+  p_height : Int32
   cell_size_x : Double
   cell_size_y : Double
 }
@@ -36,7 +36,7 @@ pub fn new_dc_polyomino(
 }
 
 ///|
-fn compute_low_res_dimension(dim : Double, cell_size : Double) -> Int {
+fn compute_low_res_dimension(dim : Double, cell_size : Double) -> Int32 {
   let cell_fit = dim / cell_size
   let mut fit_truncated = cell_fit.to_int()
   if cell_fit > fit_truncated.to_double() {
@@ -76,12 +76,12 @@ pub fn DCPolyomino::get_cell_size_y(self : DCPolyomino) -> Double {
 }
 
 ///|
-pub fn DCPolyomino::get_id(self : DCPolyomino) -> Int {
+pub fn DCPolyomino::get_id(self : DCPolyomino) -> Int32 {
   self.representee.get_id()
 }
 
 ///|
-pub fn DCPolyomino::set_id(self : DCPolyomino, id : Int) -> Unit {
+pub fn DCPolyomino::set_id(self : DCPolyomino, id : Int32) -> Unit {
   self.representee.set_id(id)
 }
 
@@ -96,20 +96,20 @@ pub fn DCPolyomino::as_polyomino(self : DCPolyomino) -> @polyomino.Polyomino {
 }
 
 ///|
-pub fn DCPolyomino::width(self : DCPolyomino) -> Int {
+pub fn DCPolyomino::width(self : DCPolyomino) -> Int32 {
   self.polyomino.width()
 }
 
 ///|
-pub fn DCPolyomino::height(self : DCPolyomino) -> Int {
+pub fn DCPolyomino::height(self : DCPolyomino) -> Int32 {
   self.polyomino.height()
 }
 
 ///|
 pub fn DCPolyomino::is_blocked(
   self : DCPolyomino,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool raise {
   self.polyomino.is_blocked(x, y)
 }
@@ -117,46 +117,46 @@ pub fn DCPolyomino::is_blocked(
 ///|
 pub fn DCPolyomino::is_weakly_blocked(
   self : DCPolyomino,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool raise {
   self.polyomino.is_weakly_blocked(x, y)
 }
 
 ///|
-pub fn DCPolyomino::get_center_x(self : DCPolyomino) -> Int {
+pub fn DCPolyomino::get_center_x(self : DCPolyomino) -> Int32 {
   self.polyomino.get_center_x()
 }
 
 ///|
-pub fn DCPolyomino::get_center_y(self : DCPolyomino) -> Int {
+pub fn DCPolyomino::get_center_y(self : DCPolyomino) -> Int32 {
   self.polyomino.get_center_y()
 }
 
 ///|
 pub fn DCPolyomino::get_polyomino_extensions(
   self : DCPolyomino,
-) -> Array[@common.UniqueTriple[@polyomino.PolyominoDirection, Int, Int]] {
+) -> Array[@common.UniqueTriple[@polyomino.PolyominoDirection, Int32, Int32]] {
   self.polyomino.get_polyomino_extensions()
 }
 
 ///|
-pub fn DCPolyomino::get_x(self : DCPolyomino) -> Int {
+pub fn DCPolyomino::get_x(self : DCPolyomino) -> Int32 {
   self.polyomino.get_x()
 }
 
 ///|
-pub fn DCPolyomino::get_y(self : DCPolyomino) -> Int {
+pub fn DCPolyomino::get_y(self : DCPolyomino) -> Int32 {
   self.polyomino.get_y()
 }
 
 ///|
-pub fn DCPolyomino::set_x(self : DCPolyomino, x : Int) -> Unit {
+pub fn DCPolyomino::set_x(self : DCPolyomino, x : Int32) -> Unit {
   self.polyomino.set_x(x)
 }
 
 ///|
-pub fn DCPolyomino::set_y(self : DCPolyomino, y : Int) -> Unit {
+pub fn DCPolyomino::set_y(self : DCPolyomino, y : Int32) -> Unit {
   self.polyomino.set_y(y)
 }
 

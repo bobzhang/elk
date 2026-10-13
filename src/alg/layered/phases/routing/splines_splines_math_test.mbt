@@ -12,7 +12,7 @@ fn splines_math_test_port_side(name : String) -> @core.PortSide {
 fn splines_math_test_assert_near(
   actual : Double,
   expected : Double,
-  tolerance? : Double = 0.000001,
+  tolerance~ : Double = 0.000001,
 ) -> Unit raise {
   assert_true((actual - expected).abs() <= tolerance)
 }

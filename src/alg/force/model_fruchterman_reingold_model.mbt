@@ -46,7 +46,7 @@ pub fn FruchtermanReingoldModel::initialize(
 ///|
 pub fn FruchtermanReingoldModel::more_iterations(
   self : FruchtermanReingoldModel,
-  count : Int,
+  count : Int32,
 ) -> Bool {
   ignore(count)
   self.temperature > 0.0

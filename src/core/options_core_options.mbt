@@ -59,7 +59,7 @@ pub let aspect_ratio : @graph.IProperty[Double] = @graph.new_property(
 )
 
 ///|
-pub let random_seed : @graph.IProperty[Int] = @graph.new_property(
+pub let random_seed : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.randomSeed", 1,
 )
 
@@ -169,12 +169,14 @@ pub let child_area_height : @graph.IProperty[Double] = @graph.new_property(
 )
 
 ///|
-pub let topdown_size_categories : @graph.IProperty[Int] = @graph.new_property(
+pub let topdown_size_categories : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.topdown.sizeCategories", 3,
 )
 
 ///|
-pub let topdown_size_categories_hierarchical_node_weight : @graph.IProperty[Int] = @graph.new_property(
+pub let topdown_size_categories_hierarchical_node_weight : @graph.IProperty[
+  Int32,
+] = @graph.new_property(
   "org.eclipse.elk.topdown.sizeCategoriesHierarchicalNodeWeight", 4,
 )
 

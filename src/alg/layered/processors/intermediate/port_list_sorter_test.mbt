@@ -34,7 +34,7 @@ fn port_list_sorter_test_new_node(
 fn port_list_sorter_test_new_port(
   node : @runtime.LNode,
   side : String,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_side(port_list_sorter_test_port_side(side))

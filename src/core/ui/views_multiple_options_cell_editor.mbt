@@ -4,8 +4,8 @@ pub(all) struct MultipleOptionsCellEditor {
   decorated_item_values : Bool
   mut value : Array[String]
   mut next_dialog_result : Array[String]?
-  mut apply_count : Int
-  mut cancel_count : Int
+  mut apply_count : Int32
+  mut cancel_count : Int32
 }
 
 ///|
@@ -144,6 +144,6 @@ pub fn MultipleOptionsCellEditor::on_double_click(
 ///|
 pub fn MultipleOptionsCellEditor::get_counts_for_test(
   self : MultipleOptionsCellEditor,
-) -> (Int, Int) {
+) -> (Int32, Int32) {
   (self.apply_count, self.cancel_count)
 }

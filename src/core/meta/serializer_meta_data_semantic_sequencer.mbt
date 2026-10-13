@@ -5,7 +5,7 @@ pub(all) struct MetaDataSemanticSequencer {
 
 ///|
 pub fn new_meta_data_semantic_sequencer(
-  grammar_access? : MetaDataGrammarAccess = new_meta_data_grammar_access(),
+  grammar_access~ : MetaDataGrammarAccess = new_meta_data_grammar_access(),
 ) -> MetaDataSemanticSequencer {
   { grammar_access, }
 }

@@ -14,7 +14,7 @@ fn in_layer_constraint_processor_test_strategy(
 fn in_layer_constraint_processor_test_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   constraint : String,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
@@ -40,7 +40,9 @@ fn in_layer_constraint_processor_test_constraints(
 }
 
 ///|
-fn in_layer_constraint_processor_test_ids(layer : @runtime.Layer) -> Array[Int] {
+fn in_layer_constraint_processor_test_ids(
+  layer : @runtime.Layer,
+) -> Array[Int32] {
   let result = []
   for node in layer.get_nodes() {
     result.push(node.get_id())

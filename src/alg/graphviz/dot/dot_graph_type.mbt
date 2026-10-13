@@ -15,7 +15,7 @@ pub fn dot_graph_type_digraph() -> DotGraphType {
 }
 
 ///|
-pub fn dot_graph_type_value(graph_type : DotGraphType) -> Int {
+pub fn dot_graph_type_value(graph_type : DotGraphType) -> Int32 {
   match graph_type {
     DotGraphTypeGraph => 0
     DotGraphTypeDigraph => 1
@@ -52,7 +52,7 @@ pub fn dot_graph_type_from_name(name : String) -> DotGraphType? {
 }
 
 ///|
-pub fn dot_graph_type_from_int(value : Int) -> DotGraphType? {
+pub fn dot_graph_type_from_int(value : Int32) -> DotGraphType? {
   if value == 0 {
     Some(DotGraphTypeGraph)
   } else if value == 1 {

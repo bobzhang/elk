@@ -11,7 +11,7 @@ pub(all) struct LayoutPropertySourceProvider {
 ///|
 pub fn new_layout_property_source_provider(
   metadata : @core.OptionMetadata,
-  configuration_store_provider? : @service.LayoutConfigurationStoreProvider? = None,
+  configuration_store_provider~ : @service.LayoutConfigurationStoreProvider? = None,
   config_manager? : @service.LayoutConfigurationManager,
   layout_option_validator_provider? : () -> @core.LayoutOptionValidator,
 ) -> LayoutPropertySourceProvider {

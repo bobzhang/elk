@@ -11,19 +11,19 @@ let alignment_matcher_out_right = 4
 let alignment_matcher_out_bottom = 8
 
 ///|
-let alignment_matcher_out_top_left : Int = alignment_matcher_out_top |
+let alignment_matcher_out_top_left : Int32 = alignment_matcher_out_top |
   alignment_matcher_out_left
 
 ///|
-let alignment_matcher_out_bottom_left : Int = alignment_matcher_out_bottom |
+let alignment_matcher_out_bottom_left : Int32 = alignment_matcher_out_bottom |
   alignment_matcher_out_left
 
 ///|
-let alignment_matcher_out_top_right : Int = alignment_matcher_out_top |
+let alignment_matcher_out_top_right : Int32 = alignment_matcher_out_top |
   alignment_matcher_out_right
 
 ///|
-let alignment_matcher_out_bottom_right : Int = alignment_matcher_out_bottom |
+let alignment_matcher_out_bottom_right : Int32 = alignment_matcher_out_bottom |
   alignment_matcher_out_right
 
 ///|
@@ -62,7 +62,7 @@ fn alignment_matcher_outcode(
   rect : ElkRectangle,
   x : Double,
   y : Double,
-) -> Int {
+) -> Int32 {
   let mut out = 0
 
   if rect.width <= 0.0 {

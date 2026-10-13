@@ -38,7 +38,7 @@ pub(all) struct CoreMetaIdeParser {
 
 ///|
 pub fn new_core_meta_ide_parser(
-  grammar_access? : @meta.MetaDataGrammarAccess = @meta.new_meta_data_grammar_access(),
+  grammar_access~ : @meta.MetaDataGrammarAccess = @meta.new_meta_data_grammar_access(),
 ) -> CoreMetaIdeParser {
   {
     name_mappings: new_core_meta_ide_name_mappings(grammar_access),

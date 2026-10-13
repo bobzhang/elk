@@ -22,7 +22,7 @@ fn greedy_switch_mock_random_scramble_seed(seed : Int64) -> Int64 {
 }
 
 ///|
-fn greedy_switch_mock_random_to_signed_int32(value : Int64) -> Int {
+fn greedy_switch_mock_random_to_signed_int32(value : Int64) -> Int32 {
   let masked = value & 4294967295L
   if masked >= 2147483648L {
     (masked - 4294967296L).to_int()
@@ -33,7 +33,7 @@ fn greedy_switch_mock_random_to_signed_int32(value : Int64) -> Int {
 
 ///|
 fn greedy_switch_mock_random_system_seed() -> Int64 {
-  let source = @random.Rand::new()
+  let source = @random.Rand()
   let high = Int64::from_int(source.int(limit=@int.MAX_VALUE))
   let low = Int64::from_int(source.int(limit=@int.MAX_VALUE))
   (high << 31) ^ low
@@ -54,7 +54,7 @@ pub fn new_greedy_switch_mock_random() -> GreedySwitchMockRandom {
 
 ///|
 pub fn new_greedy_switch_mock_random_seeded(
-  seed_value : Int,
+  seed_value : Int32,
 ) -> GreedySwitchMockRandom {
   {
     seed: greedy_switch_mock_random_scramble_seed(Int64::from_int(seed_value)),
@@ -81,8 +81,8 @@ pub fn new_greedy_switch_mock_random_seeded_int64(
 ///|
 fn GreedySwitchMockRandom::next_bits(
   self : GreedySwitchMockRandom,
-  bits : Int,
-) -> Int {
+  bits : Int32,
+) -> Int32 {
   self.seed = (
       self.seed * greedy_switch_mock_random_multiplier +
       greedy_switch_mock_random_addend
@@ -137,8 +137,8 @@ pub fn GreedySwitchMockRandom::next_double(
 ///|
 pub fn GreedySwitchMockRandom::next_int(
   self : GreedySwitchMockRandom,
-  limit : Int,
-) -> Int raise {
+  limit : Int32,
+) -> Int32 raise {
   if limit <= 0 {
     @core.layout_runtime_raise_unsupported_configuration(
       "limit must be positive",
@@ -172,8 +172,8 @@ pub fn GreedySwitchMockRandom::next_int(
 ///|
 pub fn GreedySwitchMockRandom::int(
   self : GreedySwitchMockRandom,
-  limit : Int,
-) -> Int raise {
+  limit : Int32,
+) -> Int32 raise {
   self.next_int(limit)
 }
 
@@ -196,7 +196,7 @@ pub fn GreedySwitchMockRandom::set_seed(
 ///|
 pub fn GreedySwitchMockRandom::set_seed_int(
   self : GreedySwitchMockRandom,
-  seed : Int,
+  seed : Int32,
 ) -> Unit {
   self.set_seed(Int64::from_int(seed))
 }

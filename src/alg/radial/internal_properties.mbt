@@ -21,7 +21,7 @@ pub fn radial_internal_root(graph : @graph.ElkNode) -> @graph.ElkNode? {
 ///|
 pub fn radial_internal_set_order_id(
   node : @graph.ElkNode,
-  order_id : Int,
+  order_id : Int32,
 ) -> Unit {
   @graph.node_set_double_property(
     node,
@@ -31,7 +31,7 @@ pub fn radial_internal_set_order_id(
 }
 
 ///|
-pub fn radial_internal_order_id(node : @graph.ElkNode) -> Int {
+pub fn radial_internal_order_id(node : @graph.ElkNode) -> Int32 {
   if radial_internal_has_order_id(node) {
     @graph.node_get_double_property(node, radial_internal_order_id_property).to_int()
   } else {

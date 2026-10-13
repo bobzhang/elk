@@ -11,12 +11,12 @@ fn[T] linear_segments_raise(
 }
 
 ///|
-let linear_segments_input_prio : @graph.IProperty[Int] = @graph.new_property(
+let linear_segments_input_prio : @graph.IProperty[Int32] = @graph.new_property(
   "linearSegments.inputPrio", 0,
 )
 
 ///|
-let linear_segments_output_prio : @graph.IProperty[Int] = @graph.new_property(
+let linear_segments_output_prio : @graph.IProperty[Int32] = @graph.new_property(
   "linearSegments.outputPrio", 0,
 )
 
@@ -30,10 +30,10 @@ let linear_segments_option_deflection_dampening : @graph.IProperty[Double] = @gr
 let linear_segments_threshold_factor : Double = 20.0
 
 ///|
-let linear_segments_pendulum_iters : Int = 4
+let linear_segments_pendulum_iters : Int32 = 4
 
 ///|
-let linear_segments_final_iters : Int = 3
+let linear_segments_final_iters : Int32 = 3
 
 ///|
 let linear_segments_overlap_detect : Double = 0.0001
@@ -46,7 +46,7 @@ priv enum LinearSegmentsMode {
 }
 
 ///|
-fn new_linear_segment(id : Int) -> @runtime.LinearSegment {
+fn new_linear_segment(id : Int32) -> @runtime.LinearSegment {
   {
     nodes: [],
     id,
@@ -134,7 +134,7 @@ fn linear_segments_node_type_is_dummy(node_type : @runtime.NodeType) -> Bool {
 fn linear_segments_node_index_in_segment(
   segment : @runtime.LinearSegment,
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   for i in 0..<segment.nodes.length() {
     if @runtime.lnode_internal_handle(segment.nodes[i]) ==
       @runtime.lnode_internal_handle(node) {
@@ -195,7 +195,7 @@ fn linear_segments_successor_ports(
 fn linear_segments_find_node_index(
   layer : @runtime.Layer,
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let nodes = layer.get_nodes()
   for i in 0..<nodes.length() {
     if @runtime.lnode_internal_handle(nodes[i]) ==
@@ -209,9 +209,9 @@ fn linear_segments_find_node_index(
 ///|
 fn linear_segments_split_segment(
   segment_list : Array[@runtime.LinearSegment],
-  segment_id : Int,
+  segment_id : Int32,
   split_node : @runtime.LNode,
-  new_id : Int,
+  new_id : Int32,
 ) -> @runtime.LinearSegment raise LinearSegmentsNodePlacerException {
   let segment = segment_list[segment_id]
   let split_index = linear_segments_node_index_in_segment(segment, split_node)
@@ -234,7 +234,7 @@ fn linear_segments_split_segment(
 ///|
 fn linear_segments_fill_segment(
   node : @runtime.LNode,
-  segment_id : Int,
+  segment_id : Int32,
   segment_list : Array[@runtime.LinearSegment],
 ) -> Bool raise LinearSegmentsNodePlacerException {
   let node_type = node.get_type()
@@ -270,8 +270,8 @@ fn linear_segments_fill_segment(
 
 ///|
 fn linear_segments_remove_dependency(
-  dependencies : Array[Int],
-  target_segment_id : Int,
+  dependencies : Array[Int32],
+  target_segment_id : Int32,
 ) -> Unit {
   for i in 0..<dependencies.length() {
     if dependencies[i] == target_segment_id {
@@ -286,8 +286,8 @@ fn linear_segments_create_dependency_graph_edges(
   monitor : @core.IElkProgressMonitor,
   layered_graph : @runtime.LGraph,
   segment_list : Array[@runtime.LinearSegment],
-  outgoing_list : Array[Array[Int]],
-  incoming_count_list : Array[Int],
+  outgoing_list : Array[Array[Int32]],
+  incoming_count_list : Array[Int32],
 ) -> Unit raise LinearSegmentsNodePlacerException {
   let mut next_linear_segment_id = segment_list.length()
   let mut layer_index = 0
@@ -313,7 +313,7 @@ fn linear_segments_create_dependency_graph_edges(
       let current_segment = segment_list[current_segment_id]
 
       if current_segment.index_in_last_layer >= 0 {
-        let mut cycle_segment_id : Int? = None
+        let mut cycle_segment_id : Int32? = None
         let mut cycle_index = index_in_layer + 1
         while cycle_index < nodes.length() {
           let cycle_node = nodes[cycle_index]
@@ -439,8 +439,8 @@ fn linear_segments_sort_linear_segments(
     }
   }
 
-  let outgoing_list : Array[Array[Int]] = []
-  let incoming_count_list : Array[Int] = []
+  let outgoing_list : Array[Array[Int32]] = []
+  let incoming_count_list : Array[Int32] = []
   for _ in 0..<segment_list.length() {
     outgoing_list.push([])
     incoming_count_list.push(0)
@@ -451,14 +451,14 @@ fn linear_segments_sort_linear_segments(
   )
 
   let mut next_rank = 0
-  let no_incoming : Array[Int] = []
+  let no_incoming : Array[Int32] = []
   for segment_id in 0..<segment_list.length() {
     if incoming_count_list[segment_id] == 0 {
       no_incoming.push(segment_id)
     }
   }
 
-  let new_ranks : Array[Int] = Array::make(segment_list.length(), 0)
+  let new_ranks : Array[Int32] = Array::make(segment_list.length(), 0)
   while !no_incoming.is_empty() {
     let segment_id = no_incoming.remove(0)
     new_ranks[segment_id] = next_rank
@@ -508,7 +508,7 @@ fn linear_segments_create_unbalanced_placement(
   state : LinearSegmentsState,
 ) -> Unit raise LinearSegmentsNodePlacerException {
   let layer_count = layered_graph.get_layers().length()
-  let node_count : Array[Int] = Array::make(layer_count, 0)
+  let node_count : Array[Int32] = Array::make(layer_count, 0)
   let recent_node : Array[@runtime.LNode?] = Array::make(layer_count, None)
 
   for segment in state.linear_segments {
@@ -553,7 +553,7 @@ fn linear_segments_create_unbalanced_placement(
 
 ///|
 fn linear_segments_calc_deflection(
-  segment_id : Int,
+  segment_id : Int32,
   incoming : Bool,
   outgoing : Bool,
   deflection_dampening : Double,
@@ -679,8 +679,8 @@ fn linear_segments_calc_deflection(
 ///|
 fn linear_segments_region_id(
   state : LinearSegmentsState,
-  segment_id : Int,
-) -> Int {
+  segment_id : Int32,
+) -> Int32 {
   let mut current_id = segment_id
   while state.linear_segments[current_id].ref_segment_id >= 0 {
     current_id = state.linear_segments[current_id].ref_segment_id

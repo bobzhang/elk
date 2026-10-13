@@ -53,7 +53,7 @@ pub fn core_meta_md_graph_feature_disconnected() -> CoreMetaMdGraphFeature {
 ///|
 pub fn core_meta_md_graph_feature_value(
   feature : CoreMetaMdGraphFeature,
-) -> Int {
+) -> Int32 {
   match feature {
     CoreMetaMdGraphFeatureSelfLoops => 0
     CoreMetaMdGraphFeatureInsideSelfLoops => 1
@@ -123,7 +123,7 @@ pub fn core_meta_md_graph_feature_from_name(
 
 ///|
 pub fn core_meta_md_graph_feature_from_int(
-  value : Int,
+  value : Int32,
 ) -> CoreMetaMdGraphFeature? {
   if value == 0 {
     Some(CoreMetaMdGraphFeatureSelfLoops)

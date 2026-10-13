@@ -1,6 +1,6 @@
 ///|
 pub struct CGroup {
-  handle : Int
+  handle : Int32
   priv data : CGroupData
 }
 
@@ -20,13 +20,13 @@ fn c_group_raise_unit(message : String) -> Unit raise CGroupException {
 }
 
 ///|
-pub fn CGroup::id(self : CGroup) -> Int {
+pub fn CGroup::id(self : CGroup) -> Int32 {
   checked_cgroup(self)
   self.data.id
 }
 
 ///|
-pub fn CGroup::set_id(self : CGroup, id : Int) -> Unit {
+pub fn CGroup::set_id(self : CGroup, id : Int32) -> Unit {
   checked_cgroup(self)
   self.data.id = id
 }
@@ -141,19 +141,19 @@ pub fn CGroup::add_incoming_constraint(self : CGroup, node : CNode) -> Bool {
 }
 
 ///|
-pub fn CGroup::out_degree(self : CGroup) -> Int {
+pub fn CGroup::out_degree(self : CGroup) -> Int32 {
   checked_cgroup(self)
   self.data.out_degree
 }
 
 ///|
-pub fn CGroup::set_out_degree(self : CGroup, out_degree : Int) -> Unit {
+pub fn CGroup::set_out_degree(self : CGroup, out_degree : Int32) -> Unit {
   checked_cgroup(self)
   self.data.out_degree = out_degree
 }
 
 ///|
-pub fn CGroup::out_degree_real(self : CGroup) -> Int {
+pub fn CGroup::out_degree_real(self : CGroup) -> Int32 {
   checked_cgroup(self)
   self.data.out_degree_real
 }
@@ -161,7 +161,7 @@ pub fn CGroup::out_degree_real(self : CGroup) -> Int {
 ///|
 pub fn CGroup::set_out_degree_real(
   self : CGroup,
-  out_degree_real : Int,
+  out_degree_real : Int32,
 ) -> Unit {
   checked_cgroup(self)
   self.data.out_degree_real = out_degree_real

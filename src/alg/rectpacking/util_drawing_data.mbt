@@ -30,8 +30,8 @@ pub fn new_rectpacking_drawing_data(
   drawing_width : Double,
   drawing_height : Double,
   placement_option : RectpackingDrawingDataDescriptor,
-  next_x_coordinate? : Double = 0.0,
-  next_y_coordinate? : Double = 0.0,
+  next_x_coordinate~ : Double = 0.0,
+  next_y_coordinate~ : Double = 0.0,
 ) -> RectpackingDrawingData {
   let data = {
     scale_measure: 0.0,

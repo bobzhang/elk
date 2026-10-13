@@ -129,7 +129,7 @@ pub let libavoid_option_is_cluster : @graph.IProperty[Bool] = @graph.new_propert
 )
 
 ///|
-pub let libavoid_option_process_timeout : @graph.IProperty[Int] = @graph.new_property(
+pub let libavoid_option_process_timeout : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.alg.libavoid.processTimeout", 10000,
 )
 

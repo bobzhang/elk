@@ -19,14 +19,14 @@ pub(all) struct LayoutAlgorithmData {
 ///|
 pub fn new_layout_algorithm_data(
   id : String,
-  name? : String = "",
-  description? : String = "",
-  validator? : GraphValidationFunction? = None,
-  category_id? : String = "",
-  bundle_name? : String = "",
-  preview_image_path? : String = "",
-  defining_bundle_id? : String = "",
-  instance_pool_clear_fn? : () -> Unit = () => (),
+  name~ : String = "",
+  description~ : String = "",
+  validator~ : GraphValidationFunction? = None,
+  category_id~ : String = "",
+  bundle_name~ : String = "",
+  preview_image_path~ : String = "",
+  defining_bundle_id~ : String = "",
+  instance_pool_clear_fn~ : () -> Unit = () => (),
 ) -> LayoutAlgorithmData {
   {
     id,

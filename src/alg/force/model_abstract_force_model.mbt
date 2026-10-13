@@ -102,7 +102,7 @@ pub fn abstract_force_model_layout(
   graph : FGraph,
   monitor : @core.IElkProgressMonitor,
   initialize_hook : () -> Unit raise,
-  more_iterations : (Int) -> Bool raise,
+  more_iterations : (Int32) -> Bool raise,
   calc_displacement : (FParticle, FParticle) -> @core.KVector? raise,
   iteration_done_hook : () -> Unit raise,
 ) -> Unit raise {

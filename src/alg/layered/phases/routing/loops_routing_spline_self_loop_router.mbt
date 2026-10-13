@@ -1,5 +1,5 @@
 ///|
-let spline_self_loop_router_dim : Int = 3
+let spline_self_loop_router_dim : Int32 = 3
 
 ///|
 let spline_self_loop_router_half : Double = 0.5

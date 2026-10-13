@@ -203,7 +203,7 @@ pub(all) struct CoreDebugGRandomFlow {
 pub fn new_core_debug_grandom_flow(
   flow_type : CoreDebugGRandomFlowType,
   side : CoreDebugGRandomSide,
-  amount? : CoreDebugGRandomDoubleQuantity? = None,
+  amount~ : CoreDebugGRandomDoubleQuantity? = None,
 ) -> CoreDebugGRandomFlow {
   { flow_type, side, amount, }
 }
@@ -564,18 +564,18 @@ pub fn CoreDebugGRandomHierarchy::set_cross_hierarch_rel(
 
 ///|
 pub(all) struct CoreDebugGRandomConfiguration {
-  samples : Int
+  samples : Int32
   form : CoreDebugGRandomForm
   nodes : CoreDebugGRandomNodes?
   edges : CoreDebugGRandomEdges?
   m_w : Bool
-  max_width : Int?
+  max_width : Int32?
   m_d : Bool
-  max_degree : Int?
+  max_degree : Int32?
   p_f : Bool
   fraction : CoreDebugGRandomDoubleQuantity?
   hierarchy : CoreDebugGRandomHierarchy?
-  seed : Int?
+  seed : Int32?
   format : CoreDebugGRandomFormats?
   filename : String?
 }
@@ -603,7 +603,7 @@ pub fn new_core_debug_grandom_configuration() -> CoreDebugGRandomConfiguration {
 ///|
 pub fn CoreDebugGRandomConfiguration::set_samples(
   self : CoreDebugGRandomConfiguration,
-  samples : Int,
+  samples : Int32,
 ) -> CoreDebugGRandomConfiguration {
   {
     samples,
@@ -695,8 +695,8 @@ pub fn CoreDebugGRandomConfiguration::set_edges(
 ///|
 pub fn CoreDebugGRandomConfiguration::set_tree_limits(
   self : CoreDebugGRandomConfiguration,
-  max_width : Int?,
-  max_degree : Int?,
+  max_width : Int32?,
+  max_degree : Int32?,
 ) -> CoreDebugGRandomConfiguration {
   {
     samples: self.samples,
@@ -765,7 +765,7 @@ pub fn CoreDebugGRandomConfiguration::set_hierarchy(
 ///|
 pub fn CoreDebugGRandomConfiguration::set_seed(
   self : CoreDebugGRandomConfiguration,
-  seed : Int?,
+  seed : Int32?,
 ) -> CoreDebugGRandomConfiguration {
   {
     samples: self.samples,
@@ -838,7 +838,7 @@ pub(all) struct CoreDebugGRandomRandGraph {
 
 ///|
 pub fn new_core_debug_grandom_rand_graph(
-  configs? : Array[CoreDebugGRandomConfiguration] = [],
+  configs~ : Array[CoreDebugGRandomConfiguration] = [],
 ) -> CoreDebugGRandomRandGraph {
   { configs: configs.copy(), }
 }

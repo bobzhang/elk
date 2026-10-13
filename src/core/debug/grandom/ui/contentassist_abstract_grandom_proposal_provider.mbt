@@ -13,13 +13,13 @@ pub fn new_core_debug_grandom_assignment(
 ///|
 pub(all) struct CoreDebugGRandomContentAssistContext {
   root_model : @grandom.CoreDebugGRandomRandGraph?
-  current_model_index : Int?
+  current_model_index : Int32?
 }
 
 ///|
 pub fn new_core_debug_grandom_content_assist_context(
-  root_model? : @grandom.CoreDebugGRandomRandGraph? = None,
-  current_model_index? : Int? = None,
+  root_model~ : @grandom.CoreDebugGRandomRandGraph? = None,
+  current_model_index~ : Int32? = None,
 ) -> CoreDebugGRandomContentAssistContext {
   { root_model, current_model_index, }
 }

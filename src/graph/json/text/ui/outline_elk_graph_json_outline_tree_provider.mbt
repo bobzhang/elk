@@ -9,7 +9,7 @@ pub struct GraphJsonTextOutlineNode {
 pub fn new_graph_json_text_outline_node(
   kind : String,
   label : String,
-  children? : Array[GraphJsonTextOutlineNode] = [],
+  children~ : Array[GraphJsonTextOutlineNode] = [],
 ) -> GraphJsonTextOutlineNode {
   { kind, label, children, }
 }

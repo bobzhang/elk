@@ -1,11 +1,11 @@
 ///|
 pub struct LibavoidServerTransport {
-  run_fn : (Array[Int], Int) -> Map[String, String]? raise
+  run_fn : (Array[Int32], Int32) -> Map[String, String]? raise
 }
 
 ///|
 pub fn new_libavoid_server_transport(
-  run_fn : (Array[Int], Int) -> Map[String, String]? raise,
+  run_fn : (Array[Int32], Int32) -> Map[String, String]? raise,
 ) -> LibavoidServerTransport {
   { run_fn, }
 }
@@ -13,15 +13,15 @@ pub fn new_libavoid_server_transport(
 ///|
 pub fn LibavoidServerTransport::run(
   self : LibavoidServerTransport,
-  input : Array[Int],
-  timeout : Int,
+  input : Array[Int32],
+  timeout : Int32,
 ) -> Map[String, String]? raise {
   (self.run_fn)(input, timeout)
 }
 
 ///|
 pub fn new_libavoid_server_transport_from_text_runner(
-  run_fn : (Array[Int], Int) -> String? raise,
+  run_fn : (Array[Int32], Int32) -> String? raise,
 ) -> LibavoidServerTransport {
   new_libavoid_server_transport((input, timeout) => {
     match run_fn(input, timeout) {

@@ -12,7 +12,7 @@ pub(all) struct MetaDataSyntacticSequencer {
 
 ///|
 pub fn new_meta_data_syntactic_sequencer(
-  grammar_access? : MetaDataGrammarAccess = new_meta_data_grammar_access(),
+  grammar_access~ : MetaDataGrammarAccess = new_meta_data_grammar_access(),
 ) -> MetaDataSyntacticSequencer {
   {
     grammar_access,

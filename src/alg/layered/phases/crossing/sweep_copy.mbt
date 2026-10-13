@@ -24,7 +24,7 @@ fn sweep_copy_port_constraints_from_string(
 }
 
 ///|
-fn sweep_copy_port_side_ordinal(side : @core.PortSide) -> Int {
+fn sweep_copy_port_side_ordinal(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -48,7 +48,7 @@ fn sweep_copy_is_nan(value : Double) -> Bool {
 }
 
 ///|
-fn sweep_copy_compare_doubles(left : Double, right : Double) -> Int {
+fn sweep_copy_compare_doubles(left : Double, right : Double) -> Int32 {
   if sweep_copy_is_nan(left) {
     if sweep_copy_is_nan(right) {
       0
@@ -84,7 +84,7 @@ fn sweep_copy_compare_doubles(left : Double, right : Double) -> Int {
 fn sweep_copy_compare_ports(
   left : @runtime.LPort,
   right : @runtime.LPort,
-) -> Int raise {
+) -> Int32 raise {
   try sweep_copy_compare_ports_raise(left, right) catch {
     SweepCopyException(message) => {
       @core.layout_runtime_raise_unsupported_configuration(
@@ -101,7 +101,7 @@ fn sweep_copy_compare_ports(
 fn sweep_copy_compare_ports_raise(
   left : @runtime.LPort,
   right : @runtime.LPort,
-) -> Int raise SweepCopyException {
+) -> Int32 raise SweepCopyException {
   let side_difference = sweep_copy_port_side_ordinal(left.get_side()) -
     sweep_copy_port_side_ordinal(right.get_side())
   if side_difference != 0 {

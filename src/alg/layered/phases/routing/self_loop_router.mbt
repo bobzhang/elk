@@ -94,7 +94,7 @@ fn self_loop_router_process(
 
 ///|
 pub fn new_self_loop_router_layout_processor(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   @core.new_layout_processor((graph, monitor) => {
     self_loop_router_process(graph, monitor, state)

@@ -1,12 +1,12 @@
 ///|
 priv struct GreedyCycleBreakerState {
-  indeg : Array[Int]
-  outdeg : Array[Int]
-  mark : Array[Int]
+  indeg : Array[Int32]
+  outdeg : Array[Int32]
+  mark : Array[Int32]
   sources : Array[@runtime.LNode]
-  mut source_head : Int
+  mut source_head : Int32
   sinks : Array[@runtime.LNode]
-  mut sink_head : Int
+  mut sink_head : Int32
   layered_graph : @runtime.LGraph
   random : @state.GreedySwitchMockRandom
 }
@@ -50,7 +50,7 @@ fn greedy_cycle_breaker_reverse_edge(
 }
 
 ///|
-fn greedy_cycle_breaker_node_priority_contribution(priority : Int) -> Int {
+fn greedy_cycle_breaker_node_priority_contribution(priority : Int32) -> Int32 {
   if priority > 0 {
     priority + 1
   } else {
@@ -364,7 +364,7 @@ fn greedy_cycle_breaker_process(
 
 ///|
 pub fn new_greedy_cycle_breaker_layout_phase(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   @core.new_layout_phase(
     (graph, monitor) => greedy_cycle_breaker_process(graph, monitor, state),

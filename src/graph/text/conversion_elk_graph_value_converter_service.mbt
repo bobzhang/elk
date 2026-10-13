@@ -8,7 +8,7 @@ pub struct ElkGraphValueConverterService {
 ///|
 pub fn new_elk_graph_value_converter_service(
   metadata : @core.OptionMetadata,
-  number_value_converter? : NumberValueConverter = new_number_value_converter(),
+  number_value_converter~ : NumberValueConverter = new_number_value_converter(),
   property_key_value_converter? : PropertyKeyValueConverter,
   property_value_value_converter? : PropertyValueValueConverter,
 ) -> ElkGraphValueConverterService {

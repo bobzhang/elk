@@ -8,7 +8,7 @@ pub struct MethodTestConfiguration[T] {
 pub fn[T] new_method_test_configuration(
   configurator_method_name : String,
   configurator_fn : (T, ElkNode) -> Unit,
-  default_configuration? : DefaultConfiguration? = None,
+  default_configuration~ : DefaultConfiguration? = None,
 ) -> MethodTestConfiguration[T] {
   {
     base: new_test_configuration(
@@ -22,7 +22,7 @@ pub fn[T] new_method_test_configuration(
 ///|
 pub fn[T] method_test_configuration_from_methods(
   methods : Array[(String, (T, ElkNode) -> Unit)],
-  default_configuration? : DefaultConfiguration? = None,
+  default_configuration~ : DefaultConfiguration? = None,
 ) -> Array[MethodTestConfiguration[T]] {
   let configurations : Array[MethodTestConfiguration[T]] = []
   for entry in methods {

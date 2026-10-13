@@ -37,9 +37,9 @@ fn copy_json_map(source : Map[String, Json]) -> Map[String, Json] {
 ///|
 pub fn new_elk_engine(
   runtime : LayoutRuntime,
-  default_layout_options? : Map[String, Json] = Map([]),
+  default_layout_options~ : Map[String, Json] = Map([]),
   algorithms? : Array[String],
-  algorithm_aliases? : Map[String, String] = Map([]),
+  algorithm_aliases~ : Map[String, String] = Map([]),
 ) -> ElkEngine {
   {
     runtime,
@@ -254,9 +254,9 @@ fn add_logging(
 pub fn ElkEngine::layout(
   self : ElkEngine,
   graph? : Json,
-  layout_options? : Map[String, Json] = Map([]),
-  logging? : Bool = false,
-  measure_execution_time? : Bool = false,
+  layout_options~ : Map[String, Json] = Map([]),
+  logging~ : Bool = false,
+  measure_execution_time~ : Bool = false,
 ) -> Json raise {
   let graph = match graph {
     Some(graph) => graph

@@ -23,7 +23,7 @@ pub struct InternalElkGraphParser {
 pub fn new_internal_elk_graph_parser(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  grammar_access? : ElkGraphGrammarAccess = new_elk_graph_grammar_access(),
+  grammar_access~ : ElkGraphGrammarAccess = new_elk_graph_grammar_access(),
 ) -> InternalElkGraphParser {
   { metadata, tokens, grammar_access, }
 }
@@ -108,8 +108,8 @@ fn graph_text_parser_parse_number_token(token : ElkGraphLexToken) -> Double? {
 ///|
 fn graph_text_parser_parse_number_at(
   tokens : Array[ElkGraphLexToken],
-  start : Int,
-) -> (Double, Int)? {
+  start : Int32,
+) -> (Double, Int32)? {
   if start >= tokens.length() {
     return None
   }
@@ -179,8 +179,8 @@ fn graph_text_parser_join_qualified_id(prefix : String, id : String) -> String {
 ///|
 fn graph_text_parser_parse_qualified_id(
   tokens : Array[ElkGraphLexToken],
-  start : Int,
-) -> (String, Int)? {
+  start : Int32,
+) -> (String, Int32)? {
   if start >= tokens.length() ||
     tokens[start].token_type != graph_text_lexer_rule_id {
     return None
@@ -233,8 +233,8 @@ fn graph_text_parser_resolve_shape(
 fn graph_text_parser_parse_property_key(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
-) -> (GraphTextPropertyKey, Int)? {
+  start : Int32,
+) -> (GraphTextPropertyKey, Int32)? {
   match graph_text_parser_parse_qualified_id(tokens, start) {
     Some((id, consumed)) =>
       match metadata.option_data_by_suffix(id) {
@@ -248,8 +248,8 @@ fn graph_text_parser_parse_property_key(
 ///|
 fn graph_text_parser_parse_property_value(
   tokens : Array[ElkGraphLexToken],
-  start : Int,
-) -> (GraphTextPropertyValue, Int) {
+  start : Int32,
+) -> (GraphTextPropertyValue, Int32) {
   if start >= tokens.length() {
     return (NullValue, 0)
   }
@@ -280,8 +280,8 @@ fn graph_text_parser_parse_property_value(
 fn graph_text_parser_parse_property(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
-) -> (GraphTextPropertyAssignment, Int)? {
+  start : Int32,
+) -> (GraphTextPropertyAssignment, Int32)? {
   match graph_text_parser_parse_property_key(metadata, tokens, start) {
     Some((key, key_consumed)) => {
       let mut index = start + key_consumed
@@ -350,9 +350,9 @@ fn graph_text_parser_apply_property_to_label(
 ///|
 fn graph_text_parser_parse_shape_layout(
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   shape : GraphTextShape,
-) -> Int {
+) -> Int32 {
   let mut index = start
   if index >= tokens.length() || tokens[index].lexeme != "layout" {
     return start
@@ -423,8 +423,8 @@ fn graph_text_parser_parse_shape_layout(
 ///|
 fn graph_text_parser_parse_bends(
   tokens : Array[ElkGraphLexToken],
-  start : Int,
-) -> Int {
+  start : Int32,
+) -> Int32 {
   let mut index = start
   if index >= tokens.length() || tokens[index].lexeme != "bends" {
     return start
@@ -462,12 +462,12 @@ fn graph_text_parser_parse_bends(
 fn graph_text_parser_parse_edge_section_body(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   section : @graph.ElkEdgeSection,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
   scope_qualified_id : String,
   end_lexeme : String,
-) -> Int {
+) -> Int32 {
   let mut index = start
   while index < tokens.length() && tokens[index].lexeme != end_lexeme {
     if tokens[index].lexeme == "incoming" || tokens[index].lexeme == "outgoing" {
@@ -546,13 +546,13 @@ fn graph_text_parser_parse_edge_section_body(
 fn graph_text_parser_parse_named_edge_section(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   edge : @graph.ElkEdge,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
   scope_qualified_id : String,
   section_by_id : Map[String, @graph.ElkEdgeSection],
   pending_outgoing : Array[GraphTextPendingOutgoingSection],
-) -> (@graph.ElkEdgeSection, Int)? {
+) -> (@graph.ElkEdgeSection, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "section" {
     return None
   }
@@ -605,11 +605,11 @@ fn graph_text_parser_parse_named_edge_section(
 fn graph_text_parser_parse_single_edge_section(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   edge : @graph.ElkEdge,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
   scope_qualified_id : String,
-) -> (@graph.ElkEdgeSection, Int) {
+) -> (@graph.ElkEdgeSection, Int32) {
   let section = @graph.create_edge_section(edge)
   let mut index = graph_text_parser_parse_edge_section_body(
     metadata, tokens, start, section, id_to_shape, scope_qualified_id, "]",
@@ -624,11 +624,11 @@ fn graph_text_parser_parse_single_edge_section(
 fn graph_text_parser_parse_edge_layout(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   edge : @graph.ElkEdge,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
   scope_qualified_id : String,
-) -> Int {
+) -> Int32 {
   let mut index = start
   if index >= tokens.length() || tokens[index].lexeme != "layout" {
     return start
@@ -702,10 +702,10 @@ fn graph_text_parser_register_shape(
 fn graph_text_parser_parse_label(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   owner : GraphTextLabelOwner,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkLabel, Int)? {
+) -> (@graph.ElkLabel, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "label" {
     return None
   }
@@ -776,11 +776,11 @@ fn graph_text_parser_parse_label(
 fn graph_text_parser_parse_port(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   parent : @graph.ElkNode,
   parent_qualified_id : String,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkPort, Int)? {
+) -> (@graph.ElkPort, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "port" {
     return None
   }
@@ -856,11 +856,11 @@ fn graph_text_parser_parse_port(
 fn graph_text_parser_parse_edge(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   parent : @graph.ElkNode,
   scope_qualified_id : String,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkEdge, Int)? {
+) -> (@graph.ElkEdge, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "edge" {
     return None
   }
@@ -964,11 +964,11 @@ fn graph_text_parser_parse_edge(
 fn graph_text_parser_parse_node(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphLexToken],
-  start : Int,
+  start : Int32,
   parent : @graph.ElkNode,
   parent_qualified_id : String,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkNode, Int)? {
+) -> (@graph.ElkNode, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "node" {
     return None
   }

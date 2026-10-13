@@ -2,13 +2,13 @@
 test "TestController targets algorithm id and installs on whitebox provider" {
   reset_layout_execution_listener_ids_for_test()
   let installed_target : Ref[String?] = Ref(None)
-  let provider = new_white_box_testable((controller : TestController[Int]?) => {
+  let provider = new_white_box_testable((controller : TestController[Int32]?) => {
     installed_target.val = match controller {
       Some(value) => Some(value.get_target_algorithm_id())
       None => None
     }
   })
-  let controller : TestController[Int] = new_test_controller(
+  let controller : TestController[Int32] = new_test_controller(
     "org.eclipse.elk.test",
   )
   let data = new_layout_algorithm_data("org.eclipse.elk.test")
@@ -22,19 +22,19 @@ test "TestController targets algorithm id and installs on whitebox provider" {
 ///|
 test "TestController notifies listeners and keeps Java remove bug semantics" {
   reset_layout_execution_listener_ids_for_test()
-  let ready_count : Ref[Int] = Ref(0)
+  let ready_count : Ref[Int32] = Ref(0)
   let listener = new_layout_execution_listener(
-    (_processor_id, _graph : Int, _is_root) => {
+    (_processor_id, _graph : Int32, _is_root) => {
       ready_count.val = ready_count.val + 1
     },
-    (_processor_id, _graph : Int, _is_root) => (),
+    (_processor_id, _graph : Int32, _is_root) => (),
   )
-  let controller : TestController[Int] = new_test_controller(
+  let controller : TestController[Int32] = new_test_controller(
     "org.eclipse.elk.test",
   )
   controller.add_layout_execution_listener(listener)
-  let processor : TypedLayoutProcessor[Int] = new_layout_processor((
-    _graph : Int,
+  let processor : TypedLayoutProcessor[Int32] = new_layout_processor((
+    _graph : Int32,
     _monitor,
   ) => ())
   controller.notify_processor_ready(7, processor.instance_id())

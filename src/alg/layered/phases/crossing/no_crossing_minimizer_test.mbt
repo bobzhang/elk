@@ -1,5 +1,5 @@
 ///|
-fn no_crossing_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int] {
+fn no_crossing_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int32] {
   let ids = []
   for node in nodes {
     ids.push(node.get_id())
@@ -10,7 +10,7 @@ fn no_crossing_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int] {
 ///|
 fn no_crossing_test_factory_ids(
   factories : Array[@core.LayoutProcessorFactory],
-) -> Array[Int] {
+) -> Array[Int32] {
   let ids = []
   for factory in factories {
     ids.push(factory.factory_id())

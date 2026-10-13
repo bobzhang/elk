@@ -12,7 +12,7 @@ fn mrtree_dfs_treeifyer_configuration(
 }
 
 ///|
-fn mrtree_dfs_treeifyer_init(graph : MrtreeGraph) -> Array[Int] {
+fn mrtree_dfs_treeifyer_init(graph : MrtreeGraph) -> Array[Int32] {
   let nodes = mrtree_graph_nodes(graph)
   let size = nodes.length()
   let visited = []
@@ -30,7 +30,7 @@ fn mrtree_dfs_treeifyer_init(graph : MrtreeGraph) -> Array[Int] {
 ///|
 fn mrtree_dfs_treeifyer_dfs(
   node : MrtreeNode,
-  visited : Array[Int],
+  visited : Array[Int32],
   eliminated : Array[MrtreeEdge],
 ) -> Unit raise {
   visited[mrtree_node_id(node)] = 1
@@ -50,7 +50,7 @@ fn mrtree_dfs_treeifyer_dfs(
 ///|
 fn mrtree_dfs_treeifyer_bfs(
   start_node : MrtreeNode,
-  visited : Array[Int],
+  visited : Array[Int32],
   eliminated : Array[MrtreeEdge],
 ) -> Unit {
   let queue = [start_node]
@@ -76,7 +76,7 @@ fn mrtree_dfs_treeifyer_bfs(
 ///|
 fn mrtree_dfs_treeifyer_collect_edges(
   graph : MrtreeGraph,
-  visited : Array[Int],
+  visited : Array[Int32],
 ) -> Array[MrtreeEdge] raise {
   let eliminated = []
   let treeifying_order = mrtree_graph_search_order(graph)

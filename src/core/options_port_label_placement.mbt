@@ -88,7 +88,7 @@ pub fn port_label_placement_is_fixed(
 fn count_port_label_placement(
   placements : Array[PortLabelPlacement],
   values : Array[PortLabelPlacement],
-) -> Int {
+) -> Int32 {
   let mut count = 0
   for placement in values {
     if port_label_placement_has(placements, placement) {

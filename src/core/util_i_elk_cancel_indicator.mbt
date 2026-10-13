@@ -5,7 +5,7 @@ pub(all) struct IElkCancelIndicator {
 
 ///|
 pub fn new_elk_cancel_indicator(
-  canceled? : Bool = false,
+  canceled~ : Bool = false,
 ) -> IElkCancelIndicator {
   { canceled, }
 }

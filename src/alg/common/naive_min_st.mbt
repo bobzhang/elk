@@ -66,7 +66,7 @@ pub fn naive_minst_create_spanning_tree(
   t_edges : Array[TEdge],
   root : @core.KVector,
   cost_function : ICostFunction,
-  debug_output_file? : String? = None,
+  debug_output_file~ : String? = None,
 ) -> Tree[@core.KVector] {
   let weighted_edges : Array[WeightedEdge] = []
   for edge in t_edges {

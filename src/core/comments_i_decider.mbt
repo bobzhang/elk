@@ -1,5 +1,5 @@
 ///|
-pub type DeciderHeuristicResult[T] = Array[(T, Array[(Int, Double)])]
+pub type DeciderHeuristicResult[T] = Array[(T, Array[(Int32, Double)])]
 
 ///|
 pub(all) struct IDecider[T] {

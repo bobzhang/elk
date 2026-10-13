@@ -1,16 +1,16 @@
 ///|
 /// Non-generic factory for one graph-bound runnable processor.
 pub(all) struct LayoutProcessorFactory {
-  id : Int
-  order : Int
+  id : Int32
+  order : Int32
   create_fn : () -> &RunnableLayoutProcessor raise
 }
 
 ///|
 /// Erases `G` after binding a typed processor factory to one concrete graph.
 pub fn[G] new_layout_processor_factory(
-  id : Int,
-  order : Int,
+  id : Int32,
+  order : Int32,
   graph : G,
   create_fn : () -> TypedLayoutProcessor[G] raise,
 ) -> LayoutProcessorFactory {
@@ -25,13 +25,15 @@ pub fn LayoutProcessorFactory::create(
 }
 
 ///|
-pub fn LayoutProcessorFactory::factory_id(self : LayoutProcessorFactory) -> Int {
+pub fn LayoutProcessorFactory::factory_id(
+  self : LayoutProcessorFactory,
+) -> Int32 {
   self.id
 }
 
 ///|
 pub fn LayoutProcessorFactory::factory_order(
   self : LayoutProcessorFactory,
-) -> Int {
+) -> Int32 {
   self.order
 }

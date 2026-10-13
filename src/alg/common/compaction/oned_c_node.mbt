@@ -1,6 +1,6 @@
 ///|
 pub struct CNode {
-  handle : Int
+  handle : Int32
   priv data : CNodeData
 }
 
@@ -10,7 +10,7 @@ pub impl Eq for CNode with fn equal(self, other) {
 }
 
 ///|
-pub fn CNode::id(self : CNode) -> Int {
+pub fn CNode::id(self : CNode) -> Int32 {
   checked_cnode(self)
   self.data.id
 }
@@ -55,7 +55,7 @@ pub fn CNode::set_to_string_delegate(
 }
 
 ///|
-pub fn CNode::set_id(self : CNode, id : Int) -> Unit {
+pub fn CNode::set_id(self : CNode, id : Int32) -> Unit {
   checked_cnode(self)
   self.data.id = id
 }

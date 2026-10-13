@@ -1,14 +1,14 @@
 ///|
-let dis_co_node_font_size : Int = 9
+let dis_co_node_font_size : Int32 = 9
 
 ///|
-let dis_co_port_font_size : Int = 6
+let dis_co_port_font_size : Int32 = 6
 
 ///|
-let dis_co_edge_font_size : Int = 8
+let dis_co_edge_font_size : Int32 = 8
 
 ///|
-pub let dis_co_min_font_height : Int = 3
+pub let dis_co_min_font_height : Int32 = 3
 
 ///|
 pub struct DisCoGraphRenderingConfigurator {
@@ -67,7 +67,7 @@ pub fn new_dis_co_graph_rendering_configurator(
 }
 
 ///|
-fn dis_co_scaled_font_size(base_size : Int, scale : Double) -> Int {
+fn dis_co_scaled_font_size(base_size : Int32, scale : Double) -> Int32 {
   let scaled = (base_size.to_double() * scale).round().to_int()
   if scaled > 2 {
     scaled

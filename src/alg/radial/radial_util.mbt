@@ -5,7 +5,7 @@ let radial_two_pi : Double = 2.0 * @math.PI
 let radial_epsilon : Double = 0.0000000001
 
 ///|
-fn radial_double_fuzzy_compare(a : Double, b : Double, eps : Double) -> Int {
+fn radial_double_fuzzy_compare(a : Double, b : Double, eps : Double) -> Int32 {
   let diff = a - b
   if diff.abs() <= eps {
     0
@@ -19,7 +19,7 @@ fn radial_double_fuzzy_compare(a : Double, b : Double, eps : Double) -> Int {
 ///|
 pub fn radial_sort_nodes(
   nodes : Array[@graph.ElkNode],
-  comparator : (@graph.ElkNode, @graph.ElkNode) -> Int raise?,
+  comparator : (@graph.ElkNode, @graph.ElkNode) -> Int32 raise?,
 ) -> Unit raise? {
   let mut i = 1
   while i < nodes.length() {
@@ -118,7 +118,7 @@ pub fn radial_find_root_of_node(elk_node : @graph.ElkNode) -> @graph.ElkNode {
 }
 
 ///|
-pub fn radial_get_number_of_leaves(node : @graph.ElkNode) -> Int {
+pub fn radial_get_number_of_leaves(node : @graph.ElkNode) -> Int32 {
   let successors = radial_get_successors(node)
   if successors.is_empty() {
     return 1
@@ -134,7 +134,7 @@ pub fn radial_get_number_of_leaves(node : @graph.ElkNode) -> Int {
 pub fn radial_create_polar_comparator(
   radial_offset : Double,
   node_offset_y : Double,
-) -> (@graph.ElkNode, @graph.ElkNode) -> Int raise {
+) -> (@graph.ElkNode, @graph.ElkNode) -> Int32 raise {
   fn(node1, node2) raise {
     let position1 = radial_internal_position(node1)
     let x_pos1 = position1.x

@@ -70,7 +70,7 @@ fn layer_sweep_contains_graph_data(
 ///|
 fn layer_sweep_graph_data_at(
   graph_data : Array[GraphInfoHolder],
-  graph_id : Int,
+  graph_id : Int32,
 ) -> GraphInfoHolder? {
   if graph_id < 0 || graph_id >= graph_data.length() {
     None
@@ -166,7 +166,7 @@ pub struct LayerSweepCrossingMinimizer {
 ///|
 pub fn new_layer_sweep_crossing_minimizer(
   cross_min_type : CrossMinType,
-  state? : @runtime.LayeredRunState? = None,
+  state~ : @runtime.LayeredRunState? = None,
 ) -> LayerSweepCrossingMinimizer {
   {
     cross_min_type,
@@ -203,8 +203,8 @@ fn LayerSweepCrossingMinimizer::clear_graph_info_holders(
 fn LayerSweepCrossingMinimizer::first_index(
   self : LayerSweepCrossingMinimizer,
   is_forward_sweep : Bool,
-  length : Int,
-) -> Int {
+  length : Int32,
+) -> Int32 {
   ignore(self)
   if is_forward_sweep {
     0
@@ -217,8 +217,8 @@ fn LayerSweepCrossingMinimizer::first_index(
 fn LayerSweepCrossingMinimizer::end_index(
   self : LayerSweepCrossingMinimizer,
   is_forward_sweep : Bool,
-  length : Int,
-) -> Int {
+  length : Int32,
+) -> Int32 {
   ignore(self)
   if is_forward_sweep {
     length - 1
@@ -231,8 +231,8 @@ fn LayerSweepCrossingMinimizer::end_index(
 fn LayerSweepCrossingMinimizer::first_free(
   self : LayerSweepCrossingMinimizer,
   is_forward_sweep : Bool,
-  length : Int,
-) -> Int {
+  length : Int32,
+) -> Int32 {
   ignore(self)
   if is_forward_sweep {
     1
@@ -245,7 +245,7 @@ fn LayerSweepCrossingMinimizer::first_free(
 fn LayerSweepCrossingMinimizer::next(
   self : LayerSweepCrossingMinimizer,
   is_forward_sweep : Bool,
-) -> Int {
+) -> Int32 {
   ignore(self)
   if is_forward_sweep {
     1
@@ -257,8 +257,8 @@ fn LayerSweepCrossingMinimizer::next(
 ///|
 fn LayerSweepCrossingMinimizer::is_not_end(
   self : LayerSweepCrossingMinimizer,
-  length : Int,
-  free_layer_index : Int,
+  length : Int32,
+  free_layer_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool {
   ignore(self)
@@ -585,7 +585,7 @@ fn LayerSweepCrossingMinimizer::sweep_reducing_crossings(
 fn LayerSweepCrossingMinimizer::count_current_number_of_crossings(
   self : LayerSweepCrossingMinimizer,
   current_graph : GraphInfoHolder,
-) -> Int raise {
+) -> Int32 raise {
   let mut total_crossings = 0
   let to_count = [current_graph]
   while !to_count.is_empty() {
@@ -617,7 +617,7 @@ fn LayerSweepCrossingMinimizer::count_model_order_node_changes(
   layers : Array[Array[@runtime.LNode]],
   strategy : @options.OrderingStrategy,
   cm_group_order_strategy : @options.GroupOrderStrategy,
-) -> Int raise {
+) -> Int32 raise {
   ignore(self)
   let mut previous_layer = -1
   let mut wrong_model_order = 0
@@ -655,7 +655,7 @@ fn LayerSweepCrossingMinimizer::count_model_order_port_changes(
   graph : @runtime.LGraph,
   layers : Array[Array[@runtime.LNode]],
   strategy : @options.OrderingStrategy,
-) -> Int raise {
+) -> Int32 raise {
   ignore(self)
   let mut previous_layer = -1
   let mut wrong_model_order = 0
@@ -780,7 +780,7 @@ fn LayerSweepCrossingMinimizer::count_current_number_of_crossings_node_port_orde
 fn LayerSweepCrossingMinimizer::minimize_crossings_with_counter(
   self : LayerSweepCrossingMinimizer,
   graph_data : GraphInfoHolder,
-) -> Int raise {
+) -> Int32 raise {
   let mut is_forward_sweep = self.random.next_boolean()
   let first_try_with_initial_order = graph_data
     .l_graph()
@@ -1196,7 +1196,7 @@ fn LayerSweepCrossingMinimizer::process_internal(
 pub fn LayerSweepCrossingMinimizer::process(
   self : LayerSweepCrossingMinimizer,
   layered_graph : @runtime.LGraph,
-  progress_monitor? : @core.IElkProgressMonitor? = None,
+  progress_monitor~ : @core.IElkProgressMonitor? = None,
 ) -> Unit raise {
   self.process_internal(layered_graph, progress_monitor) catch {
     LayerSweepCrossingMinimizerException::IllegalStateException(message) => {
@@ -1233,7 +1233,7 @@ fn layer_sweep_configuration(
 ///|
 pub fn new_layer_sweep_crossing_minimizer_layout_phase(
   cross_min_type : CrossMinType,
-  state? : @runtime.LayeredRunState? = None,
+  state~ : @runtime.LayeredRunState? = None,
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   let minimizer = new_layer_sweep_crossing_minimizer(cross_min_type, state~)
   @core.new_hierarchy_aware_layout_phase(
@@ -1246,7 +1246,7 @@ pub fn new_layer_sweep_crossing_minimizer_layout_phase(
 /// Construct the default barycenter ordering phase without exposing the
 /// implementation-only `CrossMinType` constructors to the pipeline package.
 pub fn new_barycenter_layer_sweep_crossing_minimizer_layout_phase(
-  state? : @runtime.LayeredRunState? = None,
+  state~ : @runtime.LayeredRunState? = None,
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   new_layer_sweep_crossing_minimizer_layout_phase(Barycenter, state~)
 }
@@ -1255,7 +1255,7 @@ pub fn new_barycenter_layer_sweep_crossing_minimizer_layout_phase(
 /// Construct the median ordering phase without exposing the internal strategy
 /// representation across the runtime boundary.
 pub fn new_median_layer_sweep_crossing_minimizer_layout_phase(
-  state? : @runtime.LayeredRunState? = None,
+  state~ : @runtime.LayeredRunState? = None,
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   new_layer_sweep_crossing_minimizer_layout_phase(Median, state~)
 }

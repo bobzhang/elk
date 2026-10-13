@@ -1,6 +1,6 @@
 ///|
 pub struct FailIfNotExecuted {
-  marker : Int
+  marker : Int32
 }
 
 ///|

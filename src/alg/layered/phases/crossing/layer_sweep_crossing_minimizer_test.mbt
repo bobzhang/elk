@@ -5,7 +5,7 @@ fn layer_sweep_test_cross_types() -> Array[CrossMinType] {
 }
 
 ///|
-fn layer_sweep_test_node_handles(nodes : Array[@runtime.LNode]) -> Array[Int] {
+fn layer_sweep_test_node_handles(nodes : Array[@runtime.LNode]) -> Array[Int32] {
   let handles = []
   for node in nodes {
     handles.push(node.get_handle())
@@ -14,7 +14,7 @@ fn layer_sweep_test_node_handles(nodes : Array[@runtime.LNode]) -> Array[Int] {
 }
 
 ///|
-fn layer_sweep_test_port_handles(ports : Array[@runtime.LPort]) -> Array[Int] {
+fn layer_sweep_test_port_handles(ports : Array[@runtime.LPort]) -> Array[Int32] {
   let handles = []
   for port in ports {
     handles.push(port.get_handle())

@@ -28,8 +28,8 @@ pub struct GmfLayoutCommand {
 
 ///|
 pub fn new_gmf_layout_command(
-  label? : String = "Automatic Layout",
-  diagram_view? : GmfView? = None,
+  label~ : String = "Automatic Layout",
+  diagram_view~ : GmfView? = None,
 ) -> GmfLayoutCommand {
   {
     label,

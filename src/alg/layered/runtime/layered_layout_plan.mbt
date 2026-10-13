@@ -14,7 +14,7 @@ pub struct LayeredLayoutPlan {
 ///|
 pub fn new_layered_layout_plan(
   plan : @core.LayoutProcessorPlan,
-  state? : LayeredRunState = new_layered_run_state(),
+  state~ : LayeredRunState = new_layered_run_state(),
 ) -> LayeredLayoutPlan {
   { processors: plan.steps(), state, }
 }

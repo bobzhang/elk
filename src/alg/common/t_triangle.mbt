@@ -1,5 +1,5 @@
 ///|
-fn fuzzy_compare(left : Double, right : Double, fuzziness : Double) -> Int {
+fn fuzzy_compare(left : Double, right : Double, fuzziness : Double) -> Int32 {
   if (left - right).abs() <= fuzziness {
     0
   } else if left < right {
@@ -10,7 +10,7 @@ fn fuzzy_compare(left : Double, right : Double, fuzziness : Double) -> Int {
 }
 
 ///|
-fn t_triangle_to_signed_int32(value : Int64) -> Int {
+fn t_triangle_to_signed_int32(value : Int64) -> Int32 {
   let masked = value & 4294967295L
   if masked >= 2147483648L {
     (masked - 4294967296L).to_int()
@@ -85,7 +85,7 @@ pub fn TTriangle::equals(self : TTriangle, other : TTriangle) -> Bool {
 }
 
 ///|
-pub fn TTriangle::hash_code(self : TTriangle) -> Int {
+pub fn TTriangle::hash_code(self : TTriangle) -> Int32 {
   t_triangle_to_signed_int32(
     Int64::from_int(self.a.hash_code()) +
     Int64::from_int(self.b.hash_code()) +

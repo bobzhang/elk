@@ -1,15 +1,15 @@
 ///|
-let lnode_next_handle_ref : Ref[Int] = Ref(0)
+let lnode_next_handle_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn lnode_next_handle() -> Int {
+fn lnode_next_handle() -> Int32 {
   let handle = lnode_next_handle_ref.val
   lnode_next_handle_ref.val = handle + 1
   handle
 }
 
 ///|
-pub fn lnode_internal_handle(node : LNode) -> Int {
+pub fn lnode_internal_handle(node : LNode) -> Int32 {
   node.node_handle
 }
 
@@ -34,7 +34,7 @@ pub fn lnode_port_side_equals(
 }
 
 ///|
-fn lnode_port_side_rank(side : @core.PortSide) -> Int {
+fn lnode_port_side_rank(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -45,8 +45,8 @@ fn lnode_port_side_rank(side : @core.PortSide) -> Int {
 }
 
 ///|
-fn lnode_clone_int_int_map(source : Map[Int, Int]) -> Map[Int, Int] {
-  let copied : Map[Int, Int] = Map([])
+fn lnode_clone_int_int_map(source : Map[Int32, Int32]) -> Map[Int32, Int32] {
+  let copied : Map[Int32, Int32] = Map([])
   for entry in source.to_array() {
     copied[entry.0] = entry.1
   }
@@ -89,14 +89,14 @@ pub fn node_type_values() -> Array[NodeType] {
 
 ///|
 struct PortSideRange {
-  start : Int
-  end : Int
+  start : Int32
+  end : Int32
 }
 
 ///|
 pub struct LNode {
   shape : LShape
-  node_handle : Int
+  node_handle : Int32
   mut graph : LGraph?
   mut layer : Layer?
   mut node_type : NodeType
@@ -105,7 +105,7 @@ pub struct LNode {
   mut nested_graph : LGraph?
   margin : LMargin
   padding : LPadding
-  priv mut int_properties : Map[@graph.PropertyId, Int]?
+  priv mut int_properties : Map[@graph.PropertyId, Int32]?
   priv mut bool_properties : Map[@graph.PropertyId, Bool]?
   priv mut double_properties : Map[@graph.PropertyId, Double]?
   priv mut kvector_properties : Map[@graph.PropertyId, @core.KVector]?
@@ -117,15 +117,15 @@ pub struct LNode {
   priv mut node_properties : Map[@graph.PropertyId, LNode]?
   priv mut node_array_properties : Map[@graph.PropertyId, Array[LNode]]?
   priv mut label_array_properties : Map[@graph.PropertyId, Array[LLabel]]?
-  priv mut int_int_map_properties : Map[@graph.PropertyId, Map[Int, Int]]?
+  priv mut int_int_map_properties : Map[@graph.PropertyId, Map[Int32, Int32]]?
   priv mut port_properties : Map[@graph.PropertyId, LPort]?
   priv mut edge_properties : Map[@graph.PropertyId, LEdge]?
-  port_side_indices : Map[Int, PortSideRange]
+  port_side_indices : Map[Int32, PortSideRange]
   mut port_sides_cached : Bool
 }
 
 ///|
-pub fn new_l_node(graph? : LGraph? = None) -> LNode {
+pub fn new_l_node(graph~ : LGraph? = None) -> LNode {
   {
     shape: new_l_shape(),
     node_handle: lnode_next_handle(),
@@ -158,17 +158,17 @@ pub fn new_l_node(graph? : LGraph? = None) -> LNode {
 }
 
 ///|
-pub fn LNode::get_handle(self : LNode) -> Int {
+pub fn LNode::get_handle(self : LNode) -> Int32 {
   self.node_handle
 }
 
 ///|
-pub fn LNode::get_id(self : LNode) -> Int {
+pub fn LNode::get_id(self : LNode) -> Int32 {
   self.shape.get_id()
 }
 
 ///|
-pub fn LNode::set_id(self : LNode, id : Int) -> Unit {
+pub fn LNode::set_id(self : LNode, id : Int32) -> Unit {
   self.shape.set_id(id)
 }
 
@@ -302,8 +302,8 @@ pub fn LNode::get_ports_by_side(
 ///|
 fn lnode_slice_ports(
   ports : Array[LPort],
-  start : Int,
-  end_exclusive : Int,
+  start : Int32,
+  end_exclusive : Int32,
 ) -> Array[LPort] {
   let mut start_index = start
   let mut end_index = end_exclusive
@@ -438,7 +438,7 @@ pub fn LNode::get_padding(self : LNode) -> LPadding {
 }
 
 ///|
-pub fn LNode::get_index(self : LNode) -> Int {
+pub fn LNode::get_index(self : LNode) -> Int32 {
   match self.layer {
     Some(layer) => {
       let nodes = layer.get_nodes()
@@ -537,8 +537,8 @@ pub fn LNode::get_outgoing_edges(self : LNode) -> Array[LEdge] {
 ///|
 pub fn LNode::set_property_int(
   self : LNode,
-  property : @graph.IProperty[Int],
-  value : Int,
+  property : @graph.IProperty[Int32],
+  value : Int32,
 ) -> Unit {
   self.int_properties = Some(
     layered_property_bag_set(
@@ -552,8 +552,8 @@ pub fn LNode::set_property_int(
 ///|
 pub fn LNode::get_property_int(
   self : LNode,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   match
     layered_property_bag_get(self.int_properties, property.get_property_id()) {
     Some(value) => value
@@ -795,7 +795,7 @@ pub fn LNode::get_property_label_side(
 ///|
 pub fn LNode::has_property_int(
   self : LNode,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   layered_property_bag_has(self.int_properties, property.get_property_id())
 }
@@ -1004,8 +1004,8 @@ pub fn LNode::has_property_l_label_array(
 ///|
 pub fn LNode::set_property_int_int_map(
   self : LNode,
-  property : @graph.IProperty[Map[Int, Int]],
-  value : Map[Int, Int],
+  property : @graph.IProperty[Map[Int32, Int32]],
+  value : Map[Int32, Int32],
 ) -> Unit {
   self.int_int_map_properties = Some(
     layered_property_bag_set(
@@ -1019,8 +1019,8 @@ pub fn LNode::set_property_int_int_map(
 ///|
 pub fn LNode::get_property_int_int_map(
   self : LNode,
-  property : @graph.IProperty[Map[Int, Int]],
-) -> Map[Int, Int] {
+  property : @graph.IProperty[Map[Int32, Int32]],
+) -> Map[Int32, Int32] {
   match
     layered_property_bag_get(
       self.int_int_map_properties,
@@ -1044,7 +1044,7 @@ pub fn LNode::get_property_int_int_map(
 ///|
 pub fn LNode::has_property_int_int_map(
   self : LNode,
-  property : @graph.IProperty[Map[Int, Int]],
+  property : @graph.IProperty[Map[Int32, Int32]],
 ) -> Bool {
   layered_property_bag_has(
     self.int_int_map_properties,

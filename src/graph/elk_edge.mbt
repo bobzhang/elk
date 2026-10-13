@@ -1,9 +1,9 @@
 ///|
 pub struct ElkEdge {
   priv mut arena : GraphArena
-  priv mut slot : Int
-  priv mut generation : Int
-  priv id : Int
+  priv mut slot : Int32
+  priv mut generation : Int32
+  priv id : Int32
 }
 
 ///|
@@ -44,7 +44,7 @@ priv struct EdgeData {
 
 ///|
 priv struct EdgeSlot {
-  mut generation : Int
+  mut generation : Int32
   handle : ElkEdge
   mut data : EdgeData?
 }

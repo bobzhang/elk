@@ -22,7 +22,7 @@ pub fn less_than(exclusive_upper_bound : Double) -> ExclusiveUpperBound {
 pub fn ExclusiveLowerBound::compare_to(
   self : ExclusiveLowerBound,
   x : Double,
-) -> Int {
+) -> Int32 {
   if self.exclusive_lower_bound < x {
     -1
   } else {
@@ -34,7 +34,7 @@ pub fn ExclusiveLowerBound::compare_to(
 pub fn ExclusiveUpperBound::compare_to(
   self : ExclusiveUpperBound,
   x : Double,
-) -> Int {
+) -> Int32 {
   if self.exclusive_upper_bound > x {
     1
   } else {

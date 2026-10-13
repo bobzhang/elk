@@ -1,6 +1,6 @@
 ///|
 pub struct RandomGeneratorOptions {
-  marker : Int
+  marker : Int32
 }
 
 ///|

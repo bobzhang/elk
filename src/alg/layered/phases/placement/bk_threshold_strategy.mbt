@@ -40,7 +40,7 @@ pub struct BkThresholdStrategy {
   kind : BkThresholdStrategyKind
   mut bal : BKAlignedLayout?
   mut ni : NeighborhoodInformation?
-  block_finished : Map[Int, Bool]
+  block_finished : Map[Int32, Bool]
   post_processables_queue : Array[BkPostprocessable]
   post_processables_stack : Array[BkPostprocessable]
 }

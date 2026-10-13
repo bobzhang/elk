@@ -31,11 +31,11 @@ fn core_service_test_make_connector(
 
 ///|
 fn core_service_test_make_setup(
-  workbench_id : Int,
-  diagram_id : Int,
+  workbench_id : Int32,
+  diagram_id : Int32,
   connector : IDiagramLayoutConnector,
   setup_tag : String,
-  graph_layout_engine? : @core.IGraphLayoutEngine? = None,
+  graph_layout_engine~ : @core.IGraphLayoutEngine? = None,
 ) -> ILayoutSetup {
   new_layout_setup(
     obj => {

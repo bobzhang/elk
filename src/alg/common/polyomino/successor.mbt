@@ -1,11 +1,11 @@
 ///|
 pub struct PolyominoCoords {
-  x : Int
-  y : Int
+  x : Int32
+  y : Int32
 } derive(Eq, Debug)
 
 ///|
-pub fn new_polyomino_coords(x : Int, y : Int) -> PolyominoCoords {
+pub fn new_polyomino_coords(x : Int32, y : Int32) -> PolyominoCoords {
   { x, y, }
 }
 

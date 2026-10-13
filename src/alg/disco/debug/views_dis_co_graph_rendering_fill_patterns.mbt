@@ -2,7 +2,7 @@
 pub struct DisCoGraphRenderingFillPatterns {
   config : DisCoGraphRenderingConfigurator
   display : DisCoDebugDisplay
-  scale : Int
+  scale : Int32
 }
 
 ///|
@@ -34,19 +34,19 @@ fn require_color(
 }
 
 ///|
-fn new_transparent_pattern(scale : Int) -> DisCoDebugPattern {
+fn new_transparent_pattern(scale : Int32) -> DisCoDebugPattern {
   new_dis_co_debug_pattern(6 * scale, 6 * scale)
 }
 
 ///|
 fn fill_rectangle(
   pattern : DisCoDebugPattern,
-  scaling : Int,
-  x : Int,
-  y : Int,
-  width : Int,
-  height : Int,
-  alpha : Int,
+  scaling : Int32,
+  x : Int32,
+  y : Int32,
+  width : Int32,
+  height : Int32,
+  alpha : Int32,
 ) -> Unit {
   dis_co_debug_pattern_fill_rectangle(
     pattern,
@@ -61,7 +61,7 @@ fn fill_rectangle(
 ///|
 pub fn dis_co_graph_rendering_fill_patterns_get_dc_extension_pattern(
   patterns : DisCoGraphRenderingFillPatterns,
-  alpha : Int,
+  alpha : Int32,
 ) -> DisCoDebugPattern raise {
   ignore(
     require_color(
@@ -82,7 +82,7 @@ pub fn dis_co_graph_rendering_fill_patterns_get_dc_extension_pattern(
 ///|
 pub fn dis_co_graph_rendering_fill_patterns_get_polyomino_extension_pattern(
   patterns : DisCoGraphRenderingFillPatterns,
-  alpha : Int,
+  alpha : Int32,
 ) -> DisCoDebugPattern raise {
   ignore(
     require_color(
@@ -108,7 +108,7 @@ pub fn dis_co_graph_rendering_fill_patterns_get_polyomino_extension_pattern(
 ///|
 pub fn dis_co_graph_rendering_fill_patterns_get_polyomino_center_pattern(
   patterns : DisCoGraphRenderingFillPatterns,
-  alpha : Int,
+  alpha : Int32,
 ) -> DisCoDebugPattern raise {
   ignore(
     require_color(

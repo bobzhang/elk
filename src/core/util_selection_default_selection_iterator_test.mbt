@@ -25,7 +25,7 @@ fn create_node_to_node_edge(
 ///|
 fn selection_iterator_collect(
   iterator : DefaultSelectionIterator,
-  max_steps : Int,
+  max_steps : Int32,
 ) -> Array[SelectionGraphElement] {
   let result = []
   let mut remaining = max_steps

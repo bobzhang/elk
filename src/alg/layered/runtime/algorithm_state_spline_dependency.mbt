@@ -21,14 +21,14 @@ pub fn spline_side_to_process_to_string(side : SplineSideToProcess) -> String {
 pub(all) struct SplineDependency {
   mut source : SplineSegment?
   mut target : SplineSegment?
-  weight : Int
+  weight : Int32
 }
 
 ///|
 pub fn new_spline_dependency(
   source : SplineSegment,
   target : SplineSegment,
-  weight : Int,
+  weight : Int32,
 ) -> SplineDependency {
   let dependency = { source: Some(source), target: Some(target), weight, }
   source.outgoing.push(dependency)

@@ -49,7 +49,7 @@ pub struct ElkGraphJsonLabelProvider {
 
 ///|
 pub fn new_elk_graph_json_label_provider(
-  name_provider? : @text.ElkGraphJsonQualifiedNameProvider = @text.new_elk_graph_json_qualified_name_provider(),
+  name_provider~ : @text.ElkGraphJsonQualifiedNameProvider = @text.new_elk_graph_json_qualified_name_provider(),
 ) -> ElkGraphJsonLabelProvider {
   { name_provider, }
 }

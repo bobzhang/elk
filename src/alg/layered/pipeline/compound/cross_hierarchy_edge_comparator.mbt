@@ -23,7 +23,7 @@ pub fn cross_hierarchy_edge_comparator_exception_message(
 fn cross_hierarchy_edge_comparator_hierarchy_level(
   nested_graph : LGraph,
   top_level_graph : LGraph,
-) -> Int raise CrossHierarchyEdgeComparatorException {
+) -> Int32 raise CrossHierarchyEdgeComparatorException {
   let mut current_graph = nested_graph
   let mut level = 0
   while true {
@@ -74,7 +74,7 @@ pub fn CrossHierarchyEdgeComparator::compare(
   self : CrossHierarchyEdgeComparator,
   edge1 : CrossHierarchyEdge,
   edge2 : CrossHierarchyEdge,
-) -> Int raise CrossHierarchyEdgeComparatorException {
+) -> Int32 raise CrossHierarchyEdgeComparatorException {
   if cross_hierarchy_edge_comparator_is_output(edge1.get_type()) &&
     cross_hierarchy_edge_comparator_is_input(edge2.get_type()) {
     return -1

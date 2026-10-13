@@ -1,7 +1,7 @@
 ///|
 priv struct AlternatingLayerUnzipperPendingLayer {
   layer : @runtime.Layer
-  insertion_index : Int
+  insertion_index : Int32
 }
 
 ///|
@@ -38,7 +38,7 @@ fn alternating_layer_unzipper_max_double(
 fn alternating_layer_unzipper_set_layer_with_index(
   node : @runtime.LNode,
   layer : @runtime.Layer,
-  index : Int,
+  index : Int32,
 ) -> Unit {
   node.set_layer(Some(layer))
 
@@ -69,7 +69,7 @@ fn alternating_layer_unzipper_set_layer_with_index(
 ///|
 fn alternating_layer_unzipper_get_layer_split_property(
   layer : @runtime.Layer,
-) -> Int {
+) -> Int32 {
   let mut layer_split = @int.MAX_VALUE
   let mut property_unset = true
 
@@ -149,9 +149,9 @@ fn alternating_layer_unzipper_create_dummy_node(
 fn alternating_layer_unzipper_shift_node(
   graph : @runtime.LGraph,
   sub_layers : Array[@runtime.Layer],
-  target_layer : Int,
-  node_index : Int,
-) -> Int raise {
+  target_layer : Int32,
+  node_index : Int32,
+) -> Int32 raise {
   let node = sub_layers[0].get_nodes()[node_index]
   if target_layer > 0 {
     node.set_layer(Some(sub_layers[target_layer]))

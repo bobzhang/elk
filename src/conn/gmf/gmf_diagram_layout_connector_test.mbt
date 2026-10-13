@@ -1,9 +1,9 @@
 ///|
 fn gmf_connector_test_new_shape(
-  x : Int,
-  y : Int,
-  width : Int,
-  height : Int,
+  x : Int32,
+  y : Int32,
+  width : Int32,
+  height : Int32,
 ) -> (GmfFigure, GmfEditPart, GmfView) raise {
   let figure = new_gmf_figure(bounds=new_gmf_rectangle(x~, y~, width~, height~))
   let edit_part = new_gmf_edit_part(ShapeNodeEditPart, figure~)

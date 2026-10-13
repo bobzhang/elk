@@ -1,5 +1,5 @@
 ///|
-fn spacings_node_type_ordinal(node_type : NodeType) -> Int {
+fn spacings_node_type_ordinal(node_type : NodeType) -> Int32 {
   match node_type {
     Normal => 0
     LongEdge => 1
@@ -14,7 +14,7 @@ fn spacings_node_type_ordinal(node_type : NodeType) -> Int {
 
 ///|
 fn spacings_new_option_grid(
-  size : Int,
+  size : Int32,
 ) -> Array[Array[@graph.IProperty[Double]?]] {
   let grid : Array[Array[@graph.IProperty[Double]?]] = []
   for _ in 0..<size {

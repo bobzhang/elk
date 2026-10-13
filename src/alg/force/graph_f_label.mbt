@@ -26,7 +26,7 @@ fn set_flabel_data(label : FLabel, data : FLabelData) -> Unit {
 }
 
 ///|
-pub fn new_flabel(edge : FEdge, text? : String = "") -> FLabel {
+pub fn new_flabel(edge : FEdge, text~ : String = "") -> FLabel {
   let label : FLabel = {
     data: {
       edge,

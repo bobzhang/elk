@@ -160,10 +160,10 @@ pub(all) struct SplineSegment {
   right_ports : Array[LPort]
   outgoing : Array[SplineDependency]
   incoming : Array[SplineDependency]
-  mut mark : Int
-  mut inweight : Int
-  mut outweight : Int
-  mut rank : Int
+  mut mark : Int32
+  mut inweight : Int32
+  mut outweight : Int32
+  mut rank : Int32
   edges : Array[LEdge]
   mut is_straight : Bool
   bounding_box : @core.ElkRectangle
@@ -179,7 +179,7 @@ pub(all) struct SplineSegment {
   mut hyper_edge_top_y_pos : Double
   mut hyper_edge_bottom_y_pos : Double
   mut center_control_point_y : Double
-  edge_information : Map[Int, SplineSegmentEdgeInformation]
+  edge_information : Map[Int32, SplineSegmentEdgeInformation]
 }
 
 ///|
@@ -412,7 +412,7 @@ pub fn SplineSegment::is_hyper_edge(self : SplineSegment) -> Bool {
 pub fn SplineSegment::compare_to(
   self : SplineSegment,
   other : SplineSegment,
-) -> Int {
+) -> Int32 {
   self.mark - other.mark
 }
 

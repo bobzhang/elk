@@ -49,7 +49,7 @@ pub struct ElkGraphLabelProvider {
 
 ///|
 pub fn new_elk_graph_label_provider(
-  name_provider? : @text.ElkGraphQualifiedNameProvider = @text.new_elk_graph_qualified_name_provider(),
+  name_provider~ : @text.ElkGraphQualifiedNameProvider = @text.new_elk_graph_qualified_name_provider(),
 ) -> ElkGraphLabelProvider {
   { name_provider, }
 }

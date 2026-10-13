@@ -30,7 +30,7 @@ fn java_random_scramble_seed(seed : Int64) -> Int64 {
 }
 
 ///|
-fn java_random_to_signed_int32(value : Int64) -> Int {
+fn java_random_to_signed_int32(value : Int64) -> Int32 {
   let masked = value & 4294967295L
   if masked >= 2147483648L {
     (masked - 4294967296L).to_int()
@@ -41,7 +41,7 @@ fn java_random_to_signed_int32(value : Int64) -> Int {
 
 ///|
 fn java_random_system_seed() -> Int64 {
-  let source = @random.Rand::new()
+  let source = @random.Rand()
   let high = Int64::from_int(source.int(limit=@int.MAX_VALUE))
   let low = Int64::from_int(source.int(limit=@int.MAX_VALUE))
   (high << 31) ^ low
@@ -63,12 +63,12 @@ pub fn new_java_random_seeded(seed : Int64) -> JavaRandom {
 }
 
 ///|
-pub fn new_java_random_seeded_int(seed : Int) -> JavaRandom {
+pub fn new_java_random_seeded_int(seed : Int32) -> JavaRandom {
   new_java_random_seeded(Int64::from_int(seed))
 }
 
 ///|
-fn JavaRandom::next_bits(self : JavaRandom, bits : Int) -> Int {
+fn JavaRandom::next_bits(self : JavaRandom, bits : Int32) -> Int32 {
   self.seed = (self.seed * java_random_multiplier + java_random_addend) &
     java_random_mask
   let value = self.seed >> (48 - bits)
@@ -87,7 +87,7 @@ pub fn JavaRandom::double(self : JavaRandom) -> Double {
 }
 
 ///|
-pub fn JavaRandom::int(self : JavaRandom, limit : Int) -> Int raise {
+pub fn JavaRandom::int(self : JavaRandom, limit : Int32) -> Int32 raise {
   if limit <= 0 {
     try java_random_raise_unit("bound must be positive") catch {
       err =>

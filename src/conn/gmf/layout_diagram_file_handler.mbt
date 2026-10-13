@@ -82,7 +82,7 @@ fn gmf_layout_diagram_file_handler_layout_diagram(
 pub fn LayoutDiagramFileHandler::execute(
   _self : LayoutDiagramFileHandler,
   selection : Array[GmfSelectionItem],
-) -> Int raise LayoutDiagramFileHandlerException {
+) -> Int32 raise LayoutDiagramFileHandlerException {
   let mut processed = 0
   for item in selection {
     match item {

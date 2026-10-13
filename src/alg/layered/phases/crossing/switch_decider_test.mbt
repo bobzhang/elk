@@ -41,7 +41,7 @@ fn switch_decider_bb_crossing_east() -> CrossingCountSide {
 ///|
 fn switch_decider_bb_new_node(
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   node_type : @runtime.NodeType,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()
@@ -55,7 +55,7 @@ fn switch_decider_bb_new_node(
 fn switch_decider_bb_new_port(
   node : @runtime.LNode,
   side : @core.PortSide,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_node(Some(node))
@@ -77,7 +77,7 @@ fn switch_decider_bb_connect(
 ///|
 fn switch_decider_bb_port_count(
   node_order : Array[Array[@runtime.LNode]],
-) -> Int {
+) -> Int32 {
   let mut count = 0
   for layer in node_order {
     for node in layer {
@@ -117,7 +117,7 @@ fn switch_decider_bb_current_order(
 fn switch_decider_bb_new_decider_for_layer(
   graph : @runtime.LGraph,
   switch_type : @options.GreedySwitchType,
-  free_layer_index : Int,
+  free_layer_index : Int32,
   side : CrossingCountSide,
 ) -> (SwitchDecider, Array[Array[@runtime.LNode]]) raise {
   let node_order = switch_decider_bb_current_order(graph)
@@ -139,9 +139,9 @@ fn switch_decider_bb_new_decider_for_layer(
 ///|
 fn switch_decider_bb_swap_nodes(
   node_order : Array[Array[@runtime.LNode]],
-  layer_index : Int,
-  upper_node_index : Int,
-  lower_node_index : Int,
+  layer_index : Int32,
+  upper_node_index : Int32,
+  lower_node_index : Int32,
 ) -> Unit {
   let layer = node_order[layer_index]
   let upper = layer[upper_node_index]

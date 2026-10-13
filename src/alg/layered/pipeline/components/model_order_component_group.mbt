@@ -1,6 +1,6 @@
 ///|
-fn init_model_order_component_group_constraints() -> Map[Int, Array[Int]] {
-  let constraints : Map[Int, Array[Int]] = Map([])
+fn init_model_order_component_group_constraints() -> Map[Int32, Array[Int32]] {
+  let constraints : Map[Int32, Array[Int32]] = Map([])
 
   component_group_add_constraint(
     constraints, @core.sides_north, @core.sides_none,
@@ -309,11 +309,11 @@ fn init_model_order_component_group_constraints() -> Map[Int, Array[Int]] {
 }
 
 ///|
-let model_order_component_group_constraints : Map[Int, Array[Int]] = init_model_order_component_group_constraints()
+let model_order_component_group_constraints : Map[Int32, Array[Int32]] = init_model_order_component_group_constraints()
 
 ///|
 pub struct ModelOrderComponentGroup {
-  components : Map[Int, Array[LGraph]]
+  components : Map[Int32, Array[LGraph]]
   component_order : Array[LGraph]
 }
 

@@ -17,10 +17,10 @@ pub fn monitored_operation_status_ok() -> MonitoredOperationStatus {
 }
 
 ///|
-let monitored_operation_timestamp_ref : Ref[Int] = Ref(0)
+let monitored_operation_timestamp_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn next_monitored_operation_timestamp() -> Int {
+fn next_monitored_operation_timestamp() -> Int32 {
   let next = monitored_operation_timestamp_ref.val + 1
   monitored_operation_timestamp_ref.val = next
   next
@@ -33,7 +33,7 @@ pub fn reset_monitored_operation_timestamp_for_test() -> Unit {
 
 ///|
 pub(all) struct MonitoredOperation {
-  mut timestamp : Int
+  mut timestamp : Int32
   mut is_canceled_flag : Bool
   cancel_indicator : @core.IElkCancelIndicator?
   create_monitor_fn : () -> @core.IElkProgressMonitor
@@ -46,13 +46,13 @@ pub(all) struct MonitoredOperation {
 ///|
 pub fn new_monitored_operation(
   execute_fn : (@core.IElkProgressMonitor) -> MonitoredOperationStatus,
-  create_monitor_fn? : () -> @core.IElkProgressMonitor = () => {
+  create_monitor_fn~ : () -> @core.IElkProgressMonitor = () => {
     @core.new_basic_progress_monitor()
   },
-  pre_uiexec_fn? : () -> Unit = () => (),
-  post_uiexec_fn? : () -> Unit = () => (),
-  cancel_indicator? : @core.IElkCancelIndicator? = None,
-  handle_status_fn? : (MonitoredOperationStatus) -> Unit = _ => (),
+  pre_uiexec_fn~ : () -> Unit = () => (),
+  post_uiexec_fn~ : () -> Unit = () => (),
+  cancel_indicator~ : @core.IElkCancelIndicator? = None,
+  handle_status_fn~ : (MonitoredOperationStatus) -> Unit = _ => (),
 ) -> MonitoredOperation {
   {
     timestamp: 0,
@@ -81,7 +81,7 @@ pub fn MonitoredOperation::cancel(self : MonitoredOperation) -> Unit {
 }
 
 ///|
-pub fn MonitoredOperation::get_timestamp(self : MonitoredOperation) -> Int {
+pub fn MonitoredOperation::get_timestamp(self : MonitoredOperation) -> Int32 {
   self.timestamp
 }
 

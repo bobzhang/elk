@@ -8,10 +8,10 @@ pub struct DefaultConfiguration {
 
 ///|
 pub fn new_default_configuration(
-  edges? : Bool = true,
-  nodes? : Bool = true,
-  ports? : Bool = true,
-  edge_labels? : Bool = false,
+  edges~ : Bool = true,
+  nodes~ : Bool = true,
+  ports~ : Bool = true,
+  edge_labels~ : Bool = false,
 ) -> DefaultConfiguration {
   { edges, nodes, ports, edge_labels, }
 }

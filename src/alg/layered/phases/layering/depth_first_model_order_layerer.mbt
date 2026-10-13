@@ -2,10 +2,10 @@
 priv struct DepthFirstModelOrderLayererState {
   layered_graph : @runtime.LGraph
   mut current_layer : @runtime.Layer
-  mut current_layer_id : Int
+  mut current_layer_id : Int32
   mut current_dummy_layer : @runtime.Layer?
   nodes_to_place : Array[@runtime.LNode]
-  mut max_to_place : Int
+  mut max_to_place : Int32
 }
 
 ///|
@@ -82,7 +82,7 @@ fn depth_first_model_order_layerer_require_edge_source_node(
 ///|
 fn depth_first_model_order_layerer_model_order(
   node : @runtime.LNode,
-) -> Int raise DepthFirstModelOrderLayererException {
+) -> Int32 raise DepthFirstModelOrderLayererException {
   if node.has_property_int(@runtime.internal_properties_model_order) {
     node.get_property_int(@runtime.internal_properties_model_order)
   } else {
@@ -178,7 +178,7 @@ fn depth_first_model_order_layerer_is_connected_to_current_layer(
 ///|
 fn depth_first_model_order_layerer_add_node_to_layer(
   state : DepthFirstModelOrderLayererState,
-  layer_id : Int,
+  layer_id : Int32,
   node : @runtime.LNode,
 ) -> Unit raise DepthFirstModelOrderLayererException {
   let layers = state.layered_graph.get_layers()
@@ -216,9 +216,9 @@ fn depth_first_model_order_layerer_add_node_to_layer(
 
 ///|
 fn depth_first_model_order_layerer_get_max_connected_layer(
-  layer_id : Int,
+  layer_id : Int32,
   node : @runtime.LNode,
-) -> Int raise DepthFirstModelOrderLayererException {
+) -> Int32 raise DepthFirstModelOrderLayererException {
   let mut max_layer = layer_id
   for edge in node.get_incoming_edges() {
     let source_node = depth_first_model_order_layerer_require_edge_source_node(

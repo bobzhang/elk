@@ -2,7 +2,7 @@
 fn comment_postprocessor_test_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   x : Double,
   y : Double,
   width : Double,
@@ -19,7 +19,7 @@ fn comment_postprocessor_test_new_node(
 ///|
 fn comment_postprocessor_test_new_comment_box(
   graph : @runtime.LGraph,
-  id : Int,
+  id : Int32,
   width : Double,
   height : Double,
 ) -> @runtime.LNode {
@@ -32,7 +32,7 @@ fn comment_postprocessor_test_new_comment_box(
 ///|
 fn comment_postprocessor_test_new_port(
   owner : @runtime.LNode?,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_id(id)
@@ -41,7 +41,7 @@ fn comment_postprocessor_test_new_port(
 }
 
 ///|
-fn comment_postprocessor_test_port_id(port : @runtime.LPort?) -> Int {
+fn comment_postprocessor_test_port_id(port : @runtime.LPort?) -> Int32 {
   match port {
     Some(value) => value.get_id()
     None => -1

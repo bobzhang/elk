@@ -1,8 +1,8 @@
 ///|
 fn new_execution_info_for_core_debug_test(
   name : String,
-  debug_folder? : String? = None,
-  with_log? : Bool = false,
+  debug_folder~ : String? = None,
+  with_log~ : Bool = false,
 ) -> ExecutionInfo raise {
   let monitor = @core.new_elk_progress_monitor(task_name=name)
   if with_log {

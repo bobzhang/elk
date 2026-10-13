@@ -2,7 +2,7 @@
 fn node_margin_calculator_test_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   width : Double,
   height : Double,
 ) -> @runtime.LNode {

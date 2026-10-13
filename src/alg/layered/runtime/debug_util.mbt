@@ -2,7 +2,7 @@
 pub fn debug_util_log_debug_graph(
   monitor : @core.IElkProgressMonitor,
   lgraph : LGraph,
-  slot_index : Int,
+  slot_index : Int32,
   name : String,
 ) -> Unit {
   let tag = slot_index.to_string() + "-" + name

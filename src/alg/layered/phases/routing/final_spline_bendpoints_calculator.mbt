@@ -778,7 +778,7 @@ fn final_spline_bendpoints_calculator_process(
 
 ///|
 pub fn new_final_spline_bendpoints_calculator_layout_processor(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   @core.new_layout_processor((graph, monitor) => {
     final_spline_bendpoints_calculator_process(graph, monitor, state)

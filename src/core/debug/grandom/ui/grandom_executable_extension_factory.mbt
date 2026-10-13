@@ -1,5 +1,5 @@
 ///|
-pub let core_debug_grandom_ui_status_error : Int = 4
+pub let core_debug_grandom_ui_status_error : Int32 = 4
 
 ///|
 priv suberror CoreDebugGrandomExecutableExtensionFactoryException {
@@ -15,14 +15,14 @@ fn core_debug_grandom_executable_extension_factory_raise_unit(
 
 ///|
 pub(all) struct CoreDebugGRandomUiStatus {
-  severity : Int
+  severity : Int32
   symbolic_name : String
   message : String
 }
 
 ///|
 pub fn new_core_debug_grandom_ui_status(
-  severity : Int,
+  severity : Int32,
   symbolic_name : String,
   message : String,
 ) -> CoreDebugGRandomUiStatus {

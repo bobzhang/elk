@@ -19,7 +19,7 @@ fn elk_math_exception_message(err : ElkMathException) -> String {
 }
 
 ///|
-fn factl_impl(x : Int) -> Int64 raise ElkMathException {
+fn factl_impl(x : Int32) -> Int64 raise ElkMathException {
   if x < 0 || x >= _fact_table_size {
     elk_math_raise("The input must be between 0 and \{_fact_table_size}")
   }
@@ -33,7 +33,7 @@ fn factl_impl(x : Int) -> Int64 raise ElkMathException {
 }
 
 ///|
-pub fn factl(x : Int) -> Int64 raise {
+pub fn factl(x : Int32) -> Int64 raise {
   try factl_impl(x) catch {
     err => {
       layout_runtime_raise_unsupported_configuration(
@@ -47,7 +47,7 @@ pub fn factl(x : Int) -> Int64 raise {
 }
 
 ///|
-fn factd_impl(x : Int) -> Double raise ElkMathException {
+fn factd_impl(x : Int32) -> Double raise ElkMathException {
   if x < 0 {
     elk_math_raise("The input must be positive")
   }
@@ -59,7 +59,7 @@ fn factd_impl(x : Int) -> Double raise ElkMathException {
 }
 
 ///|
-pub fn factd(x : Int) -> Double raise {
+pub fn factd(x : Int32) -> Double raise {
   try factd_impl(x) catch {
     err => {
       layout_runtime_raise_unsupported_configuration(
@@ -73,7 +73,7 @@ pub fn factd(x : Int) -> Double raise {
 }
 
 ///|
-fn binomiall_impl(n : Int, k : Int) -> Int64 raise ElkMathException {
+fn binomiall_impl(n : Int32, k : Int32) -> Int64 raise ElkMathException {
   if n < 0 || k < 0 {
     elk_math_raise("k and n must be positive")
   }
@@ -93,7 +93,7 @@ fn binomiall_impl(n : Int, k : Int) -> Int64 raise ElkMathException {
 }
 
 ///|
-pub fn binomiall(n : Int, k : Int) -> Int64 raise {
+pub fn binomiall(n : Int32, k : Int32) -> Int64 raise {
   try binomiall_impl(n, k) catch {
     err => {
       layout_runtime_raise_unsupported_configuration(
@@ -107,7 +107,7 @@ pub fn binomiall(n : Int, k : Int) -> Int64 raise {
 }
 
 ///|
-fn binomiald_impl(n : Int, k : Int) -> Double raise ElkMathException {
+fn binomiald_impl(n : Int32, k : Int32) -> Double raise ElkMathException {
   if n < 0 || k < 0 {
     elk_math_raise("k and n must be positive")
   }
@@ -124,7 +124,7 @@ fn binomiald_impl(n : Int, k : Int) -> Double raise ElkMathException {
 }
 
 ///|
-pub fn binomiald(n : Int, k : Int) -> Double raise {
+pub fn binomiald(n : Int32, k : Int32) -> Double raise {
   try binomiald_impl(n, k) catch {
     err => {
       layout_runtime_raise_unsupported_configuration(
@@ -138,7 +138,7 @@ pub fn binomiald(n : Int, k : Int) -> Double raise {
 }
 
 ///|
-pub fn powd(a : Double, b : Int) -> Double {
+pub fn powd(a : Double, b : Int32) -> Double {
   let mut result = 1.0
   let mut base = a
   let mut exp = if b >= 0 { b } else { -b }
@@ -159,7 +159,7 @@ pub fn powd(a : Double, b : Int) -> Double {
 }
 
 ///|
-pub fn powf(a : Double, b : Int) -> Double {
+pub fn powf(a : Double, b : Int32) -> Double {
   let mut result = 1.0
   let mut base = a
   let mut exp = if b >= 0 { b } else { -b }
@@ -181,7 +181,7 @@ pub fn powf(a : Double, b : Int) -> Double {
 
 ///|
 pub fn approximate_bezier_segment(
-  result_size : Int,
+  result_size : Int32,
   control_points : Array[KVector],
 ) -> Array[KVector] raise {
   if result_size <= 0 {
@@ -365,10 +365,10 @@ let max_depth = 64
 ///|
 fn find_roots(
   w : Array[KVector],
-  degree : Int,
+  degree : Int32,
   t : Array[Double],
-  depth : Int,
-) -> Int {
+  depth : Int32,
+) -> Int32 {
   match crossing_count(w, degree) {
     0 => return 0
     1 => {
@@ -407,7 +407,7 @@ fn find_roots(
 let epsilon : Double = @math.pow(2.0, -max_depth.to_double() - 1.0)
 
 ///|
-fn control_polygon_flat_enough(v : Array[KVector], degree : Int) -> Bool {
+fn control_polygon_flat_enough(v : Array[KVector], degree : Int32) -> Bool {
   let a = v[0].y - v[degree].y
   let b = v[degree].x - v[0].x
   let c = v[0].x * v[degree].y - v[degree].x * v[0].y
@@ -475,7 +475,7 @@ fn control_polygon_flat_enough(v : Array[KVector], degree : Int) -> Bool {
 }
 
 ///|
-fn compute_x_intercept(v : Array[KVector], degree : Int) -> Double {
+fn compute_x_intercept(v : Array[KVector], degree : Int32) -> Double {
   let xnm = v[degree].x - v[0].x
   let ynm = v[degree].y - v[0].y
   let xmk = v[0].x
@@ -485,7 +485,7 @@ fn compute_x_intercept(v : Array[KVector], degree : Int) -> Double {
 }
 
 ///|
-fn crossing_count(v : Array[KVector], degree : Int) -> Int {
+fn crossing_count(v : Array[KVector], degree : Int32) -> Int32 {
   let mut n_crossings = 0
   let mut sign = if v[0].y < 0.0 { -1 } else { 1 }
   let mut old_sign = sign
@@ -504,7 +504,7 @@ fn crossing_count(v : Array[KVector], degree : Int) -> Int {
 ///|
 fn bezier(
   c : Array[KVector],
-  degree : Int,
+  degree : Int32,
   t : Double,
   left : Array[KVector]?,
   right : Array[KVector]?,
@@ -553,7 +553,7 @@ fn bezier(
 }
 
 ///|
-pub fn maxi(values : Array[Int]) -> Int {
+pub fn maxi(values : Array[Int32]) -> Int32 {
   let mut max = @int.MIN_VALUE
   for value in values {
     if value > max {
@@ -564,7 +564,7 @@ pub fn maxi(values : Array[Int]) -> Int {
 }
 
 ///|
-pub fn mini(values : Array[Int]) -> Int {
+pub fn mini(values : Array[Int32]) -> Int32 {
   let mut min = @int.MAX_VALUE
   for value in values {
     if value < min {
@@ -575,7 +575,7 @@ pub fn mini(values : Array[Int]) -> Int {
 }
 
 ///|
-pub fn averagei(values : Array[Int]) -> Int {
+pub fn averagei(values : Array[Int32]) -> Int32 {
   let mut avg = 0
   for value in values {
     avg = avg + value
@@ -677,7 +677,7 @@ pub fn averaged(values : Array[Double]) -> Double {
 }
 
 ///|
-pub fn boundi(x : Int, lower : Int, upper : Int) -> Int {
+pub fn boundi(x : Int32, lower : Int32, upper : Int32) -> Int32 {
   if x <= lower {
     return lower
   }
@@ -739,7 +739,7 @@ pub fn clip_vector(v : KVector, width : Double, height : Double) -> KVector {
 }
 
 ///|
-pub fn signum(x : Double) -> Int {
+pub fn signum(x : Double) -> Int32 {
   if x < 0.0 {
     return -1
   }

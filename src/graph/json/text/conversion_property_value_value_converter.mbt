@@ -7,7 +7,7 @@ pub struct GraphJsonTextPropertyValueValueConverter {
 ///|
 pub fn new_graph_json_text_property_value_value_converter(
   metadata : @core.OptionMetadata,
-  qualified_name_converter? : ElkGraphJsonQualifiedNameConverter = new_elk_graph_json_qualified_name_converter(),
+  qualified_name_converter~ : ElkGraphJsonQualifiedNameConverter = new_elk_graph_json_qualified_name_converter(),
 ) -> GraphJsonTextPropertyValueValueConverter {
   { metadata, qualified_name_converter, }
 }
@@ -156,7 +156,7 @@ pub fn GraphJsonTextPropertyValueValueConverter::to_string(
 pub fn GraphJsonTextPropertyValueValueConverter::to_value(
   self : GraphJsonTextPropertyValueValueConverter,
   text : String,
-  property_key? : GraphJsonTextPropertyKey? = None,
+  property_key~ : GraphJsonTextPropertyKey? = None,
 ) -> GraphJsonTextPropertyValue raise {
   if text == "" || text == "null" {
     return GraphJsonTextNullValue

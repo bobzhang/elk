@@ -12,7 +12,7 @@ pub struct AbstractGraphvizDotSyntacticSequencer {
 
 ///|
 pub fn new_abstract_graphviz_dot_syntactic_sequencer(
-  grammar_access? : GraphvizDotGrammarAccess = new_graphviz_dot_grammar_access(),
+  grammar_access~ : GraphvizDotGrammarAccess = new_graphviz_dot_grammar_access(),
 ) -> AbstractGraphvizDotSyntacticSequencer {
   {
     grammar_access,

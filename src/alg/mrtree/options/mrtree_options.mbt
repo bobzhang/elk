@@ -33,7 +33,7 @@ pub let mrtree_edge_end_texture_length : @graph.IProperty[Double] = @graph.new_p
 )
 
 ///|
-pub let mrtree_tree_level : @graph.IProperty[Int] = @graph.new_property(
+pub let mrtree_tree_level : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.mrtree.treeLevel", 0,
 )
 

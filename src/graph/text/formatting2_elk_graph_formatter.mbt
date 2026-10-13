@@ -1,15 +1,15 @@
 ///|
 pub struct ElkGraphFormatter {
-  indent_size : Int
+  indent_size : Int32
 }
 
 ///|
-pub fn new_elk_graph_formatter(indent_size? : Int = 2) -> ElkGraphFormatter {
+pub fn new_elk_graph_formatter(indent_size~ : Int32 = 2) -> ElkGraphFormatter {
   { indent_size, }
 }
 
 ///|
-fn graph_text_formatter_indent(level : Int, indent_size : Int) -> String {
+fn graph_text_formatter_indent(level : Int32, indent_size : Int32) -> String {
   let mut result = ""
   let mut i = 0
   while i < level * indent_size {
@@ -59,7 +59,7 @@ fn graph_text_formatter_shape_layout(
 fn graph_text_formatter_format_label(
   formatter : ElkGraphFormatter,
   label : @graph.ElkLabel,
-  level : Int,
+  level : Int32,
 ) -> String {
   let indent = graph_text_formatter_indent(level, formatter.indent_size)
   let mut text = indent + "label "
@@ -89,7 +89,7 @@ fn graph_text_formatter_format_label(
 fn graph_text_formatter_format_port(
   formatter : ElkGraphFormatter,
   port : @graph.ElkPort,
-  level : Int,
+  level : Int32,
 ) -> String {
   let indent = graph_text_formatter_indent(level, formatter.indent_size)
   let mut text = indent + "port " + @graph.port_identifier(port)
@@ -114,7 +114,7 @@ fn graph_text_formatter_format_port(
 fn graph_text_formatter_format_edge_section(
   formatter : ElkGraphFormatter,
   section : @graph.ElkEdgeSection,
-  level : Int,
+  level : Int32,
 ) -> String {
   let indent = graph_text_formatter_indent(level, formatter.indent_size)
   let id = @graph.edge_section_identifier(section)
@@ -148,7 +148,7 @@ fn graph_text_formatter_format_edge_section(
 fn graph_text_formatter_format_edge(
   formatter : ElkGraphFormatter,
   edge : @graph.ElkEdge,
-  level : Int,
+  level : Int32,
 ) -> String {
   let indent = graph_text_formatter_indent(level, formatter.indent_size)
   let mut text = indent + "edge "
@@ -196,7 +196,7 @@ fn graph_text_formatter_format_edge(
 fn graph_text_formatter_format_node(
   formatter : ElkGraphFormatter,
   node : @graph.ElkNode,
-  level : Int,
+  level : Int32,
   root : Bool,
 ) -> String {
   let indent = graph_text_formatter_indent(level, formatter.indent_size)

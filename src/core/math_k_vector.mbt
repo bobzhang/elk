@@ -73,13 +73,13 @@ pub fn KVector::equals(self : KVector, other : KVector) -> Bool {
 pub fn KVector::equals_fuzzily(
   self : KVector,
   other : KVector,
-  fuzzyness? : Double = default_fuzzyness,
+  fuzzyness~ : Double = default_fuzzyness,
 ) -> Bool {
   (self.x - other.x).abs() <= fuzzyness && (self.y - other.y).abs() <= fuzzyness
 }
 
 ///|
-fn kvector_to_signed_int32(value : Int64) -> Int {
+fn kvector_to_signed_int32(value : Int64) -> Int32 {
   let masked = value & 4294967295L
   if masked >= 2147483648L {
     (masked - 4294967296L).to_int()
@@ -89,14 +89,14 @@ fn kvector_to_signed_int32(value : Int64) -> Int {
 }
 
 ///|
-fn kvector_java_double_hash(value : Double) -> Int {
+fn kvector_java_double_hash(value : Double) -> Int32 {
   let bits = value.reinterpret_as_int64()
   let mixed = bits ^ (bits >> 32)
   kvector_to_signed_int32(mixed)
 }
 
 ///|
-fn kvector_reverse_bits32(value : Int) -> Int {
+fn kvector_reverse_bits32(value : Int32) -> Int32 {
   let mut x = Int64::from_int(value) & 4294967295L
   x = ((x & 1431655765L) << 1) | ((x >> 1) & 1431655765L)
   x = ((x & 858993459L) << 2) | ((x >> 2) & 858993459L)
@@ -107,7 +107,7 @@ fn kvector_reverse_bits32(value : Int) -> Int {
 }
 
 ///|
-pub fn KVector::hash_code(self : KVector) -> Int {
+pub fn KVector::hash_code(self : KVector) -> Int32 {
   let x_hash = kvector_java_double_hash(self.x)
   let y_hash = kvector_java_double_hash(self.y)
   kvector_to_signed_int32(

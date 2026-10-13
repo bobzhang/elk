@@ -1,6 +1,6 @@
 ///|
 pub struct GraphProvider {
-  marker : Int
+  marker : Int32
 }
 
 ///|

@@ -1,5 +1,8 @@
 ///|
-fn crossings_test_new_node(layer : @runtime.Layer, id : Int) -> @runtime.LNode {
+fn crossings_test_new_node(
+  layer : @runtime.Layer,
+  id : Int32,
+) -> @runtime.LNode {
   let node = @runtime.new_l_node()
   node.set_layer(Some(layer))
   node.set_id(id)
@@ -7,7 +10,7 @@ fn crossings_test_new_node(layer : @runtime.Layer, id : Int) -> @runtime.LNode {
 }
 
 ///|
-fn crossings_test_new_port(node : @runtime.LNode, id : Int) -> @runtime.LPort {
+fn crossings_test_new_port(node : @runtime.LNode, id : Int32) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_id(id)
   port.set_node(Some(node))

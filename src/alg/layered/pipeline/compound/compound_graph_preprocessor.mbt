@@ -221,7 +221,7 @@ fn compound_graph_preprocessor_create_external_port_dummy_checked(
   property_holder : LPort,
   ext_port_constraints : @core.PortConstraints,
   port_side : @core.PortSide,
-  net_flow : Int,
+  net_flow : Int32,
   port_node_size : @core.KVector?,
   port_position : @core.KVector?,
   port_size : @core.KVector,
@@ -272,7 +272,7 @@ fn compound_graph_preprocessor_graph_contains_node(
 fn compound_graph_preprocessor_dummy_node_map_index(
   dummy_node_entries : Array[(LPort, LNode)],
   port : LPort,
-) -> Int {
+) -> Int32 {
   let port_handle = port.get_handle()
   let mut index = 0
   while index < dummy_node_entries.length() {
@@ -460,7 +460,7 @@ fn compound_graph_preprocessor_set_sides_of_ports_to_sides_of_dummy_nodes(
 ///|
 fn compound_graph_preprocessor_get_shallowest_edge_segment(
   edge_segments : Array[CrossHierarchyEdge],
-) -> Int {
+) -> Int32 {
   let mut result = -1
   let mut index = 0
 
@@ -1225,7 +1225,7 @@ fn compound_graph_preprocessor_create_dummy_edge(
 ///|
 fn compound_graph_preprocessor_calculate_net_flow(
   port : LPort,
-) -> Int raise CompoundGraphPreprocessorException {
+) -> Int32 raise CompoundGraphPreprocessorException {
   let node = compound_graph_preprocessor_require_port_node(port)
   let inside_self_loops_enabled = node.get_property_bool(
     @core.inside_self_loops_activate,

@@ -21,27 +21,27 @@ fn port_label_placements_to_strings(
 }
 
 ///|
-fn direction_at(index : Int) -> Direction {
+fn direction_at(index : Int32) -> Direction {
   direction_values()[index]
 }
 
 ///|
-fn port_constraints_at(index : Int) -> PortConstraints {
+fn port_constraints_at(index : Int32) -> PortConstraints {
   port_constraints_values()[index]
 }
 
 ///|
-fn port_side_at(index : Int) -> PortSide {
+fn port_side_at(index : Int32) -> PortSide {
   port_side_values()[index]
 }
 
 ///|
-fn node_label_placement_at(index : Int) -> NodeLabelPlacement {
+fn node_label_placement_at(index : Int32) -> NodeLabelPlacement {
   node_label_placement_values()[index]
 }
 
 ///|
-fn port_label_placement_at(index : Int) -> PortLabelPlacement {
+fn port_label_placement_at(index : Int32) -> PortLabelPlacement {
   port_label_placement_values()[index]
 }
 

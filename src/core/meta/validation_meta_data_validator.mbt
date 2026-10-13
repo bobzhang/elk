@@ -21,7 +21,7 @@ pub(all) struct MetaDataValidator {
 
 ///|
 pub fn new_meta_data_validator(
-  base? : AbstractMetaDataValidator = new_abstract_meta_data_validator(),
+  base~ : AbstractMetaDataValidator = new_abstract_meta_data_validator(),
 ) -> MetaDataValidator {
   { base, }
 }
@@ -50,7 +50,7 @@ fn core_meta_validator_duplicate_id_issue(
 
 ///|
 fn core_meta_validator_check_exists_and_remember(
-  seen : Map[String, Int],
+  seen : Map[String, Int32],
   name : String,
   issues : Array[CoreMetaValidationIssue],
 ) -> Unit {
@@ -72,8 +72,8 @@ fn core_meta_validator_check_exists_and_remember(
 ///|
 fn core_meta_validator_check_duplicate_ids_in_group_or_options(
   members : Array[CoreMetaMdGroupOrOption],
-  seen_group_ids : Map[String, Int],
-  seen_option_ids : Map[String, Int],
+  seen_group_ids : Map[String, Int32],
+  seen_option_ids : Map[String, Int32],
   issues : Array[CoreMetaValidationIssue],
 ) -> Unit {
   for group_or_option_member in members {
@@ -112,10 +112,10 @@ pub fn MetaDataValidator::check_duplicate_member_id(
 ) -> Array[CoreMetaValidationIssue] {
   ignore(self)
   let issues : Array[CoreMetaValidationIssue] = []
-  let algorithm_ids : Map[String, Int] = Map([])
-  let category_ids : Map[String, Int] = Map([])
-  let option_ids : Map[String, Int] = Map([])
-  let group_ids : Map[String, Int] = Map([])
+  let algorithm_ids : Map[String, Int32] = Map([])
+  let category_ids : Map[String, Int32] = Map([])
+  let option_ids : Map[String, Int32] = Map([])
+  let group_ids : Map[String, Int32] = Map([])
 
   for bundle_member in bundle.get_members() {
     match bundle_member {

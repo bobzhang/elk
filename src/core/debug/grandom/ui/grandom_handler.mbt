@@ -12,7 +12,7 @@ pub(all) struct CoreDebugGRandomHandler {
 
 ///|
 pub fn new_core_debug_grandom_handler(
-  project? : CoreDebugGRandomProject = new_core_debug_grandom_project(),
+  project~ : CoreDebugGRandomProject = new_core_debug_grandom_project(),
 ) -> CoreDebugGRandomHandler {
   { project, errors: [], }
 }
@@ -21,7 +21,7 @@ pub fn new_core_debug_grandom_handler(
 pub fn CoreDebugGRandomHandler::execute(
   self : CoreDebugGRandomHandler,
   selection : Array[CoreDebugGRandomSelectionItem],
-) -> Int raise {
+) -> Int32 raise {
   let parser = @ide.new_core_debug_grandom_parser()
   let mut processed = 0
   for item in selection {

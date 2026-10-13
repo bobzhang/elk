@@ -1,5 +1,5 @@
 ///|
-fn lport_internal_handle(port : @runtime.LPort) -> Int {
+fn lport_internal_handle(port : @runtime.LPort) -> Int32 {
   port.get_handle()
 }
 

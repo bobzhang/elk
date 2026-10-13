@@ -2,7 +2,7 @@
 pub fn greedy_rectangle_strip_overlap_remover_compare_by_y_coordinate(
   node1 : RectangleNode,
   node2 : RectangleNode,
-) -> Int {
+) -> Int32 {
   node1.get_rectangle().y.compare(node2.get_rectangle().y)
 }
 

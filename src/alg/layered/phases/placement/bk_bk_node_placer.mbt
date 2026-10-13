@@ -75,8 +75,8 @@ fn bk_node_placer_favor_straight_edges(layered_graph : @runtime.LGraph) -> Bool 
 ///|
 fn bk_node_placer_incident_to_inner_segment(
   node : @runtime.LNode,
-  layer1 : Int,
-  layer2 : Int,
+  layer1 : Int32,
+  layer2 : Int32,
   ni : NeighborhoodInformation,
 ) -> Bool {
   if !bk_node_placer_node_type_is_long_edge(node.get_type()) {
@@ -117,14 +117,14 @@ fn bk_node_placer_incident_to_inner_segment(
 fn bk_node_placer_mark_conflicts(
   layered_graph : @runtime.LGraph,
   ni : NeighborhoodInformation,
-  marked_edges : Map[Int, Bool],
+  marked_edges : Map[Int32, Bool],
 ) -> Unit {
   let number_of_layers = layered_graph.get_layers().length()
   if number_of_layers < 3 {
     return
   }
 
-  let layer_size : Array[Int] = []
+  let layer_size : Array[Int32] = []
   for layer in layered_graph.get_layers() {
     layer_size.push(layer.get_nodes().length())
   }
@@ -194,7 +194,7 @@ fn bk_node_placer_mark_conflicts(
 fn bk_node_placer_create_balanced_layout(
   l_graph : @runtime.LGraph,
   layouts : Array[BKAlignedLayout],
-  node_count : Int,
+  node_count : Int32,
 ) -> BKAlignedLayout raise BKAlignedLayoutException {
   if layouts.length() < 4 {
     return layouts[0]
@@ -330,7 +330,7 @@ fn bk_node_placer_process(
   ignore(monitor.begin("Brandes & Koepf node placement", 1.0))
 
   let ni = neighborhood_information_build_for(layered_graph)
-  let marked_edges : Map[Int, Bool] = Map([])
+  let marked_edges : Map[Int32, Bool] = Map([])
 
   let fixed_alignment = bk_node_placer_parse_fixed_alignment(
     layered_graph.get_property_string(

@@ -9,7 +9,7 @@ pub(all) struct AbstractLayoutDebugView {
   mut filter_enabled : Bool
   mut model_listener : IExecutionInfoModelListener?
   mut tree_expanded : Bool
-  mut refresh_count : Int
+  mut refresh_count : Int32
 }
 
 ///|
@@ -163,7 +163,7 @@ pub fn AbstractLayoutDebugView::execution_info_changed(
 ///|
 pub fn AbstractLayoutDebugView::get_refresh_count_for_test(
   self : AbstractLayoutDebugView,
-) -> Int {
+) -> Int32 {
   self.refresh_count
 }
 

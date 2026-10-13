@@ -98,7 +98,7 @@ pub struct NodeRelativePortDistributor {
 
 ///|
 pub fn new_node_relative_port_distributor(
-  num_layers : Int,
+  num_layers : Int32,
 ) -> NodeRelativePortDistributor {
   {
     distributor: new_abstract_barycenter_port_distributor(
@@ -125,7 +125,7 @@ pub fn NodeRelativePortDistributor::as_abstract_barycenter_port_distributor(
 pub fn NodeRelativePortDistributor::distribute_ports_while_sweeping(
   self : NodeRelativePortDistributor,
   node_order : Array[Array[@runtime.LNode]],
-  current_index : Int,
+  current_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool raise {
   self.distributor.distribute_ports_while_sweeping(
@@ -145,7 +145,7 @@ pub fn NodeRelativePortDistributor::calculate_port_ranks(
 ///|
 pub fn NodeRelativePortDistributor::init_at_layer_level(
   self : NodeRelativePortDistributor,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.distributor.init_at_layer_level(l, node_order)
@@ -154,8 +154,8 @@ pub fn NodeRelativePortDistributor::init_at_layer_level(
 ///|
 pub fn NodeRelativePortDistributor::init_at_node_level(
   self : NodeRelativePortDistributor,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.distributor.init_at_node_level(l, n, node_order)
@@ -164,9 +164,9 @@ pub fn NodeRelativePortDistributor::init_at_node_level(
 ///|
 pub fn NodeRelativePortDistributor::init_at_port_level(
   self : NodeRelativePortDistributor,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.distributor.init_at_port_level(l, n, p, node_order)

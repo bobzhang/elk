@@ -75,7 +75,7 @@ fn bk_aligner_get_edge(
 pub fn BKAligner::vertical_alignment(
   self : BKAligner,
   bal : BKAlignedLayout,
-  marked_edges : Map[Int, Bool],
+  marked_edges : Map[Int32, Bool],
 ) -> Unit raise BKAlignedLayoutException {
   for layer in self.layered_graph.get_layers() {
     for node in layer.get_nodes() {

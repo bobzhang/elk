@@ -65,7 +65,7 @@ fn[T] layer_constraint_processor_test_option_is_some(value : T?) -> Bool {
 ///|
 fn layer_constraint_processor_test_collect_layer_positions(
   graph : @runtime.LGraph,
-) -> (Array[Int], Array[Int], Array[Int], Array[Int], Array[Int]) {
+) -> (Array[Int32], Array[Int32], Array[Int32], Array[Int32], Array[Int32]) {
   let first_separate_layers = []
   let first_layers = []
   let none_layers = []

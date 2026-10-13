@@ -50,7 +50,7 @@ pub fn[A : Eq, B : Eq, C : Eq, D : Eq] Quadruple::equals(
 ///|
 pub fn[A : Hash, B : Hash, C : Hash, D : Hash] Quadruple::hash_code(
   self : Quadruple[A, B, C, D],
-) -> Int {
+) -> Int32 {
   self.first.hash() ^
   self.second.hash() ^
   self.third.hash() ^

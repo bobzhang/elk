@@ -32,9 +32,9 @@ pub(all) struct CoreUiExecutionEvent {
 
 ///|
 pub fn new_core_ui_execution_event(
-  parameters? : Map[String, String] = Map([]),
-  selection? : CoreUiLayoutSelection = CoreUiLayoutSelectionNone,
-  active_editor? : @service.ServiceWorkbenchPart? = None,
+  parameters~ : Map[String, String] = Map([]),
+  selection~ : CoreUiLayoutSelection = CoreUiLayoutSelectionNone,
+  active_editor~ : @service.ServiceWorkbenchPart? = None,
 ) -> CoreUiExecutionEvent {
   { parameters, selection, active_editor, }
 }

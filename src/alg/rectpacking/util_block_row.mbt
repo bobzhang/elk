@@ -75,7 +75,7 @@ pub fn BlockRow::expand(
   self : BlockRow,
   width_for_row : Double,
   additional_height_for_row : Double,
-  index : Int,
+  index : Int32,
 ) -> Unit {
   if self.nodes.is_empty() {
     self.width = width_for_row

@@ -9,7 +9,7 @@ pub(all) struct AlgorithmFactory {
 pub fn new_algorithm_factory(
   session : LayoutSession,
   create_algorithm_fn : () -> AbstractLayoutProvider,
-  parameter? : String? = None,
+  parameter~ : String? = None,
 ) -> AlgorithmFactory {
   { session, create_algorithm_fn, parameter, }
 }

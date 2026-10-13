@@ -18,8 +18,8 @@ fn dot_debug_util_node_type_color(node_type : NodeType) -> String {
 ///|
 fn dot_debug_util_node_label(
   node : LNode,
-  layer_number : Int,
-  node_number : Int,
+  layer_number : Int32,
+  node_number : Int32,
 ) -> String {
   let mut label = ""
 
@@ -47,7 +47,7 @@ fn dot_debug_util_node_label(
 ///|
 fn dot_debug_util_write_layer(
   writer : StringBuilder,
-  layer_number : Int,
+  layer_number : Int32,
   nodes : Array[LNode],
 ) -> Unit {
   if nodes.is_empty() {

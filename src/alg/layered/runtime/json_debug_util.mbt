@@ -87,8 +87,8 @@ fn json_debug_util_calculate_graph_size(
 ///|
 fn json_debug_util_node_label(
   node : LNode,
-  layer_number : Int,
-  node_number : Int,
+  layer_number : Int32,
+  node_number : Int32,
 ) -> String {
   let mut label = match node.get_designation() {
     Some(designation) => designation
@@ -112,7 +112,7 @@ fn json_debug_util_node_label(
 fn json_debug_util_append_edge_entries(
   node : LNode,
   edge_entries : Array[String],
-  edge_counter : Ref[Int],
+  edge_counter : Ref[Int32],
 ) -> Unit {
   for port in node.get_ports() {
     for edge in port.get_outgoing_edges() {
@@ -148,8 +148,8 @@ fn json_debug_util_append_edge_entries(
 fn json_debug_util_append_layer_nodes(
   node_entries : Array[String],
   edge_entries : Array[String],
-  edge_counter : Ref[Int],
-  layer_number : Int,
+  edge_counter : Ref[Int32],
+  layer_number : Int32,
   nodes : Array[LNode],
   offset : @core.KVector,
 ) -> Unit {
@@ -202,7 +202,7 @@ pub fn json_debug_util_create_debug_graph(lgraph : LGraph) -> String {
 
   let node_entries : Array[String] = []
   let edge_entries : Array[String] = []
-  let edge_counter : Ref[Int] = Ref(0)
+  let edge_counter : Ref[Int32] = Ref(0)
 
   json_debug_util_append_layer_nodes(
     node_entries,

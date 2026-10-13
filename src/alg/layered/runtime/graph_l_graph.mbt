@@ -1,8 +1,8 @@
 ///|
-let layered_l_graph_next_handle : Ref[Int] = Ref(1)
+let layered_l_graph_next_handle : Ref[Int32] = Ref(1)
 
 ///|
-fn layered_l_graph_allocate_handle() -> Int {
+fn layered_l_graph_allocate_handle() -> Int32 {
   let handle = layered_l_graph_next_handle.val
   layered_l_graph_next_handle.val = handle + 1
   handle
@@ -10,8 +10,8 @@ fn layered_l_graph_allocate_handle() -> Int {
 
 ///|
 pub struct LGraph {
-  mut id : Int
-  handle : Int
+  mut id : Int32
+  handle : Int32
   priv mut port_side_array_properties : Map[
     @graph.PropertyId,
     Array[@core.PortSide],
@@ -25,7 +25,7 @@ pub struct LGraph {
     Array[(LEdge, (LEdge, LGraph, PortType))],
   ]?
   priv mut node_array_properties : Map[@graph.PropertyId, Array[LNode]]?
-  priv mut int_properties : Map[@graph.PropertyId, Int]?
+  priv mut int_properties : Map[@graph.PropertyId, Int32]?
   priv mut bool_properties : Map[@graph.PropertyId, Bool]?
   priv mut double_properties : Map[@graph.PropertyId, Double]?
   priv mut string_properties : Map[@graph.PropertyId, String]?
@@ -83,17 +83,17 @@ pub fn new_l_graph() -> LGraph {
 }
 
 ///|
-pub fn LGraph::set_id(self : LGraph, id : Int) -> Unit {
+pub fn LGraph::set_id(self : LGraph, id : Int32) -> Unit {
   self.id = id
 }
 
 ///|
-pub fn LGraph::get_handle(self : LGraph) -> Int {
+pub fn LGraph::get_handle(self : LGraph) -> Int32 {
   self.handle
 }
 
 ///|
-pub fn LGraph::get_id(self : LGraph) -> Int {
+pub fn LGraph::get_id(self : LGraph) -> Int32 {
   self.id
 }
 
@@ -242,8 +242,8 @@ pub fn LGraph::has_property_l_node_array(
 ///|
 pub fn LGraph::set_property_int(
   self : LGraph,
-  property : @graph.IProperty[Int],
-  value : Int,
+  property : @graph.IProperty[Int32],
+  value : Int32,
 ) -> Unit {
   self.int_properties = Some(
     layered_property_bag_set(
@@ -257,8 +257,8 @@ pub fn LGraph::set_property_int(
 ///|
 pub fn LGraph::get_property_int(
   self : LGraph,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   match
     layered_property_bag_get(self.int_properties, property.get_property_id()) {
     Some(value) => value
@@ -269,7 +269,7 @@ pub fn LGraph::get_property_int(
 ///|
 pub fn LGraph::has_property_int(
   self : LGraph,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   layered_property_bag_has(self.int_properties, property.get_property_id())
 }

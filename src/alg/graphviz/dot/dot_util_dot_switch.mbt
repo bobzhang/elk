@@ -95,18 +95,18 @@ pub struct DotSwitch[T] {
 
 ///|
 pub fn[T] new_dot_switch(
-  case_graphviz_model? : (DotGraphvizModel) -> T? = _ => None,
-  case_graph? : (DotGraph) -> T? = _ => None,
-  case_statement? : (DotStatement) -> T? = _ => None,
-  case_attribute? : (DotAttribute) -> T? = _ => None,
-  case_node_statement? : (DotNodeStatement) -> T? = _ => None,
-  case_node? : (DotNode) -> T? = _ => None,
-  case_edge_statement? : (DotEdgeStatement) -> T? = _ => None,
-  case_edge_target? : (DotEdgeTarget) -> T? = _ => None,
-  case_attribute_statement? : (DotAttributeStatement) -> T? = _ => None,
-  case_subgraph? : (DotSubgraph) -> T? = _ => None,
-  case_port? : (DotPort) -> T? = _ => None,
-  default_case? : () -> T? = () => None,
+  case_graphviz_model~ : (DotGraphvizModel) -> T? = _ => None,
+  case_graph~ : (DotGraph) -> T? = _ => None,
+  case_statement~ : (DotStatement) -> T? = _ => None,
+  case_attribute~ : (DotAttribute) -> T? = _ => None,
+  case_node_statement~ : (DotNodeStatement) -> T? = _ => None,
+  case_node~ : (DotNode) -> T? = _ => None,
+  case_edge_statement~ : (DotEdgeStatement) -> T? = _ => None,
+  case_edge_target~ : (DotEdgeTarget) -> T? = _ => None,
+  case_attribute_statement~ : (DotAttributeStatement) -> T? = _ => None,
+  case_subgraph~ : (DotSubgraph) -> T? = _ => None,
+  case_port~ : (DotPort) -> T? = _ => None,
+  default_case~ : () -> T? = () => None,
 ) -> DotSwitch[T] {
   {
     model_package: dot_package_instance,

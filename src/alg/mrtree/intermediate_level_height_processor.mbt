@@ -1,7 +1,7 @@
 ///|
 fn mrtree_level_height_set_level_height(
   current_level : Array[MrtreeNode],
-  number_of_nodes : Int,
+  number_of_nodes : Int32,
   direction_value : String,
   progress_monitor : @core.IElkProgressMonitor?,
 ) -> Unit raise {

@@ -9,7 +9,7 @@ pub(all) struct LayoutDataProposal[T] {
 pub fn[T] new_layout_data_proposal(
   proposal : String,
   data : T,
-  label? : String? = None,
+  label~ : String? = None,
 ) -> LayoutDataProposal[T] {
   { proposal, label, data, }
 }
@@ -94,7 +94,7 @@ fn split_dotted(text : String) -> Array[String] {
 }
 
 ///|
-fn join_dotted(parts : Array[String], start : Int) -> String {
+fn join_dotted(parts : Array[String], start : Int32) -> String {
   let mut result = ""
   for i = start; i < parts.length(); i = i + 1 {
     if i > start {
@@ -106,7 +106,7 @@ fn join_dotted(parts : Array[String], start : Int) -> String {
 }
 
 ///|
-fn sub_parts(parts : Array[String], start : Int) -> Array[String] {
+fn sub_parts(parts : Array[String], start : Int32) -> Array[String] {
   let result = []
   for i = start; i < parts.length(); i = i + 1 {
     result.push(parts[i])
@@ -115,7 +115,7 @@ fn sub_parts(parts : Array[String], start : Int) -> Array[String] {
 }
 
 ///|
-fn count_group_dots(group : String) -> Int {
+fn count_group_dots(group : String) -> Int32 {
   if group.is_empty() {
     return 0
   }

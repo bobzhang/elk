@@ -1,17 +1,20 @@
 ///|
 pub struct ElkGraphJsonFormatter {
-  indent_size : Int
+  indent_size : Int32
 }
 
 ///|
 pub fn new_elk_graph_json_formatter(
-  indent_size? : Int = 2,
+  indent_size~ : Int32 = 2,
 ) -> ElkGraphJsonFormatter {
   { indent_size, }
 }
 
 ///|
-fn graph_json_text_formatter_indent(level : Int, indent_size : Int) -> String {
+fn graph_json_text_formatter_indent(
+  level : Int32,
+  indent_size : Int32,
+) -> String {
   let mut result = ""
   let mut i = 0
   while i < level * indent_size {
@@ -61,7 +64,7 @@ fn graph_json_text_formatter_shape_layout(
 fn graph_json_text_formatter_format_label(
   formatter : ElkGraphJsonFormatter,
   label : @graph.ElkLabel,
-  level : Int,
+  level : Int32,
 ) -> String {
   let indent = graph_json_text_formatter_indent(level, formatter.indent_size)
   let mut text = indent + "label "
@@ -91,7 +94,7 @@ fn graph_json_text_formatter_format_label(
 fn graph_json_text_formatter_format_port(
   formatter : ElkGraphJsonFormatter,
   port : @graph.ElkPort,
-  level : Int,
+  level : Int32,
 ) -> String {
   let indent = graph_json_text_formatter_indent(level, formatter.indent_size)
   let mut text = indent + "port " + @graph.port_identifier(port)
@@ -116,7 +119,7 @@ fn graph_json_text_formatter_format_port(
 fn graph_json_text_formatter_format_edge_section(
   formatter : ElkGraphJsonFormatter,
   section : @graph.ElkEdgeSection,
-  level : Int,
+  level : Int32,
 ) -> String {
   let indent = graph_json_text_formatter_indent(level, formatter.indent_size)
   let id = @graph.edge_section_identifier(section)
@@ -150,7 +153,7 @@ fn graph_json_text_formatter_format_edge_section(
 fn graph_json_text_formatter_format_edge(
   formatter : ElkGraphJsonFormatter,
   edge : @graph.ElkEdge,
-  level : Int,
+  level : Int32,
 ) -> String {
   let indent = graph_json_text_formatter_indent(level, formatter.indent_size)
   let mut text = indent + "edge "
@@ -198,7 +201,7 @@ fn graph_json_text_formatter_format_edge(
 fn graph_json_text_formatter_format_node(
   formatter : ElkGraphJsonFormatter,
   node : @graph.ElkNode,
-  level : Int,
+  level : Int32,
   root : Bool,
 ) -> String {
   let indent = graph_json_text_formatter_indent(level, formatter.indent_size)

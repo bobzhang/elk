@@ -1,8 +1,8 @@
 ///|
-let hyper_edge_segment_next_handle_ref : Ref[Int] = Ref(0)
+let hyper_edge_segment_next_handle_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn hyper_edge_segment_next_handle() -> Int {
+fn hyper_edge_segment_next_handle() -> Int32 {
   let handle = hyper_edge_segment_next_handle_ref.val
   hyper_edge_segment_next_handle_ref.val = handle + 1
   handle
@@ -27,21 +27,21 @@ fn hyper_edge_segment_insert_sorted(
 
 ///|
 pub struct HyperEdgeSegment {
-  segment_handle : Int
+  segment_handle : Int32
   routing_strategy : BaseRoutingDirectionStrategy
   ports : Array[@runtime.LPort]
-  mut mark : Int
-  mut routing_slot : Int
+  mut mark : Int32
+  mut routing_slot : Int32
   mut start_position : Double
   mut end_position : Double
   incoming_connection_coordinates : Array[Double]
   outgoing_connection_coordinates : Array[Double]
   outgoing_segment_dependencies : Array[HyperEdgeSegmentDependency]
-  mut out_dep_weight : Int
-  mut critical_out_dep_weight : Int
+  mut out_dep_weight : Int32
+  mut critical_out_dep_weight : Int32
   incoming_segment_dependencies : Array[HyperEdgeSegmentDependency]
-  mut in_dep_weight : Int
-  mut critical_in_dep_weight : Int
+  mut in_dep_weight : Int32
+  mut critical_in_dep_weight : Int32
   mut split_partner : HyperEdgeSegment?
   mut split_by : HyperEdgeSegment?
 }
@@ -90,7 +90,7 @@ pub fn new_hyper_edge_segment(
 pub fn HyperEdgeSegment::add_port_positions(
   self : HyperEdgeSegment,
   port : @runtime.LPort,
-  hyper_edge_segment_map : Map[Int, HyperEdgeSegment],
+  hyper_edge_segment_map : Map[Int32, HyperEdgeSegment],
 ) -> Unit {
   hyper_edge_segment_map[@runtime.lport_internal_handle(port)] = self
   self.ports.push(port)
@@ -130,29 +130,32 @@ pub fn HyperEdgeSegment::get_ports(
 }
 
 ///|
-pub fn HyperEdgeSegment::get_handle(self : HyperEdgeSegment) -> Int {
+pub fn HyperEdgeSegment::get_handle(self : HyperEdgeSegment) -> Int32 {
   self.segment_handle
 }
 
 ///|
-pub fn HyperEdgeSegment::get_routing_slot(self : HyperEdgeSegment) -> Int {
+pub fn HyperEdgeSegment::get_routing_slot(self : HyperEdgeSegment) -> Int32 {
   self.routing_slot
 }
 
 ///|
-pub fn HyperEdgeSegment::get_mark(self : HyperEdgeSegment) -> Int {
+pub fn HyperEdgeSegment::get_mark(self : HyperEdgeSegment) -> Int32 {
   self.mark
 }
 
 ///|
-pub fn HyperEdgeSegment::set_mark(self : HyperEdgeSegment, mark : Int) -> Unit {
+pub fn HyperEdgeSegment::set_mark(
+  self : HyperEdgeSegment,
+  mark : Int32,
+) -> Unit {
   self.mark = mark
 }
 
 ///|
 pub fn HyperEdgeSegment::set_routing_slot(
   self : HyperEdgeSegment,
-  slot : Int,
+  slot : Int32,
 ) -> Unit {
   self.routing_slot = slot
 }
@@ -191,14 +194,14 @@ pub fn HyperEdgeSegment::get_outgoing_segment_dependencies(
 }
 
 ///|
-pub fn HyperEdgeSegment::get_out_weight(self : HyperEdgeSegment) -> Int {
+pub fn HyperEdgeSegment::get_out_weight(self : HyperEdgeSegment) -> Int32 {
   self.out_dep_weight
 }
 
 ///|
 pub fn HyperEdgeSegment::set_out_weight(
   self : HyperEdgeSegment,
-  out_weight : Int,
+  out_weight : Int32,
 ) -> Unit {
   self.out_dep_weight = out_weight
 }
@@ -206,14 +209,14 @@ pub fn HyperEdgeSegment::set_out_weight(
 ///|
 pub fn HyperEdgeSegment::get_critical_out_weight(
   self : HyperEdgeSegment,
-) -> Int {
+) -> Int32 {
   self.critical_out_dep_weight
 }
 
 ///|
 pub fn HyperEdgeSegment::set_critical_out_weight(
   self : HyperEdgeSegment,
-  out_weight : Int,
+  out_weight : Int32,
 ) -> Unit {
   self.critical_out_dep_weight = out_weight
 }
@@ -226,27 +229,29 @@ pub fn HyperEdgeSegment::get_incoming_segment_dependencies(
 }
 
 ///|
-pub fn HyperEdgeSegment::get_in_weight(self : HyperEdgeSegment) -> Int {
+pub fn HyperEdgeSegment::get_in_weight(self : HyperEdgeSegment) -> Int32 {
   self.in_dep_weight
 }
 
 ///|
 pub fn HyperEdgeSegment::set_in_weight(
   self : HyperEdgeSegment,
-  in_weight : Int,
+  in_weight : Int32,
 ) -> Unit {
   self.in_dep_weight = in_weight
 }
 
 ///|
-pub fn HyperEdgeSegment::get_critical_in_weight(self : HyperEdgeSegment) -> Int {
+pub fn HyperEdgeSegment::get_critical_in_weight(
+  self : HyperEdgeSegment,
+) -> Int32 {
   self.critical_in_dep_weight
 }
 
 ///|
 pub fn HyperEdgeSegment::set_critical_in_weight(
   self : HyperEdgeSegment,
-  in_weight : Int,
+  in_weight : Int32,
 ) -> Unit {
   self.critical_in_dep_weight = in_weight
 }
@@ -405,7 +410,7 @@ pub fn HyperEdgeSegment::split_at(
 pub fn HyperEdgeSegment::compare_to(
   self : HyperEdgeSegment,
   other : HyperEdgeSegment,
-) -> Int {
+) -> Int32 {
   self.get_mark() - other.get_mark()
 }
 
@@ -418,7 +423,7 @@ pub fn HyperEdgeSegment::equals(
 }
 
 ///|
-pub fn HyperEdgeSegment::hash_code(self : HyperEdgeSegment) -> Int {
+pub fn HyperEdgeSegment::hash_code(self : HyperEdgeSegment) -> Int32 {
   self.get_mark()
 }
 

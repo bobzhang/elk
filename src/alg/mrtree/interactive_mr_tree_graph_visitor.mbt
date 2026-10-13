@@ -1,6 +1,6 @@
 ///|
 pub struct InteractiveMrtreeGraphVisitor {
-  marker : Int
+  marker : Int32
 }
 
 ///|

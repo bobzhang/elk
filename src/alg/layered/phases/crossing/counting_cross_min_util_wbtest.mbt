@@ -1,5 +1,5 @@
 ///|
-fn cross_min_port_ids(ports : Array[@runtime.LPort]) -> Array[Int] {
+fn cross_min_port_ids(ports : Array[@runtime.LPort]) -> Array[Int32] {
   let ids = []
   for port in ports {
     ids.push(port.get_id())

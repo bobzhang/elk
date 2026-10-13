@@ -1,5 +1,5 @@
 ///|
-fn graphviz_dot_writer_indent(output : StringBuilder, depth : Int) -> Unit {
+fn graphviz_dot_writer_indent(output : StringBuilder, depth : Int32) -> Unit {
   for i = 0; i < depth; i = i + 1 {
     output.write_string("  ")
   }
@@ -69,7 +69,7 @@ fn graphviz_dot_writer_node(node : DotNode) -> String {
 fn graphviz_dot_writer_attribute_statement(
   output : StringBuilder,
   statement : DotAttributeStatement,
-  depth : Int,
+  depth : Int32,
 ) -> Unit {
   let statement_type = match statement.get_type() {
     DotAttributeTypeGraph => "graph"
@@ -89,7 +89,7 @@ fn graphviz_dot_writer_attribute_statement(
 fn graphviz_dot_writer_node_statement(
   output : StringBuilder,
   statement : DotNodeStatement,
-  depth : Int,
+  depth : Int32,
 ) -> Unit {
   graphviz_dot_writer_indent(output, depth)
   match statement.get_node() {
@@ -116,7 +116,7 @@ fn graphviz_dot_writer_edge_operator(operator : DotEdgeOperator) -> String {
 fn graphviz_dot_writer_edge_statement(
   output : StringBuilder,
   statement : DotEdgeStatement,
-  depth : Int,
+  depth : Int32,
 ) -> Unit {
   graphviz_dot_writer_indent(output, depth)
   match statement.get_source_node() {
@@ -150,7 +150,10 @@ fn graphviz_dot_writer_edge_statement(
 }
 
 ///|
-fn graphviz_dot_writer_subgraph(subgraph : DotSubgraph, depth : Int) -> String {
+fn graphviz_dot_writer_subgraph(
+  subgraph : DotSubgraph,
+  depth : Int32,
+) -> String {
   let output = StringBuilder()
   output.write_string("subgraph")
   match subgraph.get_name() {
@@ -173,7 +176,7 @@ fn graphviz_dot_writer_subgraph(subgraph : DotSubgraph, depth : Int) -> String {
 fn graphviz_dot_writer_statement(
   output : StringBuilder,
   statement : DotStatement,
-  depth : Int,
+  depth : Int32,
 ) -> Unit {
   match statement {
     DotStatementBase => ()
@@ -239,9 +242,9 @@ pub fn graphviz_dot_serialize_model(model : DotGraphvizModel) -> String {
 ///|
 pub fn graphviz_dot_serialize_model_bytes(
   model : DotGraphvizModel,
-) -> Array[Int] {
+) -> Array[Int32] {
   let bytes = @utf8.encode(graphviz_dot_serialize_model(model))
-  let result : Array[Int] = []
+  let result : Array[Int32] = []
   for byte in bytes {
     result.push(byte.to_int())
   }
@@ -250,7 +253,7 @@ pub fn graphviz_dot_serialize_model_bytes(
 
 ///|
 pub fn graphviz_dot_parse_model_bytes(
-  bytes : Array[Int],
+  bytes : Array[Int32],
 ) -> DotGraphvizModel raise {
   let encoded : Array[Byte] = []
   for byte in bytes {

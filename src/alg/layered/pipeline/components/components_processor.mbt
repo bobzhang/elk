@@ -4,7 +4,7 @@ pub let layered_components_separate_connected_components : @graph.IProperty[
 ] = @graph.new_property("org.eclipse.elk.separateConnectedComponents", true)
 
 ///|
-pub let layered_components_priority : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_components_priority : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.priority", 0,
 )
 

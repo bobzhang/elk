@@ -9,7 +9,7 @@ fn j_arr(items : Array[Json]) -> Json {
 }
 
 ///|
-fn j_num(value : Int) -> Json {
+fn j_num(value : Int32) -> Json {
   Json::number(value.to_double())
 }
 
@@ -35,7 +35,7 @@ fn json_arr(json : Json) -> Array[Json] {
 }
 
 ///|
-fn json_int_field(json : Json, key : String) -> Int {
+fn json_int_field(json : Json, key : String) -> Int32 {
   let obj = json_obj(json)
   match obj.get(key) {
     Some(Number(value, repr~)) => {
@@ -182,7 +182,7 @@ fn make_cycle_first_graph() -> Json {
 }
 
 ///|
-fn make_linear_graph(node_count : Int) -> Json {
+fn make_linear_graph(node_count : Int32) -> Json {
   let children = []
   for i = 0; i < node_count; i = i + 1 {
     children.push(

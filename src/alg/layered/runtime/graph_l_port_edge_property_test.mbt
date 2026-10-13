@@ -1,7 +1,7 @@
 ///|
 test "LPort supports int properties with defaults and presence checks" {
   let port = new_l_port()
-  let property : @graph.IProperty[Int] = @graph.new_property(
+  let property : @graph.IProperty[Int32] = @graph.new_property(
     "moon_elk.test.port.int", -7,
   )
 
@@ -16,7 +16,7 @@ test "LPort supports int properties with defaults and presence checks" {
 ///|
 test "LEdge supports int properties with defaults and presence checks" {
   let edge = new_l_edge()
-  let property : @graph.IProperty[Int] = @graph.new_property(
+  let property : @graph.IProperty[Int32] = @graph.new_property(
     "moon_elk.test.edge.int", -11,
   )
 

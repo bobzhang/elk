@@ -25,7 +25,7 @@ priv struct MrtreeGraphData {
   mut edge_end_texture_length : Double
   mut aspect_ratio : Double
   mut padding : @core.ElkPadding
-  mut priority : Int
+  mut priority : Int32
   mut bb_up_left : @core.KVector
   mut bb_low_right : @core.KVector
   mut graph_xmin : Double
@@ -316,14 +316,14 @@ pub fn mrtree_graph_padding(graph : MrtreeGraph) -> @core.ElkPadding {
 }
 
 ///|
-pub fn mrtree_graph_set_priority(graph : MrtreeGraph, priority : Int) -> Unit {
+pub fn mrtree_graph_set_priority(graph : MrtreeGraph, priority : Int32) -> Unit {
   let graph_data = graph.data
   graph_data.priority = priority
   set_mrtree_graph_data(graph, graph_data)
 }
 
 ///|
-pub fn mrtree_graph_priority(graph : MrtreeGraph) -> Int {
+pub fn mrtree_graph_priority(graph : MrtreeGraph) -> Int32 {
   graph.data.priority
 }
 

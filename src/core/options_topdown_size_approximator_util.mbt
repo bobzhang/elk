@@ -49,7 +49,7 @@ pub fn topdown_size_approximator_util_get_size_category_multiplier(
 ///|
 pub fn topdown_size_approximator_util_get_graph_size(
   original_graph : @graph.ElkNode,
-) -> Int {
+) -> Int32 {
   let mut sum = 0
   let hierarchical_node_weight = @graph.node_get_int_property(
     original_graph, topdown_size_categories_hierarchical_node_weight,

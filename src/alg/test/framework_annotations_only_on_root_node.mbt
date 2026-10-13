@@ -1,6 +1,6 @@
 ///|
 pub struct OnlyOnRootNode {
-  marker : Int
+  marker : Int32
 }
 
 ///|

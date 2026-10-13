@@ -1,24 +1,24 @@
 ///|
 priv struct NorthSouthTargetAndDegree {
   target : @runtime.LPort
-  degree : Int
+  degree : Int32
 }
 
 ///|
 pub struct CrossingsCounter {
-  port_positions : Array[Int]
+  port_positions : Array[Int32]
   mut index_tree : BinaryIndexedTree?
-  ends : Array[Int]
-  mut node_cardinalities : Array[Int]
+  ends : Array[Int32]
+  mut node_cardinalities : Array[Int32]
 }
 
 ///|
-pub fn new_crossings_counter(port_positions : Array[Int]) -> CrossingsCounter {
+pub fn new_crossings_counter(port_positions : Array[Int32]) -> CrossingsCounter {
   { port_positions, index_tree: None, ends: [], node_cardinalities: [], }
 }
 
 ///|
-fn crossings_counter_pop_end(ends : Array[Int]) -> Int {
+fn crossings_counter_pop_end(ends : Array[Int32]) -> Int32 {
   ends.pop().unwrap()
 }
 
@@ -62,7 +62,7 @@ fn crossings_counter_sort_ports_by_position(
 fn crossings_counter_node_cardinality(
   counter : CrossingsCounter,
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let node_id = node.get_id()
   if node_id >= 0 && node_id < counter.node_cardinalities.length() {
     counter.node_cardinalities[node_id]
@@ -91,7 +91,7 @@ pub fn CrossingsCounter::count_crossings_between_layers(
   self : CrossingsCounter,
   left_layer_nodes : Array[@runtime.LNode],
   right_layer_nodes : Array[@runtime.LNode],
-) -> Int {
+) -> Int32 {
   let ports = self.init_port_positions_counter_clockwise(
     left_layer_nodes, right_layer_nodes,
   )
@@ -104,7 +104,7 @@ pub fn CrossingsCounter::count_in_layer_crossings_on_side(
   self : CrossingsCounter,
   nodes : Array[@runtime.LNode],
   side : @core.PortSide,
-) -> Int {
+) -> Int32 {
   let ports = self.init_port_positions_for_in_layer_crossings(nodes, side)
   self.count_in_layer_crossings_on_ports(ports)
 }
@@ -113,7 +113,7 @@ pub fn CrossingsCounter::count_in_layer_crossings_on_side(
 pub fn CrossingsCounter::count_north_south_port_crossings_in_layer(
   self : CrossingsCounter,
   layer : Array[@runtime.LNode],
-) -> Int {
+) -> Int32 {
   let ports = self.init_positions_for_north_south_counting(layer)
   self.index_tree = Some(new_binary_indexed_tree(ports.length()))
   self.count_north_south_crossings_on_ports(ports)
@@ -124,7 +124,7 @@ pub fn CrossingsCounter::count_crossings_between_ports_in_both_orders(
   self : CrossingsCounter,
   upper_port : @runtime.LPort,
   lower_port : @runtime.LPort,
-) -> @core.Pair[Int, Int] {
+) -> @core.Pair[Int32, Int32] {
   let ports = self.connected_ports_sorted_by_position(upper_port, lower_port)
   let upper_lower_crossings = self.count_crossings_on_ports(ports)
 
@@ -147,7 +147,7 @@ pub fn CrossingsCounter::count_in_layer_crossings_between_nodes_in_both_orders(
   upper_node : @runtime.LNode,
   lower_node : @runtime.LNode,
   side : @core.PortSide,
-) -> @core.Pair[Int, Int] {
+) -> @core.Pair[Int32, Int32] {
   let ports = self.connected_in_layer_ports_sorted_by_position(
     upper_node, lower_node, side,
   )
@@ -279,7 +279,7 @@ fn CrossingsCounter::connected_ports_sorted_by_position(
 fn CrossingsCounter::count_crossings_on_ports(
   self : CrossingsCounter,
   ports : Array[@runtime.LPort],
-) -> Int {
+) -> Int32 {
   let tree = crossings_counter_tree(self)
   let mut crossings = 0
 
@@ -308,7 +308,7 @@ fn CrossingsCounter::count_crossings_on_ports(
 fn CrossingsCounter::count_in_layer_crossings_on_ports(
   self : CrossingsCounter,
   ports : Array[@runtime.LPort],
-) -> Int {
+) -> Int32 {
   let tree = crossings_counter_tree(self)
   let mut crossings = 0
 
@@ -342,7 +342,7 @@ fn CrossingsCounter::count_in_layer_crossings_on_ports(
 fn CrossingsCounter::count_north_south_crossings_on_ports(
   self : CrossingsCounter,
   ports : Array[@runtime.LPort],
-) -> Int {
+) -> Int32 {
   let tree = crossings_counter_tree(self)
   let mut crossings = 0
 
@@ -542,8 +542,8 @@ fn CrossingsCounter::empty_stack(
   stack : Array[@runtime.LNode],
   ports : Array[@runtime.LPort],
   side : @core.PortSide,
-  start_index : Int,
-) -> Int {
+  start_index : Int32,
+) -> Int32 {
   let mut index = start_index
 
   while !stack.is_empty() {
@@ -599,7 +599,7 @@ fn CrossingsCounter::start(
   _self : CrossingsCounter,
   nodes : Array[@runtime.LNode],
   top_down : Bool,
-) -> Int {
+) -> Int32 {
   if top_down {
     0
   } else {
@@ -610,7 +610,7 @@ fn CrossingsCounter::start(
 ///|
 fn CrossingsCounter::end(
   _self : CrossingsCounter,
-  i : Int,
+  i : Int32,
   top_down : Bool,
   nodes : Array[@runtime.LNode],
 ) -> Bool {
@@ -622,7 +622,7 @@ fn CrossingsCounter::end(
 }
 
 ///|
-fn CrossingsCounter::step(_self : CrossingsCounter, top_down : Bool) -> Int {
+fn CrossingsCounter::step(_self : CrossingsCounter, top_down : Bool) -> Int32 {
   if top_down {
     1
   } else {
@@ -665,7 +665,7 @@ fn CrossingsCounter::is_in_layer(
 fn CrossingsCounter::position_of(
   self : CrossingsCounter,
   port : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   self.port_positions[port.get_id()]
 }
 

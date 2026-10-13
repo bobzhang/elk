@@ -1,8 +1,8 @@
 ///|
 pub struct BiLinkedHashMultiMap[V] {
-  key_to_values : Map[Int, Array[V]]
-  value_to_key : Map[V, Int]
-  key_order : Array[Int]
+  key_to_values : Map[Int32, Array[V]]
+  value_to_key : Map[V, Int32]
+  key_order : Array[Int32]
 }
 
 ///|
@@ -24,7 +24,7 @@ fn[T : Eq] bi_linked_remove_first(values : Array[T], target : T) -> Bool {
 ///|
 pub fn[V : Hash + Eq] BiLinkedHashMultiMap::put_all(
   self : BiLinkedHashMultiMap[V],
-  key : Int,
+  key : Int32,
   values : Array[V],
 ) -> Unit raise {
   for value in values {
@@ -35,7 +35,7 @@ pub fn[V : Hash + Eq] BiLinkedHashMultiMap::put_all(
 ///|
 pub fn[V : Hash + Eq] BiLinkedHashMultiMap::put(
   self : BiLinkedHashMultiMap[V],
-  key : Int,
+  key : Int32,
   value : V,
 ) -> Unit raise {
   match self.value_to_key.get(value) {
@@ -66,14 +66,14 @@ pub fn[V : Hash + Eq] BiLinkedHashMultiMap::put(
 pub fn[V : Hash + Eq] BiLinkedHashMultiMap::get_key(
   self : BiLinkedHashMultiMap[V],
   value : V,
-) -> Int? {
+) -> Int32? {
   self.value_to_key.get(value)
 }
 
 ///|
 pub fn[V] BiLinkedHashMultiMap::get_values(
   self : BiLinkedHashMultiMap[V],
-  key : Int,
+  key : Int32,
 ) -> Array[V] {
   match self.key_to_values.get(key) {
     Some(values) => values
@@ -84,14 +84,14 @@ pub fn[V] BiLinkedHashMultiMap::get_values(
 ///|
 pub fn[V] BiLinkedHashMultiMap::key_set(
   self : BiLinkedHashMultiMap[V],
-) -> Array[Int] {
+) -> Array[Int32] {
   self.key_order
 }
 
 ///|
 pub fn[V] BiLinkedHashMultiMap::is_maximal_key(
   self : BiLinkedHashMultiMap[V],
-  key : Int,
+  key : Int32,
 ) -> Bool {
   for other_key in self.key_order {
     if key < other_key {
@@ -104,7 +104,7 @@ pub fn[V] BiLinkedHashMultiMap::is_maximal_key(
 ///|
 pub fn[V] BiLinkedHashMultiMap::is_minimal_key(
   self : BiLinkedHashMultiMap[V],
-  key : Int,
+  key : Int32,
 ) -> Bool {
   for other_key in self.key_order {
     if key > other_key {

@@ -1,8 +1,8 @@
 ///|
-let forster_constraint_group_next_handle_ref : Ref[Int] = Ref(0)
+let forster_constraint_group_next_handle_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn forster_constraint_group_next_handle() -> Int {
+fn forster_constraint_group_next_handle() -> Int32 {
   let handle = forster_constraint_group_next_handle_ref.val
   forster_constraint_group_next_handle_ref.val = handle + 1
   handle
@@ -38,7 +38,7 @@ fn forster_group_list_contains(
 fn forster_group_list_index_of(
   groups : Array[ConstraintGroup],
   target : ConstraintGroup,
-) -> Int {
+) -> Int32 {
   for i in 0..<groups.length() {
     if forster_group_is(groups[i], target) {
       return i
@@ -70,7 +70,7 @@ fn forster_group_barycenter_value(group : ConstraintGroup) -> Double {
 pub struct BarycenterState {
   node : @runtime.LNode
   mut summed_weight : Double
-  mut degree : Int
+  mut degree : Int32
   mut barycenter : Double?
   mut visited : Bool
 }
@@ -97,14 +97,14 @@ pub fn BarycenterState::to_string(self : BarycenterState) -> String {
 
 ///|
 struct ConstraintGroup {
-  group_handle : Int
+  group_handle : Int32
   summed_weight : Double
-  degree : Int
+  degree : Int32
   nodes : Array[@runtime.LNode]
   mut barycenter : Double?
   mut outgoing_constraints : Array[ConstraintGroup]?
   mut incoming_constraints : Array[ConstraintGroup]?
-  mut incoming_constraints_count : Int
+  mut incoming_constraints_count : Int32
 }
 
 ///|
@@ -279,7 +279,7 @@ fn ConstraintGroup::get_node(self : ConstraintGroup) -> @runtime.LNode {
 ///|
 pub struct ForsterConstraintResolver {
   constraints_between_non_dummies : Bool
-  layout_units : Map[Int, Array[@runtime.LNode]]
+  layout_units : Map[Int32, Array[@runtime.LNode]]
   barycenter_states : Array[Array[BarycenterState?]]
   constraint_groups : Array[Array[ConstraintGroup?]]
 }
@@ -375,7 +375,7 @@ fn ForsterConstraintResolver::init_at_node_level_internal(
 ///|
 pub fn ForsterConstraintResolver::init_at_layer_level(
   self : ForsterConstraintResolver,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.barycenter_states[l] = Array::make(node_order[l].length(), None)
@@ -392,8 +392,8 @@ pub fn ForsterConstraintResolver::init_at_layer_level(
 ///|
 pub fn ForsterConstraintResolver::init_at_node_level(
   self : ForsterConstraintResolver,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   ignore(l)

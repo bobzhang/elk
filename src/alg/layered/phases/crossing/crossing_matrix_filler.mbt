@@ -1,5 +1,5 @@
 ///|
-fn crossing_matrix_new_bool_matrix(size : Int) -> Array[Array[Bool]] {
+fn crossing_matrix_new_bool_matrix(size : Int32) -> Array[Array[Bool]] {
   let matrix = []
   for _ in 0..<size {
     matrix.push(Array::make(size, false))
@@ -8,7 +8,7 @@ fn crossing_matrix_new_bool_matrix(size : Int) -> Array[Array[Bool]] {
 }
 
 ///|
-fn crossing_matrix_new_int_matrix(size : Int) -> Array[Array[Int]] {
+fn crossing_matrix_new_int_matrix(size : Int32) -> Array[Array[Int32]] {
   let matrix = []
   for _ in 0..<size {
     matrix.push(Array::make(size, 0))
@@ -40,7 +40,7 @@ pub fn crossing_count_side_values() -> Array[CrossingCountSide] {
 ///|
 pub struct CrossingMatrixFiller {
   is_crossing_matrix_filled : Array[Array[Bool]]
-  crossing_matrix : Array[Array[Int]]
+  crossing_matrix : Array[Array[Int32]]
   in_between_layer_crossing_counter : BetweenLayerEdgeTwoNodeCrossingsCounter
   direction : CrossingCountSide
   one_sided : Bool
@@ -50,7 +50,7 @@ pub struct CrossingMatrixFiller {
 pub fn new_crossing_matrix_filler(
   greedy_switch_type : @options.GreedySwitchType,
   graph : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
   direction : CrossingCountSide,
 ) -> CrossingMatrixFiller raise {
   let effective_free_layer_index = if free_layer_index < 0 ||
@@ -89,7 +89,7 @@ pub fn CrossingMatrixFiller::get_crossing_matrix_entry(
   self : CrossingMatrixFiller,
   upper_node : @runtime.LNode,
   lower_node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let upper_id = upper_node.get_id()
   let lower_id = lower_node.get_id()
   if !self.is_crossing_matrix_filled[upper_id][lower_id] {

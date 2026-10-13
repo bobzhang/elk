@@ -12,7 +12,7 @@ pub(all) struct LayoutViewPart {
   mut current_prop_source_provider : LayoutPropertySourceProvider?
   mut categories_checked : Bool
   mut advanced_checked : Bool
-  mut refresh_count : Int
+  mut refresh_count : Int32
   mut selection_entries : Array[ValidatingPropertySheetEntry]
   mut focused : Bool
 }
@@ -92,7 +92,7 @@ pub fn LayoutViewPart::refresh(self : LayoutViewPart) -> Unit {
 }
 
 ///|
-pub fn LayoutViewPart::get_refresh_count(self : LayoutViewPart) -> Int {
+pub fn LayoutViewPart::get_refresh_count(self : LayoutViewPart) -> Int32 {
   self.refresh_count
 }
 

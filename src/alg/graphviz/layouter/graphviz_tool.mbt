@@ -27,10 +27,10 @@ pub let graphviz_tool_pref_graphviz_executable : String = "graphviz.executable"
 pub let graphviz_tool_pref_timeout : String = "graphviz.timeout"
 
 ///|
-let graphviz_tool_process_def_timeout_ref : Ref[Int] = Ref(20000)
+let graphviz_tool_process_def_timeout_ref : Ref[Int32] = Ref(20000)
 
 ///|
-pub let graphviz_tool_process_min_timeout : Int = 200
+pub let graphviz_tool_process_min_timeout : Int32 = 200
 
 ///|
 let graphviz_tool_program_files_folders : Array[String] = [
@@ -47,7 +47,7 @@ let graphviz_tool_arg_nowarnings : String = "-q"
 let graphviz_tool_arg_invertyaxis : String = "-y"
 
 ///|
-let graphviz_tool_max_error_output : Int = 512
+let graphviz_tool_max_error_output : Int32 = 512
 
 ///|
 let graphviz_tool_default_locs_ref : Ref[Array[String]] = Ref([])
@@ -134,7 +134,7 @@ pub struct GraphvizProcess {
   error_stream : GraphvizInputStream
   destroy_fn : () -> Unit
   close_fn : () -> Unit
-  exit_value_fn : () -> Int?
+  exit_value_fn : () -> Int32?
 }
 
 ///|
@@ -142,9 +142,9 @@ pub fn new_graphviz_process(
   output_stream : GraphvizOutputStream,
   input_stream : GraphvizInputStream,
   error_stream : GraphvizInputStream,
-  destroy_fn? : () -> Unit = () => (),
-  close_fn? : () -> Unit = () => (),
-  exit_value_fn? : () -> Int? = () => None,
+  destroy_fn~ : () -> Unit = () => (),
+  close_fn~ : () -> Unit = () => (),
+  exit_value_fn~ : () -> Int32? = () => None,
 ) -> GraphvizProcess {
   {
     output_stream,
@@ -188,7 +188,7 @@ pub fn GraphvizProcess::close(self : GraphvizProcess) -> Unit {
 }
 
 ///|
-pub fn GraphvizProcess::exit_value(self : GraphvizProcess) -> Int? {
+pub fn GraphvizProcess::exit_value(self : GraphvizProcess) -> Int32? {
   (self.exit_value_fn)()
 }
 
@@ -222,13 +222,13 @@ pub fn new_graphviz_tool(
 }
 
 ///|
-pub fn graphviz_tool_get_process_default_timeout() -> Int {
+pub fn graphviz_tool_get_process_default_timeout() -> Int32 {
   graphviz_tool_process_def_timeout_ref.val
 }
 
 ///|
 pub fn graphviz_tool_set_process_default_timeout_for_test(
-  timeout : Int,
+  timeout : Int32,
 ) -> Unit {
   graphviz_tool_process_def_timeout_ref.val = timeout
 }
@@ -251,8 +251,8 @@ pub fn graphviz_tool_set_default_locations_for_test(
 ///|
 pub fn graphviz_tool_set_environment_for_test(
   env_path : String?,
-  file_separator? : String = "/",
-  path_separator? : String = ":",
+  file_separator~ : String = "/",
+  path_separator~ : String = ":",
 ) -> Unit {
   graphviz_tool_configure_environment(
     env_path,
@@ -264,8 +264,8 @@ pub fn graphviz_tool_set_environment_for_test(
 ///|
 pub fn graphviz_tool_configure_environment(
   env_path : String?,
-  file_separator? : String = "/",
-  path_separator? : String = ":",
+  file_separator~ : String = "/",
+  path_separator~ : String = ":",
 ) -> Unit {
   graphviz_tool_env_path_ref.val = env_path
   graphviz_tool_file_separator_ref.val = file_separator
@@ -372,7 +372,7 @@ pub fn graphviz_tool_get_dot_executable() -> String raise GraphvizException {
 }
 
 ///|
-pub fn graphviz_tool_current_timeout() -> Int {
+pub fn graphviz_tool_current_timeout() -> Int32 {
   let mut timeout = graphviz_tool_process_def_timeout_ref.val
   if graphviz_layouter_is_eclipse_running() {
     let preference = graphviz_layouter_preference_store_access_get_ui_save_int(
@@ -388,9 +388,9 @@ pub fn graphviz_tool_current_timeout() -> Int {
 ///|
 fn graphviz_tool_read_limited(
   stream : GraphvizInputStream,
-  max_bytes : Int,
-) -> Array[Int] {
-  let bytes : Array[Int] = []
+  max_bytes : Int32,
+) -> Array[Int32] {
+  let bytes : Array[Int32] = []
   let mut next = stream.read()
   while next >= 0 && bytes.length() < max_bytes {
     bytes.push(next)
@@ -400,7 +400,7 @@ fn graphviz_tool_read_limited(
 }
 
 ///|
-fn graphviz_tool_exit_value_error(exit_value : Int) -> String {
+fn graphviz_tool_exit_value_error(exit_value : Int32) -> String {
   let buffer = StringBuilder()
   buffer.write_string("Process terminated with exit value ")
   buffer.write_string(exit_value.to_string())
@@ -436,13 +436,13 @@ fn graphviz_tool_exit_value_error(exit_value : Int) -> String {
 ///|
 priv struct GraphvizStreamState {
   stream : GraphvizInputStream
-  mut depth : Int
-  mut finished : Int
-  mut buf : Int
+  mut depth : Int32
+  mut finished : Int32
+  mut buf : Int32
 }
 
 ///|
-fn graphviz_stream_read(state : GraphvizStreamState) -> Int {
+fn graphviz_stream_read(state : GraphvizStreamState) -> Int32 {
   if state.buf >= 0 {
     let c = state.buf
     state.buf = -1
@@ -477,7 +477,11 @@ fn graphviz_stream_read(state : GraphvizStreamState) -> Int {
 fn graphviz_stream_wrap(stream : GraphvizInputStream) -> GraphvizInputStream {
   let state = { stream, depth: 0, finished: 0, buf: -1, }
   let read_fn = () => graphviz_stream_read(state)
-  let read_bytes_with_offset_fn = (bytes : Array[Int], off : Int, len : Int) => {
+  let read_bytes_with_offset_fn = (
+    bytes : Array[Int32],
+    off : Int32,
+    len : Int32,
+  ) => {
     if len <= 0 {
       return 0
     }
@@ -492,10 +496,10 @@ fn graphviz_stream_wrap(stream : GraphvizInputStream) -> GraphvizInputStream {
     }
     len
   }
-  let read_bytes_fn = (bytes : Array[Int]) => {
+  let read_bytes_fn = (bytes : Array[Int32]) => {
     read_bytes_with_offset_fn(bytes, 0, bytes.length())
   }
-  let skip_fn = (n : Int) => {
+  let skip_fn = (n : Int32) => {
     let mut count = 0
     while count < n {
       if graphviz_stream_read(state) < 0 {
@@ -507,7 +511,7 @@ fn graphviz_stream_wrap(stream : GraphvizInputStream) -> GraphvizInputStream {
   }
   let available_fn = () => state.stream.available()
   let close_fn = () => state.stream.close()
-  let mark_fn = (readlimit : Int) => state.stream.mark(readlimit)
+  let mark_fn = (readlimit : Int32) => state.stream.mark(readlimit)
   let reset_fn = () => state.stream.reset()
   let mark_supported_fn = () => state.stream.mark_supported()
   new_graphviz_input_stream(
@@ -535,7 +539,7 @@ fn graphviz_tool_cleanup_is_stop(mode : GraphvizToolCleanup) -> Bool {
 ///|
 pub fn GraphvizTool::initialize(
   self : GraphvizTool,
-  arguments? : Array[String]? = None,
+  arguments~ : Array[String]? = None,
 ) -> Unit raise GraphvizException {
   if self.watchdog is None {
     self.watchdog = Some(new_graphviz_watchdog())

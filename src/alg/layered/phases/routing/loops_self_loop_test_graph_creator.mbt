@@ -59,10 +59,10 @@ pub fn self_loop_test_graph_creator_edge(
 ///|
 pub fn self_loop_test_graph_creator_ports(
   l_node : @runtime.LNode,
-  north : Int,
-  east : Int,
-  south : Int,
-  west : Int,
+  north : Int32,
+  east : Int32,
+  south : Int32,
+  west : Int32,
 ) -> Unit {
   for _ in 0..<north {
     let l_port = @runtime.new_l_port()

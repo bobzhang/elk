@@ -1,34 +1,34 @@
 ///|
-pub let core_meta_lexer_rule_string : Int = 4
+pub let core_meta_lexer_rule_string : Int32 = 4
 
 ///|
-pub let core_meta_lexer_rule_id : Int = 5
+pub let core_meta_lexer_rule_id : Int32 = 5
 
 ///|
-pub let core_meta_lexer_rule_int : Int = 7
+pub let core_meta_lexer_rule_int : Int32 = 7
 
 ///|
-pub let core_meta_lexer_rule_ml_comment : Int = 9
+pub let core_meta_lexer_rule_ml_comment : Int32 = 9
 
 ///|
-pub let core_meta_lexer_rule_sl_comment : Int = 10
+pub let core_meta_lexer_rule_sl_comment : Int32 = 10
 
 ///|
-pub let core_meta_lexer_rule_ws : Int = 11
+pub let core_meta_lexer_rule_ws : Int32 = 11
 
 ///|
-pub let core_meta_lexer_rule_any_other : Int = 12
+pub let core_meta_lexer_rule_any_other : Int32 = 12
 
 ///|
 pub(all) struct CoreMetaLexToken {
-  token_type : Int
+  token_type : Int32
   token_name : String
   lexeme : String
 }
 
 ///|
 pub fn new_core_meta_lex_token(
-  token_type : Int,
+  token_type : Int32,
   token_name : String,
   lexeme : String,
 ) -> CoreMetaLexToken {
@@ -95,7 +95,7 @@ fn core_meta_lexer_is_digit(c : Char) -> Bool {
 }
 
 ///|
-fn core_meta_lexer_keyword_token_type(lexeme : String) -> Int? {
+fn core_meta_lexer_keyword_token_type(lexeme : String) -> Int32? {
   if lexeme == "package" {
     Some(13)
   } else if lexeme == "bundle" {
@@ -182,7 +182,7 @@ fn core_meta_lexer_keyword_token_type(lexeme : String) -> Int? {
 }
 
 ///|
-fn core_meta_lexer_symbol_token_type(lexeme : String) -> Int? {
+fn core_meta_lexer_symbol_token_type(lexeme : String) -> Int32? {
   if lexeme == "{" {
     Some(15)
   } else if lexeme == "}" {
@@ -219,7 +219,7 @@ fn core_meta_lexer_symbol_token_type(lexeme : String) -> Int? {
 }
 
 ///|
-fn core_meta_lexer_token_name(token_type : Int) -> String {
+fn core_meta_lexer_token_name(token_type : Int32) -> String {
   if token_type == core_meta_lexer_rule_string {
     "RULE_STRING"
   } else if token_type == core_meta_lexer_rule_id {
@@ -263,7 +263,7 @@ fn core_meta_lexer_push_symbol_token(
 }
 
 ///|
-fn core_meta_lexer_slice(text : String, start : Int, end_ : Int) -> String {
+fn core_meta_lexer_slice(text : String, start : Int32, end_ : Int32) -> String {
   text[start:end_].to_owned()
 }
 

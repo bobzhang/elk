@@ -117,7 +117,7 @@ pub fn ElkRectangle::equals(self : ElkRectangle, other : ElkRectangle) -> Bool {
 }
 
 ///|
-pub fn ElkRectangle::hash_code(self : ElkRectangle) -> Int {
+pub fn ElkRectangle::hash_code(self : ElkRectangle) -> Int32 {
   self.x.hash() ^ self.y.hash() ^ self.width.hash() ^ self.height.hash()
 }
 

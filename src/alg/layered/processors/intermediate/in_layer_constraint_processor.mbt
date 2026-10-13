@@ -35,7 +35,7 @@ fn in_layer_constraint_processor_is_bottom(
 fn in_layer_constraint_processor_find_index(
   layer : @runtime.Layer,
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let nodes = layer.get_nodes()
   for i in 0..<nodes.length() {
     if @runtime.lnode_internal_handle(nodes[i]) ==
@@ -50,7 +50,7 @@ fn in_layer_constraint_processor_find_index(
 fn in_layer_constraint_processor_move_to_index(
   layer : @runtime.Layer,
   node : @runtime.LNode,
-  index : Int,
+  index : Int32,
 ) -> Unit {
   let nodes = layer.get_nodes()
   let node_index = in_layer_constraint_processor_find_index(layer, node)

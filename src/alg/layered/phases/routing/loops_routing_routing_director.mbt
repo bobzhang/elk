@@ -83,7 +83,7 @@ fn routing_director_sort_sl_ports_by_id(
 
 ///|
 pub struct RoutingDirector {
-  mut port_penalties : Array[Int]?
+  mut port_penalties : Array[Int32]?
 }
 
 ///|
@@ -364,7 +364,7 @@ fn RoutingDirector::compute_penalties(
 ///|
 fn RoutingDirector::require_port_penalties(
   self : RoutingDirector,
-) -> Array[Int] raise RoutingDirectorException {
+) -> Array[Int32] raise RoutingDirectorException {
   match self.port_penalties {
     Some(penalties) => penalties
     None => routing_director_raise("port penalties not initialized")
@@ -377,7 +377,7 @@ fn RoutingDirector::compute_edge_penalty(
   sl_holder : @runtime.SelfLoopHolder,
   leftmost_port : @runtime.SelfLoopPort,
   rightmost_port : @runtime.SelfLoopPort,
-) -> Int raise RoutingDirectorException {
+) -> Int32 raise RoutingDirectorException {
   if self.port_penalties is None {
     self.compute_penalties(sl_holder)
   }

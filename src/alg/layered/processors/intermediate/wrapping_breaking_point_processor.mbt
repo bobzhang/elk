@@ -40,7 +40,7 @@ fn breaking_point_processor_reverse_edge(
 fn breaking_point_processor_set_layer_with_index(
   node : @runtime.LNode,
   target_layer : @runtime.Layer,
-  insert_index : Int,
+  insert_index : Int32,
 ) -> Unit {
   node.set_layer(Some(target_layer))
   let nodes = target_layer.get_nodes()
@@ -614,7 +614,7 @@ fn breaking_point_processor_process(
 
 ///|
 pub fn new_breaking_point_processor_layout_processor(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   @core.new_layout_processor((graph, monitor) => {
     breaking_point_processor_process(graph, monitor, state)

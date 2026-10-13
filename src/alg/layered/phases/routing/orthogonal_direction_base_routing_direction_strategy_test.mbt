@@ -62,7 +62,7 @@ fn p5edges_test_new_segment_with_single_edge(
 ///|
 fn p5edges_test_assert_bendpoint(
   edge : @runtime.LEdge,
-  index : Int,
+  index : Int32,
   x : Double,
   y : Double,
 ) -> Unit raise {

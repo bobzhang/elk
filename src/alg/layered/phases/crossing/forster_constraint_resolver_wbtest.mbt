@@ -1,7 +1,7 @@
 ///|
 fn forster_test_new_node(
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   node_type : @runtime.NodeType,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()
@@ -12,7 +12,7 @@ fn forster_test_new_node(
 }
 
 ///|
-fn forster_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int] {
+fn forster_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int32] {
   let ids = []
   for node in nodes {
     ids.push(node.get_id())

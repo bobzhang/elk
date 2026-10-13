@@ -8,7 +8,7 @@ pub struct LayoutConfigurationManager {
 ///|
 pub fn new_layout_configuration_manager(
   metadata : @core.OptionMetadata,
-  config_provider? : LayoutConfigurationStoreProvider? = None,
+  config_provider~ : LayoutConfigurationStoreProvider? = None,
   layout_algorithm_resolver? : @core.LayoutAlgorithmResolver,
 ) -> LayoutConfigurationManager {
   let layout_algorithm_resolver = match layout_algorithm_resolver {

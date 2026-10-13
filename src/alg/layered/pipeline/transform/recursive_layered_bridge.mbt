@@ -381,7 +381,7 @@ fn recursive_layered_copy_elk_node_properties(
         )
       }
 
-      let parsed_int : Result[Int, Error] = try
+      let parsed_int : Result[Int32, Error] = try
         @string.parse_int(entry.1.trim().to_owned())
       catch {
         error => Err(error)
@@ -445,7 +445,7 @@ fn recursive_layered_copy_elk_port_layout_options(
         )
       }
 
-      let parsed_int : Result[Int, Error] = try
+      let parsed_int : Result[Int32, Error] = try
         @string.parse_int(entry.1.trim().to_owned())
       catch {
         error => Err(error)
@@ -488,7 +488,7 @@ fn recursive_layered_copy_elk_edge_layout_options(
         )
       }
 
-      let parsed_int : Result[Int, Error] = try
+      let parsed_int : Result[Int32, Error] = try
         @string.parse_int(entry.1.trim().to_owned())
       catch {
         error => Err(error)
@@ -614,7 +614,7 @@ priv struct RecursiveLayeredContext {
   elk_to_lnode : Map[@graph.ElkNode, LNode]
   elk_to_lport : Map[@graph.ElkPort, LPort]
   node_label_pairs : Map[@graph.ElkNode, Array[(LLabel, @graph.ElkLabel)]]
-  lnode_to_elk : Map[Int, @graph.ElkNode]
+  lnode_to_elk : Map[Int32, @graph.ElkNode]
 }
 
 ///|
@@ -624,15 +624,15 @@ priv struct RecursiveLayeredContext {
 /// concurrent layout or survive after the owning transformer is discarded.
 pub struct LayeredTransformSession {
   priv layout_state : @runtime.LayeredRunState
-  priv mut next_context_id : Int
-  priv mut node_assignments : Map[@graph.ElkNode, Int]
-  priv mut edge_assignments : Map[@graph.ElkEdge, Int]
-  priv mut max_model_order_nodes : Int
-  priv mut model_order_group_count : Int
-  priv contexts : Map[Int, (RecursiveLayeredContext, @graph.ElkNode)]
+  priv mut next_context_id : Int32
+  priv mut node_assignments : Map[@graph.ElkNode, Int32]
+  priv mut edge_assignments : Map[@graph.ElkEdge, Int32]
+  priv mut max_model_order_nodes : Int32
+  priv mut model_order_group_count : Int32
+  priv contexts : Map[Int32, (RecursiveLayeredContext, @graph.ElkNode)]
   priv elk_to_lnode : Map[@graph.ElkNode, LNode]
   priv elk_to_lport : Map[@graph.ElkPort, LPort]
-  priv ledge_to_elk_edge : Map[Int, @graph.ElkEdge]
+  priv ledge_to_elk_edge : Map[Int32, @graph.ElkEdge]
 }
 
 ///|
@@ -669,7 +669,7 @@ pub fn LayeredTransformSession::clear(self : LayeredTransformSession) -> Unit {
 }
 
 ///|
-let recursive_layered_transform_context_property : @graph.IProperty[Int] = @graph.new_property(
+let recursive_layered_transform_context_property : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.layered.recursive.contextId", -1,
 )
 
@@ -691,7 +691,7 @@ fn recursive_layered_node_consider_model_order_no_model_order(
 ///|
 fn recursive_layered_node_cb_group_model_order_cycle_breaking_id(
   node : @graph.ElkNode,
-) -> Int? {
+) -> Int32? {
   let keys = [
     @options.layered_options_consider_model_order_group_model_order_cycle_breaking_id.get_id(),
     "elk.layered.considerModelOrder.groupModelOrder.cycleBreakingId",
@@ -809,9 +809,9 @@ fn recursive_layered_prepare_model_order_assignments(
   session : LayeredTransformSession,
   root_node : @graph.ElkNode,
 ) -> Unit {
-  let node_assignments : Map[@graph.ElkNode, Int] = Map([])
-  let edge_assignments : Map[@graph.ElkEdge, Int] = Map([])
-  let cb_group_model_orders : Array[Int] = []
+  let node_assignments : Map[@graph.ElkNode, Int32] = Map([])
+  let edge_assignments : Map[@graph.ElkEdge, Int32] = Map([])
+  let cb_group_model_orders : Array[Int32] = []
   let node_order_enabled = recursive_layered_needs_model_order_based_on_parent_node(
     root_node,
   )
@@ -1558,7 +1558,7 @@ fn recursive_layered_port_connected_to_external_nodes(
 fn recursive_layered_external_port_net_flow(
   parent_node : @graph.ElkNode,
   parent_port : @graph.ElkPort,
-) -> Int {
+) -> Int32 {
   let mut output_vote = 0
   let mut input_vote = 0
 
@@ -1861,7 +1861,7 @@ fn _recursive_layered_new_edge_port(
   side : @core.PortSide,
   layered_graph : LGraph,
   port_type : PortType,
-  fix_owner_side? : Bool = false,
+  fix_owner_side~ : Bool = false,
 ) -> LPort raise {
   if fix_owner_side {
     owner.set_property_string(@core.port_constraints, "FIXED_SIDE")
@@ -2198,8 +2198,8 @@ fn recursive_layered_parse_bool(value : String) -> Bool? {
 }
 
 ///|
-fn recursive_layered_parse_int(value : String) -> Int? {
-  let parsed : Result[Int, Error] = try
+fn recursive_layered_parse_int(value : String) -> Int32? {
+  let parsed : Result[Int32, Error] = try
     @string.parse_int(value.trim().to_owned())
   catch {
     error => Err(error)
@@ -2352,14 +2352,14 @@ fn recursive_layered_create_context(
   session : LayeredTransformSession,
   node : @graph.ElkNode,
   inherited_direction : String?,
-  import_edges? : Bool = true,
+  import_edges~ : Bool = true,
 ) -> RecursiveLayeredContext? raise {
   let layered_graph = new_l_graph()
   let elk_to_lnode : Map[@graph.ElkNode, LNode] = Map([])
   let elk_to_lport : Map[@graph.ElkPort, LPort] = Map([])
   let node_label_pairs : Map[@graph.ElkNode, Array[(LLabel, @graph.ElkLabel)]] = Map([],
   )
-  let lnode_to_elk : Map[Int, @graph.ElkNode] = Map([])
+  let lnode_to_elk : Map[Int32, @graph.ElkNode] = Map([])
   let node_padding = parse_node_padding(node)
   let node_label_padding = @nodespacing.node_label_and_size_calculator_compute_inside_node_label_padding(
     node,
@@ -2998,7 +2998,7 @@ fn recursive_layered_create_context(
       for candidate in port_index_candidates {
         match @graph.port_layout_option_string_value(elk_port, candidate) {
           Some(raw_port_index) => {
-            let parsed_port_index : Result[Int, Error] = try
+            let parsed_port_index : Result[Int32, Error] = try
               @string.parse_int(raw_port_index.trim().to_owned())
             catch {
               error => Err(error)
@@ -3649,7 +3649,7 @@ fn recursive_layered_apply_layout(
   }
 
   let edge_list : Array[LEdge] = []
-  let collected_edges : Map[Int, Bool] = Map([])
+  let collected_edges : Map[Int32, Bool] = Map([])
   for layered_node in context.layered_graph.get_layerless_nodes() {
     for port in layered_node.get_ports() {
       for layered_edge in port.get_outgoing_edges() {

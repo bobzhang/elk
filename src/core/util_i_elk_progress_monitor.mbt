@@ -8,7 +8,7 @@ let elk_progress_monitor_infinite_hierarchy_levels = -1
 let elk_progress_monitor_root_debug_folder_name = "logs"
 
 ///|
-let elk_progress_monitor_debug_folder_counter_ref : Ref[Int] = Ref(0)
+let elk_progress_monitor_debug_folder_counter_ref : Ref[Int32] = Ref(0)
 
 ///|
 priv suberror ElkProgressMonitorException {
@@ -32,7 +32,7 @@ fn elk_progress_monitor_exception_message(
 }
 
 ///|
-fn elk_progress_monitor_next_debug_folder_counter() -> Int {
+fn elk_progress_monitor_next_debug_folder_counter() -> Int32 {
   let next = elk_progress_monitor_debug_folder_counter_ref.val + 1
   elk_progress_monitor_debug_folder_counter_ref.val = next
   next
@@ -48,7 +48,7 @@ fn elk_progress_monitor_safe_path_name(name : String) -> String {
 }
 
 ///|
-fn elk_progress_monitor_two_digit_index(value : Int) -> String {
+fn elk_progress_monitor_two_digit_index(value : Int32) -> String {
   if value >= 0 && value < 10 {
     "0" + value.to_string()
   } else {
@@ -66,7 +66,7 @@ pub(all) struct IElkProgressMonitor {
   null_mode : Bool
   mut parent_monitor : IElkProgressMonitor?
   children : Array[IElkProgressMonitor]
-  mut max_levels : Int
+  mut max_levels : Int32
   mut closed : Bool
   mut total_work : Double
   mut completed_work : Double
@@ -76,12 +76,12 @@ pub(all) struct IElkProgressMonitor {
   mut record_execution_time : Bool
   mut execution_time : Double
   mut debug_folder : String
-  mut child_index : Int
+  mut child_index : Int32
 }
 
 ///|
 pub fn new_elk_progress_monitor(
-  task_name? : String = "",
+  task_name~ : String = "",
 ) -> IElkProgressMonitor {
   {
     running: false,
@@ -109,7 +109,7 @@ pub fn new_elk_progress_monitor(
 ///|
 pub fn IElkProgressMonitor::with_max_hierarchy_levels(
   self : IElkProgressMonitor,
-  levels : Int,
+  levels : Int32,
 ) -> IElkProgressMonitor {
   self.max_levels = if levels < 0 {
     elk_progress_monitor_infinite_hierarchy_levels
@@ -393,7 +393,7 @@ pub fn IElkProgressMonitor::get_logs(
 pub fn IElkProgressMonitor::log_graph(
   self : IElkProgressMonitor,
   tag : String,
-  graph_type? : LoggedGraphType = ElkGraph,
+  graph_type~ : LoggedGraphType = ElkGraph,
 ) -> Unit {
   if self.null_mode || !self.record_logs {
     return

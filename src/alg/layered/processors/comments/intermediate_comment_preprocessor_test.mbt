@@ -1,7 +1,7 @@
 ///|
 fn comment_preprocessor_test_new_node(
   graph : @runtime.LGraph,
-  id : Int,
+  id : Int32,
   comment_box : Bool,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
@@ -14,7 +14,7 @@ fn comment_preprocessor_test_new_node(
 ///|
 fn comment_preprocessor_test_new_port(
   node : @runtime.LNode,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_id(id)
@@ -24,7 +24,7 @@ fn comment_preprocessor_test_new_port(
 
 ///|
 fn comment_preprocessor_test_new_edge(
-  id : Int,
+  id : Int32,
   source : @runtime.LPort?,
   target : @runtime.LPort?,
 ) -> @runtime.LEdge {
@@ -36,7 +36,7 @@ fn comment_preprocessor_test_new_edge(
 }
 
 ///|
-fn comment_preprocessor_test_port_id(port : @runtime.LPort?) -> Int {
+fn comment_preprocessor_test_port_id(port : @runtime.LPort?) -> Int32 {
   match port {
     Some(value) => value.get_id()
     None => -1

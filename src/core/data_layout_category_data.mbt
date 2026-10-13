@@ -9,8 +9,8 @@ pub(all) struct LayoutCategoryData {
 ///|
 pub fn new_layout_category_data(
   id : String,
-  name? : String = "",
-  description? : String = "",
+  name~ : String = "",
+  description~ : String = "",
 ) -> LayoutCategoryData {
   { id, name, description, layouters: [], }
 }

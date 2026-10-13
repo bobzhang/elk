@@ -16,8 +16,8 @@ priv struct BoxGroup {
   node : @graph.ElkNode?
   groups : Array[BoxGroup]
   size : KVector
-  mut bottom : Array[Int]
-  mut right : Array[Int]
+  mut bottom : Array[Int32]
+  mut right : Array[Int32]
 }
 
 ///|
@@ -75,7 +75,7 @@ fn box_layout_provider_max(a : Double, b : Double) -> Double {
 }
 
 ///|
-fn box_layout_provider_compare_double(left : Double, right : Double) -> Int {
+fn box_layout_provider_compare_double(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -219,8 +219,8 @@ fn box_layout_provider_copy_groups(groups : Array[BoxGroup]) -> Array[BoxGroup] 
 ///|
 fn box_layout_provider_copy_group_range(
   groups : Array[BoxGroup],
-  start : Int,
-  end_index : Int,
+  start : Int32,
+  end_index : Int32,
 ) -> Array[BoxGroup] {
   let copied = []
   let mut index = start
@@ -363,7 +363,7 @@ fn box_layout_provider_compare_nodes(
   child1 : @graph.ElkNode,
   child2 : @graph.ElkNode,
   interactive_mode : Bool,
-) -> Int {
+) -> Int32 {
   let prio1 = @graph.node_get_double_property(child1, priority)
   let prio2 = @graph.node_get_double_property(child2, priority)
 
@@ -708,7 +708,7 @@ fn box_layout_provider_place_inner_boxes(
   let bottoms = []
 
   let mut index = 0
-  let mut last_index : Int? = None
+  let mut last_index : Int32? = None
   while index < updated_group.groups.length() {
     let mut box = updated_group.groups[index]
     let width = box_layout_provider_group_get_width(box)

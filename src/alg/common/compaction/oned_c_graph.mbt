@@ -1,6 +1,6 @@
 ///|
 priv struct CNodeData {
-  mut id : Int
+  mut id : Int32
   mut origin : String?
   mut node_type : String?
   mut to_string_delegate : ((CNode) -> String)?
@@ -14,13 +14,13 @@ priv struct CNodeData {
 
 ///|
 priv struct CGroupData {
-  mut id : Int
+  mut id : Int32
   mut master : CNode?
   c_nodes : Array[CNode]
   mut start_pos : Double
   incoming_constraints : Array[CNode]
-  mut out_degree : Int
-  mut out_degree_real : Int
+  mut out_degree : Int32
+  mut out_degree_real : Int32
   mut reference : CNode?
   mut delta : Double
   mut delta_normalized : Double
@@ -37,7 +37,7 @@ pub struct CGraph {
 
 ///|
 pub struct CNodeBuilder {
-  mut id : Int
+  mut id : Int32
   mut origin : String?
   mut node_type : String?
   mut to_string_delegate : ((CNode) -> String)?
@@ -172,7 +172,7 @@ pub fn cnode_of() -> CNodeBuilder {
 }
 
 ///|
-pub fn CNodeBuilder::id(self : CNodeBuilder, id : Int) -> CNodeBuilder {
+pub fn CNodeBuilder::id(self : CNodeBuilder, id : Int32) -> CNodeBuilder {
   self.id = id
   self
 }

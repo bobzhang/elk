@@ -1,13 +1,13 @@
 ///|
 pub struct IInitializable {
-  init_at_layer_level_fn : (Int, Array[Array[@runtime.LNode]]) -> Unit
-  init_at_node_level_fn : (Int, Int, Array[Array[@runtime.LNode]]) -> Unit
-  init_at_port_level_fn : (Int, Int, Int, Array[Array[@runtime.LNode]]) -> Unit
+  init_at_layer_level_fn : (Int32, Array[Array[@runtime.LNode]]) -> Unit
+  init_at_node_level_fn : (Int32, Int32, Array[Array[@runtime.LNode]]) -> Unit
+  init_at_port_level_fn : (Int32, Int32, Int32, Array[Array[@runtime.LNode]]) -> Unit
   init_at_edge_level_fn : (
-    Int,
-    Int,
-    Int,
-    Int,
+    Int32,
+    Int32,
+    Int32,
+    Int32,
     @runtime.LEdge,
     Array[Array[@runtime.LNode]],
   ) -> Unit
@@ -16,29 +16,29 @@ pub struct IInitializable {
 
 ///|
 pub fn new_i_initializable(
-  init_at_layer_level? : (Int, Array[Array[@runtime.LNode]]) -> Unit = (_, _) => {
+  init_at_layer_level~ : (Int32, Array[Array[@runtime.LNode]]) -> Unit = (_, _) => {
     ()
   },
-  init_at_node_level? : (Int, Int, Array[Array[@runtime.LNode]]) -> Unit = (
+  init_at_node_level~ : (Int32, Int32, Array[Array[@runtime.LNode]]) -> Unit = (
     _,
     _,
     _,
   ) => (),
-  init_at_port_level? : (Int, Int, Int, Array[Array[@runtime.LNode]]) -> Unit = (
+  init_at_port_level~ : (Int32, Int32, Int32, Array[Array[@runtime.LNode]]) -> Unit = (
     _,
     _,
     _,
     _,
   ) => (),
-  init_at_edge_level? : (
-    Int,
-    Int,
-    Int,
-    Int,
+  init_at_edge_level~ : (
+    Int32,
+    Int32,
+    Int32,
+    Int32,
     @runtime.LEdge,
     Array[Array[@runtime.LNode]],
   ) -> Unit = (_, _, _, _, _, _) => (),
-  init_after_traversal? : () -> Unit = () => (),
+  init_after_traversal~ : () -> Unit = () => (),
 ) -> IInitializable {
   {
     init_at_layer_level_fn: init_at_layer_level,
@@ -90,7 +90,7 @@ pub fn i_initializable_init(
 ///|
 pub fn IInitializable::init_at_layer_level(
   self : IInitializable,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   (self.init_at_layer_level_fn)(l, node_order)
@@ -99,8 +99,8 @@ pub fn IInitializable::init_at_layer_level(
 ///|
 pub fn IInitializable::init_at_node_level(
   self : IInitializable,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   (self.init_at_node_level_fn)(l, n, node_order)
@@ -109,9 +109,9 @@ pub fn IInitializable::init_at_node_level(
 ///|
 pub fn IInitializable::init_at_port_level(
   self : IInitializable,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   (self.init_at_port_level_fn)(l, n, p, node_order)
@@ -120,10 +120,10 @@ pub fn IInitializable::init_at_port_level(
 ///|
 pub fn IInitializable::init_at_edge_level(
   self : IInitializable,
-  l : Int,
-  n : Int,
-  p : Int,
-  e : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
+  e : Int32,
   edge : @runtime.LEdge,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {

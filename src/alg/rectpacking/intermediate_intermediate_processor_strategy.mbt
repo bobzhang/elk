@@ -9,7 +9,7 @@ pub enum RectpackingIntermediateProcessorStrategy {
 ///|
 fn rectpacking_intermediate_processor_strategy_order(
   strategy : RectpackingIntermediateProcessorStrategy,
-) -> Int {
+) -> Int32 {
   match strategy {
     NODE_SIZE_REORDERER => 0
     INTERACTIVE_NODE_REORDERER => 1

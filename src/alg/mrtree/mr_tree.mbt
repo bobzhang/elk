@@ -1,6 +1,6 @@
 ///|
 pub struct Mrtree {
-  marker : Int
+  marker : Int32
 }
 
 ///|

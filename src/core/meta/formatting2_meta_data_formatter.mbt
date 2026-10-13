@@ -5,7 +5,7 @@ pub(all) struct MetaDataFormatter {
 
 ///|
 pub fn new_meta_data_formatter(
-  grammar_access? : MetaDataGrammarAccess = new_meta_data_grammar_access(),
+  grammar_access~ : MetaDataGrammarAccess = new_meta_data_grammar_access(),
 ) -> MetaDataFormatter {
   { grammar_access, }
 }

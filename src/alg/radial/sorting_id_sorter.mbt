@@ -2,7 +2,7 @@
 fn radial_id_sorter_compare(
   node1 : @graph.ElkNode,
   node2 : @graph.ElkNode,
-) -> Int {
+) -> Int32 {
   radial_internal_order_id(node1) - radial_internal_order_id(node2)
 }
 

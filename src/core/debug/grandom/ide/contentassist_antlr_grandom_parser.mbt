@@ -136,7 +136,7 @@ pub(all) struct CoreDebugGRandomParser {
 
 ///|
 pub fn new_core_debug_grandom_parser(
-  grammar_access? : CoreDebugGRandomIdeGrammarAccess = new_core_debug_grandom_ide_grammar_access(),
+  grammar_access~ : CoreDebugGRandomIdeGrammarAccess = new_core_debug_grandom_ide_grammar_access(),
 ) -> CoreDebugGRandomParser {
   {
     name_mappings: new_core_debug_grandom_name_mappings(grammar_access),

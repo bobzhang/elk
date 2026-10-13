@@ -30,9 +30,9 @@ fn layer_sweep_type_decider_is_side(
 
 ///|
 pub struct LayerSweepTypeDeciderNodeInfo {
-  mut connected_edges : Int
-  mut hierarchical_influence : Int
-  mut random_influence : Int
+  mut connected_edges : Int32
+  mut hierarchical_influence : Int32
+  mut random_influence : Int32
 }
 
 ///|
@@ -320,7 +320,7 @@ fn LayerSweepTypeDecider::node_info_for(
 ///|
 pub fn LayerSweepTypeDecider::init_at_layer_level(
   self : LayerSweepTypeDecider,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   if !node_order[l].is_empty() {
@@ -339,8 +339,8 @@ pub fn LayerSweepTypeDecider::init_at_layer_level(
 ///|
 pub fn LayerSweepTypeDecider::init_at_node_level(
   self : LayerSweepTypeDecider,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   let node = node_order[l][n]

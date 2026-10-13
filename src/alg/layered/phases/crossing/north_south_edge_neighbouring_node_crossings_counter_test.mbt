@@ -16,7 +16,7 @@ fn north_south_bb_port_side_west() -> @core.PortSide {
 ///|
 fn north_south_bb_layer(
   graph : @runtime.LGraph,
-  layer_index : Int,
+  layer_index : Int32,
 ) -> Array[@runtime.LNode] {
   graph.get_layers()[layer_index].get_nodes()
 }
@@ -31,8 +31,8 @@ fn north_south_bb_new_counter(
 ///|
 fn north_south_bb_swap_nodes(
   layer : Array[@runtime.LNode],
-  upper_index : Int,
-  lower_index : Int,
+  upper_index : Int32,
+  lower_index : Int32,
 ) -> Unit {
   let upper_node = layer[upper_index]
   layer[upper_index] = layer[lower_index]
@@ -43,10 +43,10 @@ fn north_south_bb_swap_nodes(
 fn north_south_bb_assert_counts(
   counter : NorthSouthEdgeNeighbouringNodeCrossingsCounter,
   layer : Array[@runtime.LNode],
-  upper_index : Int,
-  lower_index : Int,
-  expected_upper_lower : Int,
-  expected_lower_upper : Int,
+  upper_index : Int32,
+  lower_index : Int32,
+  expected_upper_lower : Int32,
+  expected_lower_upper : Int32,
 ) -> Unit raise {
   counter.count_crossings(layer[upper_index], layer[lower_index])
   assert_eq(counter.get_upper_lower_crossings(), expected_upper_lower)

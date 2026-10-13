@@ -1,6 +1,6 @@
 ///|
 pub struct GmfLayoutEditPolicy {
-  point_list_map : Map[Int, GmfPointList]
+  point_list_map : Map[Int32, GmfPointList]
 }
 
 ///|
@@ -17,7 +17,7 @@ pub fn GmfLayoutEditPolicy::understands_request(
 }
 
 ///|
-fn gmf_layout_edit_policy_scaled_int(value : Double, scale : Double) -> Int {
+fn gmf_layout_edit_policy_scaled_int(value : Double, scale : Double) -> Int32 {
   (value * scale).to_int()
 }
 

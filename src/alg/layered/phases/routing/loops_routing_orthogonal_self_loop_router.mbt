@@ -20,7 +20,7 @@ fn orthogonal_self_loop_router_port_side_equals(
 }
 
 ///|
-fn orthogonal_self_loop_router_side_index(side : @core.PortSide) -> Int {
+fn orthogonal_self_loop_router_side_index(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -282,7 +282,7 @@ fn orthogonal_self_loop_router_compute_routing_slot_positions(
 ///|
 fn orthogonal_self_loop_router_get_base_vector(
   port_side : @core.PortSide,
-  routing_slot : Int,
+  routing_slot : Int32,
   routing_slot_positions : Array[Array[Double]],
 ) -> @core.KVector {
   let position = routing_slot_positions[orthogonal_self_loop_router_side_index(

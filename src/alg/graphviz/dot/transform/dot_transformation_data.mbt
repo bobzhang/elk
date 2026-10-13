@@ -4,7 +4,7 @@ pub struct DotTransformationData[S, T] {
   target_graphs : Array[T]
   log_messages : Array[String]
   priv bool_properties : Map[@graph.PropertyId, Bool]
-  priv int_properties : Map[@graph.PropertyId, Int]
+  priv int_properties : Map[@graph.PropertyId, Int32]
   priv string_properties : Map[@graph.PropertyId, String]
   priv command_properties : Map[@graph.PropertyId, Command]
   priv graph_elem_map_properties : Map[
@@ -87,8 +87,8 @@ pub fn[S, T] DotTransformationData::get_bool_property(
 ///|
 pub fn[S, T] DotTransformationData::set_int_property(
   self : DotTransformationData[S, T],
-  property : @graph.IProperty[Int],
-  value : Int,
+  property : @graph.IProperty[Int32],
+  value : Int32,
 ) -> Unit {
   self.int_properties[property.get_property_id()] = value
 }
@@ -96,8 +96,8 @@ pub fn[S, T] DotTransformationData::set_int_property(
 ///|
 pub fn[S, T] DotTransformationData::get_int_property(
   self : DotTransformationData[S, T],
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   match self.int_properties.get(property.get_property_id()) {
     Some(value) => value
     None => property.get_default()

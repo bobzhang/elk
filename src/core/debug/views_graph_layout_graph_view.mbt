@@ -92,7 +92,7 @@ pub fn LayoutGraphView::get_logged_graphs_for_test(
 ///|
 pub fn LayoutGraphView::select_logged_graph_for_test(
   self : LayoutGraphView,
-  index : Int,
+  index : Int32,
 ) -> Unit {
   if index < 0 || index >= self.logged_graphs.length() {
     self.selected_logged_graph = None

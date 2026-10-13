@@ -2,25 +2,25 @@
 let libavoid_communicator_chunk_keyword : String = "[CHUNK]"
 
 ///|
-let libavoid_communicator_port_id_start : Int = 5
+let libavoid_communicator_port_id_start : Int32 = 5
 
 ///|
-let libavoid_communicator_node_id_start : Int = 5
+let libavoid_communicator_node_id_start : Int32 = 5
 
 ///|
-let libavoid_communicator_node_compound_north : Int = 1
+let libavoid_communicator_node_compound_north : Int32 = 1
 
 ///|
-let libavoid_communicator_node_compound_east : Int = 2
+let libavoid_communicator_node_compound_east : Int32 = 2
 
 ///|
-let libavoid_communicator_node_compound_south : Int = 3
+let libavoid_communicator_node_compound_south : Int32 = 3
 
 ///|
-let libavoid_communicator_node_compound_west : Int = 4
+let libavoid_communicator_node_compound_west : Int32 = 4
 
 ///|
-let libavoid_communicator_surrounding_rect_size : Int = 10
+let libavoid_communicator_surrounding_rect_size : Int32 = 10
 
 ///|
 let libavoid_communicator_subtask_work : Double = 1.0
@@ -30,15 +30,15 @@ let libavoid_communicator_layout_work : Double = 4.0
 
 ///|
 pub struct LibavoidServerCommunicator {
-  node_id_map : Map[Int, @graph.ElkNode]
-  node_inverse_map : Map[@graph.ElkNode, Int]
-  port_id_map : Map[Int, @graph.ElkPort]
-  port_inverse_map : Map[@graph.ElkPort, Int]
-  edge_id_map : Map[Int, @graph.ElkEdge]
-  edge_inverse_map : Map[@graph.ElkEdge, Int]
-  mut node_id_counter : Int
-  mut port_id_counter : Int
-  mut edge_id_counter : Int
+  node_id_map : Map[Int32, @graph.ElkNode]
+  node_inverse_map : Map[@graph.ElkNode, Int32]
+  port_id_map : Map[Int32, @graph.ElkPort]
+  port_inverse_map : Map[@graph.ElkPort, Int32]
+  edge_id_map : Map[Int32, @graph.ElkEdge]
+  edge_inverse_map : Map[@graph.ElkEdge, Int32]
+  mut node_id_counter : Int32
+  mut port_id_counter : Int32
+  mut edge_id_counter : Int32
   lines : Array[String]
 }
 
@@ -139,7 +139,7 @@ fn libavoid_communicator_shape_to_port(
 ///|
 fn libavoid_communicator_process_timeout_of(
   layout_node : @graph.ElkNode,
-) -> Int {
+) -> Int32 {
   let timeout_text = match
     @graph.node_layout_option_string_value_by_option_id(
       layout_node,
@@ -148,7 +148,9 @@ fn libavoid_communicator_process_timeout_of(
     Some(value) => value
     None => libavoid_option_process_timeout.get_default().to_string()
   }
-  let parsed : Result[Int, Error] = try @string.parse_int(timeout_text) catch {
+  let parsed : Result[Int32, Error] = try
+    @string.parse_int(timeout_text)
+  catch {
     error => Err(error)
   } noraise {
     value => Ok(value)
@@ -275,7 +277,7 @@ fn libavoid_communicator_first_or_create_edge_section(
 }
 
 ///|
-fn libavoid_communicator_edge_id_from_key(key : String) -> Int? {
+fn libavoid_communicator_edge_id_from_key(key : String) -> Int32? {
   let tokens : Array[String] = []
   for token in key.split(" ") {
     let value = token.trim().to_owned()
@@ -286,7 +288,7 @@ fn libavoid_communicator_edge_id_from_key(key : String) -> Int? {
   if tokens.length() < 2 {
     return None
   }
-  let parsed : Result[Int, Error] = try @string.parse_int(tokens[1]) catch {
+  let parsed : Result[Int32, Error] = try @string.parse_int(tokens[1]) catch {
     error => Err(error)
   } noraise {
     value => Ok(value)
@@ -883,13 +885,13 @@ fn LibavoidServerCommunicator::transform_hierarchical_parent_dummy(
 fn LibavoidServerCommunicator::libavoid_node(
   self : LibavoidServerCommunicator,
   node : @graph.ElkNode,
-  id : Int,
+  id : Int32,
   x_pos : Double,
   y_pos : Double,
   width : Double,
   height : Double,
-  port_less_incoming_edges : Int,
-  port_less_outgoing_edges : Int,
+  port_less_incoming_edges : Int32,
+  port_less_outgoing_edges : Int32,
 ) -> Unit {
   if id >= libavoid_communicator_node_id_start {
     self.node_id_map[id] = node
@@ -904,7 +906,7 @@ fn LibavoidServerCommunicator::libavoid_node(
 fn LibavoidServerCommunicator::libavoid_cluster(
   self : LibavoidServerCommunicator,
   node : @graph.ElkNode,
-  id : Int,
+  id : Int32,
   x_pos : Double,
   y_pos : Double,
   width : Double,
@@ -949,8 +951,8 @@ fn libavoid_communicator_port_side_or_undefined(
 fn LibavoidServerCommunicator::libavoid_port(
   self : LibavoidServerCommunicator,
   port : @graph.ElkPort,
-  port_id : Int,
-  node_id : Int,
+  port_id : Int32,
+  node_id : Int32,
   compound_node : @graph.ElkNode?,
 ) -> Unit {
   self.port_id_map[port_id] = port
@@ -1054,7 +1056,7 @@ fn LibavoidServerCommunicator::transform_cluster(
 }
 
 ///|
-fn libavoid_communicator_id_or_null(id : Int?) -> String {
+fn libavoid_communicator_id_or_null(id : Int32?) -> String {
   match id {
     Some(value) => value.to_string()
     None => "null"
@@ -1142,7 +1144,7 @@ fn LibavoidServerCommunicator::transform_edge(
 fn LibavoidServerCommunicator::determine_hierarchical_node_id(
   self : LibavoidServerCommunicator,
   port : @graph.ElkPort,
-) -> Int {
+) -> Int32 {
   ignore(self)
   let side = libavoid_communicator_port_side_or_undefined(port)
   if side == "NORTH" {

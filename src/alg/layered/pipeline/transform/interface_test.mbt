@@ -1,7 +1,7 @@
 ///|
 test "LayeredIGraphTransformer delegates import and apply" {
   let seen_input : Ref[String] = Ref("")
-  let seen_applied_id : Ref[Int] = Ref(-1)
+  let seen_applied_id : Ref[Int32] = Ref(-1)
 
   let imported_graph = new_l_graph()
   imported_graph.set_id(17)

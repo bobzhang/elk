@@ -35,7 +35,7 @@ test "Attributes constants" {
 }
 
 ///|
-fn option_int_to_string(value : Int?) -> String {
+fn option_int_to_string(value : Int32?) -> String {
   match value {
     Some(v) => v.to_string()
     None => "none"
@@ -44,7 +44,7 @@ fn option_int_to_string(value : Int?) -> String {
 
 ///|
 test "DotTransformationData storage" {
-  let data : DotTransformationData[Int, String] = new_dot_transformation_data()
+  let data : DotTransformationData[Int32, String] = new_dot_transformation_data()
   inspect(option_int_to_string(data.get_source_graph()), content="none")
   data.set_source_graph(42)
   inspect(option_int_to_string(data.get_source_graph()), content="42")
@@ -63,7 +63,7 @@ test "DotTransformationData storage" {
 
 ///|
 test "DotTransformationData properties" {
-  let data : DotTransformationData[Int, String] = new_dot_transformation_data()
+  let data : DotTransformationData[Int32, String] = new_dot_transformation_data()
 
   let bool_property : @graph.IProperty[Bool] = @graph.new_property(
     "dot.test.bool", true,
@@ -72,7 +72,7 @@ test "DotTransformationData properties" {
   data.set_bool_property(bool_property, false)
   inspect(data.get_bool_property(bool_property), content="false")
 
-  let int_property : @graph.IProperty[Int] = @graph.new_property(
+  let int_property : @graph.IProperty[Int32] = @graph.new_property(
     "dot.test.int", 1,
   )
   inspect(data.get_int_property(int_property), content="1")

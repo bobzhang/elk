@@ -1,6 +1,6 @@
 ///|
 pub struct MrtreeComponentsProcessor {
-  marker : Int
+  marker : Int32
 }
 
 ///|

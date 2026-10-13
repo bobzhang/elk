@@ -1,5 +1,5 @@
 ///|
-pub let nub_spline_dim : Int = 3
+pub let nub_spline_dim : Int32 = 3
 
 ///|
 let nub_spline_epsilon : Double = 0.000001
@@ -51,8 +51,8 @@ fn PolarCP::to_string(self : PolarCP) -> String {
 ///|
 fn nub_spline_create_uniform_knot_vector(
   clamped : Bool,
-  dimension : Int,
-  size : Int,
+  dimension : Int32,
+  size : Int32,
 ) -> (Array[Double], Double, Double) raise NubSplineException {
   if size < 2 * dimension {
     nub_spline_raise_illegal_argument(
@@ -105,7 +105,7 @@ fn nub_spline_get_t_from_polar(polar : Array[Double]) -> Double {
 pub struct NubSpline {
   knot_vector : Array[Double]
   control_points : Array[PolarCP]
-  dim_nubs : Int
+  dim_nubs : Int32
   is_uniform : Bool
   is_clamped : Bool
   mut outer_box : Rectangle?
@@ -119,7 +119,7 @@ fn new_nub_spline_precalculated(
   clamped : Bool,
   uniform : Bool,
   bezier : Bool,
-  dim : Int,
+  dim : Int32,
   knot_vector : Array[Double],
   control_points : Array[PolarCP],
 ) -> NubSpline raise NubSplineException {
@@ -162,7 +162,7 @@ pub fn new_nub_spline_copy(nub_spline : NubSpline) -> NubSpline {
 ///|
 pub fn new_nub_spline(
   clamped : Bool,
-  dimension : Int,
+  dimension : Int32,
   k_vectors : Array[@core.KVector],
 ) -> NubSpline raise NubSplineException {
   if dimension < 1 {
@@ -317,7 +317,7 @@ pub fn nub_spline_generate_inverted(
 }
 
 ///|
-pub fn NubSpline::get_dim(self : NubSpline) -> Int {
+pub fn NubSpline::get_dim(self : NubSpline) -> Int32 {
   self.dim_nubs
 }
 
@@ -355,12 +355,15 @@ pub fn NubSpline::get_control_points(self : NubSpline) -> @core.KVectorChain {
 }
 
 ///|
-pub fn NubSpline::get_control_point(self : NubSpline, i : Int) -> @core.KVector {
+pub fn NubSpline::get_control_point(
+  self : NubSpline,
+  i : Int32,
+) -> @core.KVector {
   self.control_points[i].get_cp()
 }
 
 ///|
-pub fn NubSpline::get_control_points_size(self : NubSpline) -> Int {
+pub fn NubSpline::get_control_points_size(self : NubSpline) -> Int32 {
   self.control_points.length()
 }
 
@@ -446,7 +449,7 @@ fn nub_spline_get_zero_x_of_control_polygon(nub_spline : NubSpline) -> Double {
 }
 
 ///|
-fn NubSpline::find_span(self : NubSpline, t : Double) -> Int {
+fn NubSpline::find_span(self : NubSpline, t : Double) -> Int32 {
   let n = self.control_points.length() - 1
   let degree = self.dim_nubs - 1
   if n < 0 || degree < 0 {
@@ -542,7 +545,7 @@ pub fn NubSpline::get_point_on_curve_with_modify(
 pub fn nub_spline_get_first_vertical_point(
   nub_spline : NubSpline,
   accuracy : Double,
-  max_recursion : Int,
+  max_recursion : Int32,
 ) -> @core.KVector raise NubSplineException {
   let first_derive = nub_spline_generate_derived(nub_spline)
   let mut current_accuracy = @double.infinity
@@ -564,7 +567,7 @@ pub fn nub_spline_get_first_vertical_point(
 pub fn nub_spline_get_last_vertical_point(
   nub_spline : NubSpline,
   accuracy : Double,
-  max_recursion : Int,
+  max_recursion : Int32,
 ) -> @core.KVector raise NubSplineException {
   let first_derive = nub_spline_generate_inverted(
     nub_spline_generate_derived(nub_spline),
@@ -588,7 +591,7 @@ pub fn nub_spline_get_last_vertical_point(
 pub fn nub_spline_get_first_horizontal_point(
   nub_spline : NubSpline,
   accuracy : Double,
-  max_recursion : Int,
+  max_recursion : Int32,
 ) -> @core.KVector raise NubSplineException {
   let first_derive = nub_spline_generate_derived(nub_spline)
   let mut current_accuracy = @double.infinity
@@ -610,7 +613,7 @@ pub fn nub_spline_get_first_horizontal_point(
 pub fn nub_spline_get_last_horizontal_point(
   nub_spline : NubSpline,
   accuracy : Double,
-  max_recursion : Int,
+  max_recursion : Int32,
 ) -> @core.KVector raise NubSplineException {
   let first_derive = nub_spline_generate_inverted(
     nub_spline_generate_derived(nub_spline),

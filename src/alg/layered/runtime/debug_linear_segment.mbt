@@ -6,11 +6,11 @@
 /// making the shared package depend on the concrete placement phase.
 pub(all) struct LinearSegment {
   nodes : Array[LNode]
-  mut id : Int
-  mut index_in_last_layer : Int
-  mut last_layer : Int
+  mut id : Int32
+  mut index_in_last_layer : Int32
+  mut last_layer : Int32
   mut deflection : Double
-  mut weight : Int
-  mut ref_segment_id : Int
+  mut weight : Int32
+  mut ref_segment_id : Int32
   mut _node_type : NodeType
 }

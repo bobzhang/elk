@@ -6,13 +6,13 @@ priv struct StretchWidthLayererState {
   current_graph : @runtime.LGraph
   mut upper_layer_influence : Double
   mut sorted_layerless_nodes : Array[@runtime.LNode]
-  mut already_placed_nodes : Map[Int, Bool]
-  mut already_placed_in_other_layers : Map[Int, Bool]
+  mut already_placed_nodes : Map[Int32, Bool]
+  mut already_placed_in_other_layers : Map[Int32, Bool]
   mut temp_layerless_nodes : Array[@runtime.LNode]
-  mut _successors : Array[Map[Int, Bool]]
-  mut out_degree : Array[Int]
-  mut remaining_out_going : Array[Int]
-  mut in_degree : Array[Int]
+  mut _successors : Array[Map[Int32, Bool]]
+  mut out_degree : Array[Int32]
+  mut remaining_out_going : Array[Int32]
+  mut in_degree : Array[Int32]
   mut selected_node : @runtime.LNode?
   mut minimum_node_size : Double
   mut maximum_node_size : Double
@@ -155,7 +155,7 @@ fn stretch_width_layerer_sort_descending_by_node_id(
 ///|
 fn stretch_width_layerer_get_rank(
   node : @runtime.LNode,
-) -> Int raise StretchWidthLayererException {
+) -> Int32 raise StretchWidthLayererException {
   let mut max_rank = node.get_outgoing_edges().length()
   for pre_edge in node.get_incoming_edges() {
     let pre = stretch_width_layerer_require_edge_source_node(pre_edge)
@@ -187,7 +187,7 @@ fn stretch_width_layerer_compute_successors(
   let mut i = 0
   for node in state.sorted_layerless_nodes {
     node.set_id(i)
-    let curr_succ : Map[Int, Bool] = Map([])
+    let curr_succ : Map[Int32, Bool] = Map([])
     for edge in node.get_outgoing_edges() {
       let target = stretch_width_layerer_require_edge_target_node(edge)
       curr_succ[target.get_handle()] = true

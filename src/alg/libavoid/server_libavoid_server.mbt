@@ -21,7 +21,7 @@ pub fn libavoid_server_cleanup_stop() -> LibavoidServerCleanup {
 }
 
 ///|
-pub let libavoid_server_process_def_timeout : Int = 60000
+pub let libavoid_server_process_def_timeout : Int32 = 60000
 
 ///|
 let libavoid_server_default_output_data_ref : Ref[Map[String, String]?] = Ref(
@@ -37,7 +37,7 @@ let libavoid_server_default_transport_ref : Ref[LibavoidServerTransport?] = Ref(
 pub struct LibavoidServer {
   mut running : Bool
   mut canceled : Bool
-  mut process_timeout : Int
+  mut process_timeout : Int32
   input_sink : @layouter.GraphvizByteArrayOutputStream
   mut output_data : Map[String, String]?
   mut transport : LibavoidServerTransport?
@@ -105,13 +105,13 @@ pub fn LibavoidServer::initialize(self : LibavoidServer) -> Unit {
 ///|
 pub fn LibavoidServer::set_process_timeout(
   self : LibavoidServer,
-  timeout : Int,
+  timeout : Int32,
 ) -> Unit {
   self.process_timeout = timeout
 }
 
 ///|
-pub fn LibavoidServer::get_process_timeout(self : LibavoidServer) -> Int {
+pub fn LibavoidServer::get_process_timeout(self : LibavoidServer) -> Int32 {
   self.process_timeout
 }
 
@@ -212,7 +212,7 @@ pub fn LibavoidServer::is_canceled(self : LibavoidServer) -> Bool {
 }
 
 ///|
-pub fn LibavoidServer::get_input_bytes(self : LibavoidServer) -> Array[Int] {
+pub fn LibavoidServer::get_input_bytes(self : LibavoidServer) -> Array[Int32] {
   self.input_sink.get_bytes()
 }
 

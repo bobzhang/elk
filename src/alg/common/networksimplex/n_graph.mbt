@@ -1,6 +1,6 @@
 ///|
 pub struct NNode {
-  handle : Int
+  handle : Int32
   priv data : NNodeData
 }
 
@@ -11,7 +11,7 @@ pub impl Eq for NNode with fn equal(self, other) {
 
 ///|
 pub struct NEdge {
-  handle : Int
+  handle : Int32
   priv data : NEdgeData
 }
 
@@ -22,11 +22,11 @@ pub impl Eq for NEdge with fn equal(self, other) {
 
 ///|
 priv struct NNodeData {
-  id : Int
-  mut internal_id : Int
+  id : Int32
+  mut internal_id : Int32
   _origin : String?
   _node_type : String
-  mut layer : Int
+  mut layer : Int32
   outgoing_edges : Array[NEdge]
   incoming_edges : Array[NEdge]
   mut tree_node : Bool
@@ -35,13 +35,13 @@ priv struct NNodeData {
 
 ///|
 priv struct NEdgeData {
-  id : Int
-  mut internal_id : Int
+  id : Int32
+  mut internal_id : Int32
   _origin : String?
   mut source : NNode?
   mut target : NNode?
   mut weight : Double
-  mut delta : Int
+  mut delta : Int32
   mut tree_edge : Bool
 }
 
@@ -52,17 +52,17 @@ pub struct NGraph {
 
 ///|
 pub struct NNodeBuilder {
-  mut id : Int
+  mut id : Int32
   mut origin : String?
   mut node_type : String
 }
 
 ///|
 pub struct NEdgeBuilder {
-  mut id : Int
+  mut id : Int32
   mut origin : String?
   mut weight : Double
-  mut delta : Int
+  mut delta : Int32
   mut source : NNode?
   mut target : NNode?
 }
@@ -104,7 +104,7 @@ fn[T : Eq] remove_first(array : Array[T], value : T) -> Bool {
 }
 
 ///|
-fn int_max(left : Int, right : Int) -> Int {
+fn int_max(left : Int32, right : Int32) -> Int32 {
   if left > right {
     left
   } else {
@@ -129,7 +129,7 @@ pub fn nnode_of() -> NNodeBuilder {
 }
 
 ///|
-pub fn NNodeBuilder::id(self : NNodeBuilder, id : Int) -> NNodeBuilder {
+pub fn NNodeBuilder::id(self : NNodeBuilder, id : Int32) -> NNodeBuilder {
   self.id = id
   self
 }
@@ -178,7 +178,7 @@ pub fn nedge_of() -> NEdgeBuilder {
 }
 
 ///|
-pub fn NEdgeBuilder::id(self : NEdgeBuilder, id : Int) -> NEdgeBuilder {
+pub fn NEdgeBuilder::id(self : NEdgeBuilder, id : Int32) -> NEdgeBuilder {
   self.id = id
   self
 }
@@ -202,7 +202,7 @@ pub fn NEdgeBuilder::weight(
 }
 
 ///|
-pub fn NEdgeBuilder::delta(self : NEdgeBuilder, delta : Int) -> NEdgeBuilder {
+pub fn NEdgeBuilder::delta(self : NEdgeBuilder, delta : Int32) -> NEdgeBuilder {
   self.delta = delta
   self
 }
@@ -272,31 +272,31 @@ pub fn NEdgeBuilder::create(
 }
 
 ///|
-pub fn NNode::get_id(self : NNode) -> Int {
+pub fn NNode::get_id(self : NNode) -> Int32 {
   checked_nnode(self)
   self.data.id
 }
 
 ///|
-pub fn NNode::set_internal_id(self : NNode, internal_id : Int) -> Unit {
+pub fn NNode::set_internal_id(self : NNode, internal_id : Int32) -> Unit {
   checked_nnode(self)
   self.data.internal_id = internal_id
 }
 
 ///|
-pub fn NNode::get_internal_id(self : NNode) -> Int {
+pub fn NNode::get_internal_id(self : NNode) -> Int32 {
   checked_nnode(self)
   self.data.internal_id
 }
 
 ///|
-pub fn NNode::set_layer(self : NNode, layer : Int) -> Unit {
+pub fn NNode::set_layer(self : NNode, layer : Int32) -> Unit {
   checked_nnode(self)
   self.data.layer = layer
 }
 
 ///|
-pub fn NNode::get_layer(self : NNode) -> Int {
+pub fn NNode::get_layer(self : NNode) -> Int32 {
   checked_nnode(self)
   self.data.layer
 }
@@ -365,19 +365,19 @@ pub fn NNode::unknown_cutvalues(self : NNode) -> Array[NEdge] {
 }
 
 ///|
-pub fn NEdge::get_id(self : NEdge) -> Int {
+pub fn NEdge::get_id(self : NEdge) -> Int32 {
   checked_nedge(self)
   self.data.id
 }
 
 ///|
-pub fn NEdge::set_internal_id(self : NEdge, internal_id : Int) -> Unit {
+pub fn NEdge::set_internal_id(self : NEdge, internal_id : Int32) -> Unit {
   checked_nedge(self)
   self.data.internal_id = internal_id
 }
 
 ///|
-pub fn NEdge::get_internal_id(self : NEdge) -> Int {
+pub fn NEdge::get_internal_id(self : NEdge) -> Int32 {
   checked_nedge(self)
   self.data.internal_id
 }
@@ -433,13 +433,13 @@ pub fn NEdge::set_weight(self : NEdge, weight : Double) -> Unit {
 }
 
 ///|
-pub fn NEdge::get_delta(self : NEdge) -> Int {
+pub fn NEdge::get_delta(self : NEdge) -> Int32 {
   checked_nedge(self)
   self.data.delta
 }
 
 ///|
-pub fn NEdge::set_delta(self : NEdge, delta : Int) -> Unit {
+pub fn NEdge::set_delta(self : NEdge, delta : Int32) -> Unit {
   checked_nedge(self)
   self.data.delta = delta
 }
@@ -554,8 +554,8 @@ pub fn NGraph::is_acyclic(self : NGraph) -> Bool {
     node.set_internal_id(id)
     id = id + 1
   }
-  let incident : Array[Int] = []
-  let layer : Array[Int] = []
+  let incident : Array[Int32] = []
+  let layer : Array[Int32] = []
   for _ in 0..<self.nodes.length() {
     incident.push(0)
     layer.push(0)

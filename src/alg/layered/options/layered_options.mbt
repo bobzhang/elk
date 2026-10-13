@@ -12,12 +12,14 @@ pub let layered_options_layering_layer_constraint : @graph.IProperty[String] = @
 )
 
 ///|
-pub let layered_options_layering_layer_choice_constraint : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_layering_layer_choice_constraint : @graph.IProperty[
+  Int32,
+] = @graph.new_property(
   "org.eclipse.elk.layered.layering.layerChoiceConstraint", -1,
 )
 
 ///|
-pub let layered_options_layering_layer_id : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_layering_layer_id : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.layered.layering.layerId", 0,
 )
 
@@ -27,7 +29,7 @@ pub let layered_options_partitioning_activate : @graph.IProperty[Bool] = @graph.
 )
 
 ///|
-pub let layered_options_partitioning_partition : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_partitioning_partition : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.partitioning.partition", 0,
 )
 
@@ -54,14 +56,14 @@ pub let layered_options_crossing_minimization_hierarchical_sweepiness : @graph.I
 
 ///|
 pub let layered_options_crossing_minimization_position_id : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.crossingMinimization.positionId", 0,
 )
 
 ///|
 pub let layered_options_crossing_minimization_position_choice_constraint : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.crossingMinimization.positionChoiceConstraint", -1,
 )
@@ -95,7 +97,7 @@ pub let layered_options_crossing_minimization_greedy_switch_type : @graph.IPrope
 
 ///|
 pub let layered_options_crossing_minimization_greedy_switch_activation_threshold : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.crossingMinimization.greedySwitch.activationThreshold",
   40,
@@ -196,7 +198,7 @@ pub let layered_options_layering_strategy : @graph.IProperty[String] = @graph.ne
 
 ///|
 pub let layered_options_layering_coffman_graham_layer_bound : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.layering.coffmanGraham.layerBound",
   @int.MAX_VALUE,
@@ -211,7 +213,7 @@ pub let layered_options_layering_node_promotion_strategy : @graph.IProperty[
 
 ///|
 pub let layered_options_layering_node_promotion_max_iterations : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.nodePromotion.maxIterations", 0,
 )
@@ -222,12 +224,12 @@ pub let layered_options_high_degree_nodes_treatment : @graph.IProperty[Bool] = @
 )
 
 ///|
-pub let layered_options_high_degree_nodes_threshold : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_high_degree_nodes_threshold : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.alg.layered.highDegreeNodes.threshold", 16,
 )
 
 ///|
-pub let layered_options_high_degree_nodes_tree_height : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_high_degree_nodes_tree_height : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.alg.layered.highDegreeNodes.treeHeight", 5,
 )
 
@@ -251,17 +253,17 @@ pub let layered_options_compaction_connected_components : @graph.IProperty[Bool]
 )
 
 ///|
-pub let layered_options_priority_direction : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_priority_direction : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.layered.priority.direction", 0,
 )
 
 ///|
-pub let layered_options_priority_shortness : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_priority_shortness : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.layered.priority.shortness", 0,
 )
 
 ///|
-pub let layered_options_priority_straightness : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_priority_straightness : @graph.IProperty[Int32] = @graph.new_property(
   "priority.straightness", 0,
 )
 
@@ -285,7 +287,7 @@ pub let layered_options_layer_unzipping_minimize_edge_length : @graph.IProperty[
 )
 
 ///|
-pub let layered_options_layer_unzipping_layer_split : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_layer_unzipping_layer_split : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.layered.layerUnzipping.layerSplit", 2,
 )
 
@@ -298,14 +300,14 @@ pub let layered_options_layer_unzipping_reset_on_long_edges : @graph.IProperty[
 
 ///|
 pub let layered_options_consider_model_order_group_model_order_cycle_breaking_id : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.considerModelOrder.groupModelOrder.cycleBreakingId", 0,
 )
 
 ///|
 pub let layered_options_consider_model_order_group_model_order_crossing_minimization_id : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.considerModelOrder.groupModelOrder.crossingMinimizationId",
   0,
@@ -313,7 +315,7 @@ pub let layered_options_consider_model_order_group_model_order_crossing_minimiza
 
 ///|
 pub let layered_options_consider_model_order_group_model_order_component_group_id : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.considerModelOrder.groupModelOrder.componentGroupId",
   0,
@@ -329,7 +331,7 @@ pub let layered_options_consider_model_order_group_model_order_cb_group_order_st
 
 ///|
 pub let layered_options_consider_model_order_group_model_order_cb_preferred_source_id : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.considerModelOrder.groupModelOrder.cbPreferredSourceId",
   0,
@@ -337,7 +339,7 @@ pub let layered_options_consider_model_order_group_model_order_cb_preferred_sour
 
 ///|
 pub let layered_options_consider_model_order_group_model_order_cb_preferred_target_id : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.layered.considerModelOrder.groupModelOrder.cbPreferredTargetId",
   0,
@@ -360,7 +362,7 @@ pub let layered_options_consider_model_order_group_model_order_cm_enforced_group
 )
 
 ///|
-pub let layered_options_thoroughness : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_thoroughness : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.layered.thoroughness", 7,
 )
 
@@ -478,7 +480,7 @@ pub let layered_options_port_sorting_strategy : @graph.IProperty[String] = @grap
 )
 
 ///|
-pub let layered_options_port_index : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_port_index : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.port.index", -1,
 )
 
@@ -570,7 +572,7 @@ pub let layered_options_wrapping_cutting_cuts : @graph.IProperty[String] = @grap
 )
 
 ///|
-pub let layered_options_wrapping_cutting_msd_freedom : @graph.IProperty[Int] = @graph.new_property(
+pub let layered_options_wrapping_cutting_msd_freedom : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.layered.wrapping.cutting.msd.freedom", 1,
 )
 
@@ -608,7 +610,7 @@ pub let layered_options_wrapping_multi_edge_improve_wrapped_edges : @graph.IProp
 )
 
 ///|
-pub fn layered_options_parse_int_list(value : String) -> Array[Int] {
+pub fn layered_options_parse_int_list(value : String) -> Array[Int32] {
   let normalized = value
     .replace_all(old="[", new="")
     .replace_all(old="]", new="")
@@ -624,7 +626,7 @@ pub fn layered_options_parse_int_list(value : String) -> Array[Int] {
     if token.is_empty() {
       continue
     }
-    let parsed : Result[Int, Error] = try @string.parse_int(token) catch {
+    let parsed : Result[Int32, Error] = try @string.parse_int(token) catch {
       error => Err(error)
     } noraise {
       value => Ok(value)
@@ -639,8 +641,8 @@ pub fn layered_options_parse_int_list(value : String) -> Array[Int] {
 
 ///|
 pub fn layered_options_int_list_contains(
-  values : Array[Int],
-  value : Int,
+  values : Array[Int32],
+  value : Int32,
 ) -> Bool {
   for candidate in values {
     if candidate == value {

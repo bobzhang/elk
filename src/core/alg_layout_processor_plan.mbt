@@ -19,7 +19,7 @@ pub fn LayoutProcessorPlan::steps(
 }
 
 ///|
-pub fn LayoutProcessorPlan::length(self : LayoutProcessorPlan) -> Int {
+pub fn LayoutProcessorPlan::length(self : LayoutProcessorPlan) -> Int32 {
   self.processors.length()
 }
 

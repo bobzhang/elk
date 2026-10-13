@@ -5,7 +5,7 @@ pub struct ElkGraphJsonScopeProvider {
 
 ///|
 pub fn new_elk_graph_json_scope_provider(
-  base? : AbstractElkGraphJsonScopeProvider = new_abstract_elk_graph_json_scope_provider(),
+  base~ : AbstractElkGraphJsonScopeProvider = new_abstract_elk_graph_json_scope_provider(),
 ) -> ElkGraphJsonScopeProvider {
   { base, }
 }

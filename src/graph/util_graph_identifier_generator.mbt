@@ -17,7 +17,7 @@ priv enum GraphIdentifierElementType {
 
 ///|
 priv struct GraphIdentifierState {
-  current_ids : Array[Int]
+  current_ids : Array[Int32]
   existing_identifiers : Map[String, Bool]
 }
 
@@ -78,7 +78,7 @@ pub fn GraphIdentifierGenerator::execute(
   }
   if self.unique {
     let known_ids : Map[String, Bool] = Map([])
-    let random = @random.Rand::new()
+    let random = @random.Rand()
     assert_unique_node_identifiers(self.graph, known_ids, random, false)
   }
 }
@@ -89,7 +89,7 @@ fn identifier_has_content(identifier : String) -> Bool {
 }
 
 ///|
-fn graph_identifier_char_at(source : String, index : Int) -> Char {
+fn graph_identifier_char_at(source : String, index : Int32) -> Char {
   source[index].unsafe_to_char()
 }
 
@@ -210,7 +210,7 @@ fn graph_identifier_prefix(element_type : GraphIdentifierElementType) -> String 
 ///|
 fn graph_identifier_type_index(
   element_type : GraphIdentifierElementType,
-) -> Int {
+) -> Int32 {
   match element_type {
     NodeElement => 0
     PortElement => 1
@@ -414,7 +414,7 @@ fn generate_node_identifiers(
 }
 
 ///|
-fn pad_zeroes(value : String, length : Int) -> String {
+fn pad_zeroes(value : String, length : Int32) -> String {
   if value.length() >= length {
     return value
   }

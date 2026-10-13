@@ -9,8 +9,8 @@ pub struct TestConfiguration[T] {
 
 ///|
 pub fn[T] new_test_configuration(
-  default_configuration? : DefaultConfiguration? = None,
-  apply_base_configuration_fn? : (T, ElkNode) -> Unit = (_test_instance, _graph) => {
+  default_configuration~ : DefaultConfiguration? = None,
+  apply_base_configuration_fn~ : (T, ElkNode) -> Unit = (_test_instance, _graph) => {
     ()
   },
 ) -> TestConfiguration[T] {

@@ -9,7 +9,7 @@ pub struct GraphTextOutlineNode {
 pub fn new_graph_text_outline_node(
   kind : String,
   label : String,
-  children? : Array[GraphTextOutlineNode] = [],
+  children~ : Array[GraphTextOutlineNode] = [],
 ) -> GraphTextOutlineNode {
   { kind, label, children, }
 }

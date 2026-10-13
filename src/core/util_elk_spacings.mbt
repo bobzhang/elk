@@ -50,7 +50,7 @@ pub fn elk_spacings_with_base_value(
 fn factor_index(
   factors : Array[(@graph.IProperty[Double], Double)],
   option : @graph.IProperty[Double],
-) -> Int? {
+) -> Int32? {
   for i = 0; i < factors.length(); i = i + 1 {
     let (current_option, _) = factors[i]
     if current_option.get_property_id() == option.get_property_id() {

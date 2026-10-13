@@ -23,7 +23,7 @@ pub struct InternalElkGraphJsonParser {
 pub fn new_internal_elk_graph_json_parser(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  grammar_access? : ElkGraphJsonGrammarAccess = new_elk_graph_json_grammar_access(),
+  grammar_access~ : ElkGraphJsonGrammarAccess = new_elk_graph_json_grammar_access(),
 ) -> InternalElkGraphJsonParser {
   { metadata, tokens, grammar_access, }
 }
@@ -121,8 +121,8 @@ fn graph_json_text_parser_parse_number_token(
 ///|
 fn graph_json_text_parser_parse_number_at(
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
-) -> (Double, Int)? {
+  start : Int32,
+) -> (Double, Int32)? {
   if start >= tokens.length() {
     return None
   }
@@ -152,8 +152,8 @@ fn graph_json_text_parser_last_segment(qualified_id : String) -> String {
 ///|
 fn graph_json_text_parser_parse_qualified_id(
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
-) -> (String, Int)? {
+  start : Int32,
+) -> (String, Int32)? {
   if start >= tokens.length() ||
     tokens[start].token_type != graph_json_text_lexer_rule_id {
     return None
@@ -187,8 +187,8 @@ fn graph_json_text_parser_resolve_shape(
 fn graph_json_text_parser_parse_property_key(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
-) -> (GraphJsonTextPropertyKey, Int)? {
+  start : Int32,
+) -> (GraphJsonTextPropertyKey, Int32)? {
   match graph_json_text_parser_parse_qualified_id(tokens, start) {
     Some((id, consumed)) =>
       match metadata.option_data_by_suffix(id) {
@@ -203,8 +203,8 @@ fn graph_json_text_parser_parse_property_key(
 ///|
 fn graph_json_text_parser_parse_property_value(
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
-) -> (GraphJsonTextPropertyValue, Int) {
+  start : Int32,
+) -> (GraphJsonTextPropertyValue, Int32) {
   if start >= tokens.length() {
     return (GraphJsonTextNullValue, 0)
   }
@@ -240,8 +240,8 @@ fn graph_json_text_parser_parse_property_value(
 fn graph_json_text_parser_parse_property(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
-) -> (GraphJsonTextPropertyAssignment, Int)? {
+  start : Int32,
+) -> (GraphJsonTextPropertyAssignment, Int32)? {
   match graph_json_text_parser_parse_property_key(metadata, tokens, start) {
     Some((key, key_consumed)) => {
       let mut index = start + key_consumed
@@ -310,9 +310,9 @@ fn graph_json_text_parser_apply_property_to_label(
 ///|
 fn graph_json_text_parser_parse_shape_layout(
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   shape : GraphJsonTextShape,
-) -> Int {
+) -> Int32 {
   let mut index = start
   if index >= tokens.length() || tokens[index].lexeme != "layout" {
     return start
@@ -383,8 +383,8 @@ fn graph_json_text_parser_parse_shape_layout(
 ///|
 fn graph_json_text_parser_parse_bends(
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
-) -> Int {
+  start : Int32,
+) -> Int32 {
   let mut index = start
   if index >= tokens.length() || tokens[index].lexeme != "bends" {
     return start
@@ -422,11 +422,11 @@ fn graph_json_text_parser_parse_bends(
 fn graph_json_text_parser_parse_edge_section_body(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   section : @graph.ElkEdgeSection,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
   end_lexeme : String,
-) -> Int {
+) -> Int32 {
   let mut index = start
   while index < tokens.length() && tokens[index].lexeme != end_lexeme {
     if tokens[index].lexeme == "incoming" || tokens[index].lexeme == "outgoing" {
@@ -503,12 +503,12 @@ fn graph_json_text_parser_parse_edge_section_body(
 fn graph_json_text_parser_parse_named_edge_section(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   edge : @graph.ElkEdge,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
   section_by_id : Map[String, @graph.ElkEdgeSection],
   pending_outgoing : Array[GraphJsonTextPendingOutgoingSection],
-) -> (@graph.ElkEdgeSection, Int)? {
+) -> (@graph.ElkEdgeSection, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "section" {
     return None
   }
@@ -560,10 +560,10 @@ fn graph_json_text_parser_parse_named_edge_section(
 fn graph_json_text_parser_parse_single_edge_section(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   edge : @graph.ElkEdge,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkEdgeSection, Int) {
+) -> (@graph.ElkEdgeSection, Int32) {
   let section = @graph.create_edge_section(edge)
   let mut index = graph_json_text_parser_parse_edge_section_body(
     metadata, tokens, start, section, id_to_shape, "]",
@@ -578,10 +578,10 @@ fn graph_json_text_parser_parse_single_edge_section(
 fn graph_json_text_parser_parse_edge_layout(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   edge : @graph.ElkEdge,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> Int {
+) -> Int32 {
   let mut index = start
   if index >= tokens.length() || tokens[index].lexeme != "layout" {
     return start
@@ -656,10 +656,10 @@ fn graph_json_text_parser_register_shape(
 fn graph_json_text_parser_parse_label(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   owner : GraphJsonTextLabelOwner,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkLabel, Int)? {
+) -> (@graph.ElkLabel, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "label" {
     return None
   }
@@ -732,10 +732,10 @@ fn graph_json_text_parser_parse_label(
 fn graph_json_text_parser_parse_port(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   parent : @graph.ElkNode,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkPort, Int)? {
+) -> (@graph.ElkPort, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "port" {
     return None
   }
@@ -801,10 +801,10 @@ fn graph_json_text_parser_parse_port(
 fn graph_json_text_parser_parse_edge(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   parent : @graph.ElkNode,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkEdge, Int)? {
+) -> (@graph.ElkEdge, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "edge" {
     return None
   }
@@ -906,10 +906,10 @@ fn graph_json_text_parser_parse_edge(
 fn _graph_json_text_parser_parse_node(
   metadata : @core.OptionMetadata,
   tokens : Array[ElkGraphJsonLexToken],
-  start : Int,
+  start : Int32,
   parent : @graph.ElkNode,
   id_to_shape : Map[String, @graph.ElkConnectableShape],
-) -> (@graph.ElkNode, Int)? {
+) -> (@graph.ElkNode, Int32)? {
   if start >= tokens.length() || tokens[start].lexeme != "node" {
     return None
   }

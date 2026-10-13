@@ -1,5 +1,5 @@
 ///|
-fn bi_linked_int_key(value : Int?) -> Int {
+fn bi_linked_int_key(value : Int32?) -> Int32 {
   match value {
     Some(key) => key
     None => -1
@@ -8,7 +8,7 @@ fn bi_linked_int_key(value : Int?) -> Int {
 
 ///|
 test "BiLinkedHashMultiMap put updates prior value key and preserves key insertion order" {
-  let map : BiLinkedHashMultiMap[Int] = new_bi_linked_hash_multi_map()
+  let map : BiLinkedHashMultiMap[Int32] = new_bi_linked_hash_multi_map()
   map.put(3, 30)
   map.put(1, 10)
   map.put(3, 31)

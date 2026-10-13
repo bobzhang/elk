@@ -15,7 +15,7 @@ pub fn dot_edge_operator_undirected() -> DotEdgeOperator {
 }
 
 ///|
-pub fn dot_edge_operator_value(edge_operator : DotEdgeOperator) -> Int {
+pub fn dot_edge_operator_value(edge_operator : DotEdgeOperator) -> Int32 {
   match edge_operator {
     DotEdgeOperatorDirected => 0
     DotEdgeOperatorUndirected => 1
@@ -61,7 +61,7 @@ pub fn dot_edge_operator_from_name(name : String) -> DotEdgeOperator? {
 }
 
 ///|
-pub fn dot_edge_operator_from_int(value : Int) -> DotEdgeOperator? {
+pub fn dot_edge_operator_from_int(value : Int32) -> DotEdgeOperator? {
   if value == 0 {
     Some(DotEdgeOperatorDirected)
   } else if value == 1 {

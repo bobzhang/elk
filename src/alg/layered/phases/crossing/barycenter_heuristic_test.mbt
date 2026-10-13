@@ -1,5 +1,5 @@
 ///|
-fn barycenter_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int] {
+fn barycenter_test_node_ids(nodes : Array[@runtime.LNode]) -> Array[Int32] {
   let ids = []
   for node in nodes {
     ids.push(node.get_id())

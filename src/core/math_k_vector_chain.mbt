@@ -43,7 +43,7 @@ pub fn new_kvector_chain_copy(chain : KVectorChain) -> KVectorChain {
 }
 
 ///|
-pub fn KVectorChain::size(self : KVectorChain) -> Int {
+pub fn KVectorChain::size(self : KVectorChain) -> Int32 {
   self.vectors.length()
 }
 
@@ -58,7 +58,7 @@ pub fn KVectorChain::clear(self : KVectorChain) -> Unit {
 }
 
 ///|
-pub fn KVectorChain::get(self : KVectorChain, index : Int) -> KVector {
+pub fn KVectorChain::get(self : KVectorChain, index : Int32) -> KVector {
   self.vectors[index]
 }
 
@@ -87,7 +87,7 @@ pub fn KVectorChain::to_array(self : KVectorChain) -> Array[KVector] {
 ///|
 pub fn KVectorChain::to_array_from(
   self : KVectorChain,
-  begin_index : Int,
+  begin_index : Int32,
 ) -> Array[KVector] raise {
   if begin_index < 0 || begin_index > self.vectors.length() {
     try kvector_chain_raise_unit("IndexOutOfBoundsException") catch {
@@ -214,7 +214,7 @@ pub fn KVectorChain::add_all(
 ///|
 pub fn KVectorChain::add_all_as_copies(
   self : KVectorChain,
-  index : Int,
+  index : Int32,
   chain : KVectorChain,
 ) -> Unit raise {
   if index < 0 || index > self.vectors.length() {

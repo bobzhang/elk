@@ -1,12 +1,12 @@
 ///|
 pub struct PlanarGrid {
   two_bit_grid : TwoBitGrid
-  mut x_center : Int
-  mut y_center : Int
+  mut x_center : Int32
+  mut y_center : Int32
 }
 
 ///|
-pub fn new_planar_grid(width : Int, height : Int) -> PlanarGrid raise {
+pub fn new_planar_grid(width : Int32, height : Int32) -> PlanarGrid raise {
   {
     two_bit_grid: new_two_bit_grid(width, height),
     x_center: (width - 1) >> 1,
@@ -20,25 +20,29 @@ pub fn new_empty_planar_grid() -> PlanarGrid raise {
 }
 
 ///|
-pub fn PlanarGrid::width(self : PlanarGrid) -> Int {
+pub fn PlanarGrid::width(self : PlanarGrid) -> Int32 {
   self.two_bit_grid.width()
 }
 
 ///|
-pub fn PlanarGrid::height(self : PlanarGrid) -> Int {
+pub fn PlanarGrid::height(self : PlanarGrid) -> Int32 {
   self.two_bit_grid.height()
 }
 
 ///|
-pub fn PlanarGrid::is_empty(self : PlanarGrid, x : Int, y : Int) -> Bool raise {
+pub fn PlanarGrid::is_empty(
+  self : PlanarGrid,
+  x : Int32,
+  y : Int32,
+) -> Bool raise {
   self.two_bit_grid.is_empty(x, y)
 }
 
 ///|
 pub fn PlanarGrid::is_blocked(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool raise {
   self.two_bit_grid.is_blocked(x, y)
 }
@@ -46,22 +50,22 @@ pub fn PlanarGrid::is_blocked(
 ///|
 pub fn PlanarGrid::is_weakly_blocked(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool raise {
   self.two_bit_grid.is_weakly_blocked(x, y)
 }
 
 ///|
-pub fn PlanarGrid::in_bounds(self : PlanarGrid, x : Int, y : Int) -> Bool {
+pub fn PlanarGrid::in_bounds(self : PlanarGrid, x : Int32, y : Int32) -> Bool {
   self.two_bit_grid.in_bounds(x, y)
 }
 
 ///|
 pub fn PlanarGrid::reinitialize(
   self : PlanarGrid,
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
 ) -> Unit raise {
   self.two_bit_grid.reinitialize(width, height)
   self.x_center = (width - 1) >> 1
@@ -69,15 +73,19 @@ pub fn PlanarGrid::reinitialize(
 }
 
 ///|
-pub fn PlanarGrid::set_empty(self : PlanarGrid, x : Int, y : Int) -> Unit raise {
+pub fn PlanarGrid::set_empty(
+  self : PlanarGrid,
+  x : Int32,
+  y : Int32,
+) -> Unit raise {
   self.two_bit_grid.set_empty(x, y)
 }
 
 ///|
 pub fn PlanarGrid::set_blocked(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Unit raise {
   self.two_bit_grid.set_blocked(x, y)
 }
@@ -85,8 +93,8 @@ pub fn PlanarGrid::set_blocked(
 ///|
 pub fn PlanarGrid::set_weakly_blocked(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Unit raise {
   self.two_bit_grid.set_weakly_blocked(x, y)
 }
@@ -99,8 +107,8 @@ pub fn PlanarGrid::to_string(self : PlanarGrid) -> String {
 ///|
 pub fn PlanarGrid::is_empty_center_based(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool raise {
   self.is_empty(x + self.x_center, y + self.y_center)
 }
@@ -108,8 +116,8 @@ pub fn PlanarGrid::is_empty_center_based(
 ///|
 pub fn PlanarGrid::is_blocked_center_based(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool raise {
   self.is_blocked(x + self.x_center, y + self.y_center)
 }
@@ -117,8 +125,8 @@ pub fn PlanarGrid::is_blocked_center_based(
 ///|
 pub fn PlanarGrid::is_weakly_blocked_center_based(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool raise {
   self.is_weakly_blocked(x + self.x_center, y + self.y_center)
 }
@@ -126,8 +134,8 @@ pub fn PlanarGrid::is_weakly_blocked_center_based(
 ///|
 pub fn PlanarGrid::in_bounds_center_based(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool {
   self.in_bounds(x + self.x_center, y + self.y_center)
 }
@@ -136,8 +144,8 @@ pub fn PlanarGrid::in_bounds_center_based(
 pub fn PlanarGrid::intersects_with_center_based(
   self : PlanarGrid,
   other : PlanarGrid,
-  x_offset : Int,
-  y_offset : Int,
+  x_offset : Int32,
+  y_offset : Int32,
 ) -> Bool raise {
   for x = 0; x < other.width(); x = x + 1 {
     let x_translated = x - other.get_center_x() + x_offset
@@ -165,8 +173,8 @@ pub fn PlanarGrid::intersects_with_center_based(
 pub fn PlanarGrid::intersects_with_center_based_polyomino(
   self : PlanarGrid,
   other : Polyomino,
-  x_offset : Int,
-  y_offset : Int,
+  x_offset : Int32,
+  y_offset : Int32,
 ) -> Bool raise {
   if self.intersects_with_center_based(
       other.as_planar_grid(),
@@ -226,8 +234,8 @@ pub fn PlanarGrid::intersects_with_center_based_polyomino(
 pub fn PlanarGrid::add_filled_cells_from(
   self : PlanarGrid,
   other : PlanarGrid,
-  x_offset : Int,
-  y_offset : Int,
+  x_offset : Int32,
+  y_offset : Int32,
 ) -> Unit raise {
   for x = 0; x < other.width(); x = x + 1 {
     let x_translated = x - other.get_center_x() + x_offset
@@ -250,8 +258,8 @@ pub fn PlanarGrid::add_filled_cells_from(
 pub fn PlanarGrid::add_filled_cells_from_polyomino(
   self : PlanarGrid,
   other : Polyomino,
-  x_offset : Int,
-  y_offset : Int,
+  x_offset : Int32,
+  y_offset : Int32,
 ) -> Unit raise {
   self.add_filled_cells_from(other.as_planar_grid(), x_offset, y_offset)
   other.set_x(self.x_center - other.get_center_x() + x_offset)
@@ -294,7 +302,7 @@ pub fn PlanarGrid::add_filled_cells_from_polyomino(
 ///|
 pub fn PlanarGrid::get_filled_bounds(
   self : PlanarGrid,
-) -> @core.Quadruple[Int, Int, Int, Int] raise {
+) -> @core.Quadruple[Int32, Int32, Int32, Int32] raise {
   let grid_width = self.width()
   let grid_height = self.height()
   let mut min_x = @int.MAX_VALUE
@@ -329,10 +337,10 @@ pub fn PlanarGrid::get_filled_bounds(
 ///|
 pub fn PlanarGrid::weakly_block_area(
   self : PlanarGrid,
-  x_upper_left : Int,
-  y_upper_left : Int,
-  x_bottom_right : Int,
-  y_bottom_right : Int,
+  x_upper_left : Int32,
+  y_upper_left : Int32,
+  x_bottom_right : Int32,
+  y_bottom_right : Int32,
 ) -> Unit raise {
   for yi = y_upper_left; yi <= y_bottom_right; yi = yi + 1 {
     for xi = x_upper_left; xi <= x_bottom_right; xi = xi + 1 {
@@ -346,10 +354,10 @@ pub fn PlanarGrid::weakly_block_area(
 ///|
 pub fn PlanarGrid::weakly_intersects_area(
   self : PlanarGrid,
-  x_upper_left : Int,
-  y_upper_left : Int,
-  x_bottom_right : Int,
-  y_bottom_right : Int,
+  x_upper_left : Int32,
+  y_upper_left : Int32,
+  x_bottom_right : Int32,
+  y_bottom_right : Int32,
 ) -> Bool raise {
   for yi = y_upper_left; yi <= y_bottom_right; yi = yi + 1 {
     for xi = x_upper_left; xi <= x_bottom_right; xi = xi + 1 {
@@ -362,20 +370,20 @@ pub fn PlanarGrid::weakly_intersects_area(
 }
 
 ///|
-pub fn PlanarGrid::get_center_x(self : PlanarGrid) -> Int {
+pub fn PlanarGrid::get_center_x(self : PlanarGrid) -> Int32 {
   self.x_center
 }
 
 ///|
-pub fn PlanarGrid::get_center_y(self : PlanarGrid) -> Int {
+pub fn PlanarGrid::get_center_y(self : PlanarGrid) -> Int32 {
   self.y_center
 }
 
 ///|
 pub fn PlanarGrid::set_blocked_center_based(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Unit raise {
   self.set_blocked(x + self.x_center, y + self.y_center)
 }
@@ -383,8 +391,8 @@ pub fn PlanarGrid::set_blocked_center_based(
 ///|
 pub fn PlanarGrid::set_empty_center_based(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Unit raise {
   self.set_empty(x + self.x_center, y + self.y_center)
 }
@@ -392,8 +400,8 @@ pub fn PlanarGrid::set_empty_center_based(
 ///|
 pub fn PlanarGrid::set_weakly_blocked_center_based(
   self : PlanarGrid,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Unit raise {
   self.set_weakly_blocked(x + self.x_center, y + self.y_center)
 }

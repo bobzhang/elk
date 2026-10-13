@@ -1,7 +1,7 @@
 ///|
 fn switch_decider_test_new_node(
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   node_type : @runtime.NodeType,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()
@@ -15,7 +15,7 @@ fn switch_decider_test_new_node(
 fn switch_decider_test_new_port(
   node : @runtime.LNode,
   side : @core.PortSide,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_node(Some(node))
@@ -37,7 +37,7 @@ fn switch_decider_test_connect(
 ///|
 fn switch_decider_test_port_count(
   node_order : Array[Array[@runtime.LNode]],
-) -> Int {
+) -> Int32 {
   let mut count = 0
   for layer in node_order {
     for node in layer {

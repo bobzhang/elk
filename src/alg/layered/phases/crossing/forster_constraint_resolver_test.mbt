@@ -14,7 +14,7 @@ fn forster_bb_contains_node(
 ///|
 fn forster_bb_new_node(
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   node_type : @runtime.NodeType,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()

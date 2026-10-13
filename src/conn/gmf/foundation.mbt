@@ -34,30 +34,30 @@ pub(all) enum GmfOperation {
 
 ///|
 pub struct GmfPoint {
-  x : Int
-  y : Int
+  x : Int32
+  y : Int32
 } derive(Eq, Debug)
 
 ///|
 pub struct GmfDimension {
-  width : Int
-  height : Int
+  width : Int32
+  height : Int32
 } derive(Eq, Debug)
 
 ///|
 pub struct GmfInsets {
-  top : Int
-  right : Int
-  bottom : Int
-  left : Int
+  top : Int32
+  right : Int32
+  bottom : Int32
+  left : Int32
 } derive(Eq, Debug)
 
 ///|
 pub struct GmfRectangle {
-  x : Int
-  y : Int
-  width : Int
-  height : Int
+  x : Int32
+  y : Int32
+  width : Int32
+  height : Int32
 } derive(Eq, Debug)
 
 ///|
@@ -66,42 +66,42 @@ pub struct GmfPointList {
 } derive(Debug)
 
 ///|
-pub fn new_gmf_point(x : Int, y : Int) -> GmfPoint {
+pub fn new_gmf_point(x : Int32, y : Int32) -> GmfPoint {
   { x, y, }
 }
 
 ///|
-pub fn new_gmf_dimension(width : Int, height : Int) -> GmfDimension {
+pub fn new_gmf_dimension(width : Int32, height : Int32) -> GmfDimension {
   { width, height, }
 }
 
 ///|
 pub fn new_gmf_insets(
-  top? : Int = 0,
-  right? : Int = 0,
-  bottom? : Int = 0,
-  left? : Int = 0,
+  top~ : Int32 = 0,
+  right~ : Int32 = 0,
+  bottom~ : Int32 = 0,
+  left~ : Int32 = 0,
 ) -> GmfInsets {
   { top, right, bottom, left, }
 }
 
 ///|
 pub fn new_gmf_rectangle(
-  x? : Int = 0,
-  y? : Int = 0,
-  width? : Int = 0,
-  height? : Int = 0,
+  x~ : Int32 = 0,
+  y~ : Int32 = 0,
+  width~ : Int32 = 0,
+  height~ : Int32 = 0,
 ) -> GmfRectangle {
   { x, y, width, height, }
 }
 
 ///|
-pub fn new_gmf_point_list(points? : Array[GmfPoint] = []) -> GmfPointList {
+pub fn new_gmf_point_list(points~ : Array[GmfPoint] = []) -> GmfPointList {
   { points, }
 }
 
 ///|
-pub fn GmfPointList::size(self : GmfPointList) -> Int {
+pub fn GmfPointList::size(self : GmfPointList) -> Int32 {
   self.points.length()
 }
 
@@ -111,7 +111,7 @@ pub fn GmfPointList::add_point(self : GmfPointList, point : GmfPoint) -> Unit {
 }
 
 ///|
-pub fn GmfPointList::get_point(self : GmfPointList, index : Int) -> GmfPoint {
+pub fn GmfPointList::get_point(self : GmfPointList, index : Int32) -> GmfPoint {
   self.points[index]
 }
 
@@ -126,7 +126,7 @@ pub fn GmfPointList::get_last_point(self : GmfPointList) -> GmfPoint {
 }
 
 ///|
-pub fn GmfPointList::remove_point(self : GmfPointList, index : Int) -> Unit {
+pub fn GmfPointList::remove_point(self : GmfPointList, index : Int32) -> Unit {
   ignore(self.points.remove(index))
 }
 
@@ -153,16 +153,16 @@ pub fn GmfPointList::copy(self : GmfPointList) -> GmfPointList {
 }
 
 ///|
-pub type GmfFigure = Int
+pub type GmfFigure = Int32
 
 ///|
-pub type GmfView = Int
+pub type GmfView = Int32
 
 ///|
-pub type GmfEditPart = Int
+pub type GmfEditPart = Int32
 
 ///|
-pub type GmfElkGraphElement = Int
+pub type GmfElkGraphElement = Int32
 
 ///|
 priv struct GmfFigureData {
@@ -175,13 +175,13 @@ priv struct GmfFigureData {
   mut is_coordinate_system : Bool
   mut expanded : Bool
   mut text : String
-  mut icon_width : Int
-  mut icon_height : Int
-  mut icon_text_gap : Int
+  mut icon_width : Int32
+  mut icon_height : Int32
+  mut icon_text_gap : Int32
   mut minimum_size : GmfDimension
   mut preferred_size : GmfDimension
   mut font_name : String?
-  mut font_size : Int
+  mut font_size : Int32
   mut font_disposed : Bool
   mut border_item_container : GmfFigure?
   mut points : GmfPointList
@@ -189,10 +189,10 @@ priv struct GmfFigureData {
 
 ///|
 priv struct GmfViewData {
-  mut location_x : Int
-  mut location_y : Int
-  mut width : Int
-  mut height : Int
+  mut location_x : Int32
+  mut location_y : Int32
+  mut width : Int32
+  mut height : Int32
   styles : Map[String, String]
   mut bendpoints : GmfPointList
   mut source_terminal : String?
@@ -215,7 +215,7 @@ priv struct GmfEditPartData {
   mut target : GmfEditPart?
   target_connections : Array[GmfEditPart]
   installed_policies : Map[String, String]
-  mut key_point : Int
+  mut key_point : Int32
 }
 
 ///|
@@ -244,12 +244,12 @@ pub struct GmfLayoutElementEdge {
 } derive(Debug)
 
 ///|
-let gmf_layout_element_shape_store_ref : Ref[Map[Int, GmfLayoutElementShape]] = Ref(
+let gmf_layout_element_shape_store_ref : Ref[Map[Int32, GmfLayoutElementShape]] = Ref(
   Map([]),
 )
 
 ///|
-let gmf_layout_element_edge_store_ref : Ref[Map[Int, GmfLayoutElementEdge]] = Ref(
+let gmf_layout_element_edge_store_ref : Ref[Map[Int32, GmfLayoutElementEdge]] = Ref(
   Map([]),
 )
 
@@ -273,7 +273,7 @@ pub fn GmfCommandStack::execute(
 }
 
 ///|
-pub fn GmfCommandStack::execution_count(self : GmfCommandStack) -> Int {
+pub fn GmfCommandStack::execution_count(self : GmfCommandStack) -> Int32 {
   self.executed_labels.length()
 }
 
@@ -322,8 +322,8 @@ fn gmf_checked_edit_part(edit_part : GmfEditPart) -> Unit raise {
 
 ///|
 pub fn new_gmf_figure(
-  kind? : GmfFigureKind = Generic,
-  bounds? : GmfRectangle = new_gmf_rectangle(),
+  kind~ : GmfFigureKind = Generic,
+  bounds~ : GmfRectangle = new_gmf_rectangle(),
 ) -> GmfFigure {
   let figure_id = gmf_figure_store_ref.val.length()
   gmf_figure_store_ref.val.push({
@@ -497,9 +497,9 @@ pub fn gmf_figure_text(figure : GmfFigure) -> String raise {
 ///|
 pub fn gmf_figure_set_icon(
   figure : GmfFigure,
-  width : Int,
-  height : Int,
-  text_gap? : Int = 0,
+  width : Int32,
+  height : Int32,
+  text_gap~ : Int32 = 0,
 ) -> Unit raise {
   gmf_checked_figure(figure)
   gmf_figure_store_ref.val[figure].icon_width = width
@@ -508,19 +508,19 @@ pub fn gmf_figure_set_icon(
 }
 
 ///|
-pub fn gmf_figure_icon_width(figure : GmfFigure) -> Int raise {
+pub fn gmf_figure_icon_width(figure : GmfFigure) -> Int32 raise {
   gmf_checked_figure(figure)
   gmf_figure_store_ref.val[figure].icon_width
 }
 
 ///|
-pub fn gmf_figure_icon_height(figure : GmfFigure) -> Int raise {
+pub fn gmf_figure_icon_height(figure : GmfFigure) -> Int32 raise {
   gmf_checked_figure(figure)
   gmf_figure_store_ref.val[figure].icon_height
 }
 
 ///|
-pub fn gmf_figure_icon_text_gap(figure : GmfFigure) -> Int raise {
+pub fn gmf_figure_icon_text_gap(figure : GmfFigure) -> Int32 raise {
   gmf_checked_figure(figure)
   gmf_figure_store_ref.val[figure].icon_text_gap
 }
@@ -559,7 +559,7 @@ pub fn gmf_figure_preferred_size(figure : GmfFigure) -> GmfDimension raise {
 pub fn gmf_figure_set_font(
   figure : GmfFigure,
   font_name : String,
-  font_size : Int,
+  font_size : Int32,
 ) -> Unit raise {
   gmf_checked_figure(figure)
   gmf_figure_store_ref.val[figure].font_name = Some(font_name)
@@ -574,7 +574,7 @@ pub fn gmf_figure_font_name(figure : GmfFigure) -> String? raise {
 }
 
 ///|
-pub fn gmf_figure_font_size(figure : GmfFigure) -> Int raise {
+pub fn gmf_figure_font_size(figure : GmfFigure) -> Int32 raise {
   gmf_checked_figure(figure)
   gmf_figure_store_ref.val[figure].font_size
 }
@@ -626,11 +626,11 @@ pub fn gmf_figure_points(figure : GmfFigure) -> GmfPointList raise {
 
 ///|
 pub fn new_gmf_view(
-  name? : String = "",
-  location_x? : Int = 0,
-  location_y? : Int = 0,
-  width? : Int = 0,
-  height? : Int = 0,
+  name~ : String = "",
+  location_x~ : Int32 = 0,
+  location_y~ : Int32 = 0,
+  width~ : Int32 = 0,
+  height~ : Int32 = 0,
 ) -> GmfView {
   let view_id = gmf_view_store_ref.val.length()
   gmf_view_store_ref.val.push({
@@ -650,31 +650,35 @@ pub fn new_gmf_view(
 }
 
 ///|
-pub fn gmf_view_location_x(view : GmfView) -> Int raise {
+pub fn gmf_view_location_x(view : GmfView) -> Int32 raise {
   gmf_checked_view(view)
   gmf_view_store_ref.val[view].location_x
 }
 
 ///|
-pub fn gmf_view_location_y(view : GmfView) -> Int raise {
+pub fn gmf_view_location_y(view : GmfView) -> Int32 raise {
   gmf_checked_view(view)
   gmf_view_store_ref.val[view].location_y
 }
 
 ///|
-pub fn gmf_view_width(view : GmfView) -> Int raise {
+pub fn gmf_view_width(view : GmfView) -> Int32 raise {
   gmf_checked_view(view)
   gmf_view_store_ref.val[view].width
 }
 
 ///|
-pub fn gmf_view_height(view : GmfView) -> Int raise {
+pub fn gmf_view_height(view : GmfView) -> Int32 raise {
   gmf_checked_view(view)
   gmf_view_store_ref.val[view].height
 }
 
 ///|
-pub fn gmf_view_set_location(view : GmfView, x : Int, y : Int) -> Unit raise {
+pub fn gmf_view_set_location(
+  view : GmfView,
+  x : Int32,
+  y : Int32,
+) -> Unit raise {
   gmf_checked_view(view)
   gmf_view_store_ref.val[view].location_x = x
   gmf_view_store_ref.val[view].location_y = y
@@ -683,8 +687,8 @@ pub fn gmf_view_set_location(view : GmfView, x : Int, y : Int) -> Unit raise {
 ///|
 pub fn gmf_view_set_size(
   view : GmfView,
-  width : Int,
-  height : Int,
+  width : Int32,
+  height : Int32,
 ) -> Unit raise {
   gmf_checked_view(view)
   gmf_view_store_ref.val[view].width = width
@@ -797,8 +801,8 @@ pub fn gmf_view_name(view : GmfView) -> String raise {
 ///|
 pub fn new_gmf_edit_part(
   kind : GmfEditPartKind,
-  figure? : GmfFigure = new_gmf_figure(),
-  notation_node? : String = "",
+  figure~ : GmfFigure = new_gmf_figure(),
+  notation_node~ : String = "",
 ) -> GmfEditPart {
   let edit_part_id = gmf_edit_part_store_ref.val.length()
   gmf_edit_part_store_ref.val.push({
@@ -976,14 +980,14 @@ pub fn gmf_edit_part_get_installed_edit_policy(
 ///|
 pub fn gmf_edit_part_set_key_point(
   edit_part : GmfEditPart,
-  key_point : Int,
+  key_point : Int32,
 ) -> Unit raise {
   gmf_checked_edit_part(edit_part)
   gmf_edit_part_store_ref.val[edit_part].key_point = key_point
 }
 
 ///|
-pub fn gmf_edit_part_key_point(edit_part : GmfEditPart) -> Int raise {
+pub fn gmf_edit_part_key_point(edit_part : GmfEditPart) -> Int32 raise {
   gmf_checked_edit_part(edit_part)
   gmf_edit_part_store_ref.val[edit_part].key_point
 }
@@ -1030,7 +1034,7 @@ pub struct GmfLayoutHint {
 
 ///|
 pub fn new_gmf_layout_hint(
-  graphical_edit_part? : GmfEditPart? = None,
+  graphical_edit_part~ : GmfEditPart? = None,
 ) -> GmfLayoutHint {
   { graphical_edit_part, }
 }

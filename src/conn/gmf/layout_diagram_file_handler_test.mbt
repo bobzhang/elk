@@ -1,7 +1,7 @@
 ///|
 fn layout_diagram_file_handler_test_expect_ok(
-  action : () -> Int raise LayoutDiagramFileHandlerException,
-) -> Int {
+  action : () -> Int32 raise LayoutDiagramFileHandlerException,
+) -> Int32 {
   try action() catch {
     LayoutDiagramFileHandlerException(message) =>
       abort("unexpected LayoutDiagramFileHandlerException: \{message}")

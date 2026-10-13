@@ -55,7 +55,7 @@ fn layout_option_label_provider_is_algorithm_option(
 ///|
 fn layout_option_label_provider_choice_at(
   option_data : @core.LayoutOptionData,
-  index : Int,
+  index : Int32,
 ) -> String? {
   let choices = option_data.get_choices()
   if index >= 0 && index < choices.length() {

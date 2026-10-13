@@ -62,12 +62,12 @@ fn parse_bool_layout_value(value : String) -> Bool? {
 }
 
 ///|
-fn parse_int_layout_value(value : String) -> Int? {
+fn parse_int_layout_value(value : String) -> Int32? {
   let normalized = value.trim().to_owned()
   if normalized.is_empty() {
     return None
   }
-  let parsed_int : Result[Int, Error] = try
+  let parsed_int : Result[Int32, Error] = try
     @string.parse_int(normalized)
   catch {
     error => Err(error)
@@ -213,7 +213,7 @@ fn parse_force_model_layout_value(value : String) -> ForceModelStrategy? {
 }
 
 ///|
-fn parse_stress_dimension_layout_value(value : String) -> Int? {
+fn parse_stress_dimension_layout_value(value : String) -> Int32? {
   let normalized = value.trim().to_owned().to_upper()
   if normalized.is_empty() {
     return None
@@ -243,7 +243,7 @@ fn bool_option_with_default(raw_value : String?, default_value : Bool) -> Bool {
 }
 
 ///|
-fn int_option_with_default(raw_value : String?, default_value : Int) -> Int {
+fn int_option_with_default(raw_value : String?, default_value : Int32) -> Int32 {
   match raw_value {
     Some(value) =>
       match parse_int_layout_value(value) {

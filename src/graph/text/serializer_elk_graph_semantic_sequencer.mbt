@@ -8,7 +8,7 @@ pub struct ElkGraphSemanticSequencer {
 ///|
 pub fn new_elk_graph_semantic_sequencer(
   metadata : @core.OptionMetadata,
-  base? : AbstractElkGraphSemanticSequencer = new_abstract_elk_graph_semantic_sequencer(),
+  base~ : AbstractElkGraphSemanticSequencer = new_abstract_elk_graph_semantic_sequencer(),
   value_converter? : PropertyValueValueConverter,
 ) -> ElkGraphSemanticSequencer {
   let value_converter = value_converter.unwrap_or(

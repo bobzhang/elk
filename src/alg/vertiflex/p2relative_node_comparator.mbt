@@ -4,7 +4,7 @@ fn vertiflex_node_comparator_compare(
   a : @graph.ElkNode,
   b : @graph.ElkNode,
   invert : Bool,
-) -> Int {
+) -> Int32 {
   let sort_y_result = if !invert {
     if @graph.node_y(a) < @graph.node_y(b) {
       -1

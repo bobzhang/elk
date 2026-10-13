@@ -1,5 +1,5 @@
 ///|
-fn switch_decider_pair_value(value : Int?) -> Int {
+fn switch_decider_pair_value(value : Int32?) -> Int32 {
   match value {
     Some(v) => v
     None => 0
@@ -94,10 +94,10 @@ pub struct SwitchDecider {
 
 ///|
 pub fn new_switch_decider(
-  free_layer_index : Int,
+  free_layer_index : Int32,
   graph : Array[Array[@runtime.LNode]],
   crossing_matrix_filler : CrossingMatrixFiller,
-  port_positions : Array[Int],
+  port_positions : Array[Int32],
   graph_data : GraphInfoHolder,
   one_sided : Bool,
 ) -> SwitchDecider raise {
@@ -168,8 +168,8 @@ pub fn new_switch_decider(
 ///|
 fn SwitchDecider::init_parent_crossings_counters(
   self : SwitchDecider,
-  free_layer_index : Int,
-  graph_length : Int,
+  free_layer_index : Int32,
+  graph_length : Int32,
 ) -> Unit raise {
   let parent_graph_data = self.graph_data.parent_graph_data()
   let parent_node_order = parent_graph_data.current_node_order()
@@ -253,8 +253,8 @@ pub fn SwitchDecider::notify_of_switch(
 ///|
 pub fn SwitchDecider::does_switch_reduce_crossings(
   self : SwitchDecider,
-  upper_node_index : Int,
-  lower_node_index : Int,
+  upper_node_index : Int32,
+  lower_node_index : Int32,
 ) -> Bool raise {
   if self.constraints_prevent_switch(upper_node_index, lower_node_index) {
     return false
@@ -335,8 +335,8 @@ pub fn SwitchDecider::does_switch_reduce_crossings(
 ///|
 fn SwitchDecider::constraints_prevent_switch(
   self : SwitchDecider,
-  node_index : Int,
-  lower_node_index : Int,
+  node_index : Int32,
+  lower_node_index : Int32,
 ) -> Bool {
   let upper_node = self.free_layer[node_index]
   let lower_node = self.free_layer[lower_node_index]

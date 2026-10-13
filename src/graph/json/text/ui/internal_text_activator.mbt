@@ -64,7 +64,7 @@ pub struct GraphJsonTextConfigurationElement {
 
 ///|
 pub fn new_graph_json_text_configuration_element(
-  contributor? : String? = None,
+  contributor~ : String? = None,
 ) -> GraphJsonTextConfigurationElement {
   { contributor, }
 }
@@ -87,7 +87,7 @@ pub struct GraphJsonTextExecutableExtension {
 
 ///|
 pub fn new_graph_json_text_executable_extension(
-  set_initialization_data_fn? : (
+  set_initialization_data_fn~ : (
     GraphJsonTextConfigurationElement?,
     String?,
     GraphJsonTextInitializationData?,
@@ -140,7 +140,7 @@ pub struct GraphJsonTextUiBundle {
 
 ///|
 pub fn new_graph_json_text_ui_bundle(
-  symbolic_name? : String = graph_json_text_ui_plugin_id,
+  symbolic_name~ : String = graph_json_text_ui_plugin_id,
 ) -> GraphJsonTextUiBundle {
   { symbolic_name, classes: Map([]), }
 }
@@ -204,7 +204,7 @@ pub fn GraphJsonTextUiInjector::get_instance(
 ///|
 pub fn GraphJsonTextUiInjector::provider_count(
   self : GraphJsonTextUiInjector,
-) -> Int {
+) -> Int32 {
   self.providers.to_array().length()
 }
 
@@ -263,7 +263,7 @@ pub fn GraphJsonTextActivator::register_bundle_class(
 ///|
 pub fn GraphJsonTextActivator::injector_count(
   self : GraphJsonTextActivator,
-) -> Int {
+) -> Int32 {
   self.injectors.to_array().length()
 }
 

@@ -10,14 +10,14 @@ pub impl Eq for FNode with fn equal(self, other) {
 
 ///|
 priv struct FNodeData {
-  mut id : Int
+  mut id : Int32
   label : String
   mut parent : FNode?
   children : Array[FNode]
   displacement : @core.KVector
   position : @core.KVector
   size : @core.KVector
-  mut int_properties : Map[@graph.PropertyId, Int]?
+  mut int_properties : Map[@graph.PropertyId, Int32]?
   mut double_properties : Map[@graph.PropertyId, Double]?
   mut bool_properties : Map[@graph.PropertyId, Bool]?
   mut origin : @graph.ElkNode?
@@ -29,7 +29,7 @@ fn set_fnode_data(node : FNode, data : FNodeData) -> Unit {
 }
 
 ///|
-pub fn new_fnode(label? : String = "") -> FNode {
+pub fn new_fnode(label~ : String = "") -> FNode {
   {
     data: {
       id: -1,
@@ -48,14 +48,14 @@ pub fn new_fnode(label? : String = "") -> FNode {
 }
 
 ///|
-pub fn fnode_set_id(node : FNode, id : Int) -> Unit {
+pub fn fnode_set_id(node : FNode, id : Int32) -> Unit {
   let data = node.data
   data.id = id
   set_fnode_data(node, data)
 }
 
 ///|
-pub fn fnode_id(node : FNode) -> Int {
+pub fn fnode_id(node : FNode) -> Int32 {
   node.data.id
 }
 
@@ -90,7 +90,7 @@ pub fn fnode_is_compound(node : FNode) -> Bool {
 }
 
 ///|
-pub fn fnode_depth(node : FNode) -> Int {
+pub fn fnode_depth(node : FNode) -> Int32 {
   let mut depth = 0
   let mut current = fnode_parent(node)
   while current is Some(parent) {
@@ -124,7 +124,7 @@ pub fn fnode_radius(node : FNode) -> Double {
 pub fn fnode_set_int_property(
   node : FNode,
   property : ForceIntOption,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   let data = node.data
   data.int_properties = Some(
@@ -138,7 +138,7 @@ pub fn fnode_set_int_property(
 }
 
 ///|
-pub fn fnode_get_int_property(node : FNode, property : ForceIntOption) -> Int {
+pub fn fnode_get_int_property(node : FNode, property : ForceIntOption) -> Int32 {
   let data = node.data
   match
     force_property_bag_get(data.int_properties, property.get_property_id()) {

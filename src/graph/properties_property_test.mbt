@@ -10,7 +10,7 @@ test "Property default primitive values" {
 
 ///|
 test "Property default clone map" {
-  let default_value : Map[String, Int] = { "x": 2, "y": 3 }
+  let default_value : Map[String, Int32] = { "x": 2, "y": 3 }
   let property = new_property_cloneable("dummyMap", default_value, value => {
     Some(
       {

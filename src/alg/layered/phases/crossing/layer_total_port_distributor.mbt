@@ -88,7 +88,7 @@ pub struct LayerTotalPortDistributor {
 
 ///|
 pub fn new_layer_total_port_distributor(
-  num_layers : Int,
+  num_layers : Int32,
 ) -> LayerTotalPortDistributor {
   {
     distributor: new_abstract_barycenter_port_distributor(
@@ -115,7 +115,7 @@ pub fn LayerTotalPortDistributor::as_abstract_barycenter_port_distributor(
 pub fn LayerTotalPortDistributor::distribute_ports_while_sweeping(
   self : LayerTotalPortDistributor,
   node_order : Array[Array[@runtime.LNode]],
-  current_index : Int,
+  current_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool raise {
   self.distributor.distribute_ports_while_sweeping(
@@ -135,7 +135,7 @@ pub fn LayerTotalPortDistributor::calculate_port_ranks(
 ///|
 pub fn LayerTotalPortDistributor::init_at_layer_level(
   self : LayerTotalPortDistributor,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.distributor.init_at_layer_level(l, node_order)
@@ -144,8 +144,8 @@ pub fn LayerTotalPortDistributor::init_at_layer_level(
 ///|
 pub fn LayerTotalPortDistributor::init_at_node_level(
   self : LayerTotalPortDistributor,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.distributor.init_at_node_level(l, n, node_order)
@@ -154,9 +154,9 @@ pub fn LayerTotalPortDistributor::init_at_node_level(
 ///|
 pub fn LayerTotalPortDistributor::init_at_port_level(
   self : LayerTotalPortDistributor,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.distributor.init_at_port_level(l, n, p, node_order)

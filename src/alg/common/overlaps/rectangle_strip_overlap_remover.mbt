@@ -181,7 +181,7 @@ pub fn RectangleStripOverlapRemover::get_rectangle_nodes(
 fn rectangle_strip_overlap_remover_compare_left_rectangle_borders(
   left : RectangleNode,
   right : RectangleNode,
-) -> Int {
+) -> Int32 {
   let left_rect = left.get_rectangle()
   let right_rect = right.get_rectangle()
   left_rect.x.compare(right_rect.x)
@@ -191,7 +191,7 @@ fn rectangle_strip_overlap_remover_compare_left_rectangle_borders(
 fn rectangle_strip_overlap_remover_compare_right_rectangle_borders(
   left : RectangleNode,
   right : RectangleNode,
-) -> Int {
+) -> Int32 {
   let left_rect = left.get_rectangle()
   let right_rect = right.get_rectangle()
   (left_rect.x + left_rect.width).compare(right_rect.x + right_rect.width)
@@ -200,7 +200,7 @@ fn rectangle_strip_overlap_remover_compare_right_rectangle_borders(
 ///|
 fn rectangle_strip_overlap_remover_sort_nodes(
   nodes : Array[RectangleNode],
-  compare : (RectangleNode, RectangleNode) -> Int,
+  compare : (RectangleNode, RectangleNode) -> Int32,
 ) -> Unit {
   let length = nodes.length()
   if length <= 1 {

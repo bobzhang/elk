@@ -1,5 +1,5 @@
 ///|
-fn graph_info_count_ports(node_order : Array[Array[@runtime.LNode]]) -> Int {
+fn graph_info_count_ports(node_order : Array[Array[@runtime.LNode]]) -> Int32 {
   let mut count = 0
   for layer in node_order {
     for node in layer {
@@ -115,7 +115,7 @@ fn graph_info_has_external_ports(graph : @runtime.LGraph) -> Bool {
 }
 
 ///|
-fn graph_info_parent_layer_id(parent : @runtime.LNode) -> Int {
+fn graph_info_parent_layer_id(parent : @runtime.LNode) -> Int32 {
   parent.get_layer().unwrap().get_id()
 }
 
@@ -138,7 +138,7 @@ pub struct GraphInfoHolder {
   mut current_node_order_ref : Array[Array[@runtime.LNode]]
   mut currently_best_node_and_port_order_ref : SweepCopy?
   mut best_node_and_port_order_ref : SweepCopy?
-  mut port_positions_ref : Array[Int]
+  mut port_positions_ref : Array[Int32]
   mut use_bottom_up : Bool
   child_graphs_ref : Array[@runtime.LGraph]
   mut has_external_ports_ref : Bool
@@ -148,7 +148,7 @@ pub struct GraphInfoHolder {
   mut port_distributor_ref : ISweepPortDistributor?
   mut crossings_counter_ref : AllCrossingsCounter?
   mut random_ref : @state.GreedySwitchMockRandom?
-  mut n_ports : Int
+  mut n_ports : Int32
   mut cross_min_deterministic_ref : Bool
   mut cross_min_always_improves_ref : Bool
 }
@@ -156,12 +156,12 @@ pub struct GraphInfoHolder {
 ///|
 pub fn new_graph_info_holder(
   current_node_order : Array[Array[@runtime.LNode]],
-  parent? : @runtime.LNode? = None,
-  parent_graph_data? : GraphInfoHolder? = None,
-  dont_sweep_into? : Bool = false,
-  port_positions? : Array[Int] = [],
-  l_graph? : @runtime.LGraph? = None,
-  cross_min_deterministic? : Bool = false,
+  parent~ : @runtime.LNode? = None,
+  parent_graph_data~ : GraphInfoHolder? = None,
+  dont_sweep_into~ : Bool = false,
+  port_positions~ : Array[Int32] = [],
+  l_graph~ : @runtime.LGraph? = None,
+  cross_min_deterministic~ : Bool = false,
 ) -> GraphInfoHolder {
   let actual_port_positions = if port_positions.length() == 0 {
     Array::make(graph_info_count_ports(current_node_order), 0)
@@ -194,7 +194,7 @@ pub fn new_graph_info_holder_from_graph(
   graph : @runtime.LGraph,
   cross_min_type : CrossMinType,
   graphs : Array[GraphInfoHolder],
-  state? : @runtime.LayeredRunState? = None,
+  state~ : @runtime.LayeredRunState? = None,
 ) -> GraphInfoHolder {
   let current_node_order = graph_info_to_node_array(graph)
   let parent = graph.get_parent_node()
@@ -278,7 +278,7 @@ pub fn new_graph_info_holder_from_graph(
       }
     }
     Median =>
-      new_median_heuristic(@random.Rand::new()).as_i_crossing_minimization_heuristic()
+      new_median_heuristic(Rand()).as_i_crossing_minimization_heuristic()
     OneSidedGreedySwitch =>
       new_greedy_switch_heuristic(
         graph_info_cross_min_type_to_switch_type(cross_min_type),
@@ -359,14 +359,14 @@ pub fn GraphInfoHolder::set_best_node_n_port_order(
 }
 
 ///|
-pub fn GraphInfoHolder::port_positions(self : GraphInfoHolder) -> Array[Int] {
+pub fn GraphInfoHolder::port_positions(self : GraphInfoHolder) -> Array[Int32] {
   self.port_positions_ref
 }
 
 ///|
 pub fn GraphInfoHolder::set_port_positions(
   self : GraphInfoHolder,
-  port_positions : Array[Int],
+  port_positions : Array[Int32],
 ) -> Unit {
   self.port_positions_ref = port_positions
 }
@@ -496,15 +496,15 @@ pub fn GraphInfoHolder::get_best_sweep(self : GraphInfoHolder) -> SweepCopy? {
 }
 
 ///|
-pub fn GraphInfoHolder::parent_layer_id(self : GraphInfoHolder) -> Int {
+pub fn GraphInfoHolder::parent_layer_id(self : GraphInfoHolder) -> Int32 {
   graph_info_parent_layer_id(self.parent())
 }
 
 ///|
 pub fn GraphInfoHolder::init_at_node_level(
   self : GraphInfoHolder,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   let node = node_order[l][n]
@@ -517,9 +517,9 @@ pub fn GraphInfoHolder::init_at_node_level(
 ///|
 pub fn GraphInfoHolder::init_at_port_level(
   self : GraphInfoHolder,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   ignore(l)

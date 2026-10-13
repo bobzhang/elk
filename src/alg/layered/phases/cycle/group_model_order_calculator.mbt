@@ -1,7 +1,7 @@
 ///|
 pub struct GroupModelOrderCalculator {
-  mut first_separate_nodes : Int
-  mut last_separate_nodes : Int
+  mut first_separate_nodes : Int32
+  mut last_separate_nodes : Int32
 }
 
 ///|
@@ -13,8 +13,8 @@ pub fn new_group_model_order_calculator() -> GroupModelOrderCalculator {
 pub fn GroupModelOrderCalculator::compute_constraint_model_order(
   self : GroupModelOrderCalculator,
   node : @runtime.LNode,
-  offset : Int,
-) -> Int {
+  offset : Int32,
+) -> Int32 {
   let mut model_order = 0
   match
     @options.layer_constraint_from_string(
@@ -47,9 +47,9 @@ pub fn GroupModelOrderCalculator::compute_constraint_model_order(
 pub fn GroupModelOrderCalculator::compute_constraint_group_model_order(
   self : GroupModelOrderCalculator,
   node : @runtime.LNode,
-  offset : Int,
-  small_offset : Int,
-) -> Int {
+  offset : Int32,
+  small_offset : Int32,
+) -> Int32 {
   let mut model_order = 0
   match
     @options.layer_constraint_from_string(

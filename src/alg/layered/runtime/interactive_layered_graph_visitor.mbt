@@ -6,12 +6,12 @@ pub let interactive_layered_graph_visitor_last_layer_index = 2147483647
 
 ///|
 pub struct InteractiveLayeredGraphVisitor {
-  marker : Int
+  marker : Int32
 }
 
 ///|
-fn interactive_layered_graph_visitor_parse_int(value : String) -> Int? {
-  let parsed : Result[Int, Error] = try
+fn interactive_layered_graph_visitor_parse_int(value : String) -> Int32? {
+  let parsed : Result[Int32, Error] = try
     @string.parse_int(value.trim().to_owned())
   catch {
     error => Err(error)
@@ -61,8 +61,8 @@ fn interactive_layered_graph_visitor_string_option_value(
 ///|
 fn interactive_layered_graph_visitor_int_option_value(
   node : @graph.ElkNode,
-  option : @graph.IProperty[Int],
-) -> Int {
+  option : @graph.IProperty[Int32],
+) -> Int32 {
   match
     @graph.node_layout_option_string_value_by_option_id(
       node,
@@ -90,7 +90,7 @@ fn interactive_layered_graph_visitor_int_option_value(
 ///|
 fn interactive_layered_graph_visitor_has_int_option(
   node : @graph.ElkNode,
-  option : @graph.IProperty[Int],
+  option : @graph.IProperty[Int32],
 ) -> Bool {
   match
     @graph.node_layout_option_string_value_by_option_id(
@@ -107,8 +107,8 @@ fn interactive_layered_graph_visitor_has_int_option(
 ///|
 fn interactive_layered_graph_visitor_set_int_option(
   node : @graph.ElkNode,
-  option : @graph.IProperty[Int],
-  value : Int,
+  option : @graph.IProperty[Int32],
+  value : Int32,
 ) -> Unit {
   @graph.node_set_int_property(node, option, value)
   @graph.node_set_layout_option_string_by_id(
@@ -250,7 +250,7 @@ fn interactive_layered_graph_visitor_contains_node(
 fn interactive_layered_graph_visitor_index_of_node(
   nodes : Array[@graph.ElkNode],
   target : @graph.ElkNode,
-) -> Int {
+) -> Int32 {
   for i in 0..<nodes.length() {
     if nodes[i] == target {
       return i
@@ -275,7 +275,7 @@ fn interactive_layered_graph_visitor_remove_node(
 ///|
 fn interactive_layered_graph_visitor_sort_nodes_by_int_option(
   nodes : Array[@graph.ElkNode],
-  option : @graph.IProperty[Int],
+  option : @graph.IProperty[Int32],
 ) -> Unit {
   let mut i = 1
   while i < nodes.length() {
@@ -586,7 +586,7 @@ fn interactive_layered_graph_visitor_sort_nodes_in_layer(
 ///|
 fn interactive_layered_graph_visitor_swap_nodes(
   nodes : Array[@graph.ElkNode],
-  position : Int,
+  position : Int32,
 ) -> Unit {
   let pred = nodes[position - 1]
   let succ = nodes[position]
@@ -709,7 +709,7 @@ fn interactive_layered_graph_visitor_handle_nodes_with_pc_and_rc(
 ///|
 fn interactive_layered_graph_visitor_shift_other_nodes(
   moved_node : @graph.ElkNode,
-  layer : Int,
+  layer : Int32,
   layer_nodes : Array[Array[@graph.ElkNode]],
   incoming : Bool,
 ) -> Unit {
@@ -785,7 +785,7 @@ fn interactive_layered_graph_visitor_shift_other_nodes(
 fn interactive_layered_graph_visitor_assign_layers_to_nodes_with_property(
   nodes_with_layer_constraint : Array[@graph.ElkNode],
   layering : Array[Array[@graph.ElkNode]],
-) -> Int {
+) -> Int32 {
   interactive_layered_graph_visitor_sort_nodes_by_int_option(
     nodes_with_layer_constraint, @options.layered_options_layering_layer_choice_constraint,
   )
@@ -820,7 +820,7 @@ fn interactive_layered_graph_visitor_assign_layers_to_nodes_with_rc(
   nodes_with_rc : Array[@graph.ElkNode],
   layering : Array[Array[@graph.ElkNode]],
   all_nodes : Array[@graph.ElkNode],
-  diff : Int,
+  diff : Int32,
 ) -> Unit {
   for node in nodes_with_rc {
     let mut succ_node : @graph.ElkNode? = None
@@ -1141,7 +1141,7 @@ fn interactive_layered_graph_visitor_set_coordinate_in_layout_direction(
 ///|
 fn interactive_layered_graph_visitor_set_coordinates_orthogonal_to_layout_direction(
   nodes_of_layer : Array[@graph.ElkNode],
-  layer_id : Int,
+  layer_id : Int32,
   direction : @core.Direction,
 ) -> Unit {
   let spacing = interactive_layered_graph_visitor_pseudo_position_spacing.to_double()

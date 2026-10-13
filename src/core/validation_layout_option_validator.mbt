@@ -128,14 +128,14 @@ pub fn LayoutOptionValidator::check_property(
   self : LayoutOptionValidator,
   option_data : LayoutOptionData,
   value : String,
-  _context? : Unit? = None,
+  _context~ : Unit? = None,
 ) -> Array[GraphIssue] {
   ignore(self)
   let trimmed = value.trim()
   let issues : Array[GraphIssue] = []
   match option_data.get_type() {
     IntType => {
-      let parsed : Result[Int, Error] = try @string.parse_int(trimmed) catch {
+      let parsed : Result[Int32, Error] = try @string.parse_int(trimmed) catch {
         error => Err(error)
       } noraise {
         value => Ok(value)

@@ -52,9 +52,9 @@ fn semi_interactive_test_node_type_equals(
 fn semi_interactive_test_new_layered_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  node_id : Int,
+  node_id : Int32,
   node_type : @runtime.NodeType,
-  position? : @core.KVector? = None,
+  position~ : @core.KVector? = None,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
   node.set_id(node_id)
@@ -69,7 +69,7 @@ fn semi_interactive_test_new_layered_node(
 }
 
 ///|
-fn semi_interactive_test_successor_ids(node : @runtime.LNode) -> Array[Int] {
+fn semi_interactive_test_successor_ids(node : @runtime.LNode) -> Array[Int32] {
   let result = []
   for
     successor in node.get_property_l_node_array(

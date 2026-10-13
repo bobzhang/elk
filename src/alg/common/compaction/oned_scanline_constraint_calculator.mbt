@@ -121,7 +121,7 @@ fn scanline_overlap(n1 : CNode?, n2 : CNode?) -> Bool {
 fn scanline_timestamp_comparator(
   left : ScanlineTimestamp,
   right : ScanlineTimestamp,
-) -> Int {
+) -> Int32 {
   let left_hitbox = left.node.hitbox()
   let right_hitbox = right.node.hitbox()
 

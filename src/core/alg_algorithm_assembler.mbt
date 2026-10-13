@@ -24,13 +24,13 @@ fn algorithm_assembler_exception_message(
 pub(all) struct AlgorithmAssembler {
   mut enable_caching : Bool
   mut fail_on_missing_phase : Bool
-  mut processor_comparator : (LayoutProcessorFactory, LayoutProcessorFactory) -> Int
+  mut processor_comparator : (LayoutProcessorFactory, LayoutProcessorFactory) -> Int32
   phase_descriptor : PhaseDescriptor
-  number_of_phases : Int
+  number_of_phases : Int32
   configured_phases : Array[Bool]
   phase_accessor : AbstractRandomListAccessor[LayoutProcessorFactory?]
   additional_processors : LayoutProcessorConfiguration
-  cache : Array[(Int, &RunnableLayoutProcessor)]
+  cache : Array[(Int32, &RunnableLayoutProcessor)]
 }
 
 ///|
@@ -74,7 +74,7 @@ pub fn algorithm_assembler_create(
 }
 
 ///|
-fn make_bool_array(length : Int) -> Array[Bool] {
+fn make_bool_array(length : Int32) -> Array[Bool] {
   [
     for _ in 0..<length => false
   ]
@@ -101,7 +101,7 @@ pub fn AlgorithmAssembler::with_fail_on_missing_phase(
 ///|
 pub fn AlgorithmAssembler::with_processor_comparator(
   self : AlgorithmAssembler,
-  comparator : (LayoutProcessorFactory, LayoutProcessorFactory) -> Int,
+  comparator : (LayoutProcessorFactory, LayoutProcessorFactory) -> Int32,
 ) -> AlgorithmAssembler {
   self.processor_comparator = comparator
   self
@@ -227,7 +227,7 @@ fn append_processors(
 ///|
 pub fn AlgorithmAssembler::count_configured_phases(
   self : AlgorithmAssembler,
-) -> Int {
+) -> Int32 {
   self.configured_phases.fold(init=0, (count, configured) => {
     if configured {
       count + 1
@@ -256,7 +256,7 @@ pub fn AlgorithmAssembler::retrieve_processors(
 ///|
 fn sort_processor_factories(
   factories : Array[LayoutProcessorFactory],
-  comparator : (LayoutProcessorFactory, LayoutProcessorFactory) -> Int,
+  comparator : (LayoutProcessorFactory, LayoutProcessorFactory) -> Int32,
 ) -> Array[LayoutProcessorFactory] {
   let sorted = factories.copy()
   for i in 1..<sorted.length() {
@@ -300,8 +300,8 @@ pub fn AlgorithmAssembler::retrieve_processor(
 
 ///|
 fn find_cached_processor(
-  cache : Array[(Int, &RunnableLayoutProcessor)],
-  factory_id : Int,
+  cache : Array[(Int32, &RunnableLayoutProcessor)],
+  factory_id : Int32,
 ) -> &RunnableLayoutProcessor? {
   for entry in cache {
     let (cached_id, processor) = entry

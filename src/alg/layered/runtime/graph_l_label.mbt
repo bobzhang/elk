@@ -46,12 +46,12 @@ pub fn LLabel::get_origin_identifier(self : LLabel) -> String? {
 }
 
 ///|
-pub fn LLabel::get_id(self : LLabel) -> Int {
+pub fn LLabel::get_id(self : LLabel) -> Int32 {
   self.shape.get_id()
 }
 
 ///|
-pub fn LLabel::set_id(self : LLabel, id : Int) -> Unit {
+pub fn LLabel::set_id(self : LLabel, id : Int32) -> Unit {
   self.shape.set_id(id)
 }
 

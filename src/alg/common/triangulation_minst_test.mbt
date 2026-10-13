@@ -9,7 +9,7 @@ fn contains_edge(edges : Array[TEdge], target : TEdge) -> Bool {
 }
 
 ///|
-fn tree_node_count(tree : Tree[KVector]) -> Int {
+fn tree_node_count(tree : Tree[KVector]) -> Int32 {
   let mut count = 1
   for child in tree.children {
     count = count + tree_node_count(child)

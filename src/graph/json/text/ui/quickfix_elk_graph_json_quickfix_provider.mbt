@@ -23,7 +23,7 @@ pub fn ElkGraphJsonQuickfixProvider::supports_issue(
 pub fn ElkGraphJsonQuickfixProvider::remove_option(
   self : ElkGraphJsonQuickfixProvider,
   properties : Array[@text.GraphJsonTextPropertyAssignment],
-  index : Int,
+  index : Int32,
 ) -> Array[@text.GraphJsonTextPropertyAssignment] {
   ignore(self)
   if index < 0 || index >= properties.length() {

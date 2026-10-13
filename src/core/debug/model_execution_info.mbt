@@ -1,5 +1,5 @@
 ///|
-pub type ExecutionInfo = Int
+pub type ExecutionInfo = Int32
 
 ///|
 priv suberror ExecutionInfoException {
@@ -23,7 +23,7 @@ fn execution_info_exception_message(err : ExecutionInfoException) -> String {
 ///|
 priv struct ExecutionInfoData {
   mut name : String
-  creation_tick : Int
+  creation_tick : Int32
   mut parent : ExecutionInfo?
   children : Array[ExecutionInfo]
   mut file_name : String?
@@ -42,7 +42,7 @@ priv struct ExecutionInfoData {
 let execution_info_store_ref : Ref[Array[ExecutionInfoData]] = Ref([])
 
 ///|
-let execution_info_creation_tick_ref : Ref[Int] = Ref(0)
+let execution_info_creation_tick_ref : Ref[Int32] = Ref(0)
 
 ///|
 fn checked_execution_info(info : ExecutionInfo) -> Unit raise {
@@ -157,7 +157,7 @@ pub fn execution_info_get_name(info : ExecutionInfo) -> String raise {
 }
 
 ///|
-pub fn execution_info_get_creation_tick(info : ExecutionInfo) -> Int raise {
+pub fn execution_info_get_creation_tick(info : ExecutionInfo) -> Int32 raise {
   checked_execution_info(info)
   execution_info_store_ref.val[info].creation_tick
 }

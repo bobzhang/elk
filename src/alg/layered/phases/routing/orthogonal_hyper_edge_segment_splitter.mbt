@@ -15,14 +15,14 @@ fn new_hyper_edge_segment_splitter_free_area(
 
 ///|
 priv struct HyperEdgeSegmentSplitterAreaRating {
-  mut dependencies : Int
-  mut crossings : Int
+  mut dependencies : Int32
+  mut crossings : Int32
 }
 
 ///|
 fn new_hyper_edge_segment_splitter_area_rating(
-  dependencies : Int,
-  crossings : Int,
+  dependencies : Int32,
+  crossings : Int32,
 ) -> HyperEdgeSegmentSplitterAreaRating {
   { dependencies, crossings, }
 }
@@ -309,9 +309,9 @@ fn HyperEdgeSegmentSplitter::choose_best_area_index(
   self : HyperEdgeSegmentSplitter,
   segment : HyperEdgeSegment,
   free_areas : Array[HyperEdgeSegmentSplitterFreeArea],
-  from_index : Int,
-  to_index : Int,
-) -> Int {
+  from_index : Int32,
+  to_index : Int32,
+) -> Int32 {
   let mut best_area_index = from_index
 
   if from_index < to_index {
@@ -415,7 +415,7 @@ fn HyperEdgeSegmentSplitter::count_crossings_for_single_ordering(
   self : HyperEdgeSegmentSplitter,
   left_segment : HyperEdgeSegment,
   right_segment : HyperEdgeSegment,
-) -> Int {
+) -> Int32 {
   let _ = self
   orthogonal_routing_generator_count_crossings(
     left_segment.get_outgoing_connection_coordinates(),
@@ -458,7 +458,7 @@ fn HyperEdgeSegmentSplitter::is_better(
 fn HyperEdgeSegmentSplitter::use_area(
   self : HyperEdgeSegmentSplitter,
   free_areas : Array[HyperEdgeSegmentSplitterFreeArea],
-  used_area_index : Int,
+  used_area_index : Int32,
   critical_conflict_threshold : Double,
 ) -> Unit {
   let _ = self

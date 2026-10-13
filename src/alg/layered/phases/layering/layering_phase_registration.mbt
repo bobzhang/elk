@@ -2,7 +2,7 @@
 fn register_layering_phase(
   registry : @runtime.LayeredPhaseRegistry,
   strategy : String,
-  id : Int,
+  id : Int32,
   create : () -> @core.TypedLayoutProcessor[@runtime.LGraph],
 ) -> Unit {
   registry.register_layering_phase(strategy, id, create)

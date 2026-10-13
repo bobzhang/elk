@@ -100,7 +100,7 @@ pub struct GraphJsonTextConvertGraphHandler {
 ///|
 pub fn new_graph_json_text_convert_graph_handler(
   metadata : @core.OptionMetadata,
-  project? : GraphJsonTextProject = new_graph_json_text_project(),
+  project~ : GraphJsonTextProject = new_graph_json_text_project(),
 ) -> GraphJsonTextConvertGraphHandler {
   { metadata, project, target_extension: "", errors: [], }
 }
@@ -120,7 +120,7 @@ pub fn GraphJsonTextConvertGraphHandler::execute(
   self : GraphJsonTextConvertGraphHandler,
   selection : Array[GraphJsonTextSelectionItem],
   target_extension : String,
-) -> Int {
+) -> Int32 {
   self.target_extension = target_extension
   if !self.is_valid_target_extension(target_extension) {
     self.errors.push("Invalid target extension: " + target_extension)

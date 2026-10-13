@@ -35,7 +35,7 @@ pub struct ElkGraphRuntimeModule {
 
 ///|
 pub fn new_elk_graph_runtime_module(
-  base? : AbstractElkGraphRuntimeModule = new_abstract_elk_graph_runtime_module(),
+  base~ : AbstractElkGraphRuntimeModule = new_abstract_elk_graph_runtime_module(),
 ) -> ElkGraphRuntimeModule {
   { base, }
 }

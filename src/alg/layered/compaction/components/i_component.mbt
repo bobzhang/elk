@@ -1,6 +1,6 @@
 ///|
 pub struct IComponent[N, E] {
-  _instance_id : Int
+  _instance_id : Int32
   get_hull_fn : () -> Array[@core.ElkRectangle]
   get_external_extensions_fn : () -> Array[IExternalExtension[E]]
   get_external_extension_sides_fn : () -> Array[@core.PortSide]
@@ -8,10 +8,10 @@ pub struct IComponent[N, E] {
 }
 
 ///|
-let component_next_instance_id : Ref[Int] = Ref(0)
+let component_next_instance_id : Ref[Int32] = Ref(0)
 
 ///|
-fn new_component_instance_id() -> Int {
+fn new_component_instance_id() -> Int32 {
   let id = component_next_instance_id.val
   component_next_instance_id.val = id + 1
   id

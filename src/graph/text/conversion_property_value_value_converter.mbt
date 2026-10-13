@@ -7,7 +7,7 @@ pub struct PropertyValueValueConverter {
 ///|
 pub fn new_property_value_value_converter(
   metadata : @core.OptionMetadata,
-  qualified_name_converter? : ElkGraphQualifiedNameConverter = new_elk_graph_qualified_name_converter(),
+  qualified_name_converter~ : ElkGraphQualifiedNameConverter = new_elk_graph_qualified_name_converter(),
 ) -> PropertyValueValueConverter {
   { metadata, qualified_name_converter, }
 }
@@ -160,7 +160,7 @@ pub fn PropertyValueValueConverter::to_string(
 pub fn PropertyValueValueConverter::to_value(
   self : PropertyValueValueConverter,
   text : String,
-  property_key? : GraphTextPropertyKey? = None,
+  property_key~ : GraphTextPropertyKey? = None,
 ) -> GraphTextPropertyValue raise {
   if text == "" || text == "null" {
     return NullValue

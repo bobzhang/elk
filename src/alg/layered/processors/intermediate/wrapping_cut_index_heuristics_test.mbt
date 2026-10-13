@@ -1,6 +1,6 @@
 ///|
 fn wrapping_cut_test_new_graph_with_layers(
-  layer_count : Int,
+  layer_count : Int32,
 ) -> (@runtime.LGraph, Array[@runtime.Layer]) {
   let graph = @runtime.new_l_graph()
   let layers = []
@@ -62,7 +62,7 @@ fn wrapping_cut_test_new_node(
   right : Double,
   bottom : Double,
   left : Double,
-  node_type? : @runtime.NodeType? = None,
+  node_type~ : @runtime.NodeType? = None,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
   node.set_layer(Some(layer))
@@ -96,7 +96,7 @@ fn wrapping_cut_test_connect(
 
 ///|
 fn wrapping_cut_test_new_uniform_graph_stats(
-  layer_count : Int,
+  layer_count : Int32,
 ) -> (@runtime.LGraph, GraphStats) {
   let (graph, layers) = wrapping_cut_test_new_graph_with_layers(layer_count)
   graph.set_property_direction(

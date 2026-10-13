@@ -7,7 +7,7 @@ pub(all) struct InternalMetaDataParser {
 ///|
 pub fn new_internal_meta_data_parser(
   tokens : Array[CoreMetaLexToken],
-  grammar_access? : MetaDataGrammarAccess = new_meta_data_grammar_access(),
+  grammar_access~ : MetaDataGrammarAccess = new_meta_data_grammar_access(),
 ) -> InternalMetaDataParser {
   { tokens, grammar_access, }
 }
@@ -46,7 +46,7 @@ pub fn InternalMetaDataParser::get_grammar_access(
 ///|
 fn core_meta_parser_peek(
   tokens : Array[CoreMetaLexToken],
-  index : Int,
+  index : Int32,
 ) -> CoreMetaLexToken? {
   if index >= 0 && index < tokens.length() {
     Some(tokens[index])
@@ -58,7 +58,7 @@ fn core_meta_parser_peek(
 ///|
 fn core_meta_parser_peek_lexeme(
   tokens : Array[CoreMetaLexToken],
-  index : Int,
+  index : Int32,
 ) -> String? {
   match core_meta_parser_peek(tokens, index) {
     Some(token) => Some(token.lexeme)
@@ -69,7 +69,7 @@ fn core_meta_parser_peek_lexeme(
 ///|
 fn core_meta_parser_consume_if_lexeme(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
   lexeme : String,
 ) -> Bool {
   match core_meta_parser_peek_lexeme(tokens, index_ref.val) {
@@ -102,7 +102,7 @@ fn core_meta_parser_token_is_name(token : CoreMetaLexToken) -> Bool {
 ///|
 fn core_meta_parser_parse_single_literal(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> String? {
   match core_meta_parser_peek(tokens, index_ref.val) {
     Some(token) => {
@@ -120,7 +120,7 @@ fn core_meta_parser_parse_single_literal(
 ///|
 fn core_meta_parser_parse_qualified_name(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> String? {
   match core_meta_parser_peek(tokens, index_ref.val) {
     Some(first) => {
@@ -150,7 +150,7 @@ fn core_meta_parser_parse_qualified_name(
 ///|
 fn core_meta_parser_parse_path(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> String? {
   match core_meta_parser_parse_qualified_name(tokens, index_ref) {
     Some(first) => {
@@ -184,7 +184,7 @@ fn core_meta_parser_parse_path(
 ///|
 fn core_meta_parser_parse_string_or_name(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> String? {
   match core_meta_parser_peek(tokens, index_ref.val) {
     Some(token) =>
@@ -201,7 +201,7 @@ fn core_meta_parser_parse_string_or_name(
 ///|
 fn core_meta_parser_parse_option_target_type(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdOptionTargetType? {
   match core_meta_parser_peek(tokens, index_ref.val) {
     Some(token) => {
@@ -215,7 +215,7 @@ fn core_meta_parser_parse_option_target_type(
 ///|
 fn core_meta_parser_parse_graph_feature(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdGraphFeature? {
   match core_meta_parser_peek(tokens, index_ref.val) {
     Some(token) => {
@@ -229,7 +229,7 @@ fn core_meta_parser_parse_graph_feature(
 ///|
 fn core_meta_parser_is_option_start(
   tokens : Array[CoreMetaLexToken],
-  index : Int,
+  index : Int32,
 ) -> Bool {
   let mut i = index
   if i < tokens.length() && tokens[i].lexeme == "deprecated" {
@@ -250,7 +250,7 @@ fn core_meta_parser_is_option_start(
 ///|
 fn core_meta_parser_is_algorithm_start(
   tokens : Array[CoreMetaLexToken],
-  index : Int,
+  index : Int32,
 ) -> Bool {
   if index >= tokens.length() {
     return false
@@ -266,7 +266,7 @@ fn core_meta_parser_is_algorithm_start(
 ///|
 fn core_meta_parser_is_category_start(
   tokens : Array[CoreMetaLexToken],
-  index : Int,
+  index : Int32,
 ) -> Bool {
   if index >= tokens.length() {
     return false
@@ -282,7 +282,7 @@ fn core_meta_parser_is_category_start(
 ///|
 fn core_meta_parser_parse_md_option(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdOption {
   let option = core_meta_create_md_option()
 
@@ -403,7 +403,7 @@ fn core_meta_parser_parse_md_option(
 ///|
 fn core_meta_parser_parse_md_group(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdGroup {
   let group = core_meta_create_md_group()
 
@@ -453,7 +453,7 @@ fn core_meta_parser_parse_md_group(
 ///|
 fn core_meta_parser_parse_md_option_support(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdOptionSupport {
   let support = core_meta_create_md_option_support()
   ignore(core_meta_parser_consume_if_lexeme(tokens, index_ref, "supports"))
@@ -474,7 +474,7 @@ fn core_meta_parser_parse_md_option_support(
 ///|
 fn core_meta_parser_parse_md_algorithm(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdAlgorithm {
   let algorithm = core_meta_create_md_algorithm()
 
@@ -577,7 +577,7 @@ fn core_meta_parser_parse_md_algorithm(
 ///|
 fn core_meta_parser_parse_md_category(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdCategory {
   let category = core_meta_create_md_category()
 
@@ -623,7 +623,7 @@ fn core_meta_parser_parse_md_category(
 ///|
 fn core_meta_parser_parse_md_bundle_member(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdBundleMember? {
   if index_ref.val >= tokens.length() {
     return None
@@ -668,7 +668,7 @@ fn core_meta_parser_parse_md_bundle_member(
 ///|
 fn core_meta_parser_parse_md_bundle(
   tokens : Array[CoreMetaLexToken],
-  index_ref : Ref[Int],
+  index_ref : Ref[Int32],
 ) -> CoreMetaMdBundle {
   let bundle = core_meta_create_md_bundle()
 
@@ -734,7 +734,7 @@ pub fn InternalMetaDataParser::rule_md_model(
   self : InternalMetaDataParser,
 ) -> CoreMetaMdModel {
   let model = core_meta_create_md_model()
-  let index_ref : Ref[Int] = Ref(0)
+  let index_ref : Ref[Int32] = Ref(0)
 
   if core_meta_parser_consume_if_lexeme(self.tokens, index_ref, "package") {
     model.set_name(

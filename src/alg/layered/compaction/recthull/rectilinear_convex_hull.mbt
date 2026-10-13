@@ -27,7 +27,7 @@ pub fn new_layered_rectilinear_convex_hull() -> LayeredRectilinearConvexHull {
 }
 
 ///|
-fn layered_compare_double(left : Double, right : Double) -> Int {
+fn layered_compare_double(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -47,7 +47,7 @@ fn layered_min_double(left : Double, right : Double) -> Double {
 }
 
 ///|
-fn layered_quadrant_order(quadrant : LayeredQuadrant) -> Int {
+fn layered_quadrant_order(quadrant : LayeredQuadrant) -> Int32 {
   match quadrant {
     LQ1 => 0
     LQ4 => 1
@@ -81,7 +81,7 @@ fn layered_reverse_points(points : Array[LayeredPoint]) -> Array[LayeredPoint] {
 }
 
 ///|
-fn layered_right_high_first(left : LayeredPoint, right : LayeredPoint) -> Int {
+fn layered_right_high_first(left : LayeredPoint, right : LayeredPoint) -> Int32 {
   if left.x == right.x {
     layered_compare_double(right.y, left.y)
   } else {
@@ -90,7 +90,7 @@ fn layered_right_high_first(left : LayeredPoint, right : LayeredPoint) -> Int {
 }
 
 ///|
-fn layered_right_low_first(left : LayeredPoint, right : LayeredPoint) -> Int {
+fn layered_right_low_first(left : LayeredPoint, right : LayeredPoint) -> Int32 {
   if left.x == right.x {
     layered_compare_double(left.y, right.y)
   } else {
@@ -99,7 +99,7 @@ fn layered_right_low_first(left : LayeredPoint, right : LayeredPoint) -> Int {
 }
 
 ///|
-fn layered_left_high_first(left : LayeredPoint, right : LayeredPoint) -> Int {
+fn layered_left_high_first(left : LayeredPoint, right : LayeredPoint) -> Int32 {
   if left.x == right.x {
     layered_compare_double(right.y, left.y)
   } else {
@@ -108,7 +108,7 @@ fn layered_left_high_first(left : LayeredPoint, right : LayeredPoint) -> Int {
 }
 
 ///|
-fn layered_left_low_first(left : LayeredPoint, right : LayeredPoint) -> Int {
+fn layered_left_low_first(left : LayeredPoint, right : LayeredPoint) -> Int32 {
   if left.x == right.x {
     layered_compare_double(left.y, right.y)
   } else {
@@ -120,7 +120,7 @@ fn layered_left_low_first(left : LayeredPoint, right : LayeredPoint) -> Int {
 fn layered_right_special_order(
   left : LayeredPoint,
   right : LayeredPoint,
-) -> Int raise {
+) -> Int32 raise {
   if left.x != right.x {
     return layered_compare_double(left.x, right.x)
   }
@@ -167,7 +167,7 @@ fn layered_hull_add_concave_corners(
 ///|
 fn layered_maximal_elements(
   points : Array[LayeredPoint],
-  comparator : (LayeredPoint, LayeredPoint) -> Int raise?,
+  comparator : (LayeredPoint, LayeredPoint) -> Int32 raise?,
   quadrant : LayeredQuadrant,
 ) -> Array[LayeredPoint] raise {
   let result = []

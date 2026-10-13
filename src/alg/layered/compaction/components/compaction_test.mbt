@@ -108,12 +108,12 @@ test "ComponentsToCGraphTransformer applies lock, spacing and rectangle layout" 
 ///|
 test "OneDimensionalComponentsCompaction keeps single component size and offset" {
   let hull = @core.new_elk_rectangle_xywh(0.0, 0.0, 20.0, 10.0)
-  let component : IComponent[Unit, Int] = new_component(
+  let component : IComponent[Unit, Int32] = new_component(
     () => [hull],
     () => [],
     () => [],
   )
-  let connected : IConnectedComponents[Unit, Int] = new_connected_components(
+  let connected : IConnectedComponents[Unit, Int32] = new_connected_components(
     () => [component],
     () => false,
   )

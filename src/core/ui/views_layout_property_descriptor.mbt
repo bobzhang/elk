@@ -21,7 +21,7 @@ pub(all) struct CoreUiPropertyEditor {
 ///|
 pub fn new_core_ui_property_editor(
   kind : CoreUiPropertyEditorKind,
-  validator? : (CoreUiValue) -> String? = _ => None,
+  validator~ : (CoreUiValue) -> String? = _ => None,
 ) -> CoreUiPropertyEditor {
   { kind, validator, }
 }
@@ -160,7 +160,7 @@ pub fn LayoutPropertyDescriptor::create_property_editor(
                     error => Err(error)
                   } noraise {
                     value => Ok(value)
-                  } : Result[Int, Error]) {
+                  } : Result[Int32, Error]) {
                 Ok(parsed) =>
                   match
                     self.source.validate_property_value(

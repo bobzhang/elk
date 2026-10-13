@@ -1,20 +1,20 @@
 ///|
 pub(all) struct SelfHyperLoop {
-  mut id : Int
+  mut id : Int32
   sl_holder : SelfLoopHolder
   sl_ports : Array[SelfLoopPort]
   sl_edges : Array[SelfLoopEdge]
   mut sl_labels : SelfHyperLoopLabels?
   mut self_loop_type : SelfLoopType?
-  sl_ports_by_side : Map[Int, Array[SelfLoopPort]]
+  sl_ports_by_side : Map[Int32, Array[SelfLoopPort]]
   mut leftmost_port : SelfLoopPort?
   mut rightmost_port : SelfLoopPort?
   occupied_port_sides : Array[@core.PortSide]
-  routing_slot : Array[Int]
+  routing_slot : Array[Int32]
 }
 
 ///|
-fn self_hyper_loop_port_side_index(side : @core.PortSide) -> Int {
+fn self_hyper_loop_port_side_index(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -84,12 +84,12 @@ pub fn new_self_hyper_loop(sl_holder : SelfLoopHolder) -> SelfHyperLoop {
 }
 
 ///|
-pub fn SelfHyperLoop::get_id(self : SelfHyperLoop) -> Int {
+pub fn SelfHyperLoop::get_id(self : SelfHyperLoop) -> Int32 {
   self.id
 }
 
 ///|
-pub fn SelfHyperLoop::set_id(self : SelfHyperLoop, id : Int) -> Unit {
+pub fn SelfHyperLoop::set_id(self : SelfHyperLoop, id : Int32) -> Unit {
   self.id = id
 }
 
@@ -180,7 +180,7 @@ pub fn SelfHyperLoop::get_self_loop_type(self : SelfHyperLoop) -> SelfLoopType? 
 ///|
 pub fn SelfHyperLoop::get_sl_ports_by_side_map(
   self : SelfHyperLoop,
-) -> Map[Int, Array[SelfLoopPort]] {
+) -> Map[Int32, Array[SelfLoopPort]] {
   self.sl_ports_by_side
 }
 
@@ -242,7 +242,7 @@ pub fn SelfHyperLoop::get_occupied_port_sides(
 pub fn SelfHyperLoop::get_routing_slot(
   self : SelfHyperLoop,
   port_side : @core.PortSide,
-) -> Int {
+) -> Int32 {
   self.routing_slot[self_hyper_loop_port_side_index(port_side)]
 }
 
@@ -250,7 +250,7 @@ pub fn SelfHyperLoop::get_routing_slot(
 pub fn SelfHyperLoop::set_routing_slot(
   self : SelfHyperLoop,
   port_side : @core.PortSide,
-  slot : Int,
+  slot : Int32,
 ) -> Unit {
   let side_index = self_hyper_loop_port_side_index(port_side)
   self.routing_slot[side_index] = slot

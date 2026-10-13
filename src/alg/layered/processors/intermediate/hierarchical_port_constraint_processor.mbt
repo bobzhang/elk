@@ -11,10 +11,10 @@ fn[T] hierarchical_port_constraint_raise_unsupported_graph(
 }
 
 ///|
-let hierarchical_port_constraint_dummy_input_port : Int = 0
+let hierarchical_port_constraint_dummy_input_port : Int32 = 0
 
 ///|
-let hierarchical_port_constraint_dummy_output_port : Int = 1
+let hierarchical_port_constraint_dummy_output_port : Int32 = 1
 
 ///|
 fn hierarchical_port_constraint_parse_port_constraints(
@@ -113,7 +113,7 @@ fn hierarchical_port_constraint_add_successor(
 fn hierarchical_port_constraint_node_compare(
   node1 : @runtime.LNode,
   node2 : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   if !hierarchical_port_constraint_node_type_is_external_port(node2.get_type()) {
     return -1
   }
@@ -222,7 +222,9 @@ fn hierarchical_port_constraint_is_north_south_dummy(
 }
 
 ///|
-fn hierarchical_port_constraint_dummy_origin_key(node : @runtime.LNode) -> Int {
+fn hierarchical_port_constraint_dummy_origin_key(
+  node : @runtime.LNode,
+) -> Int32 {
   match node.get_property_l_port(@runtime.internal_properties_origin_l_port) {
     Some(origin_port) => origin_port.get_handle()
     None => node.get_handle()
@@ -277,8 +279,8 @@ fn hierarchical_port_constraint_create_dummy(
 fn hierarchical_port_constraint_add_dummy_to_layer(
   layered_graph : @runtime.LGraph,
   layers : Array[@runtime.Layer],
-  index : Int,
-  map_count : Int,
+  index : Int32,
+  map_count : Int32,
   node_list : Array[@runtime.LNode],
 ) -> Unit {
   let layer = if index == 0 {
@@ -312,7 +314,7 @@ fn hierarchical_port_constraint_process_north_south(
   let layers = layered_graph.get_layers()
   let layer_count = layers.length()
 
-  let ext_port_to_dummy_map : Array[Map[Int, @runtime.LNode]] = [
+  let ext_port_to_dummy_map : Array[Map[Int32, @runtime.LNode]] = [
     Map([]),
     Map([]),
   ]
@@ -324,7 +326,7 @@ fn hierarchical_port_constraint_process_north_south(
     let current_layer = layers[curr_layer_idx]
 
     let prev_map = ext_port_to_dummy_map[curr_layer_idx]
-    let next_map : Map[Int, @runtime.LNode] = Map([])
+    let next_map : Map[Int32, @runtime.LNode] = Map([])
     ext_port_to_dummy_map.push(next_map)
 
     let prev_new_nodes = new_dummy_nodes[curr_layer_idx]

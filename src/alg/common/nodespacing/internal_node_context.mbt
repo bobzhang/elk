@@ -114,7 +114,7 @@ fn node_context_parse_margin(value : String) -> @core.ElkMargin raise {
 }
 
 ///|
-fn node_context_port_side_order(port_side : @core.PortSide) -> Int {
+fn node_context_port_side_order(port_side : @core.PortSide) -> Int32 {
   match port_side {
     SideUndefined => 0
     North => 1
@@ -157,7 +157,7 @@ pub fn node_context_port_alignment_equals(
 pub fn node_context_compare_port_sides(
   port_side1 : @core.PortSide,
   port_side2 : @core.PortSide,
-) -> Int {
+) -> Int32 {
   node_context_port_side_order(port_side1).compare(
     node_context_port_side_order(port_side2),
   )
@@ -317,7 +317,7 @@ fn node_context_port_contexts_of_side(
 fn node_context_compare_port_contexts(
   port_context1 : PortContext,
   port_context2 : PortContext,
-) -> Int {
+) -> Int32 {
   let port_side_comparison = node_context_compare_port_sides(
     port_context1.port.get_side(),
     port_context2.port.get_side(),

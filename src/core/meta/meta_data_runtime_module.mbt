@@ -49,7 +49,7 @@ pub(all) struct MetaDataRuntimeModule {
 
 ///|
 pub fn new_meta_data_runtime_module(
-  base? : AbstractMetaDataRuntimeModule = new_abstract_meta_data_runtime_module(),
+  base~ : AbstractMetaDataRuntimeModule = new_abstract_meta_data_runtime_module(),
 ) -> MetaDataRuntimeModule {
   { base, }
 }

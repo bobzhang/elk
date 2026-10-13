@@ -176,8 +176,8 @@ pub fn DiagramLayoutEngine::layout(
   self : DiagramLayoutEngine,
   workbench_part : ServiceWorkbenchPart?,
   diagram_part : ServiceDiagramElement?,
-  progress_monitor? : @core.IElkProgressMonitor = @core.new_basic_progress_monitor(),
-  params? : DiagramLayoutEngineParameters = new_diagram_layout_engine_parameters(),
+  progress_monitor~ : @core.IElkProgressMonitor = @core.new_basic_progress_monitor(),
+  params~ : DiagramLayoutEngineParameters = new_diagram_layout_engine_parameters(),
 ) -> LayoutMapping? raise {
   if workbench_part is None && diagram_part is None {
     return None
@@ -287,7 +287,7 @@ pub fn diagram_layout_engine_invoke_layout(
   service : LayoutConnectorsService,
   workbench_part : ServiceWorkbenchPart?,
   diagram_part : ServiceDiagramElement?,
-  params? : DiagramLayoutEngineParameters = new_diagram_layout_engine_parameters(),
+  params~ : DiagramLayoutEngineParameters = new_diagram_layout_engine_parameters(),
 ) -> LayoutMapping? raise {
   match service.get_injector(workbench_part, diagram_part) {
     Some(injector) =>

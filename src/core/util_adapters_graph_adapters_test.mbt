@@ -70,8 +70,8 @@ test "graph element adapter forwards base accessors and properties" {
 test "node and graph adapters forward composed behavior" {
   let padding_ref : Ref[ElkPadding] = Ref(new_elk_padding_any(2.0))
   let margin_ref : Ref[ElkMargin] = Ref(new_elk_margin_any(3.0))
-  let sort_calls : Ref[Int] = Ref(0)
-  let sort_with_calls : Ref[Int] = Ref(0)
+  let sort_calls : Ref[Int32] = Ref(0)
+  let sort_with_calls : Ref[Int32] = Ref(0)
 
   let element_adapter = new_graph_element_adapter(
     "node-1",

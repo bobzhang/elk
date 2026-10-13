@@ -1,10 +1,10 @@
 ///|
 priv struct BfsNodeOrderCycleBreakerState {
-  sources : Map[Int, Bool]
-  sinks : Map[Int, Bool]
+  sources : Map[Int32, Bool]
+  sinks : Map[Int32, Bool]
   visited : Array[Bool]
   bfs_queue : Array[@runtime.LNode]
-  mut bfs_head : Int
+  mut bfs_head : Int32
   edges_to_be_reversed : Array[@runtime.LEdge]
   graph : @runtime.LGraph
 }
@@ -18,7 +18,7 @@ fn bfs_node_order_reverse_edge(
 }
 
 ///|
-fn bfs_node_order_model_order_sort(values : Array[Int]) -> Unit {
+fn bfs_node_order_model_order_sort(values : Array[Int32]) -> Unit {
   let mut i = 1
   while i < values.length() {
     let value = values[i]
@@ -34,7 +34,7 @@ fn bfs_node_order_model_order_sort(values : Array[Int]) -> Unit {
 
 ///|
 fn bfs_node_order_node_set_contains(
-  node_set : Map[Int, Bool],
+  node_set : Map[Int32, Bool],
   node : @runtime.LNode,
 ) -> Bool {
   match node_set.get(node.get_handle()) {
@@ -61,9 +61,9 @@ fn bfs_node_order_state_group_model_order(
 fn bfs_node_order_target_model_order(
   state : BfsNodeOrderCycleBreakerState,
   edge : @runtime.LEdge,
-  model_order_map_size : Int,
+  model_order_map_size : Int32,
   group_model_order : Bool,
-) -> Int {
+) -> Int32 {
   let target = match edge.get_target() {
     Some(port) =>
       match port.get_node() {
@@ -101,7 +101,7 @@ fn bfs_node_order_visit_node(
   }
   state.visited[node_id] = true
 
-  let model_order_map : Map[Int, Array[@runtime.LEdge]] = Map([])
+  let model_order_map : Map[Int32, Array[@runtime.LEdge]] = Map([])
   let group_model_order = bfs_node_order_state_group_model_order(state)
 
   for edge in node.get_outgoing_edges() {

@@ -1,5 +1,5 @@
 ///|
-let partition_preprocessor_partition_constraint_edge_priority : Int = 1000
+let partition_preprocessor_partition_constraint_edge_priority : Int32 = 1000
 
 ///|
 priv suberror PartitionPreprocessorException {
@@ -115,7 +115,7 @@ fn partition_preprocessor_must_be_reversed(
   }
 
   let queue = [source_node]
-  let visited : Map[Int, Bool] = Map([])
+  let visited : Map[Int32, Bool] = Map([])
   visited[source_node.get_handle()] = true
   let mut queue_index = 0
 

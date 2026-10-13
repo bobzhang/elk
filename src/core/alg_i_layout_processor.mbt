@@ -1,8 +1,8 @@
 ///|
-let next_layout_processor_id_ref : Ref[Int] = Ref(0)
+let next_layout_processor_id_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn next_layout_processor_id() -> Int {
+fn next_layout_processor_id() -> Int32 {
   let id = next_layout_processor_id_ref.val
   next_layout_processor_id_ref.val = id + 1
   id
@@ -14,7 +14,7 @@ fn next_layout_processor_id() -> Int {
 /// `G` remains concrete throughout the processor body and its inner loops. It
 /// is erased only when the processor is bound to one graph for plan execution.
 pub(all) struct TypedLayoutProcessor[G] {
-  id : Int
+  id : Int32
   process_fn : ((G, IElkProgressMonitor?) -> Unit raise)?
   pure_process_fn : ((G, IElkProgressMonitor?) -> Unit)?
   is_phase : Bool
@@ -31,7 +31,7 @@ pub(all) struct TypedLayoutProcessor[G] {
 /// or a universal graph trait.
 pub(open) trait RunnableLayoutProcessor {
   fn run(Self, IElkProgressMonitor?) -> Unit raise
-  fn instance_id(Self) -> Int
+  fn instance_id(Self) -> Int32
   fn is_layout_phase(Self) -> Bool
   fn is_hierarchy_aware_layout_processor(Self) -> Bool
   fn get_layout_processor_configuration(Self) -> LayoutProcessorConfiguration? raise
@@ -219,6 +219,6 @@ pub fn[G] TypedLayoutProcessor::get_layout_processor_configuration(
 ///|
 pub fn[G] TypedLayoutProcessor::instance_id(
   self : TypedLayoutProcessor[G],
-) -> Int {
+) -> Int32 {
   self.id
 }

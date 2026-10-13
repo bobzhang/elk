@@ -1,9 +1,9 @@
 ///|
 pub struct ElkNode {
   priv arena : GraphArena
-  priv slot : Int
-  priv generation : Int
-  priv id : Int
+  priv slot : Int32
+  priv generation : Int32
+  priv id : Int32
 }
 
 ///|
@@ -49,7 +49,7 @@ priv struct NodeData {
 
 ///|
 priv struct NodeSlot {
-  mut generation : Int
+  mut generation : Int32
   handle : ElkNode
   mut data : NodeData?
 }
@@ -277,8 +277,8 @@ pub fn node_height(node : ElkNode) -> Double {
 ///|
 pub fn node_set_int_property(
   node : ElkNode,
-  property : IProperty[Int],
-  value : Int,
+  property : IProperty[Int32],
+  value : Int32,
 ) -> Unit {
   let data = node_data(node)
   data.properties = Some(
@@ -292,7 +292,7 @@ pub fn node_set_int_property(
 }
 
 ///|
-fn parse_int_property_text(value : String) -> Int? {
+fn parse_int_property_text(value : String) -> Int32? {
   try @string.parse_int(value.trim()) catch {
     _ => None
   } noraise {
@@ -322,7 +322,10 @@ fn parse_bool_property_text(value : String) -> Bool? {
 }
 
 ///|
-pub fn node_get_int_property(node : ElkNode, property : IProperty[Int]) -> Int {
+pub fn node_get_int_property(
+  node : ElkNode,
+  property : IProperty[Int32],
+) -> Int32 {
   let data = node_data(node)
   let property_id = property.get_property_id()
   match node_property_bag_get(data.properties, property_id, NodeIntValue(0)) {
@@ -357,7 +360,10 @@ pub fn node_get_int_property(node : ElkNode, property : IProperty[Int]) -> Int {
 }
 
 ///|
-pub fn node_has_int_property(node : ElkNode, property : IProperty[Int]) -> Bool {
+pub fn node_has_int_property(
+  node : ElkNode,
+  property : IProperty[Int32],
+) -> Bool {
   let data = node_data(node)
   node_property_bag_has(
     data.properties,
@@ -369,7 +375,7 @@ pub fn node_has_int_property(node : ElkNode, property : IProperty[Int]) -> Bool 
 ///|
 pub fn node_clear_int_property(
   node : ElkNode,
-  property : IProperty[Int],
+  property : IProperty[Int32],
 ) -> Unit {
   let data = node_data(node)
   data.properties = node_property_bag_remove(
@@ -691,7 +697,7 @@ pub fn node_clear_string_set_property(
 }
 
 ///|
-pub fn node_int_property_entries(node : ElkNode) -> Array[(String, Int)] {
+pub fn node_int_property_entries(node : ElkNode) -> Array[(String, Int32)] {
   let result = []
   match node_data(node).properties {
     Some(bag) =>

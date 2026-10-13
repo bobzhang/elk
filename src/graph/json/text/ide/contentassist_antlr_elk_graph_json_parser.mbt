@@ -143,7 +143,7 @@ pub struct ElkGraphJsonIdeParser {
 ///|
 pub fn new_elk_graph_json_ide_parser(
   metadata : @core.OptionMetadata,
-  grammar_access? : @text.ElkGraphJsonGrammarAccess = @text.new_elk_graph_json_grammar_access(),
+  grammar_access~ : @text.ElkGraphJsonGrammarAccess = @text.new_elk_graph_json_grammar_access(),
 ) -> ElkGraphJsonIdeParser {
   {
     metadata,

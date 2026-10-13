@@ -3,7 +3,7 @@ pub struct ICrossingMinimizationHeuristic {
   initializable : IInitializable
   always_improves_fn : () -> Bool
   set_first_layer_order_fn : (Array[Array[@runtime.LNode]], Bool) -> Bool raise
-  minimize_crossings_fn : (Array[Array[@runtime.LNode]], Int, Bool, Bool) -> Bool raise
+  minimize_crossings_fn : (Array[Array[@runtime.LNode]], Int32, Bool, Bool) -> Bool raise
   is_deterministic_fn : () -> Bool
 }
 
@@ -11,31 +11,31 @@ pub struct ICrossingMinimizationHeuristic {
 pub fn new_i_crossing_minimization_heuristic(
   always_improves : () -> Bool,
   set_first_layer_order : (Array[Array[@runtime.LNode]], Bool) -> Bool raise,
-  minimize_crossings : (Array[Array[@runtime.LNode]], Int, Bool, Bool) -> Bool raise,
+  minimize_crossings : (Array[Array[@runtime.LNode]], Int32, Bool, Bool) -> Bool raise,
   is_deterministic : () -> Bool,
-  init_at_layer_level? : (Int, Array[Array[@runtime.LNode]]) -> Unit = (_, _) => {
+  init_at_layer_level~ : (Int32, Array[Array[@runtime.LNode]]) -> Unit = (_, _) => {
     ()
   },
-  init_at_node_level? : (Int, Int, Array[Array[@runtime.LNode]]) -> Unit = (
+  init_at_node_level~ : (Int32, Int32, Array[Array[@runtime.LNode]]) -> Unit = (
     _,
     _,
     _,
   ) => (),
-  init_at_port_level? : (Int, Int, Int, Array[Array[@runtime.LNode]]) -> Unit = (
+  init_at_port_level~ : (Int32, Int32, Int32, Array[Array[@runtime.LNode]]) -> Unit = (
     _,
     _,
     _,
     _,
   ) => (),
-  init_at_edge_level? : (
-    Int,
-    Int,
-    Int,
-    Int,
+  init_at_edge_level~ : (
+    Int32,
+    Int32,
+    Int32,
+    Int32,
     @runtime.LEdge,
     Array[Array[@runtime.LNode]],
   ) -> Unit = (_, _, _, _, _, _) => (),
-  init_after_traversal? : () -> Unit = () => (),
+  init_after_traversal~ : () -> Unit = () => (),
 ) -> ICrossingMinimizationHeuristic {
   {
     initializable: new_i_initializable(
@@ -84,7 +84,7 @@ pub fn ICrossingMinimizationHeuristic::set_first_layer_order(
 pub fn ICrossingMinimizationHeuristic::minimize_crossings(
   self : ICrossingMinimizationHeuristic,
   order : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
   forward_sweep : Bool,
   is_first_sweep : Bool,
 ) -> Bool raise {
@@ -110,7 +110,7 @@ pub fn ICrossingMinimizationHeuristic::as_initializable(
 ///|
 pub fn ICrossingMinimizationHeuristic::init_at_layer_level(
   self : ICrossingMinimizationHeuristic,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.initializable.init_at_layer_level(l, node_order)
@@ -119,8 +119,8 @@ pub fn ICrossingMinimizationHeuristic::init_at_layer_level(
 ///|
 pub fn ICrossingMinimizationHeuristic::init_at_node_level(
   self : ICrossingMinimizationHeuristic,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.initializable.init_at_node_level(l, n, node_order)
@@ -129,9 +129,9 @@ pub fn ICrossingMinimizationHeuristic::init_at_node_level(
 ///|
 pub fn ICrossingMinimizationHeuristic::init_at_port_level(
   self : ICrossingMinimizationHeuristic,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.initializable.init_at_port_level(l, n, p, node_order)
@@ -140,10 +140,10 @@ pub fn ICrossingMinimizationHeuristic::init_at_port_level(
 ///|
 pub fn ICrossingMinimizationHeuristic::init_at_edge_level(
   self : ICrossingMinimizationHeuristic,
-  l : Int,
-  n : Int,
-  p : Int,
-  e : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
+  e : Int32,
   edge : @runtime.LEdge,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {

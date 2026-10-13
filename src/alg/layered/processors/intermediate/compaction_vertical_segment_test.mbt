@@ -1,5 +1,5 @@
 ///|
-fn vertical_segment_test_port_id(port : @runtime.LPort?) -> Int {
+fn vertical_segment_test_port_id(port : @runtime.LPort?) -> Int32 {
   match port {
     Some(value) => value.get_id()
     None => -1

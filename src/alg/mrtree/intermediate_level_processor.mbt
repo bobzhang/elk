@@ -1,8 +1,8 @@
 ///|
 fn mrtree_level_set_level(
   current_level : Array[MrtreeNode],
-  level : Int,
-  global_level_map : Map[Int, Int],
+  level : Int32,
+  global_level_map : Map[Int32, Int32],
 ) -> Unit raise {
   if current_level.is_empty() {
     return
@@ -34,7 +34,7 @@ fn mrtree_level_processor_process(
     }
   }
 
-  let global_level_map : Map[Int, Int] = Map([])
+  let global_level_map : Map[Int32, Int32] = Map([])
   mrtree_level_set_level(roots, 0, global_level_map)
 
   for node in mrtree_graph_nodes(graph) {

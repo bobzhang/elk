@@ -54,7 +54,7 @@ pub fn LibavoidServerPool::dispose(self : LibavoidServerPool) -> Unit {
 }
 
 ///|
-pub fn LibavoidServerPool::size(self : LibavoidServerPool) -> Int {
+pub fn LibavoidServerPool::size(self : LibavoidServerPool) -> Int32 {
   self.servers.length()
 }
 

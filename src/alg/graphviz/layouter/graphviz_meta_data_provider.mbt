@@ -34,7 +34,7 @@ pub let graphviz_option_layer_spacing_factor : @graph.IProperty[Double] = @graph
 )
 
 ///|
-pub let graphviz_option_maxiter : @graph.IProperty[Int] = @graph.new_property(
+pub let graphviz_option_maxiter : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.graphviz.maxiter", 0,
 )
 
@@ -64,7 +64,7 @@ pub let graphviz_core_option_edge_routing : @graph.IProperty[String] = @graph.ne
 )
 
 ///|
-pub let graphviz_core_option_random_seed : @graph.IProperty[Int] = @graph.new_property(
+pub let graphviz_core_option_random_seed : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.randomSeed", 1,
 )
 

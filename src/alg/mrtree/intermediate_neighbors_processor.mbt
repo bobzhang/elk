@@ -1,7 +1,7 @@
 ///|
 fn mrtree_neighbors_set_neighbors(
   current_level : Array[MrtreeNode],
-  number_of_nodes : Int,
+  number_of_nodes : Int32,
   progress_monitor : @core.IElkProgressMonitor?,
 ) -> Unit raise {
   if current_level.is_empty() {

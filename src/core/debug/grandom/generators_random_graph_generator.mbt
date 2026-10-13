@@ -2,7 +2,7 @@
 pub let core_debug_grandom_port_separation : Double = 7.0
 
 ///|
-let core_debug_grandom_max_iter : Int = 12
+let core_debug_grandom_max_iter : Int32 = 12
 
 ///|
 let core_debug_grandom_hypernode_property : @graph.IProperty[Bool] = @graph.new_property(
@@ -34,9 +34,9 @@ fn core_debug_grandom_generator_exception_message(
 pub(all) struct CoreDebugGRandomRandomGraphGenerator {
   mut options : CoreDebugGRandomGeneratorOptions
   mut random : @random.Rand
-  mut node_label_counter : Int
-  mut port_label_counter : Int
-  mut max_hierarchy_level : Int
+  mut node_label_counter : Int32
+  mut port_label_counter : Int32
+  mut max_hierarchy_level : Int32
 }
 
 ///|
@@ -47,7 +47,7 @@ pub fn new_core_debug_grandom_random_graph_generator(
     options: new_core_debug_grandom_generator_options(),
     random: match random_generator {
       Some(value) => value
-      None => @random.Rand::new()
+      None => Rand()
     },
     node_label_counter: 0,
     port_label_counter: 0,
@@ -119,7 +119,7 @@ fn core_debug_grandom_random_from_configuration(
       seed_buffer.write_int64_le(0)
       @random.Rand::chacha8(seed=seed_buffer.to_bytes())
     }
-    None => @random.Rand::new()
+    None => Rand()
   }
 }
 
@@ -232,7 +232,7 @@ fn[T] core_debug_grandom_generator_shuffle(
 fn[T] core_debug_grandom_generator_sample(
   generator : CoreDebugGRandomRandomGraphGenerator,
   list : Array[T],
-  number : Int,
+  number : Int32,
 ) -> Array[T] {
   let shuffled = core_debug_grandom_generator_shuffle(generator, list)
   if number >= list.length() {
@@ -374,8 +374,8 @@ fn core_debug_grandom_generator_make_graph(
 ///|
 fn core_debug_grandom_generator_generate_custom_graph(
   generator : CoreDebugGRandomRandomGraphGenerator,
-  n : Int,
-  m : Int,
+  n : Int32,
+  m : Int32,
   graph : @graph.ElkNode,
 ) -> Array[@graph.ElkNode] raise {
   let generated_nodes = match
@@ -464,9 +464,9 @@ fn core_debug_grandom_generator_basic_condition(
 fn core_debug_grandom_generator_generate_any_graph(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
-  m : Int,
-  hierarchy_level : Int,
+  n : Int32,
+  m : Int32,
+  hierarchy_level : Int32,
 ) -> Array[@graph.ElkNode] raise {
   let nodes = core_debug_grandom_generator_create_independent_set(
     generator, parent, n,
@@ -530,8 +530,8 @@ fn core_debug_grandom_generator_generate_any_graph(
 fn core_debug_grandom_generator_generate_any_graph_outgoing(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
-  hierarchy_level : Int,
+  n : Int32,
+  hierarchy_level : Int32,
 ) -> Array[@graph.ElkNode] raise {
   let nodes = core_debug_grandom_generator_create_independent_set(
     generator, parent, n,
@@ -591,9 +591,9 @@ fn core_debug_grandom_generator_generate_any_graph_outgoing(
 fn core_debug_grandom_generator_generate_bipartite(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
-  m : Int,
-  hierarchy_level : Int,
+  n : Int32,
+  m : Int32,
+  hierarchy_level : Int32,
 ) -> Unit raise {
   let partition = core_debug_grandom_generator_get_rand(
     generator, core_debug_grandom_partition_frac,
@@ -688,10 +688,10 @@ fn core_debug_grandom_generator_generate_bipartite(
 fn core_debug_grandom_generator_generate_tree(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
-  max_degree : Int,
-  max_width : Int,
-  hierarchy_level : Int,
+  n : Int32,
+  max_degree : Int32,
+  max_width : Int32,
+  hierarchy_level : Int32,
 ) -> Unit raise {
   let mut max_index = 0
   let mut node_id_counter = 0
@@ -789,9 +789,9 @@ fn core_debug_grandom_generator_generate_tree(
 fn core_debug_grandom_generator_generate_biconnected_graph(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
-  m : Int,
-  hierarchy_level : Int,
+  n : Int32,
+  m : Int32,
+  hierarchy_level : Int32,
 ) -> Unit raise {
   let real_n = if n > 3 { n } else { 3 }
   let real_m = if m > real_n { m } else { real_n }
@@ -900,10 +900,10 @@ fn core_debug_grandom_generator_generate_biconnected_graph(
 fn core_debug_grandom_generator_generate_triconnected_graph(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
+  n : Int32,
   p1 : Double,
   p2 : Double,
-  hierarchy_level : Int,
+  hierarchy_level : Int32,
 ) -> Unit raise {
   let real_n = if n > 4 { n } else { 4 }
   let nodes = core_debug_grandom_generator_create_clique(generator, parent, 4)
@@ -1059,11 +1059,11 @@ fn core_debug_grandom_generator_generate_triconnected_graph(
 fn core_debug_grandom_generator_generate_ante_graph(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
-  m : Int,
+  n : Int32,
+  m : Int32,
   planar : Bool,
   single_source : Bool,
-  hierarchy_level : Int,
+  hierarchy_level : Int32,
 ) -> Unit raise {
   let nnr : Array[@graph.ElkNode] = []
   let vrt = []
@@ -1135,8 +1135,8 @@ fn core_debug_grandom_generator_generate_ante_graph(
     }
   }
 
-  let edge_in : Array[Array[Int]] = []
-  let edge_out : Array[Array[Int]] = []
+  let edge_in : Array[Array[Int32]] = []
+  let edge_out : Array[Array[Int32]] = []
   for _ in 0..<total_number {
     edge_in.push([])
     edge_out.push([])
@@ -1287,7 +1287,7 @@ fn core_debug_grandom_generator_generate_ante_graph(
 fn core_debug_grandom_generator_create_clique(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
+  n : Int32,
 ) -> Array[@graph.ElkNode] raise {
   let nodes = core_debug_grandom_generator_create_independent_set(
     generator, parent, n,
@@ -1310,7 +1310,7 @@ fn core_debug_grandom_generator_create_clique(
 fn core_debug_grandom_generator_create_independent_set(
   generator : CoreDebugGRandomRandomGraphGenerator,
   parent : @graph.ElkNode,
-  n : Int,
+  n : Int32,
 ) -> Array[@graph.ElkNode] raise {
   let nodes = []
   for _ in 0..<n {
@@ -1932,14 +1932,14 @@ fn core_debug_grandom_generator_split(
 
 ///|
 fn core_debug_grandom_generator_create_hierarchy_edge(
-  heads : Array[Int],
-  tails : Array[Int],
-  ids : Array[Int],
-  nexts : Array[Int],
-  head : Int,
-  tail : Int,
-  id : Int,
-) -> Int {
+  heads : Array[Int32],
+  tails : Array[Int32],
+  ids : Array[Int32],
+  nexts : Array[Int32],
+  head : Int32,
+  tail : Int32,
+  id : Int32,
+) -> Int32 {
   heads.push(head)
   tails.push(tail)
   ids.push(id)
@@ -1949,10 +1949,10 @@ fn core_debug_grandom_generator_create_hierarchy_edge(
 
 ///|
 fn core_debug_grandom_generator_compare_hierarchy_edge_id(
-  edge1 : Int,
-  edge2 : Int,
-  ids : Array[Int],
-) -> Int {
+  edge1 : Int32,
+  edge2 : Int32,
+  ids : Array[Int32],
+) -> Int32 {
   if ids[edge1] < ids[edge2] {
     -1
   } else if ids[edge1] > ids[edge2] {
@@ -1964,11 +1964,11 @@ fn core_debug_grandom_generator_compare_hierarchy_edge_id(
 
 ///|
 fn core_debug_grandom_generator_compare_hierarchy_edge_head(
-  edge1 : Int,
-  edge2 : Int,
-  heads : Array[Int],
-  ids : Array[Int],
-) -> Int {
+  edge1 : Int32,
+  edge2 : Int32,
+  heads : Array[Int32],
+  ids : Array[Int32],
+) -> Int32 {
   if heads[edge1] < heads[edge2] {
     -1
   } else if heads[edge1] > heads[edge2] {
@@ -1980,11 +1980,11 @@ fn core_debug_grandom_generator_compare_hierarchy_edge_head(
 
 ///|
 fn core_debug_grandom_generator_compare_hierarchy_edge_tail(
-  edge1 : Int,
-  edge2 : Int,
-  tails : Array[Int],
-  ids : Array[Int],
-) -> Int {
+  edge1 : Int32,
+  edge2 : Int32,
+  tails : Array[Int32],
+  ids : Array[Int32],
+) -> Int32 {
   if tails[edge1] < tails[edge2] {
     -1
   } else if tails[edge1] > tails[edge2] {
@@ -1996,8 +1996,8 @@ fn core_debug_grandom_generator_compare_hierarchy_edge_tail(
 
 ///|
 fn core_debug_grandom_generator_sort_hierarchy_edges(
-  edges : Array[Int],
-  compare : (Int, Int) -> Int,
+  edges : Array[Int32],
+  compare : (Int32, Int32) -> Int32,
 ) -> Unit {
   let mut index = 1
   while index < edges.length() {
@@ -2017,8 +2017,8 @@ fn core_debug_grandom_generator_connect_randomly_and_conditional(
   generator : CoreDebugGRandomRandomGraphGenerator,
   source : @graph.ElkNode,
   targets : Array[@graph.ElkNode],
-  number : Int,
-) -> Int raise {
+  number : Int32,
+) -> Int32 raise {
   let target_buffer = targets.copy()
   let mut edges = 0
   let mut buffer_end = target_buffer.length() - 1
@@ -2043,8 +2043,8 @@ fn core_debug_grandom_generator_connect_randomly_and_conditional(
 fn core_debug_grandom_generator_connect_randomly_and_conditional_all(
   generator : CoreDebugGRandomRandomGraphGenerator,
   nodes : Array[@graph.ElkNode],
-  outgoing_edges : Array[Int],
-) -> Int raise {
+  outgoing_edges : Array[Int32],
+) -> Int32 raise {
   let mut edges = 0
   for i in 0..<nodes.length() {
     edges = edges +
@@ -2063,7 +2063,7 @@ fn core_debug_grandom_generator_determine_outgoing_edges_rand(
   generator : CoreDebugGRandomRandomGraphGenerator,
   nodes : Array[@graph.ElkNode],
   value : CoreDebugGRandomRandVal,
-) -> Array[Int] raise {
+) -> Array[Int32] raise {
   let number_of_edges = []
   for _ in 0..<nodes.length() {
     number_of_edges.push(value.int_val(generator.random))
@@ -2075,8 +2075,8 @@ fn core_debug_grandom_generator_determine_outgoing_edges_rand(
 fn core_debug_grandom_generator_determine_outgoing_edges_total(
   generator : CoreDebugGRandomRandomGraphGenerator,
   nodes : Array[@graph.ElkNode],
-  edges_total : Int,
-) -> Array[Int] {
+  edges_total : Int32,
+) -> Array[Int32] {
   let outgoing_edges = []
   for _ in 0..<nodes.length() {
     outgoing_edges.push(0)
@@ -2282,9 +2282,9 @@ fn core_debug_grandom_generator_distribute_ports(
 ///|
 fn core_debug_grandom_generator_random_int(
   generator : CoreDebugGRandomRandomGraphGenerator,
-  from : Int,
-  to : Int,
-) -> Int {
+  from : Int32,
+  to : Int32,
+) -> Int32 {
   from + generator.random.int(limit=to - from + 1)
 }
 
@@ -2295,10 +2295,10 @@ fn core_debug_grandom_generator_is_hypernode(node : @graph.ElkNode) -> Bool {
 
 ///|
 fn core_debug_grandom_generator_bound_int(
-  value : Int,
-  min : Int,
-  max : Int,
-) -> Int {
+  value : Int32,
+  min : Int32,
+  max : Int32,
+) -> Int32 {
   if value < min {
     min
   } else if value > max {
@@ -2387,8 +2387,8 @@ fn core_debug_grandom_generator_set_bool(
 ///|
 fn core_debug_grandom_generator_get_int(
   generator : CoreDebugGRandomRandomGraphGenerator,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   generator.options.get_int_property(property)
 }
 

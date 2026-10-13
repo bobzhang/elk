@@ -27,7 +27,7 @@ using @options {
 
 ///|
 fn new_elk_progress_monitor(
-  task_name? : String = "",
+  task_name~ : String = "",
 ) -> @core.IElkProgressMonitor {
   @core.new_elk_progress_monitor(task_name~)
 }

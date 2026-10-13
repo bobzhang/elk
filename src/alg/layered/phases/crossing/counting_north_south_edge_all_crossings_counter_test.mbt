@@ -36,7 +36,7 @@ fn ns_all_crossings_bb_port_side_north() -> @core.PortSide {
 }
 
 ///|
-fn ns_all_crossings_bb_num_ports(graph : @runtime.LGraph) -> Int {
+fn ns_all_crossings_bb_num_ports(graph : @runtime.LGraph) -> Int32 {
   let mut num_ports = 0
   for layer in graph.get_layers() {
     for node in layer.get_nodes() {
@@ -49,8 +49,8 @@ fn ns_all_crossings_bb_num_ports(graph : @runtime.LGraph) -> Int {
 ///|
 fn ns_all_crossings_bb_count_in_layer(
   graph : @runtime.LGraph,
-  layer_index : Int,
-) -> Int {
+  layer_index : Int32,
+) -> Int32 {
   ns_all_crossings_bb_set_up_ids(graph)
   let counter = new_crossings_counter(
     Array::make(ns_all_crossings_bb_num_ports(graph), 0),

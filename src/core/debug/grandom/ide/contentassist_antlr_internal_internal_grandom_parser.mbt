@@ -7,7 +7,7 @@ pub(all) struct InternalCoreDebugGRandomParser {
 ///|
 pub fn new_internal_core_debug_grandom_parser(
   tokens : Array[CoreDebugGRandomIdeLexToken],
-  grammar_access? : CoreDebugGRandomIdeGrammarAccess = new_core_debug_grandom_ide_grammar_access(),
+  grammar_access~ : CoreDebugGRandomIdeGrammarAccess = new_core_debug_grandom_ide_grammar_access(),
 ) -> InternalCoreDebugGRandomParser {
   { tokens, grammar_access, }
 }
@@ -55,11 +55,13 @@ fn core_debug_grandom_ide_parser_strip_quotes(text : String) -> String {
 ///|
 fn core_debug_grandom_ide_parser_parse_int(
   token : CoreDebugGRandomIdeLexToken,
-) -> Int? {
+) -> Int32? {
   if token.token_type != core_debug_grandom_ide_rule_int {
     return None
   }
-  let parsed : Result[Int, Error] = try @string.parse_int(token.lexeme) catch {
+  let parsed : Result[Int32, Error] = try
+    @string.parse_int(token.lexeme)
+  catch {
     error => Err(error)
   } noraise {
     value => Ok(value)
@@ -73,8 +75,8 @@ fn core_debug_grandom_ide_parser_parse_int(
 ///|
 fn core_debug_grandom_ide_parser_parse_double_at(
   tokens : Array[CoreDebugGRandomIdeLexToken],
-  start : Int,
-) -> (Double, Int)? {
+  start : Int32,
+) -> (Double, Int32)? {
   if start >= tokens.length() {
     return None
   }
@@ -124,8 +126,8 @@ fn core_debug_grandom_ide_parser_parse_double_at(
 ///|
 fn core_debug_grandom_ide_parser_parse_block_end(
   tokens : Array[CoreDebugGRandomIdeLexToken],
-  start : Int,
-) -> Int {
+  start : Int32,
+) -> Int32 {
   let mut depth = 1
   let mut index = start
   while index < tokens.length() {
@@ -146,8 +148,8 @@ fn core_debug_grandom_ide_parser_parse_block_end(
 ///|
 fn core_debug_grandom_ide_parser_optional_equals(
   tokens : Array[CoreDebugGRandomIdeLexToken],
-  start : Int,
-) -> Int {
+  start : Int32,
+) -> Int32 {
   if start < tokens.length() && tokens[start].lexeme == "=" {
     start + 1
   } else {
@@ -158,8 +160,8 @@ fn core_debug_grandom_ide_parser_optional_equals(
 ///|
 fn core_debug_grandom_ide_parser_parse_nodes(
   tokens : Array[CoreDebugGRandomIdeLexToken],
-  start : Int,
-) -> (@grandom.CoreDebugGRandomNodes?, Int) {
+  start : Int32,
+) -> (@grandom.CoreDebugGRandomNodes?, Int32) {
   let mut index = core_debug_grandom_ide_parser_optional_equals(tokens, start)
   if index >= tokens.length() {
     return (None, index)
@@ -215,8 +217,8 @@ fn core_debug_grandom_ide_parser_parse_nodes(
 ///|
 fn core_debug_grandom_ide_parser_parse_edges(
   tokens : Array[CoreDebugGRandomIdeLexToken],
-  start : Int,
-) -> (@grandom.CoreDebugGRandomEdges?, Int) {
+  start : Int32,
+) -> (@grandom.CoreDebugGRandomEdges?, Int32) {
   let mut index = core_debug_grandom_ide_parser_optional_equals(tokens, start)
   if index >= tokens.length() {
     return (None, index)
@@ -282,8 +284,8 @@ fn core_debug_grandom_ide_parser_parse_edges(
 ///|
 fn core_debug_grandom_ide_parser_parse_hierarchy(
   tokens : Array[CoreDebugGRandomIdeLexToken],
-  start : Int,
-) -> (@grandom.CoreDebugGRandomHierarchy?, Int) {
+  start : Int32,
+) -> (@grandom.CoreDebugGRandomHierarchy?, Int32) {
   let mut index = core_debug_grandom_ide_parser_optional_equals(tokens, start)
   if index >= tokens.length() || tokens[index].lexeme != "{" {
     return (None, index)
@@ -325,8 +327,8 @@ fn core_debug_grandom_ide_parser_parse_hierarchy(
 ///|
 fn core_debug_grandom_ide_parser_parse_configuration(
   tokens : Array[CoreDebugGRandomIdeLexToken],
-  start : Int,
-) -> (@grandom.CoreDebugGRandomConfiguration, Int) {
+  start : Int32,
+) -> (@grandom.CoreDebugGRandomConfiguration, Int32) {
   let mut config = @grandom.new_core_debug_grandom_configuration()
   if start >= tokens.length() || tokens[start].lexeme != "{" {
     return (config, start)

@@ -16,7 +16,7 @@ fn mrtree_node_orderer_layout_processor_configuration(
 fn mrtree_node_orderer_property_value(
   node : MrtreeNode,
   weighting : MrtreeOrderWeighting,
-) -> Int {
+) -> Int32 {
   match weighting {
     DESCENDANTS => mrtree_node_descendants(node)
     _ => mrtree_node_fan(node)
@@ -105,7 +105,7 @@ fn mrtree_node_orderer_order_level_fan_descendants(
     None => ()
   }
 
-  let pos_ref : Ref[Int] = Ref(0)
+  let pos_ref : Ref[Int32] = Ref(0)
   let sorted_level = current_level.copy()
   mrtree_node_orderer_sort_nodes_asc(sorted_level, weighting)
 

@@ -22,10 +22,10 @@ pub fn new_graph_json_text_ide_content_assist_entry(
   proposal : String,
   prefix : String,
   kind : String,
-  label? : String? = None,
-  description? : String? = None,
-  documentation? : String? = None,
-  source? : String? = None,
+  label~ : String? = None,
+  description~ : String? = None,
+  documentation~ : String? = None,
+  source~ : String? = None,
 ) -> GraphJsonTextIdeContentAssistEntry {
   { proposal, prefix, kind, label, description, documentation, source, }
 }
@@ -77,11 +77,11 @@ pub struct GraphJsonTextIdeContentAssistContext {
 
 ///|
 pub fn new_graph_json_text_ide_content_assist_context(
-  prefix? : String = "",
-  current_model? : @text.GraphJsonTextElement? = None,
-  current_property_key? : @text.GraphJsonTextPropertyKey? = None,
-  current_edge_section? : @graph.ElkEdgeSection? = None,
-  conflict_on_a? : Bool = false,
+  prefix~ : String = "",
+  current_model~ : @text.GraphJsonTextElement? = None,
+  current_property_key~ : @text.GraphJsonTextPropertyKey? = None,
+  current_edge_section~ : @graph.ElkEdgeSection? = None,
+  conflict_on_a~ : Bool = false,
 ) -> GraphJsonTextIdeContentAssistContext {
   {
     prefix,
@@ -189,7 +189,7 @@ pub struct ElkGraphJsonIdeProposalProvider {
 ///|
 pub fn new_elk_graph_json_ide_proposal_provider(
   metadata : @core.OptionMetadata,
-  grammar? : @text.ElkGraphJsonGrammarAccess = @text.new_elk_graph_json_grammar_access(),
+  grammar~ : @text.ElkGraphJsonGrammarAccess = @text.new_elk_graph_json_grammar_access(),
 ) -> ElkGraphJsonIdeProposalProvider {
   { metadata, grammar, }
 }
@@ -330,7 +330,7 @@ fn graph_json_text_ide_push_value_entry(
   acceptor : GraphJsonTextIdeCompletionProposalAcceptor,
   context : GraphJsonTextIdeContentAssistContext,
   proposal : String,
-  description? : String? = None,
+  description~ : String? = None,
 ) -> Unit {
   acceptor.accept(
     new_graph_json_text_ide_content_assist_entry(

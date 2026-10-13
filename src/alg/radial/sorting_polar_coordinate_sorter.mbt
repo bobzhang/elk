@@ -18,10 +18,10 @@ let radial_sort_degree_315 : Double = 1.75 * @math.PI
 
 ///|
 pub struct PolarCoordinateSorter {
-  comp_right : (@graph.ElkNode, @graph.ElkNode) -> Int raise
-  comp_left : (@graph.ElkNode, @graph.ElkNode) -> Int raise
-  comp_top : (@graph.ElkNode, @graph.ElkNode) -> Int raise
-  comp_bottom : (@graph.ElkNode, @graph.ElkNode) -> Int raise
+  comp_right : (@graph.ElkNode, @graph.ElkNode) -> Int32 raise
+  comp_left : (@graph.ElkNode, @graph.ElkNode) -> Int32 raise
+  comp_top : (@graph.ElkNode, @graph.ElkNode) -> Int32 raise
+  comp_bottom : (@graph.ElkNode, @graph.ElkNode) -> Int32 raise
   mut id_sorter : IDSorter?
 }
 
@@ -40,8 +40,8 @@ pub fn new_polar_coordinate_sorter() -> PolarCoordinateSorter {
 fn PolarCoordinateSorter::set_id_for_nodes(
   self : PolarCoordinateSorter,
   nodes : Array[@graph.ElkNode],
-  id_offset : Int,
-) -> Int raise {
+  id_offset : Int32,
+) -> Int32 raise {
   let mut id = id_offset
   for node in nodes {
     radial_internal_set_order_id(node, id)

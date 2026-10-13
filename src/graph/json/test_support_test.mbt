@@ -9,7 +9,7 @@ fn gj_arr(items : Array[Json]) -> Json {
 }
 
 ///|
-fn gj_num(value : Int) -> Json {
+fn gj_num(value : Int32) -> Json {
   Json::number(value.to_double())
 }
 

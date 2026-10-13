@@ -2,7 +2,7 @@
 fn register_node_placement_phase(
   registry : @runtime.LayeredPhaseRegistry,
   strategy : String,
-  id : Int,
+  id : Int32,
   create : () -> @core.TypedLayoutProcessor[@runtime.LGraph],
 ) -> Unit {
   registry.register_node_placement_phase(strategy, id, create)

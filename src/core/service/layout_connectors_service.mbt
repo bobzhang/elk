@@ -12,7 +12,7 @@ pub let layout_connectors_attribute_priority : String = "priority"
 
 ///|
 struct LayoutSetupEntry {
-  priority : Int
+  priority : Int32
   setup : ILayoutSetup
   mut injector : CoreServiceInjector?
 }
@@ -64,7 +64,7 @@ fn layout_connectors_service_insert_sorted(
 pub fn LayoutConnectorsService::register_setup(
   self : LayoutConnectorsService,
   setup : ILayoutSetup,
-  priority? : Int = 0,
+  priority~ : Int32 = 0,
 ) -> Unit {
   layout_connectors_service_insert_sorted(self, {
     priority,
@@ -114,7 +114,7 @@ fn layout_connectors_service_supports_target(
 ///|
 fn layout_connectors_service_get_injector_for_entry(
   service : LayoutConnectorsService,
-  index : Int,
+  index : Int32,
 ) -> CoreServiceInjector? {
   match service.entries[index].injector {
     Some(injector) => Some(injector)
@@ -206,8 +206,8 @@ pub fn LayoutConnectorsService::fire_layout_done(
 ///|
 pub fn LayoutConnectorsService::registered_priorities_for_test(
   self : LayoutConnectorsService,
-) -> Array[Int] {
-  let priorities : Array[Int] = []
+) -> Array[Int32] {
+  let priorities : Array[Int32] = []
   for entry in self.entries {
     priorities.push(entry.priority)
   }

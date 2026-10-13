@@ -129,7 +129,7 @@ fn dummy_self_loop_test_connect_self_loop(
 ///|
 fn dummy_self_loop_test_count_long_edge_nodes(
   layer : @runtime.Layer,
-) -> (Int, @runtime.LNode?) {
+) -> (Int32, @runtime.LNode?) {
   let mut count = 0
   let mut found : @runtime.LNode? = None
   for node in layer.get_nodes() {

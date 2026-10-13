@@ -21,7 +21,7 @@ let _mrtree_intermediate_processor_strategy_reserved : Array[
 ///|
 fn mrtree_intermediate_strategy_ordinal(
   strategy : MrtreeIntermediateProcessorStrategy,
-) -> Int {
+) -> Int32 {
   match strategy {
     RootProc => 0
     FanProc => 1

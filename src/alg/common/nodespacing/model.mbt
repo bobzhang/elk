@@ -17,7 +17,7 @@ pub(all) struct NodeSpacingEdge {
 ///|
 /// Concrete port snapshot consumed and mutated by the pure kernel.
 pub(all) struct NodeSpacingPort {
-  source_index : Int
+  source_index : Int32
   size : @core.KVector
   mut position : @core.KVector
   side : @core.PortSide
@@ -29,14 +29,14 @@ pub(all) struct NodeSpacingPort {
   border_offset : Double
   has_ratio_or_position : Bool
   ratio_or_position : Double
-  sort_index : Int?
-  mut volatile_id : Int
+  sort_index : Int32?
+  mut volatile_id : Int32
 }
 
 ///|
 /// All node properties read by node spacing, parsed once at the model seam.
 pub(all) struct NodeSpacingNode {
-  source_index : Int
+  source_index : Int32
   mut size : @core.KVector
   position : @core.KVector
   labels : Array[NodeSpacingLabel]
@@ -84,19 +84,19 @@ pub(all) struct NodeSpacingInput {
 
 ///|
 pub(all) struct NodeSpacingPortOutput {
-  source_index : Int
+  source_index : Int32
   position : @core.KVector
-  volatile_id : Int
+  volatile_id : Int32
   label_positions : Array[@core.KVector]
 }
 
 ///|
 pub(all) struct NodeSpacingNodeOutput {
-  source_index : Int
+  source_index : Int32
   size : @core.KVector
   padding : @core.ElkPadding
   margin : @core.ElkMargin
-  port_order : Array[Int]
+  port_order : Array[Int32]
   ports : Array[NodeSpacingPortOutput]
   label_positions : Array[@core.KVector]
 }
@@ -184,7 +184,7 @@ fn NodeSpacingNode::get_outgoing_edges(
 }
 
 ///|
-fn nodespacing_side_rank(side : @core.PortSide) -> Int {
+fn nodespacing_side_rank(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -195,7 +195,7 @@ fn nodespacing_side_rank(side : @core.PortSide) -> Int {
 }
 
 ///|
-fn nodespacing_compare_double(left : Double, right : Double) -> Int {
+fn nodespacing_compare_double(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -209,7 +209,7 @@ fn nodespacing_compare_double(left : Double, right : Double) -> Int {
 fn nodespacing_compare_ports(
   left : NodeSpacingPort,
   right : NodeSpacingPort,
-) -> Int raise {
+) -> Int32 raise {
   let side_difference = nodespacing_side_rank(left.side) -
     nodespacing_side_rank(right.side)
   if side_difference != 0 {
@@ -297,7 +297,7 @@ fn NodeSpacingPort::set_position(
 }
 
 ///|
-fn NodeSpacingPort::set_volatile_id(self : NodeSpacingPort, id : Int) -> Unit {
+fn NodeSpacingPort::set_volatile_id(self : NodeSpacingPort, id : Int32) -> Unit {
   self.volatile_id = id
 }
 

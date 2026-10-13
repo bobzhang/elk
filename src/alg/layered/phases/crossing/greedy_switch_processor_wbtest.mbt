@@ -16,7 +16,7 @@ fn greedy_switch_processor_test_types() -> Array[@options.GreedySwitchType] {
 ///|
 fn greedy_switch_processor_test_node_handles(
   nodes : Array[@runtime.LNode],
-) -> Array[Int] {
+) -> Array[Int32] {
   let handles = []
   for node in nodes {
     handles.push(node.get_handle())
@@ -107,8 +107,8 @@ fn greedy_switch_processor_test_transfer_node_order_to_graph(
 ///|
 fn greedy_switch_processor_test_first_index(
   is_forward_sweep : Bool,
-  length : Int,
-) -> Int {
+  length : Int32,
+) -> Int32 {
   if is_forward_sweep {
     0
   } else {
@@ -119,8 +119,8 @@ fn greedy_switch_processor_test_first_index(
 ///|
 fn greedy_switch_processor_test_first_free(
   is_forward_sweep : Bool,
-  length : Int,
-) -> Int {
+  length : Int32,
+) -> Int32 {
   if is_forward_sweep {
     1
   } else {
@@ -129,7 +129,7 @@ fn greedy_switch_processor_test_first_free(
 }
 
 ///|
-fn greedy_switch_processor_test_next(is_forward_sweep : Bool) -> Int {
+fn greedy_switch_processor_test_next(is_forward_sweep : Bool) -> Int32 {
   if is_forward_sweep {
     1
   } else {
@@ -139,8 +139,8 @@ fn greedy_switch_processor_test_next(is_forward_sweep : Bool) -> Int {
 
 ///|
 fn greedy_switch_processor_test_is_not_end(
-  length : Int,
-  free_layer_index : Int,
+  length : Int32,
+  free_layer_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool {
   if is_forward_sweep {

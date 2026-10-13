@@ -24,7 +24,7 @@ fn port_list_sorter_port_sorting_strategy_from_string(
 }
 
 ///|
-fn port_list_sorter_port_side_rank(side : @core.PortSide) -> Int {
+fn port_list_sorter_port_side_rank(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -50,7 +50,7 @@ fn _port_list_sorter_port_side_equals(
 }
 
 ///|
-fn port_list_sorter_compare_double(left : Double, right : Double) -> Int {
+fn port_list_sorter_compare_double(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -64,13 +64,16 @@ fn port_list_sorter_compare_double(left : Double, right : Double) -> Int {
 fn port_list_sorter_compare_port_side(
   p1 : @runtime.LPort,
   p2 : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   port_list_sorter_port_side_rank(p1.get_side()) -
   port_list_sorter_port_side_rank(p2.get_side())
 }
 
 ///|
-fn port_list_sorter_real_degree(port : @runtime.LPort, incoming : Bool) -> Int {
+fn port_list_sorter_real_degree(
+  port : @runtime.LPort,
+  incoming : Bool,
+) -> Int32 {
   let mut degree = 0
   if incoming {
     for edge in port.get_incoming_edges() {
@@ -92,7 +95,7 @@ fn port_list_sorter_real_degree(port : @runtime.LPort, incoming : Bool) -> Int {
 fn port_list_sorter_compare_port_degree_east_west(
   p1 : @runtime.LPort,
   p2 : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   let side_diff = port_list_sorter_compare_port_side(p1, p2)
   if side_diff != 0 {
     return 0
@@ -113,7 +116,7 @@ fn port_list_sorter_compare_port_degree_east_west(
 fn port_list_sorter_compare_fixed_order_and_fixed_pos(
   p1 : @runtime.LPort,
   p2 : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   let side_diff = port_list_sorter_compare_port_side(p1, p2)
   if side_diff != 0 {
     return 0
@@ -162,7 +165,7 @@ fn port_list_sorter_compare_fixed_order_and_fixed_pos(
 fn port_list_sorter_compare_combined(
   p1 : @runtime.LPort,
   p2 : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   let side_diff = port_list_sorter_compare_port_side(p1, p2)
   if side_diff != 0 {
     return side_diff
@@ -173,7 +176,7 @@ fn port_list_sorter_compare_combined(
 ///|
 fn port_list_sorter_insertion_sort(
   ports : Array[@runtime.LPort],
-  compare : (@runtime.LPort, @runtime.LPort) -> Int,
+  compare : (@runtime.LPort, @runtime.LPort) -> Int32,
 ) -> Unit {
   let mut i = 1
   while i < ports.length() {
@@ -192,7 +195,7 @@ fn port_list_sorter_insertion_sort(
 fn port_list_sorter_find_port_side_range(
   ports : Array[@runtime.LPort],
   side : @core.PortSide,
-) -> (Int, Int) {
+) -> (Int32, Int32) {
   if ports.is_empty() {
     return (0, 0)
   }
@@ -221,8 +224,8 @@ fn port_list_sorter_find_port_side_range(
 ///|
 fn port_list_sorter_reverse(
   ports : Array[@runtime.LPort],
-  low_idx : Int,
-  high_idx : Int,
+  low_idx : Int32,
+  high_idx : Int32,
 ) -> Unit {
   if high_idx <= low_idx + 2 {
     return

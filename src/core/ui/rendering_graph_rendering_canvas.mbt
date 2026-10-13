@@ -24,25 +24,25 @@ fn graph_rendering_canvas_exception_message(
 
 ///|
 pub(all) struct CoreUiPoint {
-  x : Int
-  y : Int
+  x : Int32
+  y : Int32
 }
 
 ///|
 pub(all) struct CoreUiPaintEvent {
-  x : Int
-  y : Int
-  width : Int
-  height : Int
+  x : Int32
+  y : Int32
+  width : Int32
+  height : Int32
   graphics : CoreUiGraphics
 }
 
 ///|
 pub fn new_core_ui_paint_event(
-  x : Int,
-  y : Int,
-  width : Int,
-  height : Int,
+  x : Int32,
+  y : Int32,
+  width : Int32,
+  height : Int32,
   graphics : CoreUiGraphics,
 ) -> CoreUiPaintEvent {
   { x, y, width, height, graphics, }
@@ -54,13 +54,13 @@ pub(all) struct GraphRenderingCanvas {
   graph_renderer : GraphRenderer
   background_color : CoreUiColor
   display : CoreUiDisplay
-  mut redraw_count : Int
-  mut width : Int
-  mut height : Int
+  mut redraw_count : Int32
+  mut width : Int32
+  mut height : Int32
   mut mouse_interaction_enabled : Bool
   mut is_dragging : Bool
-  mut last_x : Int
-  mut last_y : Int
+  mut last_x : Int32
+  mut last_y : Int32
 }
 
 ///|
@@ -118,9 +118,9 @@ pub fn GraphRenderingCanvas::dispose(self : GraphRenderingCanvas) -> Unit {
 ///|
 pub fn GraphRenderingCanvas::compute_size(
   self : GraphRenderingCanvas,
-  w_hint : Int,
-  h_hint : Int,
-  _changed? : Bool = false,
+  w_hint : Int32,
+  h_hint : Int32,
+  _changed~ : Bool = false,
 ) -> CoreUiPoint {
   match self.layout_graph {
     Some(graph) => {
@@ -282,9 +282,9 @@ pub fn GraphRenderingCanvas::setup_mouse_interaction(
 ///|
 pub fn GraphRenderingCanvas::handle_mouse_wheel(
   self : GraphRenderingCanvas,
-  count : Int,
-  x : Int,
-  y : Int,
+  count : Int32,
+  x : Int32,
+  y : Int32,
 ) -> Unit {
   if !self.mouse_interaction_enabled {
     return
@@ -297,8 +297,8 @@ pub fn GraphRenderingCanvas::handle_mouse_wheel(
 ///|
 pub fn GraphRenderingCanvas::mouse_down(
   self : GraphRenderingCanvas,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Unit {
   if !self.mouse_interaction_enabled {
     return
@@ -311,8 +311,8 @@ pub fn GraphRenderingCanvas::mouse_down(
 ///|
 pub fn GraphRenderingCanvas::mouse_up(
   self : GraphRenderingCanvas,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Unit {
   if !self.mouse_interaction_enabled {
     return
@@ -325,8 +325,8 @@ pub fn GraphRenderingCanvas::mouse_up(
 ///|
 pub fn GraphRenderingCanvas::mouse_move(
   self : GraphRenderingCanvas,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Unit {
   if !self.mouse_interaction_enabled {
     return
@@ -397,7 +397,7 @@ pub fn GraphRenderingCanvas::redraw(self : GraphRenderingCanvas) -> Unit {
 ///|
 pub fn GraphRenderingCanvas::get_redraw_count(
   self : GraphRenderingCanvas,
-) -> Int {
+) -> Int32 {
   self.redraw_count
 }
 
@@ -411,6 +411,6 @@ pub fn GraphRenderingCanvas::get_display(
 ///|
 pub fn GraphRenderingCanvas::get_size_for_test(
   self : GraphRenderingCanvas,
-) -> (Int, Int) {
+) -> (Int32, Int32) {
   (self.width, self.height)
 }

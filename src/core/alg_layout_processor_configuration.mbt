@@ -23,7 +23,7 @@ fn layout_processor_configuration_exception_message(
 /// Non-generic placement of graph-bound processor factories around phases.
 pub(all) struct LayoutProcessorConfiguration {
   list_accessor : AbstractRandomListAccessor[Array[LayoutProcessorFactory]]
-  mut current_index : Int
+  mut current_index : Int32
 }
 
 ///|
@@ -124,7 +124,7 @@ pub fn LayoutProcessorConfiguration::add_after(
 ///|
 pub fn LayoutProcessorConfiguration::do_add(
   self : LayoutProcessorConfiguration,
-  index : Int,
+  index : Int32,
   processor : LayoutProcessorFactory,
 ) -> Unit raise {
   let slot = self.list_accessor.get_list_item(index)
@@ -178,7 +178,7 @@ pub fn LayoutProcessorConfiguration::processors_after(
 ///|
 pub fn LayoutProcessorConfiguration::processors(
   self : LayoutProcessorConfiguration,
-  index : Int,
+  index : Int32,
 ) -> Array[LayoutProcessorFactory] raise {
   self.list_accessor.get_list_item(index).copy()
 }

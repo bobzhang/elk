@@ -1,6 +1,6 @@
 ///|
 pub struct AllAlgorithms {
-  marker : Int
+  marker : Int32
 }
 
 ///|

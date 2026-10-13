@@ -13,7 +13,7 @@ pub struct ElkGraphTransformer {
 
 ///|
 pub fn new_elk_graph_transformer(
-  component_spacing? : Double = 0.0,
+  component_spacing~ : Double = 0.0,
 ) -> ElkGraphTransformer {
   {
     parent: None,

@@ -1,22 +1,22 @@
 ///|
-let layer_next_handle_ref : Ref[Int] = Ref(0)
+let layer_next_handle_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn layer_next_handle() -> Int {
+fn layer_next_handle() -> Int32 {
   let handle = layer_next_handle_ref.val
   layer_next_handle_ref.val = handle + 1
   handle
 }
 
 ///|
-pub fn layer_internal_handle(layer : Layer) -> Int {
+pub fn layer_internal_handle(layer : Layer) -> Int32 {
   layer.layer_handle
 }
 
 ///|
 pub struct Layer {
   graph_element : LGraphElement
-  layer_handle : Int
+  layer_handle : Int32
   graph : LGraph
   size : @core.KVector
   nodes : Array[LNode]
@@ -34,12 +34,12 @@ pub fn new_layer(graph : LGraph) -> Layer {
 }
 
 ///|
-pub fn Layer::get_id(self : Layer) -> Int {
+pub fn Layer::get_id(self : Layer) -> Int32 {
   self.graph_element.get_id()
 }
 
 ///|
-pub fn Layer::set_id(self : Layer, id : Int) -> Unit {
+pub fn Layer::set_id(self : Layer, id : Int32) -> Unit {
   self.graph_element.set_id(id)
 }
 
@@ -59,7 +59,7 @@ pub fn Layer::get_graph(self : Layer) -> LGraph {
 }
 
 ///|
-pub fn Layer::get_index(self : Layer) -> Int {
+pub fn Layer::get_index(self : Layer) -> Int32 {
   let layers = self.graph.get_layers()
   for i in 0..<layers.length() {
     if layer_internal_handle(layers[i]) == layer_internal_handle(self) {

@@ -27,7 +27,7 @@ test "property holder comparator uses property value ordering" {
 
 ///|
 test "property value proxy resolves via callback" {
-  let proxy = new_property_value_proxy((property : IProperty[Int]) => {
+  let proxy = new_property_value_proxy((property : IProperty[Int32]) => {
     Some(property.get_default() + 1)
   })
   let property = new_property("elk.test.proxy", 4)
@@ -37,8 +37,8 @@ test "property value proxy resolves via callback" {
 ///|
 test "property-to-value map entry impl key/value accessors" {
   let property = new_property("elk.test.entry", 1)
-  let entry_key : IProperty[Int]? = Some(property)
-  let entry_value : Int? = Some(10)
+  let entry_key : IProperty[Int32]? = Some(property)
+  let entry_value : Int32? = Some(10)
   let entry = new_elk_property_to_value_map_entry_impl(
     key=entry_key,
     value=entry_value,

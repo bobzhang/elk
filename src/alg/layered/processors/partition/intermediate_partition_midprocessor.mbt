@@ -10,7 +10,7 @@ fn partition_midprocessor_port_side(name : String) -> @core.PortSide raise {
 }
 
 ///|
-fn partition_midprocessor_sort_partition_ids(ids : Array[Int]) -> Unit {
+fn partition_midprocessor_sort_partition_ids(ids : Array[Int32]) -> Unit {
   let mut i = 1
   while i < ids.length() {
     let current = ids[i]
@@ -64,7 +64,7 @@ fn partition_midprocessor_process(
   }
   ignore(monitor.begin("Partition midprocessing", 1.0))
 
-  let partition_to_nodes : Map[Int, Array[@runtime.LNode]] = Map([])
+  let partition_to_nodes : Map[Int32, Array[@runtime.LNode]] = Map([])
   for node in graph.get_layerless_nodes() {
     if !node.has_property_int(@options.layered_options_partitioning_partition) {
       continue

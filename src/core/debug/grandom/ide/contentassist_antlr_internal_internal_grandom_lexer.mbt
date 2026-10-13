@@ -13,36 +13,36 @@ pub let core_debug_grandom_ide_token_names : Array[String] = [
 ]
 
 ///|
-pub let core_debug_grandom_ide_rule_int : Int = 4
+pub let core_debug_grandom_ide_rule_int : Int32 = 4
 
 ///|
-pub let core_debug_grandom_ide_rule_string : Int = 5
+pub let core_debug_grandom_ide_rule_string : Int32 = 5
 
 ///|
-pub let core_debug_grandom_ide_rule_id : Int = 6
+pub let core_debug_grandom_ide_rule_id : Int32 = 6
 
 ///|
-pub let core_debug_grandom_ide_rule_ml_comment : Int = 7
+pub let core_debug_grandom_ide_rule_ml_comment : Int32 = 7
 
 ///|
-pub let core_debug_grandom_ide_rule_sl_comment : Int = 8
+pub let core_debug_grandom_ide_rule_sl_comment : Int32 = 8
 
 ///|
-pub let core_debug_grandom_ide_rule_ws : Int = 9
+pub let core_debug_grandom_ide_rule_ws : Int32 = 9
 
 ///|
-pub let core_debug_grandom_ide_rule_any_other : Int = 10
+pub let core_debug_grandom_ide_rule_any_other : Int32 = 10
 
 ///|
 pub(all) struct CoreDebugGRandomIdeLexToken {
-  token_type : Int
+  token_type : Int32
   token_name : String
   lexeme : String
 }
 
 ///|
 pub fn new_core_debug_grandom_ide_lex_token(
-  token_type : Int,
+  token_type : Int32,
   token_name : String,
   lexeme : String,
 ) -> CoreDebugGRandomIdeLexToken {
@@ -93,7 +93,7 @@ fn core_debug_grandom_ide_lexer_is_digit(ch : Char) -> Bool {
 }
 
 ///|
-fn core_debug_grandom_ide_lexer_token_name(token_type : Int) -> String {
+fn core_debug_grandom_ide_lexer_token_name(token_type : Int32) -> String {
   if token_type >= 0 && token_type < core_debug_grandom_ide_token_names.length() {
     core_debug_grandom_ide_token_names[token_type]
   } else {
@@ -102,7 +102,7 @@ fn core_debug_grandom_ide_lexer_token_name(token_type : Int) -> String {
 }
 
 ///|
-fn core_debug_grandom_ide_lexer_keyword_token_type(keyword : String) -> Int? {
+fn core_debug_grandom_ide_lexer_keyword_token_type(keyword : String) -> Int32? {
   if keyword == "labels" {
     Some(11)
   } else if keyword == "+/-" {
@@ -203,7 +203,7 @@ fn core_debug_grandom_ide_lexer_keyword_token_type(keyword : String) -> Int? {
 }
 
 ///|
-fn core_debug_grandom_ide_lexer_symbol_token_type(symbol : String) -> Int? {
+fn core_debug_grandom_ide_lexer_symbol_token_type(symbol : String) -> Int32? {
   if symbol == "{" {
     Some(33)
   } else if symbol == "}" {
@@ -220,8 +220,8 @@ fn core_debug_grandom_ide_lexer_symbol_token_type(symbol : String) -> Int? {
 ///|
 fn core_debug_grandom_ide_lexer_slice(
   text : String,
-  start : Int,
-  end_ : Int,
+  start : Int32,
+  end_ : Int32,
 ) -> String {
   text[start:end_].to_owned()
 }
@@ -229,7 +229,7 @@ fn core_debug_grandom_ide_lexer_slice(
 ///|
 fn core_debug_grandom_ide_lexer_is_word_boundary(
   text : String,
-  index : Int,
+  index : Int32,
 ) -> Bool {
   if index < 0 || index >= text.length() {
     return true
@@ -241,8 +241,8 @@ fn core_debug_grandom_ide_lexer_is_word_boundary(
 ///|
 fn core_debug_grandom_ide_lexer_match_keyword(
   text : String,
-  start : Int,
-) -> (String, Int)? {
+  start : Int32,
+) -> (String, Int32)? {
   let keywords = [
     "cross-hierarchy relative edges", "biconnected graphs", "triconnected graphs",
     "cross-hierarchy edges", "bipartite graphs", "acyclic graphs", "remove isolated",

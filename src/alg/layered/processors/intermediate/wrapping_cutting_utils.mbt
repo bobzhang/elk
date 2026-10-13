@@ -72,7 +72,7 @@ fn cutting_utils_port_side_from_string(
 fn cutting_utils_set_layer_with_index(
   node : @runtime.LNode,
   target_layer : @runtime.Layer,
-  insert_index : Int,
+  insert_index : Int32,
 ) -> Unit {
   node.set_layer(Some(target_layer))
   let nodes = target_layer.get_nodes()
@@ -143,7 +143,7 @@ fn cutting_utils_set_dummy_properties(
 pub fn cutting_utils_insert_dummies(
   layered_graph : @runtime.LGraph,
   original_edge : @runtime.LEdge,
-  offset_first_in_layer_dummy : Int,
+  offset_first_in_layer_dummy : Int32,
 ) -> Array[@runtime.LEdge] raise CuttingUtilsException {
   let edge_node_spacing = layered_graph.get_property_double(
     @core.spacing_edge_node,

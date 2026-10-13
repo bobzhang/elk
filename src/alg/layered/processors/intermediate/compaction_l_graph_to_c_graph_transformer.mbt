@@ -425,8 +425,8 @@ fn lgraph_to_cgraph_transformer_vertical_segment_to_cnode(
   let lock = @compaction.new_quadruplet()
   transformer.lock_map[origin_key] = lock
 
-  let incoming_ports : Map[Int, Bool] = Map([])
-  let outgoing_ports : Map[Int, Bool] = Map([])
+  let incoming_ports : Map[Int32, Bool] = Map([])
+  let outgoing_ports : Map[Int32, Bool] = Map([])
   for edge in vertical_segment.represented_l_edges {
     let source = lgraph_to_cgraph_transformer_require_source(edge)
     let target = lgraph_to_cgraph_transformer_require_target(edge)
@@ -510,8 +510,8 @@ fn lgraph_to_cgraph_transformer_lookup_cnode_for_spline_endpoint(
 ///|
 fn lgraph_to_cgraph_transformer_first_non_straight_segment(
   spline : Array[@runtime.SplineSegment],
-  start_index : Int,
-) -> (Int, @runtime.SplineSegment)? {
+  start_index : Int32,
+) -> (Int32, @runtime.SplineSegment)? {
   if start_index < 0 || start_index >= spline.length() {
     return None
   }
@@ -529,8 +529,8 @@ fn lgraph_to_cgraph_transformer_adjust_control_points_between_segments(
   transformer : LGraphToCGraphTransformer,
   left : @runtime.SplineSegment,
   right : @runtime.SplineSegment,
-  left_idx : Int,
-  right_idx : Int,
+  left_idx : Int32,
+  right_idx : Int32,
   spline : Array[@runtime.SplineSegment],
 ) -> Unit {
   let mut start_x = left.bounding_box.x + left.bounding_box.width
@@ -677,8 +677,8 @@ priv struct LGraphToCGraphTransformer {
   mut layered_graph : @runtime.LGraph?
   mut edge_routing : @core.EdgeRouting
   comment_offsets : Array[(@runtime.LNode, @runtime.LNode, @core.KVector)]
-  mut nodes_map : Map[Int, @compaction.CNode]
-  mut vertical_segments_map : Map[Int, @compaction.CNode]
+  mut nodes_map : Map[Int32, @compaction.CNode]
+  mut vertical_segments_map : Map[Int32, @compaction.CNode]
   mut lock_map : Map[String, @compaction.Quadruplet]
   origin_lookup : HorizontalGraphCompactorOriginLookup
 }

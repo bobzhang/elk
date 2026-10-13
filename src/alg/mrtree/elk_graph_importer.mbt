@@ -1,6 +1,6 @@
 ///|
 pub struct MrtreeElkGraphImporter {
-  marker : Int
+  marker : Int32
 }
 
 ///|

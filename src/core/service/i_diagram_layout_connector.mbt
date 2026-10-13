@@ -10,12 +10,12 @@ pub(all) struct IDiagramLayoutConnector {
 
 ///|
 pub fn new_diagram_layout_connector(
-  build_layout_graph_fn? : (ServiceWorkbenchPart?, ServiceDiagramElement?) -> LayoutMapping? = (
+  build_layout_graph_fn~ : (ServiceWorkbenchPart?, ServiceDiagramElement?) -> LayoutMapping? = (
     _,
     _,
   ) => None,
-  apply_layout_fn? : (LayoutMapping, LayoutApplySettings) -> Unit = (_, _) => (),
-  id? : String = "IDiagramLayoutConnector",
+  apply_layout_fn~ : (LayoutMapping, LayoutApplySettings) -> Unit = (_, _) => (),
+  id~ : String = "IDiagramLayoutConnector",
 ) -> IDiagramLayoutConnector {
   { id, build_layout_graph_fn, apply_layout_fn, }
 }

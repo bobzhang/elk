@@ -1,7 +1,7 @@
 ///|
 pub struct EadesModel {
   state : AbstractForceModelState
-  mut max_iterations : Int
+  mut max_iterations : Int32
   mut spring_length : Double
   mut repulsion_factor : Double
 }
@@ -24,7 +24,7 @@ pub fn EadesModel::initialize(self : EadesModel, graph : FGraph) -> Unit {
 }
 
 ///|
-pub fn EadesModel::more_iterations(self : EadesModel, count : Int) -> Bool {
+pub fn EadesModel::more_iterations(self : EadesModel, count : Int32) -> Bool {
   count < self.max_iterations
 }
 

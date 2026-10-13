@@ -10,9 +10,9 @@ fn debug_state_equals(left : State, right : State) -> Bool {
 
 ///|
 pub struct DropdownIntRangeAction {
-  mut menu : Array[Int]?
-  lb : Int
-  mut ub : Int
+  mut menu : Array[Int32]?
+  lb : Int32
+  mut ub : Int32
   label : String
   bound : State
   state : ConfigState
@@ -24,9 +24,9 @@ pub struct DropdownIntRangeAction {
 pub fn new_dropdown_int_range_action(
   observable : ConfigState,
   label : String,
-  low : Int,
-  high : Int,
-  initial : Int,
+  low : Int32,
+  high : Int32,
+  initial : Int32,
   bound : State,
   canvas : DisCoGraphRenderingCanvas,
 ) -> DropdownIntRangeAction {
@@ -56,8 +56,8 @@ pub fn dropdown_int_range_action_dispose(
 ///|
 pub fn dropdown_int_range_action_get_menu(
   action : DropdownIntRangeAction,
-) -> Array[Int] {
-  let options : Array[Int] = []
+) -> Array[Int32] {
+  let options : Array[Int32] = []
   let mut value = action.lb
   while value <= action.ub {
     options.push(value)
@@ -102,7 +102,7 @@ pub fn dropdown_int_range_action_update(
 ///|
 pub fn dropdown_int_range_action_apply_num(
   action : DropdownIntRangeAction,
-  num : Int,
+  num : Int32,
 ) -> Unit {
   dropdown_int_range_action_update_label(action, num.to_string())
   if debug_state_equals(action.bound, Lower) {

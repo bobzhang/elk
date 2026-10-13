@@ -20,7 +20,7 @@ fn depth_first_compaction_tree_identity_eq(
 }
 
 ///|
-fn depth_first_compaction_fuzzy_compare(left : Double, right : Double) -> Int {
+fn depth_first_compaction_fuzzy_compare(left : Double, right : Double) -> Int32 {
   if (left - right).abs() <= spore_fuzziness {
     0
   } else if left < right {
@@ -34,7 +34,7 @@ fn depth_first_compaction_fuzzy_compare(left : Double, right : Double) -> Int {
 pub fn depth_first_compaction_compact(
   tree : Tree[Node],
   orthogonal : Bool,
-  debug_output_file? : String? = None,
+  debug_output_file~ : String? = None,
 ) -> Unit raise {
   let session : DepthFirstCompactionSession = {
     root: tree,

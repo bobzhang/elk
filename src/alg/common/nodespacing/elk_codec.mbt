@@ -1,5 +1,5 @@
 ///|
-let nodespacing_port_index_property : @graph.IProperty[Int] = @graph.new_property(
+let nodespacing_port_index_property : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.port.index", -1,
 )
 
@@ -100,7 +100,7 @@ fn nodespacing_capture_elk_edges(
 ///|
 fn nodespacing_capture_elk_port(
   port : @core.ElkPortAdapter,
-  source_index : Int,
+  source_index : Int32,
 ) -> NodeSpacingPort {
   {
     source_index,
@@ -136,7 +136,7 @@ fn nodespacing_capture_elk_port(
 fn nodespacing_capture_elk_node(
   graph : @core.ElkGraphAdapter,
   node : @core.ElkNodeAdapter,
-  source_index : Int,
+  source_index : Int32,
 ) -> NodeSpacingNode raise {
   let ports = node.get_ports()
   {
@@ -255,7 +255,7 @@ fn capture_elk_node_spacing_input(
 fn capture_elk_single_node_spacing_input(
   adapter : @core.ElkGraphAdapter,
   node : @core.ElkNodeAdapter,
-  source_index : Int,
+  source_index : Int32,
 ) -> NodeSpacingInput raise {
   {
     direction: adapter.get_property_string(@core.direction),

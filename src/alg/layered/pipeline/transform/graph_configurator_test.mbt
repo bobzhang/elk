@@ -1,5 +1,5 @@
 ///|
-fn graph_configurator_test_graph(layerless_node_count : Int) -> LGraph {
+fn graph_configurator_test_graph(layerless_node_count : Int32) -> LGraph {
   let graph = new_l_graph()
   for _ in 0..<layerless_node_count {
     let node = new_l_node(graph=Some(graph))

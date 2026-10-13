@@ -15,8 +15,8 @@ fn routing_slot_assigner_port_side_equals(
 
 ///|
 fn routing_slot_assigner_contains_int(
-  values : Array[Int],
-  target : Int,
+  values : Array[Int32],
+  target : Int32,
 ) -> Bool {
   for value in values {
     if value == target {
@@ -28,8 +28,8 @@ fn routing_slot_assigner_contains_int(
 
 ///|
 fn routing_slot_assigner_add_unique_int(
-  values : Array[Int],
-  target : Int,
+  values : Array[Int32],
+  target : Int32,
 ) -> Unit {
   if !routing_slot_assigner_contains_int(values, target) {
     values.push(target)
@@ -71,8 +71,8 @@ fn routing_slot_assigner_sort_loops_by_side_slot(
 
 ///|
 fn routing_slot_assigner_require_segment(
-  segments : Map[Int, HyperEdgeSegment],
-  loop_id : Int,
+  segments : Map[Int32, HyperEdgeSegment],
+  loop_id : Int32,
 ) -> HyperEdgeSegment raise {
   match segments.get(loop_id) {
     Some(segment) => segment
@@ -87,8 +87,8 @@ fn routing_slot_assigner_require_segment(
 
 ///|
 fn routing_slot_assigner_require_loop_activity(
-  loop_activity : Map[Int, Array[Bool]],
-  loop_id : Int,
+  loop_activity : Map[Int32, Array[Bool]],
+  loop_id : Int32,
 ) -> Array[Bool] raise {
   match loop_activity.get(loop_id) {
     Some(activity) => activity
@@ -103,7 +103,7 @@ fn routing_slot_assigner_require_loop_activity(
 
 ///|
 fn routing_slot_assigner_new_label_crossing_matrix(
-  size : Int,
+  size : Int32,
 ) -> Array[Array[Bool]] {
   let matrix = []
   for _i in 0..<size {
@@ -150,13 +150,13 @@ fn routing_slot_assigner_labels_overlap(
 pub struct RoutingSlotAssigner {
   state : @runtime.LayeredRunState
   hyper_edge_segments : Array[HyperEdgeSegment]
-  sl_loop_to_segment_map : Map[Int, HyperEdgeSegment]
-  sl_loop_activity_over_ports : Map[Int, Array[Bool]]
+  sl_loop_to_segment_map : Map[Int32, HyperEdgeSegment]
+  sl_loop_activity_over_ports : Map[Int32, Array[Bool]]
 }
 
 ///|
 pub fn new_routing_slot_assigner(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> RoutingSlotAssigner {
   {
     state,
@@ -254,7 +254,7 @@ fn RoutingSlotAssigner::count_crossings(
   self : RoutingSlotAssigner,
   sl_upper_loop : @runtime.SelfHyperLoop,
   sl_lower_loop : @runtime.SelfHyperLoop,
-) -> Int raise {
+) -> Int32 raise {
   ignore(self)
   let lower_loop_activity = routing_slot_assigner_require_loop_activity(
     self.sl_loop_activity_over_ports,
@@ -396,7 +396,7 @@ fn RoutingSlotAssigner::assign_raw_routing_slots_to_segments(
       match in_dependency.get_source() {
         Some(source_segment) => {
           source_segment.set_routing_slot(
-            Int::max(source_segment.get_routing_slot(), next_routing_slot),
+            Int32::max(source_segment.get_routing_slot(), next_routing_slot),
           )
 
           source_segment.set_out_weight(source_segment.get_out_weight() - 1)
@@ -431,7 +431,7 @@ fn RoutingSlotAssigner::shift_towards_node_on_side(
   self : RoutingSlotAssigner,
   sl_holder : @runtime.SelfLoopHolder,
   side : @core.PortSide,
-  next_free_routing_slot_at_port : Array[Int],
+  next_free_routing_slot_at_port : Array[Int32],
   label_crossing_matrix : Array[Array[Bool]],
 ) -> Unit raise {
   let sl_loops = []
@@ -446,8 +446,8 @@ fn RoutingSlotAssigner::shift_towards_node_on_side(
   let mut max_l_port_index = @int.MIN_VALUE
   for l_port in sl_holder.get_l_node().get_ports() {
     if routing_slot_assigner_port_side_equals(l_port.get_side(), side) {
-      min_l_port_index = Int::min(min_l_port_index, l_port.get_id())
-      max_l_port_index = Int::max(max_l_port_index, l_port.get_id())
+      min_l_port_index = Int32::min(min_l_port_index, l_port.get_id())
+      max_l_port_index = Int32::max(max_l_port_index, l_port.get_id())
     }
   }
 
@@ -471,7 +471,7 @@ fn RoutingSlotAssigner::shift_towards_node_on_side(
       let mut port_index = min_l_port_index
       while port_index <= max_l_port_index {
         if active_at_port[port_index] {
-          lowest_available_slot = Int::max(
+          lowest_available_slot = Int32::max(
             lowest_available_slot,
             next_free_routing_slot_at_port[port_index],
           )

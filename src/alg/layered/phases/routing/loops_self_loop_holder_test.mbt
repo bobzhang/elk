@@ -1,8 +1,8 @@
 ///|
 fn self_loop_holder_test_edge_handle_set(
   edges : Array[@runtime.LEdge],
-) -> Map[Int, Bool] {
-  let handles : Map[Int, Bool] = Map([])
+) -> Map[Int32, Bool] {
+  let handles : Map[Int32, Bool] = Map([])
   for edge in edges {
     handles[edge.get_handle()] = true
   }
@@ -12,8 +12,8 @@ fn self_loop_holder_test_edge_handle_set(
 ///|
 fn self_loop_holder_test_hyper_loop_edge_handle_set(
   sl_hyper_loop : @runtime.SelfHyperLoop,
-) -> Map[Int, Bool] {
-  let handles : Map[Int, Bool] = Map([])
+) -> Map[Int32, Bool] {
+  let handles : Map[Int32, Bool] = Map([])
   for sl_edge in sl_hyper_loop.get_sl_edges() {
     handles[sl_edge.get_l_edge().get_handle()] = true
   }
@@ -22,8 +22,8 @@ fn self_loop_holder_test_hyper_loop_edge_handle_set(
 
 ///|
 fn self_loop_holder_test_same_edge_handle_set(
-  left : Map[Int, Bool],
-  right : Map[Int, Bool],
+  left : Map[Int32, Bool],
+  right : Map[Int32, Bool],
 ) -> Bool {
   if left.length() != right.length() {
     return false

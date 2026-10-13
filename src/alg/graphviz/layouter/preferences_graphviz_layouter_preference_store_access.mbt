@@ -6,7 +6,7 @@ let graphviz_layouter_preference_store_access_ui_available_ref : Ref[Bool] = Ref
 ///|
 pub fn graphviz_layouter_preference_store_access_get_ui_save_int(
   name : String,
-) -> Int {
+) -> Int32 {
   if graphviz_layouter_preference_store_access_ui_available_ref.val {
     graphviz_layouter_preference_store_get_instance()
     .get_preference_store()

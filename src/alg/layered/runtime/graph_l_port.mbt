@@ -1,22 +1,22 @@
 ///|
-let lport_next_handle_ref : Ref[Int] = Ref(0)
+let lport_next_handle_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn lport_next_handle() -> Int {
+fn lport_next_handle() -> Int32 {
   let handle = lport_next_handle_ref.val
   lport_next_handle_ref.val = handle + 1
   handle
 }
 
 ///|
-pub fn lport_internal_handle(port : LPort) -> Int {
+pub fn lport_internal_handle(port : LPort) -> Int32 {
   port.port_handle
 }
 
 ///|
 pub struct LPort {
   shape : LShape
-  port_handle : Int
+  port_handle : Int32
   mut owner : LNode?
   mut side : @core.PortSide
   anchor : @core.KVector
@@ -26,7 +26,7 @@ pub struct LPort {
   incoming_edges : Array[LEdge]
   outgoing_edges : Array[LEdge]
   mut connected_to_external_nodes : Bool
-  priv mut int_properties : Map[@graph.PropertyId, Int]?
+  priv mut int_properties : Map[@graph.PropertyId, Int32]?
   priv mut bool_properties : Map[@graph.PropertyId, Bool]?
   priv mut double_properties : Map[@graph.PropertyId, Double]?
   priv mut node_properties : Map[@graph.PropertyId, LNode]?
@@ -56,17 +56,17 @@ pub fn new_l_port() -> LPort {
 }
 
 ///|
-pub fn LPort::get_handle(self : LPort) -> Int {
+pub fn LPort::get_handle(self : LPort) -> Int32 {
   self.port_handle
 }
 
 ///|
-pub fn LPort::get_id(self : LPort) -> Int {
+pub fn LPort::get_id(self : LPort) -> Int32 {
   self.shape.get_id()
 }
 
 ///|
-pub fn LPort::set_id(self : LPort, id : Int) -> Unit {
+pub fn LPort::set_id(self : LPort, id : Int32) -> Unit {
   self.shape.set_id(id)
 }
 
@@ -177,12 +177,12 @@ pub fn LPort::get_labels(self : LPort) -> Array[LLabel] {
 }
 
 ///|
-pub fn LPort::get_degree(self : LPort) -> Int {
+pub fn LPort::get_degree(self : LPort) -> Int32 {
   self.incoming_edges.length() + self.outgoing_edges.length()
 }
 
 ///|
-pub fn LPort::get_net_flow(self : LPort) -> Int {
+pub fn LPort::get_net_flow(self : LPort) -> Int32 {
   self.incoming_edges.length() - self.outgoing_edges.length()
 }
 
@@ -314,8 +314,8 @@ pub fn LPort::get_property_bool(
 ///|
 pub fn LPort::set_property_int(
   self : LPort,
-  property : @graph.IProperty[Int],
-  value : Int,
+  property : @graph.IProperty[Int32],
+  value : Int32,
 ) -> Unit {
   self.int_properties = Some(
     layered_property_bag_set(
@@ -344,8 +344,8 @@ pub fn LPort::set_property_double(
 ///|
 pub fn LPort::get_property_int(
   self : LPort,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   match
     layered_property_bag_get(self.int_properties, property.get_property_id()) {
     Some(value) => value
@@ -368,7 +368,7 @@ pub fn LPort::get_property_double(
 ///|
 pub fn LPort::has_property_int(
   self : LPort,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   layered_property_bag_has(self.int_properties, property.get_property_id())
 }

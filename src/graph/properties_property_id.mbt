@@ -5,15 +5,15 @@
 /// created. Two independent hashes make accidental identity collisions
 /// negligible without introducing a process-global string interning registry.
 pub struct PropertyId {
-  priv first : Int
-  priv second : Int
+  priv first : Int32
+  priv second : Int32
 } derive(Eq, Hash, Debug)
 
 ///|
 pub type OptionId = PropertyId
 
 ///|
-fn property_id_hash(text : String, base : Int64, modulus : Int64) -> Int {
+fn property_id_hash(text : String, base : Int64, modulus : Int64) -> Int32 {
   let mut hash = 0L
   for index in 0..<text.length() {
     let code_unit = Int64::from_int(text[index].to_int() + 1)

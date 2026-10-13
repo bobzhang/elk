@@ -52,13 +52,13 @@ pub fn core_debug_layout_mapping_get_layout_graph(
 
 ///|
 pub(all) struct CoreDebugLayoutListener {
-  id : Int
+  id : Int32
   layout_about_to_start : (CoreDebugLayoutMapping, @core.IElkProgressMonitor) -> Unit
   layout_done : (CoreDebugLayoutMapping, @core.IElkProgressMonitor) -> Unit
 }
 
 ///|
-let core_debug_layout_listener_id_ref : Ref[Int] = Ref(0)
+let core_debug_layout_listener_id_ref : Ref[Int32] = Ref(0)
 
 ///|
 let core_debug_layout_listeners_ref : Ref[Array[CoreDebugLayoutListener]] = Ref([],
@@ -180,7 +180,7 @@ fn core_debug_dialog_key(section : String, key : String) -> String {
 let core_debug_dialog_bool_ref : Ref[Map[String, Bool]] = Ref(Map([]))
 
 ///|
-let core_debug_dialog_int_ref : Ref[Map[String, Int]] = Ref(Map([]))
+let core_debug_dialog_int_ref : Ref[Map[String, Int32]] = Ref(Map([]))
 
 ///|
 let core_debug_dialog_string_ref : Ref[Map[String, String]] = Ref(Map([]))
@@ -205,7 +205,7 @@ pub fn CoreDebugDialogSettingsSection::put_bool(
 pub fn CoreDebugDialogSettingsSection::put_int(
   self : CoreDebugDialogSettingsSection,
   key : String,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   core_debug_dialog_int_ref.val[core_debug_dialog_key(self.section, key)] = value
 }
@@ -231,7 +231,7 @@ pub fn CoreDebugDialogSettingsSection::get_bool(
 pub fn CoreDebugDialogSettingsSection::get_int(
   self : CoreDebugDialogSettingsSection,
   key : String,
-) -> Int? {
+) -> Int32? {
   core_debug_dialog_int_ref.val.get(core_debug_dialog_key(self.section, key))
 }
 

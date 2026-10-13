@@ -1,5 +1,5 @@
 ///|
-let core_ui_model_change_log_ref : Ref[Map[Int, Array[String]]] = Ref(Map([]))
+let core_ui_model_change_log_ref : Ref[Map[Int32, Array[String]]] = Ref(Map([]))
 
 ///|
 pub fn core_ui_elk_ui_util_reset_for_test() -> Unit {
@@ -8,7 +8,7 @@ pub fn core_ui_elk_ui_util_reset_for_test() -> Unit {
 
 ///|
 pub fn core_ui_elk_ui_util_model_change_labels_for_domain(
-  editing_domain : Int,
+  editing_domain : Int32,
 ) -> Array[String] {
   match core_ui_model_change_log_ref.val.get(editing_domain) {
     Some(labels) => labels
@@ -19,8 +19,8 @@ pub fn core_ui_elk_ui_util_model_change_labels_for_domain(
 ///|
 pub fn core_ui_elk_ui_util_run_model_change(
   runnable : () -> Unit,
-  editing_domain? : Int? = None,
-  label? : String = "",
+  editing_domain~ : Int32? = None,
+  label~ : String = "",
 ) -> Unit {
   match editing_domain {
     Some(domain) => {

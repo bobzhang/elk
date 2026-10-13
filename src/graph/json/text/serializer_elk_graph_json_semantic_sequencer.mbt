@@ -8,8 +8,8 @@ pub struct ElkGraphJsonSemanticSequencer {
 ///|
 pub fn new_elk_graph_json_semantic_sequencer(
   metadata : @core.OptionMetadata,
-  base? : AbstractElkGraphJsonSemanticSequencer = new_abstract_elk_graph_json_semantic_sequencer(),
-  value_converter? : GraphJsonTextPropertyValueValueConverter? = None,
+  base~ : AbstractElkGraphJsonSemanticSequencer = new_abstract_elk_graph_json_semantic_sequencer(),
+  value_converter~ : GraphJsonTextPropertyValueValueConverter? = None,
 ) -> ElkGraphJsonSemanticSequencer {
   let value_converter = match value_converter {
     Some(value) => value

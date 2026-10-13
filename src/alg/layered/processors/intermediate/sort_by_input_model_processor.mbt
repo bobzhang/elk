@@ -58,7 +58,7 @@ fn sort_by_input_model_processor_constraints_skip_port_sort(
 }
 
 ///|
-fn sort_by_input_model_processor_minimum(left : Int, right : Int) -> Int {
+fn sort_by_input_model_processor_minimum(left : Int32, right : Int32) -> Int32 {
   if left < right {
     left
   } else {
@@ -69,7 +69,7 @@ fn sort_by_input_model_processor_minimum(left : Int, right : Int) -> Int {
 ///|
 pub fn sort_by_input_model_processor_long_edge_target_node_preprocessing(
   node : @runtime.LNode,
-) -> Map[Int, Int] {
+) -> Map[Int32, Int32] {
   if node.has_property_int_int_map(
       @runtime.internal_properties_target_node_model_order,
     ) {
@@ -78,7 +78,7 @@ pub fn sort_by_input_model_processor_long_edge_target_node_preprocessing(
     )
   }
 
-  let target_node_model_order : Map[Int, Int] = Map([])
+  let target_node_model_order : Map[Int32, Int32] = Map([])
 
   for port in node.get_ports() {
     if port.get_outgoing_edges().is_empty() {

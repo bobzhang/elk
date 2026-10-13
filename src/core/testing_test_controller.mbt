@@ -1,5 +1,5 @@
 ///|
-let next_layout_execution_listener_id_ref : Ref[Int] = Ref(0)
+let next_layout_execution_listener_id_ref : Ref[Int32] = Ref(0)
 
 ///|
 priv suberror TestControllerException {
@@ -21,7 +21,7 @@ fn test_controller_exception_message(err : TestControllerException) -> String {
 }
 
 ///|
-fn next_layout_execution_listener_id() -> Int {
+fn next_layout_execution_listener_id() -> Int32 {
   let id = next_layout_execution_listener_id_ref.val
   next_layout_execution_listener_id_ref.val = id + 1
   id
@@ -34,15 +34,15 @@ pub fn reset_layout_execution_listener_ids_for_test() -> Unit {
 
 ///|
 pub(all) struct ILayoutExecutionListener[G] {
-  id : Int
-  layout_processor_ready_fn : (Int, G, Bool) -> Unit
-  layout_processor_finished_fn : (Int, G, Bool) -> Unit
+  id : Int32
+  layout_processor_ready_fn : (Int32, G, Bool) -> Unit
+  layout_processor_finished_fn : (Int32, G, Bool) -> Unit
 }
 
 ///|
 pub fn[G] new_layout_execution_listener(
-  layout_processor_ready_fn : (Int, G, Bool) -> Unit,
-  layout_processor_finished_fn : (Int, G, Bool) -> Unit,
+  layout_processor_ready_fn : (Int32, G, Bool) -> Unit,
+  layout_processor_finished_fn : (Int32, G, Bool) -> Unit,
 ) -> ILayoutExecutionListener[G] {
   {
     id: next_layout_execution_listener_id(),
@@ -54,7 +54,7 @@ pub fn[G] new_layout_execution_listener(
 ///|
 pub fn[G] ILayoutExecutionListener::layout_processor_ready(
   self : ILayoutExecutionListener[G],
-  processor_id : Int,
+  processor_id : Int32,
   graph : G,
   is_root : Bool,
 ) -> Unit {
@@ -64,7 +64,7 @@ pub fn[G] ILayoutExecutionListener::layout_processor_ready(
 ///|
 pub fn[G] ILayoutExecutionListener::layout_processor_finished(
   self : ILayoutExecutionListener[G],
-  processor_id : Int,
+  processor_id : Int32,
   graph : G,
   is_root : Bool,
 ) -> Unit {
@@ -74,7 +74,7 @@ pub fn[G] ILayoutExecutionListener::layout_processor_finished(
 ///|
 pub fn[G] ILayoutExecutionListener::listener_id(
   self : ILayoutExecutionListener[G],
-) -> Int {
+) -> Int32 {
   self.id
 }
 
@@ -146,7 +146,7 @@ pub fn[G] TestController::uninstall(self : TestController[G]) -> Unit {
 pub fn[G] TestController::notify_processor_ready(
   self : TestController[G],
   graph : G,
-  processor_id : Int,
+  processor_id : Int32,
 ) -> Unit {
   for listener in self.listeners {
     listener.layout_processor_ready(processor_id, graph, false)
@@ -157,7 +157,7 @@ pub fn[G] TestController::notify_processor_ready(
 pub fn[G] TestController::notify_processor_finished(
   self : TestController[G],
   graph : G,
-  processor_id : Int,
+  processor_id : Int32,
 ) -> Unit {
   for listener in self.listeners {
     listener.layout_processor_finished(processor_id, graph, false)
@@ -168,7 +168,7 @@ pub fn[G] TestController::notify_processor_finished(
 pub fn[G] TestController::notify_root_processor_ready(
   self : TestController[G],
   graph : G,
-  processor_id : Int,
+  processor_id : Int32,
 ) -> Unit {
   for listener in self.listeners {
     listener.layout_processor_ready(processor_id, graph, true)
@@ -179,7 +179,7 @@ pub fn[G] TestController::notify_root_processor_ready(
 pub fn[G] TestController::notify_root_processor_finished(
   self : TestController[G],
   graph : G,
-  processor_id : Int,
+  processor_id : Int32,
 ) -> Unit {
   for listener in self.listeners {
     listener.layout_processor_finished(processor_id, graph, true)
@@ -189,7 +189,7 @@ pub fn[G] TestController::notify_root_processor_finished(
 ///|
 fn[G] test_controller_has_listener(
   listeners : Array[ILayoutExecutionListener[G]],
-  listener_id : Int,
+  listener_id : Int32,
 ) -> Bool {
   for listener in listeners {
     if listener.listener_id() == listener_id {

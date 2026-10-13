@@ -92,7 +92,7 @@ pub struct ConvertGraphHandler {
 ///|
 pub fn new_convert_graph_handler(
   metadata : @core.OptionMetadata,
-  project? : GraphTextProject = new_graph_text_project(),
+  project~ : GraphTextProject = new_graph_text_project(),
 ) -> ConvertGraphHandler {
   { metadata, project, target_extension: "", errors: [], }
 }
@@ -111,7 +111,7 @@ pub fn ConvertGraphHandler::execute(
   self : ConvertGraphHandler,
   selection : Array[GraphTextSelectionItem],
   target_extension : String,
-) -> Int {
+) -> Int32 {
   self.target_extension = target_extension
   if !self.is_valid_target_extension(target_extension) {
     self.errors.push("Invalid target extension: " + target_extension)

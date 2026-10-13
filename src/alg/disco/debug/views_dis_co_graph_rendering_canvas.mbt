@@ -1,9 +1,9 @@
 ///|
 pub struct DisCoPaintEvent {
-  x : Int
-  y : Int
-  width : Int
-  height : Int
+  x : Int32
+  y : Int32
+  width : Int32
+  height : Int32
 }
 
 ///|
@@ -32,9 +32,9 @@ pub struct DisCoGraphRenderingCanvas {
   graph_renderer : DisCoGraphRenderer
   background_color : DisCoDebugColor
   display : DisCoDebugDisplay
-  mut redraw_count : Int
-  mut width : Int
-  mut height : Int
+  mut redraw_count : Int32
+  mut width : Int32
+  mut height : Int32
 }
 
 ///|
@@ -139,7 +139,7 @@ pub fn dis_co_graph_rendering_canvas_redraw(
 ///|
 pub fn dis_co_graph_rendering_canvas_get_redraw_count(
   canvas : DisCoGraphRenderingCanvas,
-) -> Int {
+) -> Int32 {
   canvas.redraw_count
 }
 

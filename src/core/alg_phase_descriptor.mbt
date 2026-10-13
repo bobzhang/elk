@@ -1,6 +1,6 @@
 ///|
 /// Stable, zero-based algorithm-local ordinal for one coarse pipeline phase.
-pub type PhaseId = Int
+pub type PhaseId = Int32
 
 ///|
 /// Declares every phase ordinal once, in execution order.
@@ -23,7 +23,7 @@ pub fn PhaseDescriptor::phases(self : PhaseDescriptor) -> Array[PhaseId] {
 }
 
 ///|
-pub fn PhaseDescriptor::size(self : PhaseDescriptor) -> Int {
+pub fn PhaseDescriptor::size(self : PhaseDescriptor) -> Int32 {
   self.phases.length()
 }
 

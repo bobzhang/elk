@@ -41,7 +41,7 @@ fn port_restorer_ordering_equals(
 ///|
 fn port_restorer_self_loop_type_index(
   self_loop_type : @runtime.SelfLoopType,
-) -> Int {
+) -> Int32 {
   match self_loop_type {
     OneSide => 1
     TwoSidesCorner => 2
@@ -111,7 +111,7 @@ fn port_restorer_target_area_get(
 
 ///|
 fn port_restorer_sl_loops_by_type_get(
-  sl_loops_by_type : Map[Int, Array[@runtime.SelfHyperLoop]],
+  sl_loops_by_type : Map[Int32, Array[@runtime.SelfHyperLoop]],
   self_loop_type : @runtime.SelfLoopType,
 ) -> Array[@runtime.SelfHyperLoop] {
   let key = port_restorer_self_loop_type_index(self_loop_type)
@@ -128,8 +128,8 @@ fn port_restorer_sl_loops_by_type_get(
 ///|
 fn port_restorer_subarray(
   values : Array[@runtime.SelfLoopPort],
-  begin_index : Int,
-  end_index : Int,
+  begin_index : Int32,
+  end_index : Int32,
 ) -> Array[@runtime.SelfLoopPort] {
   let result = []
   let mut i = begin_index
@@ -190,7 +190,7 @@ fn port_restorer_sort_sides(sides : Array[@core.PortSide]) -> Unit {
 
 ///|
 pub struct PortRestorer {
-  mut sl_loops_by_type : Map[Int, Array[@runtime.SelfHyperLoop]]
+  mut sl_loops_by_type : Map[Int32, Array[@runtime.SelfHyperLoop]]
   target_areas : Map[String, Array[@runtime.SelfLoopPort]]
 }
 
@@ -213,8 +213,8 @@ fn PortRestorer::init_target_areas(self : PortRestorer) -> Unit {
 fn PortRestorer::gather_self_loops_by_type(
   _self : PortRestorer,
   sl_holder : @runtime.SelfLoopHolder,
-) -> Map[Int, Array[@runtime.SelfHyperLoop]] {
-  let loops : Map[Int, Array[@runtime.SelfHyperLoop]] = Map([])
+) -> Map[Int32, Array[@runtime.SelfHyperLoop]] {
+  let loops : Map[Int32, Array[@runtime.SelfHyperLoop]] = Map([])
   for sl_loop in sl_holder.get_sl_hyper_loops() {
     match sl_loop.get_self_loop_type() {
       Some(self_loop_type) => {
@@ -231,7 +231,7 @@ fn PortRestorer::gather_self_loops_by_type(
 fn PortRestorer::compute_port_list_split_index(
   self : PortRestorer,
   sorted_ports : Array[@runtime.SelfLoopPort],
-) -> Int {
+) -> Int32 {
   ignore(self)
 
   let mut positive_net_flow_index = 0
@@ -375,7 +375,7 @@ fn PortRestorer::process_one_side_loops(
 }
 
 ///|
-fn port_restorer_port_side_order(side : @core.PortSide) -> Int {
+fn port_restorer_port_side_order(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -521,10 +521,10 @@ fn PortRestorer::add_all(
 fn PortRestorer::add_all_that(
   self : PortRestorer,
   l_ports : Array[@runtime.LPort],
-  from_index : Int,
+  from_index : Int32,
   condition : (@runtime.LPort) -> Bool,
   target : Array[@runtime.LPort],
-) -> Int {
+) -> Int32 {
   ignore(self)
   for i in from_index..<l_ports.length() {
     let l_port = l_ports[i]

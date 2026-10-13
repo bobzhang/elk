@@ -108,19 +108,19 @@ pub struct ElkGraphSwitch[T] {
 
 ///|
 pub fn[T] new_elk_graph_switch(
-  case_i_property_holder? : (IPropertyHolder) -> T? = _ => None,
-  case_e_map_property_holder? : (EMapPropertyHolder) -> T? = _ => None,
-  case_elk_graph_element? : (ElkGraphElement) -> T? = _ => None,
-  case_elk_shape? : (ElkShape) -> T? = _ => None,
-  case_elk_label? : (ElkLabel) -> T? = _ => None,
-  case_elk_connectable_shape? : (ElkConnectableShape) -> T? = _ => None,
-  case_elk_node? : (ElkNode) -> T? = _ => None,
-  case_elk_port? : (ElkPort) -> T? = _ => None,
-  case_elk_edge? : (ElkEdge) -> T? = _ => None,
-  case_elk_bend_point? : (ElkBendPoint) -> T? = _ => None,
-  case_elk_edge_section? : (ElkEdgeSection) -> T? = _ => None,
-  case_elk_property_to_value_map_entry? : (Json) -> T? = _ => None,
-  default_case? : () -> T? = () => None,
+  case_i_property_holder~ : (IPropertyHolder) -> T? = _ => None,
+  case_e_map_property_holder~ : (EMapPropertyHolder) -> T? = _ => None,
+  case_elk_graph_element~ : (ElkGraphElement) -> T? = _ => None,
+  case_elk_shape~ : (ElkShape) -> T? = _ => None,
+  case_elk_label~ : (ElkLabel) -> T? = _ => None,
+  case_elk_connectable_shape~ : (ElkConnectableShape) -> T? = _ => None,
+  case_elk_node~ : (ElkNode) -> T? = _ => None,
+  case_elk_port~ : (ElkPort) -> T? = _ => None,
+  case_elk_edge~ : (ElkEdge) -> T? = _ => None,
+  case_elk_bend_point~ : (ElkBendPoint) -> T? = _ => None,
+  case_elk_edge_section~ : (ElkEdgeSection) -> T? = _ => None,
+  case_elk_property_to_value_map_entry~ : (Json) -> T? = _ => None,
+  default_case~ : () -> T? = () => None,
 ) -> ElkGraphSwitch[T] {
   {
     model_package: elk_graph_package_instance,

@@ -21,7 +21,7 @@ pub fn dot_attribute_type_edge() -> DotAttributeType {
 }
 
 ///|
-pub fn dot_attribute_type_value(attribute_type : DotAttributeType) -> Int {
+pub fn dot_attribute_type_value(attribute_type : DotAttributeType) -> Int32 {
   match attribute_type {
     DotAttributeTypeGraph => 0
     DotAttributeTypeNode => 1
@@ -62,7 +62,7 @@ pub fn dot_attribute_type_from_name(name : String) -> DotAttributeType? {
 }
 
 ///|
-pub fn dot_attribute_type_from_int(value : Int) -> DotAttributeType? {
+pub fn dot_attribute_type_from_int(value : Int32) -> DotAttributeType? {
   if value == 0 {
     Some(DotAttributeTypeGraph)
   } else if value == 1 {

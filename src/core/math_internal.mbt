@@ -30,7 +30,7 @@ fn _trim_delim_bounds(
   text : String,
   start_delims : String,
   end_delims : String,
-) -> (Int, Int) {
+) -> (Int32, Int32) {
   let chars = text.to_array()
   let mut start = 0
   while start < chars.length() && _is_delim_char(chars[start], start_delims) {
@@ -44,7 +44,7 @@ fn _trim_delim_bounds(
 }
 
 ///|
-fn _substring_chars(text : String, start : Int, end : Int) -> String {
+fn _substring_chars(text : String, start : Int32, end : Int32) -> String {
   if start >= end {
     return ""
   }
@@ -134,7 +134,7 @@ fn _fuzzy_equals(a : Double, b : Double, epsilon : Double) -> Bool {
 }
 
 ///|
-fn _fuzzy_compare(a : Double, b : Double, epsilon : Double) -> Int {
+fn _fuzzy_compare(a : Double, b : Double, epsilon : Double) -> Int32 {
   if _fuzzy_equals(a, b, epsilon) {
     0
   } else if a < b {

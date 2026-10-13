@@ -7,7 +7,7 @@
 /// outstanding handles invalid.
 pub struct GraphArena {
   priv mut alive : Bool
-  priv mut next_object_id : Int
+  priv mut next_object_id : Int32
   priv mut root : ElkNode?
   priv nodes : Array[NodeSlot]
   priv ports : Array[PortSlot]
@@ -43,7 +43,7 @@ fn checked_graph_arena(arena : GraphArena) -> Unit {
 }
 
 ///|
-fn GraphArena::allocate_object_id(self : GraphArena) -> Int {
+fn GraphArena::allocate_object_id(self : GraphArena) -> Int32 {
   checked_graph_arena(self)
   let id = self.next_object_id
   self.next_object_id = id + 1

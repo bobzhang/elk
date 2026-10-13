@@ -19,7 +19,7 @@ fn bw_max_double(left : Double, right : Double) -> Double {
 ///|
 pub fn bowyer_watson_triangulate(
   vertices : Array[@core.KVector],
-  debug_output_file? : String? = None,
+  debug_output_file~ : String? = None,
 ) -> Array[TEdge] {
   if vertices.length() == 0 {
     return []

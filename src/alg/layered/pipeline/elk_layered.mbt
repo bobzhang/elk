@@ -14,7 +14,7 @@ pub struct ElkLayered {
 pub struct ElkLayeredTestExecutionState {
   graphs : Array[LGraph]
   plans : Array[LayeredLayoutPlan]
-  mut step : Int
+  mut step : Int32
 }
 
 ///|
@@ -171,7 +171,7 @@ fn elk_layered_is_hierarchy_aware_processor(
 fn ElkLayered::notify_processor_ready(
   self : ElkLayered,
   lgraph : LGraph,
-  processor_id : Int,
+  processor_id : Int32,
 ) -> Unit {
   match self.test_controller {
     Some(controller) =>
@@ -188,7 +188,7 @@ fn ElkLayered::notify_processor_ready(
 fn ElkLayered::notify_processor_finished(
   self : ElkLayered,
   lgraph : LGraph,
-  processor_id : Int,
+  processor_id : Int32,
 ) -> Unit {
   match self.test_controller {
     Some(controller) =>
@@ -826,7 +826,7 @@ fn ElkLayered::hierarchical_layout(
   elk_layered_review_and_correct_hierarchical_processors(lgraph, graphs)
 
   let algorithms : Array[Array[&@core.RunnableLayoutProcessor]] = []
-  let processor_indices : Array[Int] = []
+  let processor_indices : Array[Int32] = []
   let mut total_work = 0
 
   for graph in graphs {
@@ -1056,7 +1056,7 @@ pub fn ElkLayeredTestExecutionState::get_graphs(
 ///|
 pub fn ElkLayeredTestExecutionState::get_step(
   self : ElkLayeredTestExecutionState,
-) -> Int {
+) -> Int32 {
   self.step
 }
 
@@ -1094,7 +1094,7 @@ pub fn ElkLayered::run_layout_test_until(
   self : ElkLayered,
   phase : &@core.RunnableLayoutProcessor,
   state : ElkLayeredTestExecutionState,
-  inclusive? : Bool = true,
+  inclusive~ : Bool = true,
 ) -> Unit raise {
   if state.graphs.is_empty() {
     return

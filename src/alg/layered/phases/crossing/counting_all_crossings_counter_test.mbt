@@ -38,7 +38,7 @@ fn all_crossings_bb_port_side_south() -> @core.PortSide {
 }
 
 ///|
-fn all_crossings_bb_count_all_crossings(graph : @runtime.LGraph) -> Int raise {
+fn all_crossings_bb_count_all_crossings(graph : @runtime.LGraph) -> Int32 raise {
   all_crossings_bb_set_up_ids(graph)
   let order = all_crossings_bb_order(graph)
   let graph_data = new_graph_info_holder_from_graph(
@@ -52,9 +52,9 @@ fn all_crossings_bb_count_all_crossings(graph : @runtime.LGraph) -> Int raise {
 ///|
 fn all_crossings_bb_switch_nodes_in_layer(
   graph : @runtime.LGraph,
-  upper_node_index : Int,
-  lower_node_index : Int,
-  layer_index : Int,
+  upper_node_index : Int32,
+  lower_node_index : Int32,
+  layer_index : Int32,
 ) -> Unit {
   let layer = graph.get_layers()[layer_index]
   let nodes = layer.get_nodes()

@@ -57,12 +57,12 @@ fn between_layer_bb_assert_crossings(
   counter : BetweenLayerEdgeTwoNodeCrossingsCounter,
   upper_node : @runtime.LNode,
   lower_node : @runtime.LNode,
-  both_upper_lower : Int,
-  both_lower_upper : Int,
-  west_upper_lower : Int,
-  west_lower_upper : Int,
-  east_upper_lower : Int,
-  east_lower_upper : Int,
+  both_upper_lower : Int32,
+  both_lower_upper : Int32,
+  west_upper_lower : Int32,
+  west_lower_upper : Int32,
+  east_upper_lower : Int32,
+  east_lower_upper : Int32,
 ) -> Unit raise {
   counter.count_both_side_crossings(upper_node, lower_node)
   assert_eq(counter.get_upper_lower_crossings(), both_upper_lower)
@@ -80,15 +80,15 @@ fn between_layer_bb_assert_crossings(
 ///|
 fn between_layer_bb_assert_graph_crossings(
   graph : @runtime.LGraph,
-  free_layer_index : Int,
-  upper_node_index : Int,
-  lower_node_index : Int,
-  both_upper_lower : Int,
-  both_lower_upper : Int,
-  west_upper_lower : Int,
-  west_lower_upper : Int,
-  east_upper_lower : Int,
-  east_lower_upper : Int,
+  free_layer_index : Int32,
+  upper_node_index : Int32,
+  lower_node_index : Int32,
+  both_upper_lower : Int32,
+  both_lower_upper : Int32,
+  west_upper_lower : Int32,
+  west_lower_upper : Int32,
+  east_upper_lower : Int32,
+  east_lower_upper : Int32,
 ) -> Unit raise {
   let order = between_layer_bb_current_order(graph)
   let counter = new_between_layer_edge_two_node_crossings_counter(

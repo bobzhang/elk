@@ -1,6 +1,6 @@
 ///|
 pub struct LGraphElement {
-  mut id : Int
+  mut id : Int32
   mut origin_identifier : String?
 }
 
@@ -10,12 +10,12 @@ pub fn new_l_graph_element() -> LGraphElement {
 }
 
 ///|
-pub fn LGraphElement::get_id(self : LGraphElement) -> Int {
+pub fn LGraphElement::get_id(self : LGraphElement) -> Int32 {
   self.id
 }
 
 ///|
-pub fn LGraphElement::set_id(self : LGraphElement, id : Int) -> Unit {
+pub fn LGraphElement::set_id(self : LGraphElement, id : Int32) -> Unit {
   self.id = id
 }
 

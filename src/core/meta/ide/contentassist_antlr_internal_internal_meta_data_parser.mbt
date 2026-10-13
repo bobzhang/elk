@@ -7,7 +7,7 @@ pub(all) struct InternalCoreMetaIdeParser {
 ///|
 pub fn new_internal_core_meta_ide_parser(
   tokens : Array[@meta.CoreMetaLexToken],
-  grammar_access? : @meta.MetaDataGrammarAccess = @meta.new_meta_data_grammar_access(),
+  grammar_access~ : @meta.MetaDataGrammarAccess = @meta.new_meta_data_grammar_access(),
 ) -> InternalCoreMetaIdeParser {
   { tokens, grammar_access, }
 }

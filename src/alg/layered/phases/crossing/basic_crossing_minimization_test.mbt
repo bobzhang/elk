@@ -1,7 +1,7 @@
 ///|
 fn basic_cross_min_record_layer_assignment(
   graph : @runtime.LGraph,
-) -> Map[Int, Int] {
+) -> Map[Int32, Int32] {
   let assignment = Map([])
   for layer in graph.get_layers() {
     let layer_id = layer.get_id()
@@ -15,7 +15,7 @@ fn basic_cross_min_record_layer_assignment(
 ///|
 fn basic_cross_min_verify_layer_assignment(
   graph : @runtime.LGraph,
-  assignment : Map[Int, Int],
+  assignment : Map[Int32, Int32],
 ) -> Unit {
   for layer in graph.get_layers() {
     let layer_id = layer.get_id()

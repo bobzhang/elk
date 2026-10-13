@@ -5,7 +5,7 @@ pub struct ElkGraphSyntacticSequencer {
 
 ///|
 pub fn new_elk_graph_syntactic_sequencer(
-  base? : AbstractElkGraphSyntacticSequencer = new_abstract_elk_graph_syntactic_sequencer(),
+  base~ : AbstractElkGraphSyntacticSequencer = new_abstract_elk_graph_syntactic_sequencer(),
 ) -> ElkGraphSyntacticSequencer {
   { base, }
 }

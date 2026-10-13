@@ -82,7 +82,7 @@ pub fn new_graph_json_text_property_assignment(
 }
 
 ///|
-pub type GraphJsonTextIssueSeverity = Int
+pub type GraphJsonTextIssueSeverity = Int32
 
 ///|
 pub let graph_json_text_issue_error : GraphJsonTextIssueSeverity = 1
@@ -103,7 +103,7 @@ pub fn new_graph_json_text_validation_issue(
   message : String,
   feature : String,
   severity : GraphJsonTextIssueSeverity,
-  code? : String? = None,
+  code~ : String? = None,
 ) -> GraphJsonTextValidationIssue {
   { message, feature, severity, code, }
 }

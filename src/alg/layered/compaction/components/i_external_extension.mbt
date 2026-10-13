@@ -1,6 +1,6 @@
 ///|
 pub struct IExternalExtension[E] {
-  _instance_id : Int
+  _instance_id : Int32
   get_representative_fn : () -> E
   get_representor_fn : () -> @core.ElkRectangle
   get_placeholder_fn : () -> @core.ElkRectangle?
@@ -9,10 +9,10 @@ pub struct IExternalExtension[E] {
 }
 
 ///|
-let external_extension_next_instance_id : Ref[Int] = Ref(0)
+let external_extension_next_instance_id : Ref[Int32] = Ref(0)
 
 ///|
-fn new_external_extension_instance_id() -> Int {
+fn new_external_extension_instance_id() -> Int32 {
   let id = external_extension_next_instance_id.val
   external_extension_next_instance_id.val = id + 1
   id
@@ -24,7 +24,7 @@ pub fn[E] new_external_extension(
   get_representor : () -> @core.ElkRectangle,
   get_parent : () -> @core.ElkRectangle,
   get_direction : () -> @core.Direction,
-  get_placeholder? : () -> @core.ElkRectangle? = () => None,
+  get_placeholder~ : () -> @core.ElkRectangle? = () => None,
 ) -> IExternalExtension[E] {
   {
     _instance_id: new_external_extension_instance_id(),

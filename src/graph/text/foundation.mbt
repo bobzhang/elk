@@ -78,7 +78,7 @@ pub fn new_graph_text_property_assignment(
 }
 
 ///|
-pub type GraphTextIssueSeverity = Int
+pub type GraphTextIssueSeverity = Int32
 
 ///|
 pub let graph_text_issue_error : GraphTextIssueSeverity = 1
@@ -99,7 +99,7 @@ pub fn new_graph_text_validation_issue(
   message : String,
   feature : String,
   severity : GraphTextIssueSeverity,
-  code? : String? = None,
+  code~ : String? = None,
 ) -> GraphTextValidationIssue {
   { message, feature, severity, code, }
 }

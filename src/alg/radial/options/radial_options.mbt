@@ -167,7 +167,7 @@ pub fn radial_graph_compaction_strategy(
 }
 
 ///|
-pub fn radial_graph_compaction_step_size(graph : @graph.ElkNode) -> Int {
+pub fn radial_graph_compaction_step_size(graph : @graph.ElkNode) -> Int32 {
   let value = @graph.node_get_double_property(
     graph, radial_compaction_step_size,
   )

@@ -17,8 +17,8 @@ fn cm_group_model_order_test_graph(
 
 ///|
 fn cm_group_model_order_test_node(
-  model_order : Int?,
-  group_id : Int,
+  model_order : Int32?,
+  group_id : Int32,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()
   node.set_property_int(
@@ -35,8 +35,8 @@ fn cm_group_model_order_test_node(
 
 ///|
 fn cm_group_model_order_test_port(
-  model_order : Int?,
-  group_id : Int,
+  model_order : Int32?,
+  group_id : Int32,
 ) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_property_int(
@@ -53,8 +53,8 @@ fn cm_group_model_order_test_port(
 
 ///|
 fn cm_group_model_order_test_edge(
-  model_order : Int?,
-  group_id : Int,
+  model_order : Int32?,
+  group_id : Int32,
 ) -> @runtime.LEdge {
   let edge = @runtime.new_l_edge()
   edge.set_property_int(

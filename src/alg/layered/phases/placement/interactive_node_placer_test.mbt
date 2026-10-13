@@ -81,7 +81,7 @@ fn interactive_node_placer_test_add_node(
 ///|
 fn interactive_node_placer_test_contains_factory(
   factories : Array[@core.LayoutProcessorFactory],
-  expected_factory_id : Int,
+  expected_factory_id : Int32,
 ) -> Bool {
   for factory in factories {
     if factory.factory_id() == expected_factory_id {

@@ -81,7 +81,7 @@ fn create_processor(
 pub fn processor_factory(
   graph : @runtime.LGraph,
   strategy : @runtime.IntermediateProcessorStrategy,
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.LayoutProcessorFactory {
   let ordinal = @runtime.intermediate_processor_strategy_ordinal(strategy)
   @core.new_layout_processor_factory(23000 + ordinal, ordinal, graph, () => {

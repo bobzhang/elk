@@ -1,7 +1,7 @@
 ///|
 pub(all) enum CoreUiValue {
   CoreUiStringValue(String)
-  CoreUiIntValue(Int)
+  CoreUiIntValue(Int32)
   CoreUiDoubleValue(Double)
   CoreUiBoolValue(Bool)
   CoreUiStringsValue(Array[String])
@@ -29,7 +29,7 @@ pub fn core_ui_value_as_string(value : CoreUiValue) -> String? {
 }
 
 ///|
-pub fn core_ui_value_as_int(value : CoreUiValue) -> Int? {
+pub fn core_ui_value_as_int(value : CoreUiValue) -> Int32? {
   match value {
     CoreUiIntValue(number) => Some(number)
     _ => None

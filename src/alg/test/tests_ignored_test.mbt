@@ -1,5 +1,5 @@
 ///|
-fn ignored_test_graph_provider_name(index : Int) -> String {
+fn ignored_test_graph_provider_name(index : Int32) -> String {
   if index == 0 {
     "graphMethod(firstGraph)"
   } else {
@@ -43,7 +43,7 @@ test "IgnoredTest marks ignored blackbox tests for each experiment" {
     ignored=true,
   )
 
-  let runner : LayoutTestRunner[Unit, Int] = new_layout_test_runner(
+  let runner : LayoutTestRunner[Unit, Int32] = new_layout_test_runner(
     () => (),
     [test_algorithm_identity()],
     [ignored_test_default_configuration()],

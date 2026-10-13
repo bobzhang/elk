@@ -9,7 +9,7 @@ pub struct InternalElkGraphIdeParser {
 pub fn new_internal_elk_graph_ide_parser(
   metadata : @core.OptionMetadata,
   tokens : Array[@text.ElkGraphLexToken],
-  grammar_access? : @text.ElkGraphGrammarAccess = @text.new_elk_graph_grammar_access(),
+  grammar_access~ : @text.ElkGraphGrammarAccess = @text.new_elk_graph_grammar_access(),
 ) -> InternalElkGraphIdeParser {
   { metadata, tokens, grammar_access, }
 }

@@ -41,7 +41,7 @@ pub(all) struct CoreMetaConfigurationElement {
 
 ///|
 pub fn new_core_meta_configuration_element(
-  contributor? : String? = None,
+  contributor~ : String? = None,
 ) -> CoreMetaConfigurationElement {
   { contributor, }
 }
@@ -64,7 +64,7 @@ pub(all) struct CoreMetaExecutableExtension {
 
 ///|
 pub fn new_core_meta_executable_extension(
-  set_initialization_data_fn? : (
+  set_initialization_data_fn~ : (
     CoreMetaConfigurationElement?,
     String?,
     CoreMetaInitializationData?,
@@ -117,7 +117,7 @@ pub(all) struct CoreMetaUiBundle {
 
 ///|
 pub fn new_core_meta_ui_bundle(
-  symbolic_name? : String = core_meta_ui_plugin_id,
+  symbolic_name~ : String = core_meta_ui_plugin_id,
 ) -> CoreMetaUiBundle {
   { symbolic_name, classes: Map([]), }
 }
@@ -177,7 +177,7 @@ pub fn CoreMetaUiInjector::get_instance(
 }
 
 ///|
-pub fn CoreMetaUiInjector::provider_count(self : CoreMetaUiInjector) -> Int {
+pub fn CoreMetaUiInjector::provider_count(self : CoreMetaUiInjector) -> Int32 {
   self.providers.to_array().length()
 }
 
@@ -230,7 +230,7 @@ pub fn MetaActivator::register_bundle_class(
 }
 
 ///|
-pub fn MetaActivator::injector_count(self : MetaActivator) -> Int {
+pub fn MetaActivator::injector_count(self : MetaActivator) -> Int32 {
   self.injectors.to_array().length()
 }
 

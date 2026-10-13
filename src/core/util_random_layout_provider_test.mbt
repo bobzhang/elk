@@ -4,7 +4,7 @@ priv struct RandomLayoutProviderSnapshot {
   source_y : Double
   target_x : Double
   target_y : Double
-  section_count : Int
+  section_count : Int32
   section_start_x : Double
   section_start_y : Double
   section_end_x : Double
@@ -15,7 +15,7 @@ priv struct RandomLayoutProviderSnapshot {
 
 ///|
 fn random_layout_provider_test_snapshot(
-  seed_value : Int,
+  seed_value : Int32,
 ) -> RandomLayoutProviderSnapshot raise {
   let graph = @graph.create_graph()
   @graph.node_set_double_property(graph, aspect_ratio, 1.6)

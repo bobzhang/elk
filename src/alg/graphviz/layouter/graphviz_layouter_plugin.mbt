@@ -8,7 +8,7 @@ pub struct GraphvizLayouterBundle {
 
 ///|
 pub fn new_graphviz_layouter_bundle(
-  symbolic_name? : String = graphviz_layouter_plugin_id,
+  symbolic_name~ : String = graphviz_layouter_plugin_id,
 ) -> GraphvizLayouterBundle {
   { symbolic_name, }
 }
@@ -30,7 +30,7 @@ let graphviz_layouter_plugin_ref : Ref[GraphvizLayouterPlugin?] = Ref(None)
 
 ///|
 pub fn new_graphviz_layouter_plugin(
-  bundle? : GraphvizLayouterBundle = new_graphviz_layouter_bundle(),
+  bundle~ : GraphvizLayouterBundle = new_graphviz_layouter_bundle(),
 ) -> GraphvizLayouterPlugin {
   { bundle, }
 }
@@ -38,7 +38,7 @@ pub fn new_graphviz_layouter_plugin(
 ///|
 pub fn GraphvizLayouterPlugin::start(
   self : GraphvizLayouterPlugin,
-  _context? : String = "",
+  _context~ : String = "",
 ) -> Unit {
   graphviz_layouter_plugin_ref.val = Some(self)
 }
@@ -46,7 +46,7 @@ pub fn GraphvizLayouterPlugin::start(
 ///|
 pub fn GraphvizLayouterPlugin::stop(
   self : GraphvizLayouterPlugin,
-  _context? : String = "",
+  _context~ : String = "",
 ) -> Unit {
   ignore(self)
   graphviz_layouter_plugin_ref.val = None

@@ -5,7 +5,7 @@ let median_heuristic_double_min_value : Double = @double.min_value
 fn median_heuristic_weight_compare(
   left : @runtime.LNode,
   right : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   if !left.has_property_double(@runtime.internal_properties_weight) {
     return 1
   }
@@ -44,7 +44,7 @@ fn median_heuristic_sort_by_weight(nodes : Array[@runtime.LNode]) -> Unit {
 }
 
 ///|
-fn median_heuristic_node_layer_id(node : @runtime.LNode?) -> Int? {
+fn median_heuristic_node_layer_id(node : @runtime.LNode?) -> Int32? {
   match node {
     Some(n) =>
       match n.get_layer() {
@@ -130,7 +130,7 @@ pub fn MedianHeuristic::set_first_layer_order(
 pub fn MedianHeuristic::minimize_crossings(
   self : MedianHeuristic,
   order : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
   forward_sweep : Bool,
   is_first_sweep : Bool,
 ) -> Bool {
@@ -161,7 +161,7 @@ pub fn MedianHeuristic::minimize_crossings(
 fn MedianHeuristic::calculate_medians(
   self : MedianHeuristic,
   nodes : Array[@runtime.LNode],
-  reference_layer : Int,
+  reference_layer : Int32,
 ) -> Unit {
   ignore(self)
   let mut min_weight = median_heuristic_double_min_value

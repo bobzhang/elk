@@ -2,7 +2,7 @@
 fn ard_cut_index_heuristic_get_cut_indexes(
   graph : @runtime.LGraph,
   graph_stats : GraphStats,
-) -> Array[Int] raise {
+) -> Array[Int32] raise {
   ignore(graph)
 
   let rows = ard_cut_index_heuristic_get_chunk_count(graph_stats)
@@ -22,7 +22,7 @@ fn ard_cut_index_heuristic_guarantee_valid() -> Bool {
 ///|
 pub fn ard_cut_index_heuristic_get_chunk_count(
   graph_stats : GraphStats,
-) -> Int raise {
+) -> Int32 raise {
   let rows_double = (graph_stats.get_sum_width() /
   (graph_stats.dar * graph_stats.get_max_height())).sqrt()
   let mut rows = rows_double.round().to_int()

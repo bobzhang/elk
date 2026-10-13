@@ -129,7 +129,7 @@ fn breadth_first_model_order_layerer_incoming_edge_connects_to_current_layer(
 ///|
 fn breadth_first_model_order_layerer_model_order(
   node : @runtime.LNode,
-) -> Int raise BreadthFirstModelOrderLayererException {
+) -> Int32 raise BreadthFirstModelOrderLayererException {
   if node.has_property_int(@runtime.internal_properties_model_order) {
     node.get_property_int(@runtime.internal_properties_model_order)
   } else {

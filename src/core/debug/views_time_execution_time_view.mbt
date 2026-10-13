@@ -13,9 +13,9 @@ let execution_time_view_col_local_time_width_key : String = "localTimeColumn.wid
 ///|
 pub(all) struct ExecutionTimeView {
   base : AbstractLayoutDebugView
-  mut name_column_width : Int
-  mut time_column_width : Int
-  mut local_time_column_width : Int
+  mut name_column_width : Int32
+  mut time_column_width : Int32
+  mut local_time_column_width : Int32
 }
 
 ///|
@@ -47,9 +47,9 @@ pub fn ExecutionTimeView::get_base(
 ///|
 pub fn ExecutionTimeView::set_column_widths_for_test(
   self : ExecutionTimeView,
-  name_width : Int,
-  time_width : Int,
-  local_time_width : Int,
+  name_width : Int32,
+  time_width : Int32,
+  local_time_width : Int32,
 ) -> Unit {
   self.name_column_width = name_width
   self.time_column_width = time_width
@@ -59,7 +59,7 @@ pub fn ExecutionTimeView::set_column_widths_for_test(
 ///|
 pub fn ExecutionTimeView::get_column_widths_for_test(
   self : ExecutionTimeView,
-) -> (Int, Int, Int) {
+) -> (Int32, Int32, Int32) {
   (self.name_column_width, self.time_column_width, self.local_time_column_width)
 }
 

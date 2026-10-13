@@ -44,7 +44,7 @@ fn barycenter_is_same_node(
 }
 
 ///|
-fn barycenter_compare_doubles(left : Double, right : Double) -> Int {
+fn barycenter_compare_doubles(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -57,7 +57,7 @@ fn barycenter_compare_doubles(left : Double, right : Double) -> Int {
 ///|
 fn barycenter_sort_nodes(
   nodes : Array[@runtime.LNode],
-  compare : (@runtime.LNode, @runtime.LNode) -> Int,
+  compare : (@runtime.LNode, @runtime.LNode) -> Int32,
 ) -> Unit {
   let mut i = 1
   while i < nodes.length() {
@@ -75,7 +75,7 @@ fn barycenter_sort_nodes(
 ///|
 fn barycenter_sort_nodes_raising(
   nodes : Array[@runtime.LNode],
-  compare : (@runtime.LNode, @runtime.LNode) -> Int raise,
+  compare : (@runtime.LNode, @runtime.LNode) -> Int32 raise,
 ) -> Unit raise {
   let mut i = 1
   while i < nodes.length() {
@@ -91,7 +91,7 @@ fn barycenter_sort_nodes_raising(
 }
 
 ///|
-fn barycenter_change_index(direction : Bool) -> Int {
+fn barycenter_change_index(direction : Bool) -> Int32 {
   if direction {
     1
   } else {
@@ -109,7 +109,7 @@ fn barycenter_port_type_for(direction : Bool) -> @options.PortType {
 }
 
 ///|
-fn barycenter_start_index(direction : Bool, length : Int) -> Int {
+fn barycenter_start_index(direction : Bool, length : Int32) -> Int32 {
   if direction {
     0
   } else {
@@ -120,7 +120,7 @@ fn barycenter_start_index(direction : Bool, length : Int) -> Int {
 ///|
 fn barycenter_is_first_layer(
   node_order : Array[Array[@runtime.LNode]],
-  current_index : Int,
+  current_index : Int32,
   forward_sweep : Bool,
 ) -> Bool {
   current_index == barycenter_start_index(forward_sweep, node_order.length())
@@ -329,7 +329,7 @@ fn BarycenterHeuristic::compare_nodes(
   self : BarycenterHeuristic,
   first : @runtime.LNode,
   second : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let first_state = self.state_of(first)
   let second_state = self.state_of(second)
   match (first_state.barycenter, second_state.barycenter) {
@@ -368,7 +368,7 @@ pub fn BarycenterHeuristic::minimize_crossings_layer(
 pub fn BarycenterHeuristic::minimize_crossings(
   self : BarycenterHeuristic,
   order : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
   forward_sweep : Bool,
   is_first_sweep : Bool,
 ) -> Bool raise {
@@ -456,7 +456,7 @@ pub fn BarycenterHeuristic::init_after_traversal(
 ///|
 pub fn BarycenterHeuristic::init_at_layer_level(
   self : BarycenterHeuristic,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   ignore(self)

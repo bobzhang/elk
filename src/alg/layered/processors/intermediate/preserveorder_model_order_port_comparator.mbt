@@ -26,7 +26,7 @@ fn model_order_port_side_equals(
 }
 
 ///|
-fn model_order_port_side_ordinal(side : @core.PortSide) -> Int {
+fn model_order_port_side_ordinal(side : @core.PortSide) -> Int32 {
   match side {
     North => 0
     East => 1
@@ -65,7 +65,7 @@ fn model_order_port_strategy_is_prefer_nodes(
 }
 
 ///|
-fn model_order_port_compare_int(left : Int, right : Int) -> Int {
+fn model_order_port_compare_int(left : Int32, right : Int32) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -76,12 +76,12 @@ fn model_order_port_compare_int(left : Int, right : Int) -> Int {
 }
 
 ///|
-fn model_order_port_node_handle(node : @runtime.LNode) -> Int {
+fn model_order_port_node_handle(node : @runtime.LNode) -> Int32 {
   @runtime.lnode_internal_handle(node)
 }
 
 ///|
-fn model_order_port_contains(values : Array[Int], value : Int) -> Bool {
+fn model_order_port_contains(values : Array[Int32], value : Int32) -> Bool {
   for candidate in values {
     if candidate == value {
       return true
@@ -91,7 +91,7 @@ fn model_order_port_contains(values : Array[Int], value : Int) -> Bool {
 }
 
 ///|
-fn model_order_port_add_unique(values : Array[Int], value : Int) -> Unit {
+fn model_order_port_add_unique(values : Array[Int32], value : Int32) -> Unit {
   if model_order_port_contains(values, value) {
     return
   }
@@ -100,8 +100,8 @@ fn model_order_port_add_unique(values : Array[Int], value : Int) -> Unit {
 
 ///|
 fn model_order_port_add_all_unique(
-  target : Array[Int],
-  source : Array[Int],
+  target : Array[Int32],
+  source : Array[Int32],
 ) -> Unit {
   for value in source {
     model_order_port_add_unique(target, value)
@@ -110,9 +110,9 @@ fn model_order_port_add_all_unique(
 
 ///|
 fn model_order_port_associations_for(
-  associations : Map[Int, Array[Int]],
-  port_handle : Int,
-) -> Array[Int] {
+  associations : Map[Int32, Array[Int32]],
+  port_handle : Int32,
+) -> Array[Int32] {
   match associations.get(port_handle) {
     Some(values) => values
     None => {
@@ -173,20 +173,20 @@ fn model_order_port_edges_connected(port : @runtime.LPort) -> Bool {
 ///|
 fn model_order_port_require_max_model_order_nodes(
   graph : @runtime.LGraph,
-) -> Int {
+) -> Int32 {
   graph.get_property_int(@runtime.internal_properties_max_model_order_nodes)
 }
 
 ///|
 pub struct ModelOrderPortComparator {
-  target_node_model_order : Map[Int, Int]
+  target_node_model_order : Map[Int32, Int32]
   has_target_node_model_order : Bool
   port_model_order : Bool
   previous_layer : Array[@runtime.LNode]
   graph : @runtime.LGraph
   strategy : @options.OrderingStrategy
-  mut bigger_than : Map[Int, Array[Int]]
-  mut smaller_than : Map[Int, Array[Int]]
+  mut bigger_than : Map[Int32, Array[Int32]]
+  mut smaller_than : Map[Int32, Array[Int32]]
 }
 
 ///|
@@ -194,7 +194,7 @@ pub fn new_model_order_port_comparator_from_layer(
   graph : @runtime.LGraph,
   previous_layer : @runtime.Layer,
   strategy : @options.OrderingStrategy,
-  target_node_model_order : Map[Int, Int],
+  target_node_model_order : Map[Int32, Int32],
   port_model_order : Bool,
 ) -> ModelOrderPortComparator {
   {
@@ -214,7 +214,7 @@ pub fn new_model_order_port_comparator(
   graph : @runtime.LGraph,
   previous_layer : Array[@runtime.LNode],
   strategy : @options.OrderingStrategy,
-  target_node_model_order : Map[Int, Int],
+  target_node_model_order : Map[Int32, Int32],
   port_model_order : Bool,
 ) -> ModelOrderPortComparator {
   {
@@ -253,7 +253,7 @@ fn ModelOrderPortComparator::update_bigger_and_smaller_associations(
   self : ModelOrderPortComparator,
   bigger_original : @runtime.LPort,
   smaller_original : @runtime.LPort,
-  reverse_order : Int,
+  reverse_order : Int32,
 ) -> Unit {
   let bigger = if reverse_order < 0 {
     smaller_original
@@ -320,7 +320,7 @@ fn ModelOrderPortComparator::check_reference_layer(
   layer : Array[@runtime.LNode],
   p1_node : @runtime.LNode,
   p2_node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   for node in layer {
     if @runtime.lnode_internal_handle(node) ==
       @runtime.lnode_internal_handle(p1_node) {
@@ -338,7 +338,7 @@ pub fn ModelOrderPortComparator::check_port_model_order(
   self : ModelOrderPortComparator,
   p1 : @runtime.LPort,
   p2 : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   let number_of_ports = match p1.get_node() {
     Some(owner) => owner.get_ports().length()
     None => 0
@@ -367,7 +367,7 @@ pub fn ModelOrderPortComparator::compare(
   self : ModelOrderPortComparator,
   original_p1 : @runtime.LPort,
   original_p2 : @runtime.LPort,
-) -> Int raise {
+) -> Int32 raise {
   try {
     let p1 = original_p1
     let p2 = original_p2

@@ -6,34 +6,34 @@ priv enum HyperedgeCornerType {
 
 ///|
 priv struct Hyperedge {
-  id : Int
+  id : Int32
   edges : Array[@runtime.LEdge]
   ports : Array[@runtime.LPort]
-  mut upper_left : Int
-  mut lower_left : Int
-  mut upper_right : Int
-  mut lower_right : Int
+  mut upper_left : Int32
+  mut lower_left : Int32
+  mut upper_right : Int32
+  mut lower_right : Int32
   mut active : Bool
 }
 
 ///|
 priv struct HyperedgeCorner {
-  hyperedge_id : Int
-  position : Int
-  opposite_position : Int
+  hyperedge_id : Int32
+  position : Int32
+  opposite_position : Int32
   corner_type : HyperedgeCornerType
 }
 
 ///|
 pub struct HyperedgeCrossingsCounter {
-  port_pos : Array[Int]
+  port_pos : Array[Int32]
 }
 
 ///|
 pub fn new_hyperedge_crossings_counter(
-  in_layer_edge_count : Array[Int],
+  in_layer_edge_count : Array[Int32],
   has_north_south_ports : Array[Bool],
-  port_pos : Array[Int],
+  port_pos : Array[Int32],
 ) -> HyperedgeCrossingsCounter {
   ignore(in_layer_edge_count)
   ignore(has_north_south_ports)
@@ -41,7 +41,7 @@ pub fn new_hyperedge_crossings_counter(
 }
 
 ///|
-fn hyperedge_sort_compare(left : Hyperedge, right : Hyperedge) -> Int {
+fn hyperedge_sort_compare(left : Hyperedge, right : Hyperedge) -> Int32 {
   if left.upper_left < right.upper_left {
     -1
   } else if left.upper_left > right.upper_left {
@@ -63,7 +63,7 @@ fn hyperedge_sort_compare(left : Hyperedge, right : Hyperedge) -> Int {
 fn hyperedge_corner_sort_compare(
   left : HyperedgeCorner,
   right : HyperedgeCorner,
-) -> Int {
+) -> Int32 {
   if left.position < right.position {
     -1
   } else if left.position > right.position {
@@ -116,7 +116,7 @@ fn hyperedge_corner_insertion_sort(corners : Array[HyperedgeCorner]) -> Unit {
 ///|
 fn hyperedge_counter_add_port_to_hyperedge(
   hyperedges : Array[Hyperedge],
-  index : Int,
+  index : Int32,
   port : @runtime.LPort,
 ) -> Unit {
   hyperedges[index].ports.push(port)
@@ -125,7 +125,7 @@ fn hyperedge_counter_add_port_to_hyperedge(
 ///|
 fn hyperedge_counter_add_edge_to_hyperedge(
   hyperedges : Array[Hyperedge],
-  index : Int,
+  index : Int32,
   edge : @runtime.LEdge,
 ) -> Unit {
   hyperedges[index].edges.push(edge)
@@ -201,7 +201,7 @@ pub fn HyperedgeCrossingsCounter::count_crossings(
   self : HyperedgeCrossingsCounter,
   left_layer : Array[@runtime.LNode],
   right_layer : Array[@runtime.LNode],
-) -> Int {
+) -> Int32 {
   if left_layer.is_empty() || right_layer.is_empty() {
     return 0
   }
@@ -267,7 +267,7 @@ pub fn HyperedgeCrossingsCounter::count_crossings(
     target_count = target_count + other_input_ports
   }
 
-  let port_to_hyperedge : Map[Int, Int] = Map([])
+  let port_to_hyperedge : Map[Int32, Int32] = Map([])
   let hyperedges = []
 
   for node in left_layer {

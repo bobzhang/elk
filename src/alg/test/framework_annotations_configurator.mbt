@@ -1,6 +1,6 @@
 ///|
 pub struct Configurator {
-  marker : Int
+  marker : Int32
 }
 
 ///|

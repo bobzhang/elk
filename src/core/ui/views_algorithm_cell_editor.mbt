@@ -2,8 +2,8 @@
 pub(all) struct AlgorithmCellEditor {
   label_provider : LayoutOptionLabelProvider
   mut value : String
-  mut apply_count : Int
-  mut cancel_count : Int
+  mut apply_count : Int32
+  mut cancel_count : Int32
   mut next_dialog_result : String?
 }
 
@@ -100,6 +100,6 @@ pub fn AlgorithmCellEditor::on_double_click(self : AlgorithmCellEditor) -> Unit 
 ///|
 pub fn AlgorithmCellEditor::get_counts_for_test(
   self : AlgorithmCellEditor,
-) -> (Int, Int) {
+) -> (Int32, Int32) {
   (self.apply_count, self.cancel_count)
 }

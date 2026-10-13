@@ -1,6 +1,6 @@
 ///|
 pub(all) struct DeprecatedLayoutOptionReplacer {
-  _dummy : Int
+  _dummy : Int32
 }
 
 ///|

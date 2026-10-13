@@ -11,7 +11,7 @@ let graphviz_preference_page_description : String = "Controls how the Eclipse La
 let graphviz_preference_page_graphviz_bundle_name : String = "Graphviz"
 
 ///|
-let graphviz_preference_page_timeout_max_value : Int = @int.MAX_VALUE
+let graphviz_preference_page_timeout_max_value : Int32 = @int.MAX_VALUE
 
 ///|
 pub enum GraphvizPreferenceFieldKind {
@@ -26,8 +26,8 @@ pub struct GraphvizPreferenceField {
   label : String
   kind : GraphvizPreferenceFieldKind
   validate_on_key_stroke : Bool
-  min_value : Int
-  max_value : Int
+  min_value : Int32
+  max_value : Int32
 }
 
 ///|
@@ -49,8 +49,8 @@ fn new_graphviz_preference_file_field(
 fn new_graphviz_preference_integer_field(
   name : String,
   label : String,
-  min_value : Int,
-  max_value : Int,
+  min_value : Int32,
+  max_value : Int32,
 ) -> GraphvizPreferenceField {
   {
     name,
@@ -108,14 +108,14 @@ pub fn GraphvizPreferenceField::get_validate_on_key_stroke(
 ///|
 pub fn GraphvizPreferenceField::get_min_value(
   self : GraphvizPreferenceField,
-) -> Int {
+) -> Int32 {
   self.min_value
 }
 
 ///|
 pub fn GraphvizPreferenceField::get_max_value(
   self : GraphvizPreferenceField,
-) -> Int {
+) -> Int32 {
   self.max_value
 }
 

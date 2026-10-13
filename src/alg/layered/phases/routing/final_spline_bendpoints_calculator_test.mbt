@@ -51,7 +51,7 @@ fn final_spline_test_new_layer(graph : @runtime.LGraph) -> @runtime.Layer {
 fn final_spline_test_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   x : Double,
   y : Double,
 ) -> @runtime.LNode {

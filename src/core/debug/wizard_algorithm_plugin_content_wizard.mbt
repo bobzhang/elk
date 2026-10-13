@@ -18,7 +18,7 @@ pub(all) struct CoreDebugWizardProject {
 ///|
 pub fn new_core_debug_wizard_project(
   id : String,
-  natures? : Array[String] = [],
+  natures~ : Array[String] = [],
 ) -> CoreDebugWizardProject {
   { id, folders: [], files: Map([]), natures: natures.copy(), }
 }

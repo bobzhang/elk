@@ -96,7 +96,7 @@ fn recursive_graph_layout_engine_evaluate_hierarchy_handling_inheritance(
 fn recursive_graph_layout_engine_count_nodes_recursively(
   layout_node : @graph.ElkNode,
   count_ancestors : Bool,
-) -> Int {
+) -> Int32 {
   let mut count = @graph.node_children(layout_node).length()
   for child_node in @graph.node_children(layout_node) {
     if !@graph.node_children(child_node).is_empty() {
@@ -117,7 +117,7 @@ fn recursive_graph_layout_engine_count_nodes_recursively(
 ///|
 fn recursive_graph_layout_engine_count_nodes_with_hierarchy(
   parent_node : @graph.ElkNode,
-) -> Int {
+) -> Int32 {
   let mut count = @graph.node_children(parent_node).length()
   let parent_resolved = recursive_graph_layout_engine_resolved_algorithm_id(
     parent_node,
@@ -244,7 +244,7 @@ fn recursive_graph_layout_engine_post_process_inside_self_loops(
 
 ///|
 fn recursive_graph_layout_engine_work_from_node_count(
-  node_count : Int,
+  node_count : Int32,
 ) -> Double {
   if node_count > 0 {
     node_count.to_double()

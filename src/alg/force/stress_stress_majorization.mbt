@@ -6,9 +6,9 @@ pub struct StressMajorization {
   mut desired_edge_length : Double
   mut dimension : StressDimension
   mut epsilon : Double
-  mut iteration_limit : Int
-  connected_edges : Map[Int, Array[FEdge]]
-  node_by_id : Map[Int, FNode]
+  mut iteration_limit : Int32
+  connected_edges : Map[Int32, Array[FEdge]]
+  node_by_id : Map[Int32, FNode]
 }
 
 ///|
@@ -81,7 +81,10 @@ fn stress_allows_y(dimension : StressDimension) -> Bool {
 }
 
 ///|
-fn stress_initialize_matrices(stress : StressMajorization, size : Int) -> Unit {
+fn stress_initialize_matrices(
+  stress : StressMajorization,
+  size : Int32,
+) -> Unit {
   stress.apsp.clear()
   stress.weights.clear()
   for _ in 0..<size {
@@ -99,7 +102,7 @@ fn stress_initialize_matrices(stress : StressMajorization, size : Int) -> Unit {
 ///|
 fn stress_dijkstra(
   stress : StressMajorization,
-  source_id : Int,
+  source_id : Int32,
 ) -> Array[Double] raise {
   let graph = match stress.graph {
     Some(graph) => graph
@@ -218,7 +221,7 @@ pub fn StressMajorization::initialize(
 ///|
 fn stress_done(
   stress : StressMajorization,
-  count : Int,
+  count : Int32,
   previous_stress : Double,
   current_stress : Double,
 ) -> Bool {

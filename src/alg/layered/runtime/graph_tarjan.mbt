@@ -22,7 +22,7 @@ fn tarjan_pop_stack(stack : Array[LNode]) -> LNode raise {
 }
 
 ///|
-fn tarjan_int_min(left : Int, right : Int) -> Int {
+fn tarjan_int_min(left : Int32, right : Int32) -> Int32 {
   if left < right {
     left
   } else {
@@ -33,10 +33,10 @@ fn tarjan_int_min(left : Int, right : Int) -> Int {
 ///|
 pub struct Tarjan {
   edges_to_be_reversed : Array[LEdge]
-  mut index : Int
+  mut index : Int32
   strongly_connected_components : Array[Array[LNode]]
   stack : Array[LNode]
-  node_to_scc_id : Map[Int, Int]
+  node_to_scc_id : Map[Int32, Int32]
 }
 
 ///|
@@ -58,7 +58,7 @@ pub fn Tarjan::get_strongly_connected_components(
 }
 
 ///|
-pub fn Tarjan::get_node_to_scc_id(self : Tarjan) -> Map[Int, Int] {
+pub fn Tarjan::get_node_to_scc_id(self : Tarjan) -> Map[Int32, Int32] {
   self.node_to_scc_id
 }
 

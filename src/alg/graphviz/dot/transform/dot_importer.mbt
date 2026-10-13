@@ -83,12 +83,12 @@ fn dot_importer_is_number_char(c : Char) -> Bool {
 }
 
 ///|
-fn dot_importer_slice(text : String, start : Int, end_ : Int) -> String {
+fn dot_importer_slice(text : String, start : Int32, end_ : Int32) -> String {
   text[start:end_].to_owned()
 }
 
 ///|
-fn dot_importer_slice_from(text : String, start : Int) -> String {
+fn dot_importer_slice_from(text : String, start : Int32) -> String {
   text[start:].to_owned()
 }
 
@@ -138,7 +138,7 @@ fn dot_importer_parse_optional_double(text : String) -> Double? {
 }
 
 ///|
-fn dot_importer_parse_optional_int(text : String) -> Int? {
+fn dot_importer_parse_optional_int(text : String) -> Int32? {
   match dot_importer_parse_optional_double(text) {
     Some(value) => Some(value.to_int())
     None => None

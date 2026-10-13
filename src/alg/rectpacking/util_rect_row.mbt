@@ -93,7 +93,7 @@ pub fn RectRow::last_block(self : RectRow) -> Block {
 }
 
 ///|
-pub fn RectRow::number_of_assigned_blocks(self : RectRow) -> Int {
+pub fn RectRow::number_of_assigned_blocks(self : RectRow) -> Int32 {
   self.children.length()
 }
 

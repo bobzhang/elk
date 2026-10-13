@@ -86,7 +86,7 @@ test "GraphvizPreferencePage init binds preference store" {
 ///|
 test "GraphvizPreferencePage perform_ok clears Graphviz instance pools" {
   let metadata = @core.new_layout_runtime().option_metadata()
-  let clear_count_ref : Ref[Int] = Ref(0)
+  let clear_count_ref : Ref[Int32] = Ref(0)
   metadata.register_algorithm(
     @core.new_layout_algorithm_data(
       "org.eclipse.elk.graphviz.dot",

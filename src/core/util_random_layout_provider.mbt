@@ -4,7 +4,7 @@ pub(all) struct RandomLayoutProvider {
 }
 
 ///|
-let random_layout_provider_max_bends : Int = 5
+let random_layout_provider_max_bends : Int32 = 5
 
 ///|
 let random_layout_provider_rand_fact : Double = 0.2
@@ -20,7 +20,7 @@ let random_layout_provider_spacing_node_node_option : @graph.IProperty[Double] =
 )
 
 ///|
-let random_layout_provider_random_seed_option : @graph.IProperty[Int] = @graph.new_property(
+let random_layout_provider_random_seed_option : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.randomSeed", 0,
 )
 
@@ -68,8 +68,8 @@ fn random_layout_provider_parse_padding(
 ///|
 fn random_layout_provider_read_int_option(
   node : @graph.ElkNode,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   if @graph.node_has_int_property(node, property) {
     return @graph.node_get_int_property(node, property)
   }

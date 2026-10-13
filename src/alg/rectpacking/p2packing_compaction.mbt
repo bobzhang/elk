@@ -2,8 +2,8 @@
 fn rectpacking_compaction_get_next_block(
   rows : Array[RectRow],
   row : RectRow,
-  block_id : Int,
-  next_row_index : Int,
+  block_id : Int32,
+  next_row_index : Int32,
 ) -> (Block?, Bool) {
   if block_id < row.number_of_assigned_blocks() - 1 {
     (Some(row.children[block_id + 1]), false)
@@ -92,7 +92,7 @@ fn rectpacking_compaction_place_below(
   next_block : Block,
   was_from_next_row : Bool,
   bounding_width : Double,
-  next_row_index : Int,
+  next_row_index : Int32,
   node_node_spacing : Double,
 ) -> Bool {
   let remaining_width = bounding_width - block.x
@@ -153,7 +153,7 @@ fn rectpacking_compaction_place_beside(
   next_block : Block,
   was_from_next_row : Bool,
   bounding_width : Double,
-  next_row_index : Int,
+  next_row_index : Int32,
   node_node_spacing : Double,
   row_height_reevaluation : Bool,
 ) -> Bool {
@@ -257,7 +257,7 @@ fn rectpacking_compaction_place_beside(
 
 ///|
 pub fn rectpacking_compaction_compact(
-  row_idx : Int,
+  row_idx : Int32,
   rows : Array[RectRow],
   bounding_width : Double,
   node_node_spacing : Double,

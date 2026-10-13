@@ -5,7 +5,7 @@ pub struct ElkBendPoint {
 }
 
 ///|
-pub fn new_elk_bend_point(x? : Double = 0.0, y? : Double = 0.0) -> ElkBendPoint {
+pub fn new_elk_bend_point(x~ : Double = 0.0, y~ : Double = 0.0) -> ElkBendPoint {
   { x, y, }
 }
 

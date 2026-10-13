@@ -1,5 +1,5 @@
 ///|
-fn graphviz_output_stream_range_start(offset : Int) -> Int {
+fn graphviz_output_stream_range_start(offset : Int32) -> Int32 {
   if offset < 0 {
     0
   } else {
@@ -9,10 +9,10 @@ fn graphviz_output_stream_range_start(offset : Int) -> Int {
 
 ///|
 fn graphviz_output_stream_range_end(
-  bytes : Array[Int],
-  offset : Int,
-  length : Int,
-) -> Int {
+  bytes : Array[Int32],
+  offset : Int32,
+  length : Int32,
+) -> Int32 {
   let start = graphviz_output_stream_range_start(offset)
   let requested_end = start + (if length < 0 { 0 } else { length })
   if requested_end > bytes.length() {
@@ -24,16 +24,16 @@ fn graphviz_output_stream_range_end(
 
 ///|
 pub struct GraphvizOutputStream {
-  write_byte_fn : (Int) -> Unit
-  write_bytes_fn : (Array[Int], Int, Int) -> Unit
+  write_byte_fn : (Int32) -> Unit
+  write_bytes_fn : (Array[Int32], Int32, Int32) -> Unit
   flush_fn : () -> Unit
   close_fn : () -> Unit
 }
 
 ///|
 pub fn new_graphviz_output_stream(
-  write_byte_fn : (Int) -> Unit,
-  write_bytes_fn : (Array[Int], Int, Int) -> Unit,
+  write_byte_fn : (Int32) -> Unit,
+  write_bytes_fn : (Array[Int32], Int32, Int32) -> Unit,
   flush_fn : () -> Unit,
   close_fn : () -> Unit,
 ) -> GraphvizOutputStream {
@@ -43,7 +43,7 @@ pub fn new_graphviz_output_stream(
 ///|
 pub fn GraphvizOutputStream::write(
   self : GraphvizOutputStream,
-  b : Int,
+  b : Int32,
 ) -> Unit {
   (self.write_byte_fn)(b)
 }
@@ -51,9 +51,9 @@ pub fn GraphvizOutputStream::write(
 ///|
 pub fn GraphvizOutputStream::write_bytes(
   self : GraphvizOutputStream,
-  bytes : Array[Int],
-  off : Int,
-  len : Int,
+  bytes : Array[Int32],
+  off : Int32,
+  len : Int32,
 ) -> Unit {
   (self.write_bytes_fn)(bytes, off, len)
 }
@@ -70,8 +70,8 @@ pub fn GraphvizOutputStream::close(self : GraphvizOutputStream) -> Unit {
 
 ///|
 pub struct GraphvizByteArrayOutputStream {
-  bytes_ref : Ref[Array[Int]]
-  flush_count_ref : Ref[Int]
+  bytes_ref : Ref[Array[Int32]]
+  flush_count_ref : Ref[Int32]
   closed_ref : Ref[Bool]
 }
 
@@ -84,12 +84,12 @@ pub fn new_graphviz_byte_array_output_stream() -> GraphvizByteArrayOutputStream 
 pub fn GraphvizByteArrayOutputStream::as_output_stream(
   self : GraphvizByteArrayOutputStream,
 ) -> GraphvizOutputStream {
-  let write_byte_fn = (b : Int) => {
+  let write_byte_fn = (b : Int32) => {
     if !self.closed_ref.val {
       self.bytes_ref.val.push(b)
     }
   }
-  let write_bytes_fn = (bytes : Array[Int], off : Int, len : Int) => {
+  let write_bytes_fn = (bytes : Array[Int32], off : Int32, len : Int32) => {
     if self.closed_ref.val {
       return
     }
@@ -109,14 +109,14 @@ pub fn GraphvizByteArrayOutputStream::as_output_stream(
 ///|
 pub fn GraphvizByteArrayOutputStream::get_bytes(
   self : GraphvizByteArrayOutputStream,
-) -> Array[Int] {
+) -> Array[Int32] {
   self.bytes_ref.val
 }
 
 ///|
 pub fn GraphvizByteArrayOutputStream::get_flush_count(
   self : GraphvizByteArrayOutputStream,
-) -> Int {
+) -> Int32 {
   self.flush_count_ref.val
 }
 
@@ -148,7 +148,7 @@ pub fn new_forked_output_stream2(
 }
 
 ///|
-pub fn ForkedOutputStream::write(self : ForkedOutputStream, b : Int) -> Unit {
+pub fn ForkedOutputStream::write(self : ForkedOutputStream, b : Int32) -> Unit {
   for stream in self.output_streams {
     stream.write(b)
   }

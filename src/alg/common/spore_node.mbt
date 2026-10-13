@@ -94,7 +94,7 @@ pub fn Node::distance(self : Node, other : Node, v : @core.KVector) -> Double {
 }
 
 ///|
-fn spore_fuzzy_compare(a : Double, b : Double) -> Int {
+fn spore_fuzzy_compare(a : Double, b : Double) -> Int32 {
   if (a - b).abs() <= spore_fuzziness {
     0
   } else if a < b {

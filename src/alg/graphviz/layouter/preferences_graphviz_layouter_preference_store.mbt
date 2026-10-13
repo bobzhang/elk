@@ -1,8 +1,8 @@
 ///|
 pub struct GraphvizPreferenceStore {
   symbolic_name : String
-  int_values : Map[String, Int]
-  int_defaults : Map[String, Int]
+  int_values : Map[String, Int32]
+  int_defaults : Map[String, Int32]
   string_values : Map[String, String]
   string_defaults : Map[String, String]
   bool_values : Map[String, Bool]
@@ -35,7 +35,7 @@ pub fn GraphvizPreferenceStore::get_symbolic_name(
 pub fn GraphvizPreferenceStore::set_default_int(
   self : GraphvizPreferenceStore,
   name : String,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   self.int_defaults[name] = value
 }
@@ -62,7 +62,7 @@ pub fn GraphvizPreferenceStore::set_default_boolean(
 pub fn GraphvizPreferenceStore::set_int(
   self : GraphvizPreferenceStore,
   name : String,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   self.int_values[name] = value
 }
@@ -89,7 +89,7 @@ pub fn GraphvizPreferenceStore::set_boolean(
 pub fn GraphvizPreferenceStore::get_int(
   self : GraphvizPreferenceStore,
   name : String,
-) -> Int {
+) -> Int32 {
   match self.int_values.get(name) {
     Some(value) => value
     None =>

@@ -9,7 +9,7 @@ pub struct BlackboxTestMethod[T] {
 pub fn[T] new_blackbox_test_method(
   method_name : String,
   run_fn : (T, ElkNode) -> Unit,
-  ignored? : Bool = false,
+  ignored~ : Bool = false,
 ) -> BlackboxTestMethod[T] {
   { method_name, ignored, run_fn, }
 }
@@ -50,11 +50,11 @@ pub struct WhiteboxTestMethod[T, G] {
 pub fn[T, G] new_whitebox_test_method(
   method_name : String,
   run_fn : (T, G) -> Unit,
-  ignored? : Bool = false,
-  fail_if_not_executed? : Bool = false,
-  only_on_root_node? : Bool = false,
-  before_processor_ids? : Array[String] = [],
-  after_processor_ids? : Array[String] = [],
+  ignored~ : Bool = false,
+  fail_if_not_executed~ : Bool = false,
+  only_on_root_node~ : Bool = false,
+  before_processor_ids~ : Array[String] = [],
+  after_processor_ids~ : Array[String] = [],
 ) -> WhiteboxTestMethod[T, G] {
   {
     method_name,

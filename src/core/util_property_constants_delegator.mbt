@@ -79,8 +79,8 @@ pub fn PropertyConstantsDelegator::get_property_double(
 pub fn PropertyConstantsDelegator::get_property_int(
   self : PropertyConstantsDelegator,
   node : @graph.ElkNode,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   self.get_property_with(node, property, @graph.node_get_int_property)
 }
 

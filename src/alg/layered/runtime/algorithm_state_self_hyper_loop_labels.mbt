@@ -8,7 +8,7 @@ pub(all) enum SelfHyperLoopLabelAlignment {
 
 ///|
 pub(all) struct SelfHyperLoopLabels {
-  mut id : Int
+  mut id : Int32
   l_labels : Array[LLabel]
   size : @core.KVector
   position : @core.KVector
@@ -51,14 +51,14 @@ pub fn new_self_hyper_loop_labels(
 }
 
 ///|
-pub fn SelfHyperLoopLabels::get_id(self : SelfHyperLoopLabels) -> Int {
+pub fn SelfHyperLoopLabels::get_id(self : SelfHyperLoopLabels) -> Int32 {
   self.id
 }
 
 ///|
 pub fn SelfHyperLoopLabels::set_id(
   self : SelfHyperLoopLabels,
-  id : Int,
+  id : Int32,
 ) -> Unit {
   self.id = id
 }

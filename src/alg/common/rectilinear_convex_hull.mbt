@@ -27,7 +27,7 @@ pub fn new_rectilinear_convex_hull() -> RectilinearConvexHull {
 }
 
 ///|
-fn compare_double(left : Double, right : Double) -> Int {
+fn compare_double(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -47,7 +47,7 @@ fn min_double(left : Double, right : Double) -> Double {
 }
 
 ///|
-fn quadrant_order(quadrant : Quadrant) -> Int {
+fn quadrant_order(quadrant : Quadrant) -> Int32 {
   match quadrant {
     Q1 => 0
     Q4 => 1
@@ -79,7 +79,7 @@ fn reverse_points(points : Array[Point]) -> Array[Point] {
 }
 
 ///|
-fn right_high_first(left : Point, right : Point) -> Int {
+fn right_high_first(left : Point, right : Point) -> Int32 {
   if left.x == right.x {
     compare_double(right.y, left.y)
   } else {
@@ -88,7 +88,7 @@ fn right_high_first(left : Point, right : Point) -> Int {
 }
 
 ///|
-fn right_low_first(left : Point, right : Point) -> Int {
+fn right_low_first(left : Point, right : Point) -> Int32 {
   if left.x == right.x {
     compare_double(left.y, right.y)
   } else {
@@ -97,7 +97,7 @@ fn right_low_first(left : Point, right : Point) -> Int {
 }
 
 ///|
-fn left_high_first(left : Point, right : Point) -> Int {
+fn left_high_first(left : Point, right : Point) -> Int32 {
   if left.x == right.x {
     compare_double(right.y, left.y)
   } else {
@@ -106,7 +106,7 @@ fn left_high_first(left : Point, right : Point) -> Int {
 }
 
 ///|
-fn left_low_first(left : Point, right : Point) -> Int {
+fn left_low_first(left : Point, right : Point) -> Int32 {
   if left.x == right.x {
     compare_double(left.y, right.y)
   } else {
@@ -115,7 +115,7 @@ fn left_low_first(left : Point, right : Point) -> Int {
 }
 
 ///|
-fn right_special_order(left : Point, right : Point) -> Int raise {
+fn right_special_order(left : Point, right : Point) -> Int32 raise {
   if left.x != right.x {
     return compare_double(left.x, right.x)
   }
@@ -159,7 +159,7 @@ fn hull_add_concave_corners(points : Array[Point], quadrant : Quadrant) -> Unit 
 ///|
 fn maximal_elements(
   points : Array[Point],
-  comparator : (Point, Point) -> Int raise?,
+  comparator : (Point, Point) -> Int32 raise?,
   quadrant : Quadrant,
 ) -> Array[Point] raise {
   let result = []

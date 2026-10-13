@@ -109,9 +109,9 @@ fn basic_cycle_breaker_find_edge(
 
 ///|
 fn basic_cycle_breaker_state_of(
-  states : Map[Int, Int],
+  states : Map[Int32, Int32],
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   match states.get(node.get_handle()) {
     Some(value) => value
     None => 0
@@ -121,7 +121,7 @@ fn basic_cycle_breaker_state_of(
 ///|
 fn basic_cycle_breaker_dfs_cycle(
   node : @runtime.LNode,
-  states : Map[Int, Int],
+  states : Map[Int32, Int32],
 ) -> Bool {
   let state = basic_cycle_breaker_state_of(states, node)
   if state == 1 {
@@ -160,7 +160,7 @@ fn basic_cycle_breaker_has_cycle(graph : @runtime.LGraph) -> Bool {
 ///|
 fn basic_cycle_breaker_factory_ids(
   factories : Array[@core.LayoutProcessorFactory],
-) -> Array[Int] {
+) -> Array[Int32] {
   let ids = []
   for factory in factories {
     ids.push(factory.factory_id())

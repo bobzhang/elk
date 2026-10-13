@@ -1,5 +1,5 @@
 ///|
-fn mrtree_fan_format_right(value : Int, len : Int) -> String {
+fn mrtree_fan_format_right(value : Int32, len : Int32) -> String {
   let mut text = value.to_string()
   while text.length() < len {
     text = "0" + text
@@ -8,15 +8,15 @@ fn mrtree_fan_format_right(value : Int, len : Int) -> String {
 }
 
 ///|
-fn mrtree_fan_safe_slice(text : String, start : Int, end_ : Int) -> String {
+fn mrtree_fan_safe_slice(text : String, start : Int32, end_ : Int32) -> String {
   text[start:end_].to_owned()
 }
 
 ///|
 fn mrtree_fan_calculate(
   current_level : Array[MrtreeNode],
-  global_fan_map : Map[String, Int],
-  global_desc_map : Map[String, Int],
+  global_fan_map : Map[String, Int32],
+  global_desc_map : Map[String, Int32],
 ) -> Unit raise {
   if current_level.is_empty() {
     return
@@ -50,7 +50,7 @@ fn mrtree_fan_calculate(
     }
   }
 
-  let local_fan_map : Map[String, Int] = Map([])
+  let local_fan_map : Map[String, Int32] = Map([])
   let prefix_count = last_assigned_id.length() - digits
   for i = 0; i < prefix_count; i = i + 1 {
     for node in current_level {
@@ -94,8 +94,8 @@ fn mrtree_fan_processor_process(
     None => ()
   }
 
-  let global_fan_map : Map[String, Int] = Map([])
-  let global_desc_map : Map[String, Int] = Map([])
+  let global_fan_map : Map[String, Int32] = Map([])
+  let global_desc_map : Map[String, Int32] = Map([])
 
   let mut root : MrtreeNode? = None
   for node in mrtree_graph_nodes(graph) {

@@ -28,7 +28,7 @@ fn issue143_and318_test_create_ordered_port(
   parent : @graph.ElkNode,
   id : String,
   side : String,
-  index : Int,
+  index : Int32,
 ) -> @graph.ElkPort {
   let port = @graph.create_port(Some(parent))
   @graph.port_set_identifier(port, id)

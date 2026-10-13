@@ -109,17 +109,17 @@ fn parse_non_lenient_json(graph : String) -> Json raise {
 }
 
 ///|
-fn char_at(source : String, index : Int) -> Char {
+fn char_at(source : String, index : Int32) -> Char {
   source[index].unsafe_to_char()
 }
 
 ///|
-fn safe_slice(source : String, start : Int, end_ : Int) -> String {
+fn safe_slice(source : String, start : Int32, end_ : Int32) -> String {
   source[start:end_].to_owned()
 }
 
 ///|
-fn safe_slice_from(source : String, start : Int) -> String {
+fn safe_slice_from(source : String, start : Int32) -> String {
   source[start:].to_owned()
 }
 

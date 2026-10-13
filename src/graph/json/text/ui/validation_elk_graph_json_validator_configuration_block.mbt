@@ -5,7 +5,7 @@ pub struct ElkGraphJsonValidatorConfigurationBlock {
 
 ///|
 pub fn new_elk_graph_json_validator_configuration_block(
-  provider? : @text.ElkGraphJsonConfigurableIssueCodesProvider = @text.new_elk_graph_json_configurable_issue_codes_provider(),
+  provider~ : @text.ElkGraphJsonConfigurableIssueCodesProvider = @text.new_elk_graph_json_configurable_issue_codes_provider(),
 ) -> ElkGraphJsonValidatorConfigurationBlock {
   { provider, }
 }

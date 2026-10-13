@@ -11,7 +11,7 @@ fn partition_test_port_side(name : String) -> @core.PortSide {
 ///|
 fn partition_test_new_node(
   graph : @runtime.LGraph,
-  partition : Int?,
+  partition : Int32?,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
   match partition {
@@ -76,7 +76,7 @@ fn partition_test_collect_unique_edges(
   nodes : Array[@runtime.LNode],
 ) -> Array[@runtime.LEdge] {
   let edges = []
-  let handles : Map[Int, Bool] = Map([])
+  let handles : Map[Int32, Bool] = Map([])
   for node in nodes {
     for port in node.get_ports() {
       for edge in port.get_outgoing_edges() {

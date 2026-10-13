@@ -3,8 +3,8 @@ pub fn cm_group_model_order_calculate_model_order_or_group_model_order(
   element : @runtime.LNode,
   other : @runtime.LNode,
   parent : @runtime.LGraph,
-  offset : Int,
-) -> Int {
+  offset : Int32,
+) -> Int32 {
   let group_order_strategy = @options.group_order_strategy_from_string(
     parent.get_property_string(
       @options.layered_options_consider_model_order_group_model_order_cm_group_order_strategy,
@@ -48,8 +48,8 @@ pub fn cm_group_model_order_calculate_model_order_or_group_model_order_port(
   element : @runtime.LPort,
   other : @runtime.LPort,
   parent : @runtime.LGraph,
-  offset : Int,
-) -> Int {
+  offset : Int32,
+) -> Int32 {
   let group_order_strategy = @options.group_order_strategy_from_string(
     parent.get_property_string(
       @options.layered_options_consider_model_order_group_model_order_cm_group_order_strategy,
@@ -93,8 +93,8 @@ pub fn cm_group_model_order_calculate_model_order_or_group_model_order_edge(
   element : @runtime.LEdge,
   other : @runtime.LEdge,
   parent : @runtime.LGraph,
-  offset : Int,
-) -> Int {
+  offset : Int32,
+) -> Int32 {
   let group_order_strategy = @options.group_order_strategy_from_string(
     parent.get_property_string(
       @options.layered_options_consider_model_order_group_model_order_cm_group_order_strategy,

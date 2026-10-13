@@ -1,7 +1,7 @@
 ///|
 fn in_layer_counter_test_new_node(
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()
   node.set_layer(Some(layer))
@@ -13,7 +13,7 @@ fn in_layer_counter_test_new_node(
 fn in_layer_counter_test_new_port(
   node : @runtime.LNode,
   side : @core.PortSide,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_node(Some(node))
@@ -33,7 +33,7 @@ fn in_layer_counter_test_connect(
 }
 
 ///|
-fn in_layer_counter_test_pair_value(value : Int?) -> Int {
+fn in_layer_counter_test_pair_value(value : Int32?) -> Int32 {
   match value {
     Some(v) => v
     None => 0

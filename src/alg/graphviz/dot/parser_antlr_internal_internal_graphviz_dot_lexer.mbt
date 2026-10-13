@@ -7,42 +7,42 @@ pub let graphviz_dot_lexer_token_names : Array[String] = [
 ]
 
 ///|
-pub let graphviz_dot_lexer_rule_id : Int = 4
+pub let graphviz_dot_lexer_rule_id : Int32 = 4
 
 ///|
-pub let graphviz_dot_lexer_rule_int : Int = 5
+pub let graphviz_dot_lexer_rule_int : Int32 = 5
 
 ///|
-pub let graphviz_dot_lexer_rule_float : Int = 6
+pub let graphviz_dot_lexer_rule_float : Int32 = 6
 
 ///|
-pub let graphviz_dot_lexer_rule_string : Int = 7
+pub let graphviz_dot_lexer_rule_string : Int32 = 7
 
 ///|
-pub let graphviz_dot_lexer_rule_prec_line : Int = 8
+pub let graphviz_dot_lexer_rule_prec_line : Int32 = 8
 
 ///|
-pub let graphviz_dot_lexer_rule_ml_comment : Int = 9
+pub let graphviz_dot_lexer_rule_ml_comment : Int32 = 9
 
 ///|
-pub let graphviz_dot_lexer_rule_sl_comment : Int = 10
+pub let graphviz_dot_lexer_rule_sl_comment : Int32 = 10
 
 ///|
-pub let graphviz_dot_lexer_rule_ws : Int = 11
+pub let graphviz_dot_lexer_rule_ws : Int32 = 11
 
 ///|
-pub let graphviz_dot_lexer_rule_any_other : Int = 12
+pub let graphviz_dot_lexer_rule_any_other : Int32 = 12
 
 ///|
 pub struct GraphvizDotLexToken {
-  token_type : Int
+  token_type : Int32
   token_name : String
   lexeme : String
 }
 
 ///|
 pub fn new_graphviz_dot_lex_token(
-  token_type : Int,
+  token_type : Int32,
   token_name : String,
   lexeme : String,
 ) -> GraphvizDotLexToken {
@@ -93,7 +93,7 @@ fn graphviz_dot_lexer_is_digit(c : Char) -> Bool {
 }
 
 ///|
-fn graphviz_dot_lexer_keyword_token_type(lexeme : String) -> Int? {
+fn graphviz_dot_lexer_keyword_token_type(lexeme : String) -> Int32? {
   if lexeme == "strict" {
     Some(13)
   } else if lexeme == "subgraph" {
@@ -112,7 +112,7 @@ fn graphviz_dot_lexer_keyword_token_type(lexeme : String) -> Int? {
 }
 
 ///|
-fn graphviz_dot_lexer_symbol_token_type(lexeme : String) -> Int? {
+fn graphviz_dot_lexer_symbol_token_type(lexeme : String) -> Int32? {
   if lexeme == "{" {
     Some(14)
   } else if lexeme == "}" {
@@ -139,7 +139,7 @@ fn graphviz_dot_lexer_symbol_token_type(lexeme : String) -> Int? {
 }
 
 ///|
-fn graphviz_dot_lexer_token_name(token_type : Int) -> String {
+fn graphviz_dot_lexer_token_name(token_type : Int32) -> String {
   if token_type >= 0 && token_type < graphviz_dot_lexer_token_names.length() {
     graphviz_dot_lexer_token_names[token_type]
   } else {
@@ -148,7 +148,11 @@ fn graphviz_dot_lexer_token_name(token_type : Int) -> String {
 }
 
 ///|
-fn graphviz_dot_lexer_slice(text : String, start : Int, end_ : Int) -> String {
+fn graphviz_dot_lexer_slice(
+  text : String,
+  start : Int32,
+  end_ : Int32,
+) -> String {
   text[start:end_].to_owned()
 }
 

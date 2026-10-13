@@ -37,7 +37,7 @@ fn test_phase_label(phase : TestPhases) -> String {
 }
 
 ///|
-pub fn test_phase_ordinal(phase : TestPhases) -> Int {
+pub fn test_phase_ordinal(phase : TestPhases) -> Int32 {
   phase
 }
 
@@ -64,7 +64,7 @@ fn test_processor_label(processor : TestProcessors) -> String {
 }
 
 ///|
-fn test_processor_ordinal(processor : TestProcessors) -> Int {
+fn test_processor_ordinal(processor : TestProcessors) -> Int32 {
   match processor {
     Processor1 => 0
     Processor2 => 1
@@ -75,7 +75,7 @@ fn test_processor_ordinal(processor : TestProcessors) -> Int {
 ///|
 pub fn test_processor_factory(
   processor : TestProcessors,
-  graph? : StringBuffer? = None,
+  graph~ : StringBuffer? = None,
 ) -> LayoutProcessorFactory {
   let ordinal = test_processor_ordinal(processor)
   new_layout_processor_factory(10_000 + ordinal, ordinal, graph, () => {
@@ -91,7 +91,7 @@ pub fn test_processor_factory(
 ///|
 pub fn test_phase_factory(
   phase : TestPhases,
-  graph? : StringBuffer? = None,
+  graph~ : StringBuffer? = None,
 ) -> LayoutProcessorFactory {
   let ordinal = test_phase_ordinal(phase)
   new_layout_processor_factory(20_000 + ordinal, ordinal, graph, () => {
@@ -122,7 +122,7 @@ pub fn test_phase_factory(
 }
 
 ///|
-pub fn count_layout_phases(algorithm : LayoutProcessorPlan) -> Int {
+pub fn count_layout_phases(algorithm : LayoutProcessorPlan) -> Int32 {
   let mut count = 0
   for processor in algorithm.steps() {
     if processor.is_layout_phase() {

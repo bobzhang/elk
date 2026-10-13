@@ -47,7 +47,7 @@ fn layout_dot_exporter_parse_double(text : String?) -> Double? {
 }
 
 ///|
-fn layout_dot_exporter_parse_int(text : String?) -> Int? {
+fn layout_dot_exporter_parse_int(text : String?) -> Int32? {
   let normalized = match text {
     Some(value) => value.trim().to_owned()
     None => ""
@@ -55,7 +55,7 @@ fn layout_dot_exporter_parse_int(text : String?) -> Int? {
   if normalized.is_empty() {
     return None
   }
-  let parsed_int : Result[Int, Error] = try
+  let parsed_int : Result[Int32, Error] = try
     @string.parse_int(normalized)
   catch {
     error => Err(error)
@@ -126,8 +126,8 @@ fn layout_dot_exporter_node_option_bool(
 ///|
 fn layout_dot_exporter_node_option_int(
   node : @graph.ElkNode,
-  option : @graph.IProperty[Int],
-) -> Int {
+  option : @graph.IProperty[Int32],
+) -> Int32 {
   match
     @graph.node_layout_option_string_value_by_option_id(
       node,

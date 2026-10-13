@@ -38,7 +38,7 @@ pub fn[F : Eq, S : Eq, T : Eq] Triple::equals(
 ///|
 pub fn[F : Hash, S : Hash, T : Hash] Triple::hash_code(
   self : Triple[F, S, T],
-) -> Int {
+) -> Int32 {
   self.first.hash() ^ self.second.hash() ^ self.third.hash()
 }
 

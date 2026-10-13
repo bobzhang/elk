@@ -7,7 +7,7 @@ pub struct InternalGraphvizDotParser {
 ///|
 pub fn new_internal_graphviz_dot_parser(
   tokens : Array[GraphvizDotLexToken],
-  grammar_access? : GraphvizDotGrammarAccess = new_graphviz_dot_grammar_access(),
+  grammar_access~ : GraphvizDotGrammarAccess = new_graphviz_dot_grammar_access(),
 ) -> InternalGraphvizDotParser {
   { tokens, grammar_access, }
 }

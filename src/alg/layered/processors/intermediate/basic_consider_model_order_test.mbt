@@ -12,7 +12,7 @@ fn basic_consider_model_order_port_side(name : String) -> @core.PortSide {
 fn basic_consider_model_order_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  model_order : Int,
+  model_order : Int32,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
   node.set_layer(Some(layer))
@@ -36,7 +36,7 @@ fn basic_consider_model_order_new_port(
 fn basic_consider_model_order_connect(
   source : @runtime.LPort,
   target : @runtime.LPort,
-  model_order : Int,
+  model_order : Int32,
 ) -> Unit {
   let edge = @runtime.new_l_edge()
   edge.set_source(Some(source))
@@ -74,7 +74,7 @@ fn basic_consider_model_order_run_case(
   strategy : String,
   weighted : Bool,
   use_port_model_order : Bool,
-) -> Array[Int] raise {
+) -> Array[Int32] raise {
   let (graph, layer0, layer1) = basic_consider_model_order_new_graph()
   graph.set_property_string(
     @options.layered_options_consider_model_order_strategy, strategy,

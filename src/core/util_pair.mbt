@@ -49,7 +49,7 @@ pub fn[F : Eq, S : Eq] Pair::equals(
 }
 
 ///|
-pub fn[F : Hash, S : Hash] Pair::hash_code(self : Pair[F, S]) -> Int {
+pub fn[F : Hash, S : Hash] Pair::hash_code(self : Pair[F, S]) -> Int32 {
   let first_code = self.first.hash()
   let second_code = self.second.hash()
   let half_word = 16

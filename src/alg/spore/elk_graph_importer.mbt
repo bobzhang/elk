@@ -230,7 +230,7 @@ pub fn SporeElkGraphImporter::import_graph(
     return graph
   }
 
-  let random = @random.Rand::new()
+  let random = @random.Rand()
   for elk_node in @graph.node_children(input_graph) {
     let half_width = @graph.node_width(elk_node) / 2.0
     let half_height = @graph.node_height(elk_node) / 2.0

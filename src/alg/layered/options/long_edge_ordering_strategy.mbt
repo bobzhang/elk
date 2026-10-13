@@ -8,7 +8,7 @@ pub(all) enum LongEdgeOrderingStrategy {
 ///|
 pub fn LongEdgeOrderingStrategy::return_value(
   self : LongEdgeOrderingStrategy,
-) -> Int {
+) -> Int32 {
   match self {
     DummyNodeOver => @int.MAX_VALUE
     DummyNodeUnder => @int.MIN_VALUE
@@ -17,7 +17,7 @@ pub fn LongEdgeOrderingStrategy::return_value(
 }
 
 ///|
-pub fn long_edge_ordering_strategy_return_values() -> Array[Int] {
+pub fn long_edge_ordering_strategy_return_values() -> Array[Int32] {
   [
     LongEdgeOrderingStrategy::return_value(DummyNodeOver),
     LongEdgeOrderingStrategy::return_value(DummyNodeUnder),

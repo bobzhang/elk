@@ -1,6 +1,6 @@
 ///|
 fn layered_components_test_new_graph(
-  id : Int,
+  id : Int32,
   width : Double,
   height : Double,
   connections : Array[@core.PortSide],

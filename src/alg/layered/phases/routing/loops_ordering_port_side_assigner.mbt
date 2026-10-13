@@ -41,7 +41,7 @@ fn port_side_assigner_parse_distribution(
 
 ///|
 pub struct PortSideAssigner {
-  _reserved : Int
+  _reserved : Int32
 }
 
 ///|

@@ -21,8 +21,8 @@ priv struct LabelDummySwitcherInfo {
   mut placement_strategy : @options.CenterEdgeLabelPlacementStrategy
   left_long_edge_dummies : Array[@runtime.LNode]
   right_long_edge_dummies : Array[@runtime.LNode]
-  mut leftmost_layer_id : Int
-  mut rightmost_layer_id : Int
+  mut leftmost_layer_id : Int32
+  mut rightmost_layer_id : Int32
 }
 
 ///|
@@ -207,7 +207,7 @@ fn label_dummy_switcher_copy_edges(
 fn label_dummy_switcher_index_of_node(
   nodes : Array[@runtime.LNode],
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   for i in 0..<nodes.length() {
     if @runtime.lnode_internal_handle(nodes[i]) ==
       @runtime.lnode_internal_handle(node) {
@@ -221,7 +221,7 @@ fn label_dummy_switcher_index_of_node(
 fn label_dummy_switcher_set_layer_with_index(
   node : @runtime.LNode,
   layer : @runtime.Layer,
-  index : Int,
+  index : Int32,
 ) -> Unit {
   node.set_layer(Some(layer))
 
@@ -400,14 +400,16 @@ fn label_dummy_switcher_collect_infos_for_strategy(
 }
 
 ///|
-fn label_dummy_switcher_total_dummy_count(info : LabelDummySwitcherInfo) -> Int {
+fn label_dummy_switcher_total_dummy_count(
+  info : LabelDummySwitcherInfo,
+) -> Int32 {
   info.rightmost_layer_id - info.leftmost_layer_id + 1
 }
 
 ///|
 fn label_dummy_switcher_ith_dummy_node(
   info : LabelDummySwitcherInfo,
-  index : Int,
+  index : Int32,
 ) -> @runtime.LNode {
   if index < info.left_long_edge_dummies.length() {
     return info.left_long_edge_dummies[index]
@@ -464,7 +466,7 @@ fn label_dummy_switcher_compute_layer_width_sums(
 fn label_dummy_switcher_find_widest_layer_target_id(
   info : LabelDummySwitcherInfo,
   layer_widths : Array[Double],
-) -> Int {
+) -> Int32 {
   let mut widest_layer_index = info.leftmost_layer_id
   let start_index = widest_layer_index + 1
   let end_index = info.rightmost_layer_id + 1
@@ -480,7 +482,7 @@ fn label_dummy_switcher_find_widest_layer_target_id(
 fn label_dummy_switcher_find_center_layer_target_id(
   info : LabelDummySwitcherInfo,
   layer_widths : Array[Double],
-) -> Int raise LabelDummySwitcherException {
+) -> Int32 raise LabelDummySwitcherException {
   let layer_width_sums = label_dummy_switcher_compute_layer_width_sums(
     info, layer_widths,
   )
@@ -497,7 +499,7 @@ fn label_dummy_switcher_find_center_layer_target_id(
 ///|
 fn label_dummy_switcher_find_median_layer_target_id(
   info : LabelDummySwitcherInfo,
-) -> Int {
+) -> Int32 {
   let layers = label_dummy_switcher_total_dummy_count(info)
   let lower_median = (layers - 1) / 2
   info.leftmost_layer_id + lower_median
@@ -521,7 +523,7 @@ fn label_dummy_switcher_is_part_of_reversed_edge(
 fn label_dummy_switcher_find_end_layer_target_id(
   info : LabelDummySwitcherInfo,
   head_layer : Bool,
-) -> Int raise LabelDummySwitcherException {
+) -> Int32 raise LabelDummySwitcherException {
   let reversed = label_dummy_switcher_is_part_of_reversed_edge(info)
   if (head_layer && !reversed) || (!head_layer && reversed) {
     info.rightmost_layer_id
@@ -624,7 +626,7 @@ fn label_dummy_switcher_swap_nodes(
 ///|
 fn label_dummy_switcher_assign_layer(
   info : LabelDummySwitcherInfo,
-  target_layer_index : Int,
+  target_layer_index : Int32,
   layer_widths : Array[Double],
 ) -> Unit raise LabelDummySwitcherException {
   if target_layer_index >= info.label_dummy.get_graph().get_layers().length() {
@@ -748,9 +750,9 @@ fn label_dummy_switcher_perform_trivial_assignments(
 ///|
 fn label_dummy_switcher_find_potentially_widest_layer(
   infos : Array[LabelDummySwitcherInfo],
-  label_index : Int,
+  label_index : Int32,
   layer_widths : Array[Double],
-) -> Int {
+) -> Int32 {
   let label_count = infos.length()
   let info = infos[label_index]
   let label_dummy_width = info.label_dummy.get_size().x

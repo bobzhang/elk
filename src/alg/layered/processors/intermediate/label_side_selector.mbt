@@ -273,7 +273,7 @@ fn label_side_selector_apply_label_sides_to_label_dummy_run(
 ///|
 fn label_side_selector_apply_for_dummy_node_run_with_simple_loops(
   dummy_nodes : Array[@runtime.LNode],
-  label_dummy_count : Int,
+  label_dummy_count : Int32,
   default_side : @core.LabelSide,
 ) -> Unit raise {
   ignore(label_dummy_count)
@@ -316,7 +316,7 @@ fn label_side_selector_apply_for_dummy_node_run_with_simple_loops(
 ///|
 fn label_side_selector_smart_for_consecutive_dummy_node_run(
   dummy_nodes : Array[@runtime.LNode],
-  label_dummy_count : Int,
+  label_dummy_count : Int32,
   top_group : Bool,
   bottom_group : Bool,
   default_side : @core.LabelSide,

@@ -39,7 +39,7 @@ pub fn[T : Eq] Maybe::equals(self : Maybe[T], other : Maybe[T]) -> Bool {
 }
 
 ///|
-pub fn[T : Hash] Maybe::hash_code(self : Maybe[T]) -> Int {
+pub fn[T : Hash] Maybe::hash_code(self : Maybe[T]) -> Int32 {
   self.object.hash()
 }
 

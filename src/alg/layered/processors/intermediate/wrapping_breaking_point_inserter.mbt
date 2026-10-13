@@ -125,9 +125,9 @@ fn breaking_point_inserter_remove_open_edge(
 ///|
 fn breaking_point_inserter_compute_score(
   graph : @runtime.LGraph,
-  index : Int,
-  spans : Int,
-  dist : Int,
+  index : Int32,
+  spans : Int32,
+  dist : Int32,
 ) -> Double {
   ignore(index)
   let distance_penalty = graph.get_property_double(
@@ -139,9 +139,9 @@ fn breaking_point_inserter_compute_score(
 ///|
 fn breaking_point_inserter_compute_edge_spans(
   graph : @runtime.LGraph,
-) -> Array[Int] {
+) -> Array[Int32] {
   let spans = []
-  let open : Map[Int, Bool] = Map([])
+  let open : Map[Int32, Bool] = Map([])
   let mut open_count = 0
 
   for layer in graph.get_layers() {
@@ -173,15 +173,15 @@ fn breaking_point_inserter_compute_edge_spans(
 
 ///|
 pub struct BreakingPointInserterCut {
-  mut index : Int
-  mut new_index : Int
+  mut index : Int32
+  mut new_index : Int32
   mut prev : BreakingPointInserterCut?
   mut suc : BreakingPointInserterCut?
   mut assigned : Bool
 }
 
 ///|
-fn new_breaking_point_inserter_cut(index : Int) -> BreakingPointInserterCut {
+fn new_breaking_point_inserter_cut(index : Int32) -> BreakingPointInserterCut {
   { index, new_index: index, prev: None, suc: None, assigned: false, }
 }
 
@@ -210,7 +210,7 @@ fn breaking_point_inserter_cut_next(
 ///|
 fn breaking_point_inserter_cut_offset(
   cut : BreakingPointInserterCut,
-  offset : Int,
+  offset : Int32,
 ) -> Unit {
   cut.index = cut.index + offset
 }
@@ -218,7 +218,7 @@ fn breaking_point_inserter_cut_offset(
 ///|
 fn breaking_point_inserter_cut_offset_prev(
   cut : BreakingPointInserterCut,
-  offset : Int,
+  offset : Int32,
 ) -> Unit {
   match cut.prev {
     Some(prev) =>
@@ -233,7 +233,7 @@ fn breaking_point_inserter_cut_offset_prev(
 ///|
 fn breaking_point_inserter_cut_offset_suc(
   cut : BreakingPointInserterCut,
-  offset : Int,
+  offset : Int32,
 ) -> Unit {
   match cut.suc {
     Some(suc) =>
@@ -261,8 +261,8 @@ fn breaking_point_inserter_cut_apply_offset(
 ///|
 fn breaking_point_inserter_improve_cuts(
   graph : @runtime.LGraph,
-  cuts : Array[Int],
-) -> Array[Int] raise BreakingPointInserterException {
+  cuts : Array[Int32],
+) -> Array[Int32] raise BreakingPointInserterException {
   let improved_cuts = []
 
   let ccuts = []
@@ -361,8 +361,8 @@ fn breaking_point_inserter_improve_cuts(
 fn breaking_point_inserter_apply_cuts(
   state : @runtime.LayeredRunState,
   graph : @runtime.LGraph,
-  cuts : Array[Int],
-) -> Int raise BreakingPointInserterException {
+  cuts : Array[Int32],
+) -> Int32 raise BreakingPointInserterException {
   if cuts.is_empty() {
     return 0
   }
@@ -375,7 +375,7 @@ fn breaking_point_inserter_apply_cuts(
   let mut cut = cuts[cut_idx]
   let mut no_split_edges = 0
 
-  let already_split : Map[Int, Bool] = Map([])
+  let already_split : Map[Int32, Bool] = Map([])
   let open_edges = []
 
   for layer in original_layers {
@@ -564,7 +564,7 @@ fn breaking_point_inserter_process(
 
 ///|
 pub fn new_breaking_point_inserter_layout_processor(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   @core.new_layout_processor((graph, monitor) => {
     breaking_point_inserter_process(graph, monitor, state)

@@ -57,8 +57,8 @@ pub fn new_algorithm_content_provider(
 ///|
 pub fn AlgorithmContentProvider::input_changed(
   self : AlgorithmContentProvider,
-  _old_input? : String? = None,
-  _new_input? : String? = None,
+  _old_input~ : String? = None,
+  _new_input~ : String? = None,
 ) -> Unit {
   ignore(self)
 }

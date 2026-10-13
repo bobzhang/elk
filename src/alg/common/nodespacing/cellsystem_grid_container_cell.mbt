@@ -8,7 +8,7 @@ let grid_container_rows = 3
 let grid_container_columns = 3
 
 ///|
-fn grid_container_area_index(area : ContainerArea) -> Int {
+fn grid_container_area_index(area : ContainerArea) -> Int32 {
   match area {
     Begin => 0
     Center => 1

@@ -9,7 +9,7 @@ pub struct PortContext {
   port : NodeSpacingPort
   port_position : @core.KVector
   labels_next_to_port : Bool
-  volatile_id : Int
+  volatile_id : Int32
   port_margin : @core.ElkMargin
   mut port_label_cell : LabelCell?
 }
@@ -18,7 +18,7 @@ pub struct PortContext {
 pub fn new_port_context(
   parent_node_context : NodeContext,
   port : NodeSpacingPort,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> PortContext {
   let port_labels_next_to_port = parent_node_context.has_port_label_placement(
     NextToPortIfPossible,

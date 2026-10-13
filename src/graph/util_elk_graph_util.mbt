@@ -354,7 +354,7 @@ pub fn create_label_with_text(
 ///|
 pub fn properties_skipping_nodes(
   graph : ElkNode,
-  include_root? : Bool = true,
+  include_root~ : Bool = true,
 ) -> Array[ElkNode] {
   let nodes = node_all_descendants_including_self(graph)
   if include_root {

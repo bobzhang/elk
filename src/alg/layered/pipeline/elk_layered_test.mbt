@@ -110,7 +110,7 @@ fn elk_layered_test_graph_with_greedy_switch_off() -> LGraph {
 }
 
 ///|
-fn elk_layered_test_algorithm_length(graph : LGraph) -> Int raise {
+fn elk_layered_test_algorithm_length(graph : LGraph) -> Int32 raise {
   let elk_layered = new_elk_layered(
     @core.new_layout_runtime(),
     @core.new_layout_session(),

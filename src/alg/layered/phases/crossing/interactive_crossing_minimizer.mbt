@@ -27,7 +27,7 @@ fn interactive_crossing_minimizer_contains_node(
 fn interactive_crossing_minimizer_compare_doubles(
   left : Double,
   right : Double,
-) -> Int {
+) -> Int32 {
   if left < right {
     -1
   } else if left > right {

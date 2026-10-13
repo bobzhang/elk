@@ -5,7 +5,7 @@ pub(all) struct CoreUiShowLayoutViewEvent {
 
 ///|
 pub fn new_core_ui_show_layout_view_event(
-  can_open? : Bool = true,
+  can_open~ : Bool = true,
 ) -> CoreUiShowLayoutViewEvent {
   { can_open, }
 }

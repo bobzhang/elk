@@ -8,9 +8,9 @@ priv struct JsonExporter {
   node_id_map : Map[@graph.ElkNode, String]
   edge_id_map : Map[@graph.ElkEdge, String]
   used_ids : Map[String, Bool]
-  mut node_id_counter : Int
-  mut edge_id_counter : Int
-  mut duplicate_id_counter : Int
+  mut node_id_counter : Int32
+  mut edge_id_counter : Int32
+  mut duplicate_id_counter : Int32
 }
 
 ///|
@@ -31,7 +31,7 @@ fn new_json_exporter(builder : ElkGraphJsonExportBuilder) -> JsonExporter {
 }
 
 ///|
-fn format_six_digits(value : Int) -> String {
+fn format_six_digits(value : Int32) -> String {
   let mut text = value.to_string()
   while text.length() < 6 {
     text = "0" + text

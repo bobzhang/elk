@@ -12,14 +12,14 @@ let min_width_layerer_compensator_range_upper = 2
 
 ///|
 let layered_options_layering_min_width_upper_bound_on_width : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.alg.layered.layering.minWidth.upperBoundOnWidth", 4,
 )
 
 ///|
 let layered_options_layering_min_width_upper_layer_estimation_scaling_factor : @graph.IProperty[
-  Int,
+  Int32,
 ] = @graph.new_property(
   "org.eclipse.elk.alg.layered.layering.minWidth.upperLayerEstimationScalingFactor",
   2,
@@ -30,8 +30,8 @@ priv struct MinWidthLayererData {
   dummy_size : Double
   norm_size : Array[Double]
   avg_size : Double
-  in_degree : Array[Int]
-  out_degree : Array[Int]
+  in_degree : Array[Int32]
+  out_degree : Array[Int32]
 }
 
 ///|
@@ -104,7 +104,7 @@ fn min_width_layerer_require_edge_target_node(
 ///|
 fn min_width_layerer_count_edges_except_self_loops(
   edges : Array[@runtime.LEdge],
-) -> Int {
+) -> Int32 {
   let mut count = 0
   for edge in edges {
     if !edge.is_self_loop() {
@@ -117,10 +117,10 @@ fn min_width_layerer_count_edges_except_self_loops(
 ///|
 fn min_width_layerer_precalc_successors(
   nodes : Array[@runtime.LNode],
-) -> Array[Map[Int, Bool]] raise {
+) -> Array[Map[Int32, Bool]] raise {
   let successors = []
   for node in nodes {
-    let out_nodes : Map[Int, Bool] = Map([])
+    let out_nodes : Map[Int32, Bool] = Map([])
     for edge in node.get_outgoing_edges() {
       if edge.is_self_loop() {
         continue
@@ -136,7 +136,7 @@ fn min_width_layerer_precalc_successors(
 ///|
 fn min_width_layerer_sort_nodes_by_desc_out_degree(
   nodes : Array[@runtime.LNode],
-  out_degree : Array[Int],
+  out_degree : Array[Int32],
 ) -> Unit {
   let mut i = 1
   while i < nodes.length() {
@@ -154,8 +154,8 @@ fn min_width_layerer_sort_nodes_by_desc_out_degree(
 
 ///|
 fn min_width_layerer_targets_contain_all(
-  targets : Map[Int, Bool],
-  successors : Map[Int, Bool],
+  targets : Map[Int32, Bool],
+  successors : Map[Int32, Bool],
 ) -> Bool {
   for entry in successors.to_array() {
     if !targets.contains(entry.0) {
@@ -168,8 +168,8 @@ fn min_width_layerer_targets_contain_all(
 ///|
 fn min_width_layerer_select_node(
   nodes : Array[@runtime.LNode],
-  successors : Array[Map[Int, Bool]],
-  targets : Map[Int, Bool],
+  successors : Array[Map[Int32, Bool]],
+  targets : Map[Int32, Bool],
 ) -> @runtime.LNode? {
   for node in nodes {
     if min_width_layerer_targets_contain_all(targets, successors[node.get_id()]) {
@@ -197,10 +197,10 @@ fn min_width_layerer_remove_unplaced_node(
 
 ///|
 fn min_width_layerer_compute_min_width_layering(
-  upper_bound_on_width : Int,
-  compensator : Int,
+  upper_bound_on_width : Int32,
+  compensator : Int32,
   nodes : Array[@runtime.LNode],
-  node_successors : Array[Map[Int, Bool]],
+  node_successors : Array[Map[Int32, Bool]],
   data : MinWidthLayererData,
 ) -> MinWidthLayererResult {
   let layers = []
@@ -211,8 +211,8 @@ fn min_width_layerer_compute_min_width_layering(
   let mut in_deg = 0
   let mut out_deg = 0
 
-  let mut already_placed_in_current_layer : Map[Int, Bool] = Map([])
-  let already_placed_in_other_layers : Map[Int, Bool] = Map([])
+  let mut already_placed_in_current_layer : Map[Int32, Bool] = Map([])
+  let already_placed_in_other_layers : Map[Int32, Bool] = Map([])
 
   let mut current_layer : Array[@runtime.LNode] = []
 

@@ -51,7 +51,7 @@ fn end_label_postprocessor_process(
 
 ///|
 pub fn new_end_label_postprocessor_layout_processor(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   @core.new_layout_processor((graph, monitor) => {
     end_label_postprocessor_process(graph, monitor, state)

@@ -58,7 +58,7 @@ pub fn CoreUiImageRegistry::get(
 }
 
 ///|
-pub fn CoreUiImageRegistry::size(self : CoreUiImageRegistry) -> Int {
+pub fn CoreUiImageRegistry::size(self : CoreUiImageRegistry) -> Int32 {
   self.images.length()
 }
 
@@ -207,14 +207,14 @@ fn elk_ui_plugin_initialize_image_registry(plugin : ElkUiPlugin) -> Unit {
 }
 
 ///|
-pub fn ElkUiPlugin::start(self : ElkUiPlugin, _context? : String = "") -> Unit {
+pub fn ElkUiPlugin::start(self : ElkUiPlugin, _context~ : String = "") -> Unit {
   self.started = true
   elk_ui_plugin_initialize_image_registry(self)
   elk_ui_plugin_ref.val = Some(self)
 }
 
 ///|
-pub fn ElkUiPlugin::stop(self : ElkUiPlugin, _context? : String = "") -> Unit {
+pub fn ElkUiPlugin::stop(self : ElkUiPlugin, _context~ : String = "") -> Unit {
   self.started = false
   self.preference_store.clear()
   self.image_registry.images.clear()

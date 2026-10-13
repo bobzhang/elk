@@ -5,27 +5,27 @@
 pub struct LayeredPhaseRegistry {
   cycle_breaking_factories : Map[
     String,
-    (Int, Int, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
+    (Int32, Int32, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
   ]
   layering_factories : Map[
     String,
-    (Int, Int, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
+    (Int32, Int32, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
   ]
   crossing_minimization_factories : Map[
     String,
-    (Int, Int, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
+    (Int32, Int32, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
   ]
   node_placement_factories : Map[
     String,
-    (Int, Int, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
+    (Int32, Int32, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
   ]
   edge_routing_factories : Map[
     String,
-    (Int, Int, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
+    (Int32, Int32, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
   ]
   intermediate_processor_factories : Map[
-    Int,
-    (Int, Int, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
+    Int32,
+    (Int32, Int32, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
   ]
 }
 
@@ -45,7 +45,7 @@ pub fn new_layered_phase_registry() -> LayeredPhaseRegistry {
 pub fn LayeredPhaseRegistry::register_crossing_minimization_phase(
   self : LayeredPhaseRegistry,
   strategy : String,
-  id : Int,
+  id : Int32,
   create : (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph],
 ) -> Unit {
   self.crossing_minimization_factories[strategy] = (id, 2, create)
@@ -55,7 +55,7 @@ pub fn LayeredPhaseRegistry::register_crossing_minimization_phase(
 pub fn LayeredPhaseRegistry::register_edge_routing_phase(
   self : LayeredPhaseRegistry,
   strategy : String,
-  id : Int,
+  id : Int32,
   create : (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph],
 ) -> Unit {
   self.edge_routing_factories[strategy] = (id, id - 24000, create)
@@ -65,7 +65,7 @@ pub fn LayeredPhaseRegistry::register_edge_routing_phase(
 pub fn LayeredPhaseRegistry::register_cycle_breaking_phase(
   self : LayeredPhaseRegistry,
   strategy : String,
-  id : Int,
+  id : Int32,
   create : () -> @core.TypedLayoutProcessor[LGraph],
 ) -> Unit {
   self.cycle_breaking_factories[strategy] = (id, 0, _ => create())
@@ -75,7 +75,7 @@ pub fn LayeredPhaseRegistry::register_cycle_breaking_phase(
 pub fn LayeredPhaseRegistry::register_stateful_cycle_breaking_phase(
   self : LayeredPhaseRegistry,
   strategy : String,
-  id : Int,
+  id : Int32,
   create : (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph],
 ) -> Unit {
   self.cycle_breaking_factories[strategy] = (id, 0, create)
@@ -85,7 +85,7 @@ pub fn LayeredPhaseRegistry::register_stateful_cycle_breaking_phase(
 pub fn LayeredPhaseRegistry::register_layering_phase(
   self : LayeredPhaseRegistry,
   strategy : String,
-  id : Int,
+  id : Int32,
   create : () -> @core.TypedLayoutProcessor[LGraph],
 ) -> Unit {
   self.layering_factories[strategy] = (id, 1, _ => create())
@@ -95,7 +95,7 @@ pub fn LayeredPhaseRegistry::register_layering_phase(
 pub fn LayeredPhaseRegistry::register_node_placement_phase(
   self : LayeredPhaseRegistry,
   strategy : String,
-  id : Int,
+  id : Int32,
   create : () -> @core.TypedLayoutProcessor[LGraph],
 ) -> Unit {
   self.node_placement_factories[strategy] = (id, 3, _ => create())
@@ -133,7 +133,7 @@ pub fn LayeredPhaseRegistry::register_stateful_intermediate_processor(
 fn layered_bind_processor_factory(
   graph : LGraph,
   state : LayeredRunState,
-  spec : (Int, Int, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
+  spec : (Int32, Int32, (LayeredRunState) -> @core.TypedLayoutProcessor[LGraph]),
 ) -> @core.LayoutProcessorFactory {
   let (id, order, create) = spec
   @core.new_layout_processor_factory(id, order, graph, () => create(state))
@@ -157,7 +157,7 @@ pub fn LayeredPhaseRegistry::cycle_breaking_phase_factory(
   self : LayeredPhaseRegistry,
   graph : LGraph,
   strategy : String,
-  state? : LayeredRunState = new_layered_run_state(),
+  state~ : LayeredRunState = new_layered_run_state(),
 ) -> @core.LayoutProcessorFactory raise {
   match self.cycle_breaking_factories.get(strategy) {
     Some(spec) => layered_bind_processor_factory(graph, state, spec)
@@ -174,7 +174,7 @@ pub fn LayeredPhaseRegistry::layering_phase_factory(
   self : LayeredPhaseRegistry,
   graph : LGraph,
   strategy : String,
-  state? : LayeredRunState = new_layered_run_state(),
+  state~ : LayeredRunState = new_layered_run_state(),
 ) -> @core.LayoutProcessorFactory raise {
   match self.layering_factories.get(strategy) {
     Some(spec) => layered_bind_processor_factory(graph, state, spec)
@@ -198,7 +198,7 @@ pub fn LayeredPhaseRegistry::node_placement_phase_factory(
   self : LayeredPhaseRegistry,
   graph : LGraph,
   strategy : String,
-  state? : LayeredRunState = new_layered_run_state(),
+  state~ : LayeredRunState = new_layered_run_state(),
 ) -> @core.LayoutProcessorFactory raise {
   match self.node_placement_factories.get(strategy) {
     Some(spec) => layered_bind_processor_factory(graph, state, spec)
@@ -223,7 +223,7 @@ pub fn LayeredPhaseRegistry::crossing_minimization_phase_factory(
   self : LayeredPhaseRegistry,
   graph : LGraph,
   strategy : String,
-  state? : LayeredRunState = new_layered_run_state(),
+  state~ : LayeredRunState = new_layered_run_state(),
 ) -> @core.LayoutProcessorFactory raise {
   match self.crossing_minimization_factories.get(strategy) {
     Some(spec) => layered_bind_processor_factory(graph, state, spec)
@@ -248,7 +248,7 @@ pub fn LayeredPhaseRegistry::edge_routing_phase_factory(
   self : LayeredPhaseRegistry,
   graph : LGraph,
   strategy : String,
-  state? : LayeredRunState = new_layered_run_state(),
+  state~ : LayeredRunState = new_layered_run_state(),
 ) -> @core.LayoutProcessorFactory raise {
   match self.edge_routing_factories.get(strategy) {
     Some(spec) => layered_bind_processor_factory(graph, state, spec)
@@ -272,7 +272,7 @@ pub fn LayeredPhaseRegistry::intermediate_processor_factory(
   self : LayeredPhaseRegistry,
   graph : LGraph,
   strategy : IntermediateProcessorStrategy,
-  state? : LayeredRunState = new_layered_run_state(),
+  state~ : LayeredRunState = new_layered_run_state(),
 ) -> @core.LayoutProcessorFactory raise {
   let ordinal = intermediate_processor_strategy_ordinal(strategy)
   match self.intermediate_processor_factories.get(ordinal) {

@@ -1,5 +1,5 @@
 ///|
-pub let graphviz_dot_serializer_max_line_length : Int = 255
+pub let graphviz_dot_serializer_max_line_length : Int32 = 255
 
 ///|
 pub struct GraphvizDotSaveOptions {
@@ -8,7 +8,7 @@ pub struct GraphvizDotSaveOptions {
 
 ///|
 pub fn new_graphviz_dot_save_options(
-  formatting? : Bool = false,
+  formatting~ : Bool = false,
 ) -> GraphvizDotSaveOptions {
   { formatting, }
 }
@@ -22,7 +22,7 @@ pub fn GraphvizDotSaveOptions::is_formatting(
 
 ///|
 pub struct GraphvizDotFormatterRequest {
-  mut max_line_width : Int
+  mut max_line_width : Int32
   mut format_undefined_hidden_regions_only : Bool
   mut text : String
 }
@@ -38,7 +38,7 @@ pub fn new_graphviz_dot_formatter_request() -> GraphvizDotFormatterRequest {
 ///|
 pub fn GraphvizDotFormatterRequest::set_max_line_width(
   self : GraphvizDotFormatterRequest,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   self.max_line_width = value
 }
@@ -46,7 +46,7 @@ pub fn GraphvizDotFormatterRequest::set_max_line_width(
 ///|
 pub fn GraphvizDotFormatterRequest::get_max_line_width(
   self : GraphvizDotFormatterRequest,
-) -> Int {
+) -> Int32 {
   self.max_line_width
 }
 
@@ -93,8 +93,8 @@ fn graphviz_dot_serializer_default_formatter_provider() -> GraphvizDotFormatter2
 
 ///|
 pub fn new_graphviz_dot_serializer(
-  formatter2_provider? : () -> GraphvizDotFormatter2 = graphviz_dot_serializer_default_formatter_provider,
-  formatter_request_provider? : () -> GraphvizDotFormatterRequest = new_graphviz_dot_formatter_request,
+  formatter2_provider~ : () -> GraphvizDotFormatter2 = graphviz_dot_serializer_default_formatter_provider,
+  formatter_request_provider~ : () -> GraphvizDotFormatterRequest = new_graphviz_dot_formatter_request,
 ) -> GraphvizDotSerializer {
   { formatter2_provider, formatter_request_provider, }
 }

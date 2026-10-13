@@ -71,7 +71,7 @@ fn alternating_layer_unzipper_test_require_layer(
 }
 
 ///|
-fn alternating_layer_unzipper_test_layer_index(node : @runtime.LNode) -> Int {
+fn alternating_layer_unzipper_test_layer_index(node : @runtime.LNode) -> Int32 {
   alternating_layer_unzipper_test_require_layer(node).get_index()
 }
 

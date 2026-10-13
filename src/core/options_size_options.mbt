@@ -42,6 +42,6 @@ pub fn size_options_to_string(option : SizeOptions) -> String {
 }
 
 ///|
-pub fn size_options_value_of(i : Int) -> SizeOptions {
+pub fn size_options_value_of(i : Int32) -> SizeOptions {
   size_options_values()[i]
 }

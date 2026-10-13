@@ -1,13 +1,13 @@
 ///|
 priv struct MrtreeEdgeRouterSideCounts {
-  mut side_one : Int
-  mut side_two : Int
+  mut side_one : Int32
+  mut side_two : Int32
 }
 
 ///|
 priv struct MrtreeEdgeRouterInOutCounts {
-  incoming : Int
-  outgoing : Int
+  incoming : Int32
+  outgoing : Int32
 }
 
 ///|
@@ -110,7 +110,7 @@ fn mrtree_edge_router_average_tree_middle(
 fn mrtree_edge_router_max_side_position(
   graph : MrtreeGraph,
   direction_value : String,
-  side_edges : Int,
+  side_edges : Int32,
   node_bendpoint_padding : Double,
   upper_side : Bool,
 ) -> Double {

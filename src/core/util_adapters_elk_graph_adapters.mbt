@@ -14,7 +14,7 @@ let elk_graph_adapters_inside_self_loops_yo_property : @graph.IProperty[Bool] = 
 )
 
 ///|
-let elk_graph_adapters_port_index_property : @graph.IProperty[Int] = @graph.new_property(
+let elk_graph_adapters_port_index_property : @graph.IProperty[Int32] = @graph.new_property(
   "org.eclipse.elk.port.index", -1,
 )
 
@@ -45,7 +45,7 @@ fn elk_graph_adapters_exception_message(
 }
 
 ///|
-fn elk_graph_adapters_parse_int(raw : String) -> Int? {
+fn elk_graph_adapters_parse_int(raw : String) -> Int32? {
   try @string.parse_int(raw.trim().to_owned()) catch {
     _ => None
   } noraise {
@@ -111,7 +111,7 @@ fn elk_graph_adapters_parse_label_side(raw : String) -> LabelSide {
 }
 
 ///|
-fn elk_graph_adapters_compare_double(left : Double, right : Double) -> Int {
+fn elk_graph_adapters_compare_double(left : Double, right : Double) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -122,7 +122,7 @@ fn elk_graph_adapters_compare_double(left : Double, right : Double) -> Int {
 }
 
 ///|
-fn elk_graph_adapters_port_side_rank(side : PortSide) -> Int {
+fn elk_graph_adapters_port_side_rank(side : PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -291,7 +291,7 @@ fn elk_graph_adapters_port_side(port : @graph.ElkPort) -> PortSide {
 }
 
 ///|
-fn elk_graph_adapters_port_index(port : @graph.ElkPort) -> Int? {
+fn elk_graph_adapters_port_index(port : @graph.ElkPort) -> Int32? {
   match
     @graph.port_layout_option_string_value_by_option_id(
       port,
@@ -359,8 +359,8 @@ fn elk_graph_adapters_label_double_option_or_default(
 ///|
 fn elk_graph_adapters_port_int_option_or_default(
   port : @graph.ElkPort,
-  option : @graph.IProperty[Int],
-) -> Int {
+  option : @graph.IProperty[Int32],
+) -> Int32 {
   match
     @graph.port_layout_option_string_value_by_option_id(
       port,
@@ -378,8 +378,8 @@ fn elk_graph_adapters_port_int_option_or_default(
 ///|
 fn elk_graph_adapters_label_int_option_or_default(
   label : @graph.ElkLabel,
-  option : @graph.IProperty[Int],
-) -> Int {
+  option : @graph.IProperty[Int32],
+) -> Int32 {
   match
     @graph.label_layout_option_string_value_by_option_id(
       label,
@@ -514,7 +514,7 @@ pub fn adapt_single_port(port : @graph.ElkPort) -> ElkPortAdapter {
 pub(all) struct ElkGraphAdapter {
   element : @graph.ElkNode
   mut child_nodes : Array[ElkNodeAdapter]?
-  mut volatile_id : Int
+  mut volatile_id : Int32
 }
 
 ///|
@@ -554,15 +554,15 @@ pub fn ElkGraphAdapter::set_position(
 ///|
 pub fn ElkGraphAdapter::get_property_int(
   self : ElkGraphAdapter,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   @graph.node_get_int_property(self.element, property)
 }
 
 ///|
 pub fn ElkGraphAdapter::has_property_int(
   self : ElkGraphAdapter,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   @graph.node_has_int_property(self.element, property)
 }
@@ -648,14 +648,14 @@ pub fn ElkGraphAdapter::has_property_string_array(
 }
 
 ///|
-pub fn ElkGraphAdapter::get_volatile_id(self : ElkGraphAdapter) -> Int {
+pub fn ElkGraphAdapter::get_volatile_id(self : ElkGraphAdapter) -> Int32 {
   self.volatile_id
 }
 
 ///|
 pub fn ElkGraphAdapter::set_volatile_id(
   self : ElkGraphAdapter,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.volatile_id = volatile_id
 }
@@ -690,7 +690,7 @@ pub(all) struct ElkNodeAdapter {
   mut port_adapters : Array[ElkPortAdapter]?
   mut incoming_edge_adapters : Array[ElkEdgeAdapter]?
   mut outgoing_edge_adapters : Array[ElkEdgeAdapter]?
-  mut volatile_id : Int
+  mut volatile_id : Int32
 }
 
 ///|
@@ -738,15 +738,15 @@ pub fn ElkNodeAdapter::set_position(
 ///|
 pub fn ElkNodeAdapter::get_property_int(
   self : ElkNodeAdapter,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   @graph.node_get_int_property(self.element, property)
 }
 
 ///|
 pub fn ElkNodeAdapter::has_property_int(
   self : ElkNodeAdapter,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   @graph.node_has_int_property(self.element, property)
 }
@@ -832,14 +832,14 @@ pub fn ElkNodeAdapter::has_property_string_array(
 }
 
 ///|
-pub fn ElkNodeAdapter::get_volatile_id(self : ElkNodeAdapter) -> Int {
+pub fn ElkNodeAdapter::get_volatile_id(self : ElkNodeAdapter) -> Int32 {
   self.volatile_id
 }
 
 ///|
 pub fn ElkNodeAdapter::set_volatile_id(
   self : ElkNodeAdapter,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.volatile_id = volatile_id
 }
@@ -926,7 +926,7 @@ pub fn ElkNodeAdapter::get_outgoing_edges(
 fn elk_graph_adapters_insertion_sort_ports_with_adapters(
   ports : Array[@graph.ElkPort],
   adapters : Array[ElkPortAdapter],
-  comparator : (ElkPortAdapter, ElkPortAdapter) -> Int raise,
+  comparator : (ElkPortAdapter, ElkPortAdapter) -> Int32 raise,
 ) -> Unit raise {
   let mut index = 1
   while index < adapters.length() {
@@ -957,7 +957,7 @@ pub fn ElkNodeAdapter::sort_port_list(self : ElkNodeAdapter) -> Unit raise {
 ///|
 pub fn ElkNodeAdapter::sort_port_list_with(
   self : ElkNodeAdapter,
-  comparator : (ElkPortAdapter, ElkPortAdapter) -> Int raise,
+  comparator : (ElkPortAdapter, ElkPortAdapter) -> Int32 raise,
 ) -> Unit raise {
   if !elk_graph_adapters_node_port_constraints(self.element).is_order_fixed() {
     return
@@ -1008,7 +1008,7 @@ pub(all) struct ElkPortAdapter {
   mut label_adapters : Array[ElkLabelAdapter]?
   mut incoming_edge_adapters : Array[ElkEdgeAdapter]?
   mut outgoing_edge_adapters : Array[ElkEdgeAdapter]?
-  mut volatile_id : Int
+  mut volatile_id : Int32
 }
 
 ///|
@@ -1051,15 +1051,15 @@ pub fn ElkPortAdapter::set_position(
 ///|
 pub fn ElkPortAdapter::get_property_int(
   self : ElkPortAdapter,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   elk_graph_adapters_port_int_option_or_default(self.element, property)
 }
 
 ///|
 pub fn ElkPortAdapter::has_property_int(
   self : ElkPortAdapter,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   @graph.port_layout_option_string_value_by_option_id(
     self.element,
@@ -1156,14 +1156,14 @@ pub fn ElkPortAdapter::has_property_string_array(
 }
 
 ///|
-pub fn ElkPortAdapter::get_volatile_id(self : ElkPortAdapter) -> Int {
+pub fn ElkPortAdapter::get_volatile_id(self : ElkPortAdapter) -> Int32 {
   self.volatile_id
 }
 
 ///|
 pub fn ElkPortAdapter::set_volatile_id(
   self : ElkPortAdapter,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.volatile_id = volatile_id
 }
@@ -1287,7 +1287,7 @@ pub fn ElkPortAdapter::has_compound_connections(self : ElkPortAdapter) -> Bool {
 ///|
 pub(all) struct ElkLabelAdapter {
   element : @graph.ElkLabel
-  mut volatile_id : Int
+  mut volatile_id : Int32
 }
 
 ///|
@@ -1327,15 +1327,15 @@ pub fn ElkLabelAdapter::set_position(
 ///|
 pub fn ElkLabelAdapter::get_property_int(
   self : ElkLabelAdapter,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   elk_graph_adapters_label_int_option_or_default(self.element, property)
 }
 
 ///|
 pub fn ElkLabelAdapter::has_property_int(
   self : ElkLabelAdapter,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   @graph.label_layout_option_string_value_by_option_id(
     self.element,
@@ -1435,14 +1435,14 @@ pub fn ElkLabelAdapter::has_property_string_array(
 }
 
 ///|
-pub fn ElkLabelAdapter::get_volatile_id(self : ElkLabelAdapter) -> Int {
+pub fn ElkLabelAdapter::get_volatile_id(self : ElkLabelAdapter) -> Int32 {
   self.volatile_id
 }
 
 ///|
 pub fn ElkLabelAdapter::set_volatile_id(
   self : ElkLabelAdapter,
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.volatile_id = volatile_id
 }
@@ -1520,7 +1520,7 @@ pub fn ElkPortComparator::compare(
   self : ElkPortComparator,
   port1 : @graph.ElkPort,
   port2 : @graph.ElkPort,
-) -> Int raise {
+) -> Int32 raise {
   ignore(self)
   let ordinal_difference = elk_graph_adapters_port_side_rank(
       elk_graph_adapters_port_side(port1),

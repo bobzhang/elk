@@ -1,5 +1,5 @@
 ///|
-fn component_group_side_bit(side : @core.PortSide) -> Int {
+fn component_group_side_bit(side : @core.PortSide) -> Int32 {
   match side {
     North => 1
     East => 2
@@ -10,7 +10,7 @@ fn component_group_side_bit(side : @core.PortSide) -> Int {
 }
 
 ///|
-fn component_group_sides_key(sides : Array[@core.PortSide]) -> Int {
+fn component_group_sides_key(sides : Array[@core.PortSide]) -> Int32 {
   let mut key = 0
   for side in sides {
     key = key | component_group_side_bit(side)
@@ -19,7 +19,7 @@ fn component_group_sides_key(sides : Array[@core.PortSide]) -> Int {
 }
 
 ///|
-fn component_group_key_to_sides(key : Int) -> Array[@core.PortSide] {
+fn component_group_key_to_sides(key : Int32) -> Array[@core.PortSide] {
   let result = []
   if (key & 1) != 0 {
     result.push(@core.PortSide::North)
@@ -38,7 +38,7 @@ fn component_group_key_to_sides(key : Int) -> Array[@core.PortSide] {
 
 ///|
 fn component_group_add_constraint(
-  constraints : Map[Int, Array[Int]],
+  constraints : Map[Int32, Array[Int32]],
   source : Array[@core.PortSide],
   target : Array[@core.PortSide],
 ) -> Unit {
@@ -54,8 +54,8 @@ fn component_group_add_constraint(
 }
 
 ///|
-fn init_component_group_constraints() -> Map[Int, Array[Int]] {
-  let constraints : Map[Int, Array[Int]] = Map([])
+fn init_component_group_constraints() -> Map[Int32, Array[Int32]] {
+  let constraints : Map[Int32, Array[Int32]] = Map([])
 
   component_group_add_constraint(
     constraints, @core.sides_none, @core.sides_north_east_south_west,
@@ -281,11 +281,11 @@ fn init_component_group_constraints() -> Map[Int, Array[Int]] {
 }
 
 ///|
-let component_group_constraints : Map[Int, Array[Int]] = init_component_group_constraints()
+let component_group_constraints : Map[Int32, Array[Int32]] = init_component_group_constraints()
 
 ///|
 pub struct ComponentGroup {
-  components : Map[Int, Array[LGraph]]
+  components : Map[Int32, Array[LGraph]]
 }
 
 ///|

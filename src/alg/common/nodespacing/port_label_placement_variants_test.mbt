@@ -28,7 +28,7 @@ fn port_label_variants_get_port_side(port : ElkPort) -> PortSide {
 }
 
 ///|
-fn port_label_variants_set_port_index(port : ElkPort, index : Int) -> Unit {
+fn port_label_variants_set_port_index(port : ElkPort, index : Int32) -> Unit {
   port_set_layout_option_string_by_id(
     port,
     layered_port_index_option_id,
@@ -37,7 +37,7 @@ fn port_label_variants_set_port_index(port : ElkPort, index : Int) -> Unit {
 }
 
 ///|
-fn port_label_variants_get_port_index(port : ElkPort) -> Int {
+fn port_label_variants_get_port_index(port : ElkPort) -> Int32 {
   match port_layout_option_string_value(port, layered_port_index_option_id) {
     Some(raw) => @string.parse_int(raw) catch { _ => 0 }
     None => 0
@@ -112,7 +112,7 @@ fn port_label_variants_assert_centered(port : ElkPort) -> Unit raise {
 fn port_label_variants_add_port(
   node : ElkNode,
   side_name : String,
-  index : Int,
+  index : Int32,
   label_x_pos : Double,
   label_y_pos : Double,
 ) -> ElkPort {

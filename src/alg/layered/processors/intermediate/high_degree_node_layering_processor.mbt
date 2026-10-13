@@ -15,9 +15,9 @@ fn[T] high_degree_node_layering_processor_raise(
 
 ///|
 pub struct HighDegreeNodeInformation {
-  mut inc_trees_max_height : Int
+  mut inc_trees_max_height : Int32
   inc_tree_roots : Array[@runtime.LNode]
-  mut out_trees_max_height : Int
+  mut out_trees_max_height : Int32
   out_tree_roots : Array[@runtime.LNode]
 }
 
@@ -94,14 +94,14 @@ fn high_degree_other_node(
 }
 
 ///|
-fn high_degree_degree(node : @runtime.LNode) -> Int {
+fn high_degree_degree(node : @runtime.LNode) -> Int32 {
   node.get_connected_edges().length()
 }
 
 ///|
 fn high_degree_is_high_degree_node(
   node : @runtime.LNode,
-  degree_threshold : Int,
+  degree_threshold : Int32,
 ) -> Bool {
   high_degree_degree(node) >= degree_threshold
 }
@@ -132,9 +132,9 @@ fn high_degree_is_tree_root(
   root : @runtime.LNode,
   ancestor_edges : HighDegreeEdgeSelector,
   descendant_edges : HighDegreeEdgeSelector,
-  degree_threshold : Int,
-  tree_height_threshold : Int,
-) -> Int raise HighDegreeNodeLayeringProcessorException {
+  degree_threshold : Int32,
+  tree_height_threshold : Int32,
+) -> Int32 raise HighDegreeNodeLayeringProcessorException {
   if high_degree_is_high_degree_node(root, degree_threshold) {
     return -1
   }
@@ -158,7 +158,7 @@ fn high_degree_is_tree_root(
       return -1
     }
 
-    current_height = Int::max(current_height, height)
+    current_height = Int32::max(current_height, height)
     if current_height > tree_height_threshold - 1 {
       return -1
     }
@@ -170,8 +170,8 @@ fn high_degree_is_tree_root(
 ///|
 fn high_degree_calculate_information(
   node : @runtime.LNode,
-  degree_threshold : Int,
-  tree_height_threshold : Int,
+  degree_threshold : Int32,
+  tree_height_threshold : Int32,
 ) -> HighDegreeNodeInformation raise HighDegreeNodeLayeringProcessorException {
   let info = new_high_degree_node_information()
 
@@ -192,7 +192,7 @@ fn high_degree_calculate_information(
         continue
       }
 
-      info.inc_trees_max_height = Int::max(
+      info.inc_trees_max_height = Int32::max(
         info.inc_trees_max_height,
         tree_height,
       )
@@ -217,7 +217,7 @@ fn high_degree_calculate_information(
         continue
       }
 
-      info.out_trees_max_height = Int::max(
+      info.out_trees_max_height = Int32::max(
         info.out_trees_max_height,
         tree_height,
       )
@@ -233,7 +233,7 @@ fn high_degree_move_tree(
   root : @runtime.LNode,
   edge_selector : HighDegreeEdgeSelector,
   layers : Array[@runtime.Layer],
-  depth : Int,
+  depth : Int32,
 ) -> Unit raise HighDegreeNodeLayeringProcessorException {
   if depth >= layers.length() {
     return
@@ -290,15 +290,15 @@ fn high_degree_node_layering_processor_process(
           let info = high_degree_calculate_information(
             node, degree_threshold, tree_height_threshold,
           )
-          inc_max = Int::max(inc_max, info.inc_trees_max_height)
-          out_max = Int::max(out_max, info.out_trees_max_height)
+          inc_max = Int32::max(inc_max, info.inc_trees_max_height)
+          out_max = Int32::max(out_max, info.out_trees_max_height)
           let candidate : HighDegreeNodeCandidate = { info, }
           high_degree_nodes.push(candidate)
         }
       }
 
       let pre_layers : Array[@runtime.Layer] = []
-      let incoming_insertions = Int::max(inc_max, 0)
+      let incoming_insertions = Int32::max(inc_max, 0)
       for _ in 0..<incoming_insertions {
         let inserted = @runtime.new_layer(layered_graph)
         ignore(layers.insert(layer_index, inserted))
@@ -314,7 +314,7 @@ fn high_degree_node_layering_processor_process(
       }
 
       let after_layers : Array[@runtime.Layer] = []
-      let outgoing_insertions = Int::max(out_max, 0)
+      let outgoing_insertions = Int32::max(out_max, 0)
       for offset in 0..<outgoing_insertions {
         let inserted = @runtime.new_layer(layered_graph)
         ignore(layers.insert(layer_index + 1 + offset, inserted))

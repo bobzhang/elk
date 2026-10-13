@@ -17,7 +17,7 @@ fn[T] network_simplex_compaction_raise(
 }
 
 ///|
-fn network_simplex_compaction_int_max(left : Int, right : Int) -> Int {
+fn network_simplex_compaction_int_max(left : Int32, right : Int32) -> Int32 {
   if left > right {
     left
   } else {
@@ -81,7 +81,7 @@ fn network_simplex_compaction_group_node(
 
 ///|
 fn network_simplex_compaction_lnode_map_put(
-  mapping : Map[Int, @compaction.CNode],
+  mapping : Map[Int32, @compaction.CNode],
   l_node : @runtime.LNode,
   c_node : @compaction.CNode,
 ) -> Unit {
@@ -90,7 +90,7 @@ fn network_simplex_compaction_lnode_map_put(
 
 ///|
 fn network_simplex_compaction_lnode_map_get(
-  mapping : Map[Int, @compaction.CNode],
+  mapping : Map[Int32, @compaction.CNode],
   l_node : @runtime.LNode,
 ) -> @compaction.CNode? {
   mapping.get(l_node.get_handle())
@@ -98,7 +98,7 @@ fn network_simplex_compaction_lnode_map_get(
 
 ///|
 fn network_simplex_compaction_edge_map_put(
-  mapping : Map[Int, Array[@compaction.CNode]],
+  mapping : Map[Int32, Array[@compaction.CNode]],
   l_edge : @runtime.LEdge,
   c_node : @compaction.CNode,
 ) -> Unit {
@@ -111,7 +111,7 @@ fn network_simplex_compaction_edge_map_put(
 
 ///|
 fn network_simplex_compaction_edge_map_get(
-  mapping : Map[Int, Array[@compaction.CNode]],
+  mapping : Map[Int32, Array[@compaction.CNode]],
   l_edge : @runtime.LEdge,
 ) -> Array[@compaction.CNode] {
   match mapping.get(l_edge.get_handle()) {
@@ -252,8 +252,8 @@ fn network_simplex_compaction_add_edge_constraints(
   compactor : @compaction.OneDimensionalCompactor,
   n_nodes : Array[@networksimplex.NNode],
 ) -> Unit raise {
-  let lnode_map : Map[Int, @compaction.CNode] = Map([])
-  let ledge_map : Map[Int, Array[@compaction.CNode]] = Map([])
+  let lnode_map : Map[Int32, @compaction.CNode] = Map([])
+  let ledge_map : Map[Int32, Array[@compaction.CNode]] = Map([])
 
   for c_node in compactor.c_graph.c_nodes {
     match origin_lookup.get_lnode_or_null(c_node) {
@@ -378,8 +378,8 @@ fn network_simplex_compaction_add_edge_constraints(
 ///|
 fn network_simplex_compaction_add_artificial_source_node(
   network_graph : @networksimplex.NGraph,
-  index : Int,
-) -> Int raise {
+  index : Int32,
+) -> Int32 raise {
   let sources : Array[@networksimplex.NNode] = []
   for node in network_graph.nodes {
     if node.get_incoming_edges().is_empty() {

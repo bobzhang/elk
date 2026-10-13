@@ -5,7 +5,7 @@ pub struct GraphvizDotFormatter {
 
 ///|
 pub fn new_graphviz_dot_formatter(
-  grammar_access? : GraphvizDotGrammarAccess = new_graphviz_dot_grammar_access(),
+  grammar_access~ : GraphvizDotGrammarAccess = new_graphviz_dot_grammar_access(),
 ) -> GraphvizDotFormatter {
   { grammar_access, }
 }
@@ -58,7 +58,7 @@ pub fn GraphvizDotFormatter::format_request(
 
 ///|
 pub fn new_graphviz_dot_formatter2(
-  formatter? : GraphvizDotFormatter = new_graphviz_dot_formatter(),
+  formatter~ : GraphvizDotFormatter = new_graphviz_dot_formatter(),
 ) -> GraphvizDotFormatter2 {
   request => formatter.format_request(request)
 }

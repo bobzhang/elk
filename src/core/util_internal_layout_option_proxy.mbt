@@ -57,6 +57,6 @@ pub fn LayoutOptionProxy::equals(
 }
 
 ///|
-pub fn LayoutOptionProxy::hash_code(self : LayoutOptionProxy) -> Int {
+pub fn LayoutOptionProxy::hash_code(self : LayoutOptionProxy) -> Int32 {
   self.value.hash()
 }

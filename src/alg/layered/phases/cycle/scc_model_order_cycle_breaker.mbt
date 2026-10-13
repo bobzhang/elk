@@ -104,9 +104,9 @@ fn scc_model_order_cycle_breaker_compute_model_order(
   calculator : GroupModelOrderCalculator,
   node : @runtime.LNode,
   enforce_group_model_order : Bool,
-  offset : Int,
-  big_offset : Int,
-) -> Int {
+  offset : Int32,
+  big_offset : Int32,
+) -> Int32 {
   if enforce_group_model_order {
     calculator.compute_constraint_group_model_order(node, big_offset, offset)
   } else {
@@ -119,8 +119,8 @@ fn scc_model_order_cycle_breaker_find_nodes(
   graph : @runtime.LGraph,
   strongly_connected_components : Array[Array[@runtime.LNode]],
   rev_edges : Array[@runtime.LEdge],
-  offset : Int,
-  big_offset : Int,
+  offset : Int32,
+  big_offset : Int32,
 ) -> Unit raise SCCModelOrderCycleBreakerException {
   let enforce_group_model_order = scc_model_order_cycle_breaker_enforce_group_model_order(
     graph,
@@ -166,8 +166,8 @@ fn scc_model_order_cycle_breaker_process_with_finder(
     @runtime.LGraph,
     Array[Array[@runtime.LNode]],
     Array[@runtime.LEdge],
-    Int,
-    Int,
+    Int32,
+    Int32,
   ) -> Unit raise SCCModelOrderCycleBreakerException,
 ) -> Unit raise {
   let monitor = match progress_monitor {

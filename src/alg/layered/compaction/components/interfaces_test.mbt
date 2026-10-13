@@ -16,12 +16,12 @@ fn compaction_rect_opt_to_tuple(
 }
 
 ///|
-fn compaction_direction_at(index : Int) -> @core.Direction {
+fn compaction_direction_at(index : Int32) -> @core.Direction {
   @core.direction_values()[index]
 }
 
 ///|
-fn compaction_port_side_at(index : Int) -> @core.PortSide {
+fn compaction_port_side_at(index : Int32) -> @core.PortSide {
   @core.port_side_values()[index]
 }
 
@@ -65,12 +65,12 @@ test "IComponent and IConnectedComponents mirror configured providers" {
     get_placeholder=() => Some(@core.new_elk_rectangle_xywh(3.0, 3.0, 1.0, 1.0)),
   )
 
-  let component : IComponent[Unit, Int] = new_component(
+  let component : IComponent[Unit, Int32] = new_component(
     () => [@core.new_elk_rectangle_xywh(0.0, 1.0, 2.0, 3.0)],
     () => [ext],
     () => [compaction_port_side_at(1), compaction_port_side_at(2)],
   )
-  let components : IConnectedComponents[Unit, Int] = new_connected_components(
+  let components : IConnectedComponents[Unit, Int32] = new_connected_components(
     () => [component],
     () => true,
   )

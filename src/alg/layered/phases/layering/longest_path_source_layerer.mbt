@@ -70,9 +70,9 @@ fn longest_path_source_layerer_require_edge_source_node(
 ///|
 fn longest_path_source_layerer_put_node(
   layered_graph : @runtime.LGraph,
-  node_heights : Array[Int],
+  node_heights : Array[Int32],
   node : @runtime.LNode,
-  height : Int,
+  height : Int32,
 ) -> Unit {
   let layers = layered_graph.get_layers()
   let mut layer_count = layers.length()
@@ -88,9 +88,9 @@ fn longest_path_source_layerer_put_node(
 ///|
 fn longest_path_source_layerer_visit(
   layered_graph : @runtime.LGraph,
-  node_heights : Array[Int],
+  node_heights : Array[Int32],
   node : @runtime.LNode,
-) -> Int raise LongestPathSourceLayererException {
+) -> Int32 raise LongestPathSourceLayererException {
   let height = node_heights[node.get_id()]
   if height >= 0 {
     return height

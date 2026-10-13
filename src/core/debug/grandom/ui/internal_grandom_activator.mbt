@@ -43,7 +43,7 @@ pub(all) struct CoreDebugGRandomConfigurationElement {
 
 ///|
 pub fn new_core_debug_grandom_configuration_element(
-  contributor? : String? = None,
+  contributor~ : String? = None,
 ) -> CoreDebugGRandomConfigurationElement {
   { contributor, }
 }
@@ -66,7 +66,7 @@ pub(all) struct CoreDebugGRandomExecutableExtension {
 
 ///|
 pub fn new_core_debug_grandom_executable_extension(
-  set_initialization_data_fn? : (
+  set_initialization_data_fn~ : (
     CoreDebugGRandomConfigurationElement?,
     String?,
     CoreDebugGRandomInitializationData?,
@@ -125,7 +125,7 @@ pub(all) struct CoreDebugGRandomUiBundle {
 
 ///|
 pub fn new_core_debug_grandom_ui_bundle(
-  symbolic_name? : String = core_debug_grandom_ui_plugin_id,
+  symbolic_name~ : String = core_debug_grandom_ui_plugin_id,
 ) -> CoreDebugGRandomUiBundle {
   { symbolic_name, classes: Map([]), }
 }
@@ -189,7 +189,7 @@ pub fn CoreDebugGRandomUiInjector::get_instance(
 ///|
 pub fn CoreDebugGRandomUiInjector::provider_count(
   self : CoreDebugGRandomUiInjector,
-) -> Int {
+) -> Int32 {
   self.providers.to_array().length()
 }
 
@@ -246,7 +246,7 @@ pub fn GrandomActivator::register_bundle_class(
 }
 
 ///|
-pub fn GrandomActivator::injector_count(self : GrandomActivator) -> Int {
+pub fn GrandomActivator::injector_count(self : GrandomActivator) -> Int32 {
   self.injectors.to_array().length()
 }
 

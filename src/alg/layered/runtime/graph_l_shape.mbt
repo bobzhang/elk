@@ -15,12 +15,12 @@ pub fn new_l_shape() -> LShape {
 }
 
 ///|
-pub fn LShape::get_id(self : LShape) -> Int {
+pub fn LShape::get_id(self : LShape) -> Int32 {
   self.graph_element.get_id()
 }
 
 ///|
-pub fn LShape::set_id(self : LShape, id : Int) -> Unit {
+pub fn LShape::set_id(self : LShape, id : Int32) -> Unit {
   self.graph_element.set_id(id)
 }
 

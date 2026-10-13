@@ -184,9 +184,9 @@ pub fn splines_math_dist_port_to_node_edge(
 
 ///|
 pub fn splines_math_is_between_int(
-  value : Int,
-  boundary_0 : Int,
-  boundary_1 : Int,
+  value : Int32,
+  boundary_0 : Int32,
+  boundary_1 : Int32,
 ) -> Bool {
   if value < boundary_0 {
     boundary_1 <= value

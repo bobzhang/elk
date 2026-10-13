@@ -27,8 +27,8 @@ let new_i_label_manager = @core.new_i_label_manager
 
 ///|
 fn[T] new_layout_execution_listener(
-  layout_processor_ready_fn : (Int, T, Bool) -> Unit,
-  layout_processor_finished_fn : (Int, T, Bool) -> Unit,
+  layout_processor_ready_fn : (Int32, T, Bool) -> Unit,
+  layout_processor_finished_fn : (Int32, T, Bool) -> Unit,
 ) -> ILayoutExecutionListener[T] {
   @core.new_layout_execution_listener(
     layout_processor_ready_fn, layout_processor_finished_fn,
@@ -37,7 +37,7 @@ fn[T] new_layout_execution_listener(
 
 ///|
 fn new_elk_progress_monitor(
-  task_name? : String = "",
+  task_name~ : String = "",
 ) -> @core.IElkProgressMonitor {
   @core.new_elk_progress_monitor(task_name~)
 }

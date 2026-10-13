@@ -14,7 +14,7 @@ pub struct AbstractElkGraphRuntimeModule {
 
 ///|
 pub fn new_abstract_elk_graph_runtime_module(
-  properties? : Map[String, String] = Map([]),
+  properties~ : Map[String, String] = Map([]),
 ) -> AbstractElkGraphRuntimeModule {
   { properties, }
 }

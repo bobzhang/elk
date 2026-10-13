@@ -11,7 +11,7 @@ let ns_int_max_value = 2147483647
 let ns_int_min_value = -2147483648
 
 ///|
-fn ns_int_min(left : Int, right : Int) -> Int {
+fn ns_int_min(left : Int32, right : Int32) -> Int32 {
   if left < right {
     left
   } else {
@@ -20,7 +20,7 @@ fn ns_int_min(left : Int, right : Int) -> Int {
 }
 
 ///|
-fn ns_int_max(left : Int, right : Int) -> Int {
+fn ns_int_max(left : Int32, right : Int32) -> Int32 {
   if left > right {
     left
   } else {
@@ -29,7 +29,7 @@ fn ns_int_max(left : Int, right : Int) -> Int {
 }
 
 ///|
-fn ns_bool_array(size : Int, init : Bool) -> Array[Bool] {
+fn ns_bool_array(size : Int32, init : Bool) -> Array[Bool] {
   let array : Array[Bool] = []
   for _ in 0..<size {
     array.push(init)
@@ -38,8 +38,8 @@ fn ns_bool_array(size : Int, init : Bool) -> Array[Bool] {
 }
 
 ///|
-fn ns_int_array(size : Int, init : Int) -> Array[Int] {
-  let array : Array[Int] = []
+fn ns_int_array(size : Int32, init : Int32) -> Array[Int32] {
+  let array : Array[Int32] = []
   for _ in 0..<size {
     array.push(init)
   }
@@ -47,7 +47,7 @@ fn ns_int_array(size : Int, init : Int) -> Array[Int] {
 }
 
 ///|
-fn ns_double_array(size : Int, init : Double) -> Array[Double] {
+fn ns_double_array(size : Int32, init : Double) -> Array[Double] {
   let array : Array[Double] = []
   for _ in 0..<size {
     array.push(init)
@@ -98,16 +98,16 @@ fn ns_remove_graph_node(graph : NGraph, node : NNode) -> Unit {
 ///|
 pub struct NetworkSimplex {
   graph : NGraph
-  mut previous_layering_node_counts : Array[Int]?
+  mut previous_layering_node_counts : Array[Int32]?
   mut balance : Bool
-  mut iteration_limit : Int
+  mut iteration_limit : Int32
   mut edges : Array[NEdge]
   tree_edges : Array[NEdge]
   sources : Array[NNode]
   mut edge_visited : Array[Bool]
-  mut post_order : Int
-  mut po_id : Array[Int]
-  mut lowest_po_id : Array[Int]
+  mut post_order : Int32
+  mut po_id : Array[Int32]
+  mut lowest_po_id : Array[Int32]
   mut cutvalue : Array[Double]
   subtree_nodes_stack : Array[(NNode, NEdge)]
 }
@@ -143,7 +143,7 @@ pub fn NetworkSimplex::with_balancing(
 ///|
 pub fn NetworkSimplex::with_previous_layering(
   self : NetworkSimplex,
-  consider_previous_layering : Array[Int],
+  consider_previous_layering : Array[Int32],
 ) -> NetworkSimplex {
   self.previous_layering_node_counts = Some(consider_previous_layering.copy())
   self
@@ -152,7 +152,7 @@ pub fn NetworkSimplex::with_previous_layering(
 ///|
 pub fn NetworkSimplex::with_iteration_limit(
   self : NetworkSimplex,
-  limit : Int,
+  limit : Int32,
 ) -> NetworkSimplex {
   self.iteration_limit = limit
   self
@@ -240,7 +240,7 @@ fn ns_layering_topological_numbering(
 fn ns_tight_tree_dfs(
   network_simplex : NetworkSimplex,
   node : NNode,
-) -> Int raise {
+) -> Int32 raise {
   let mut node_count = 1
   node.set_tree_node(true)
   let node_stack = [node]
@@ -310,7 +310,7 @@ fn ns_minimal_slack(network_simplex : NetworkSimplex) -> NEdge? {
 fn ns_postorder_traversal(
   network_simplex : NetworkSimplex,
   node : NNode,
-) -> Int raise {
+) -> Int32 raise {
   let node_stack = [node]
   let edge_stack = [node.get_connected_edges()]
   let index_stack = [0]
@@ -523,7 +523,7 @@ fn ns_exchange(
 }
 
 ///|
-fn ns_minimal_span(node : NNode) -> (Int, Int) {
+fn ns_minimal_span(node : NNode) -> (Int32, Int32) {
   let mut min_span_out = ns_int_max_value
   let mut min_span_in = ns_int_max_value
   for edge in node.get_connected_edges() {
@@ -545,7 +545,7 @@ fn ns_minimal_span(node : NNode) -> (Int, Int) {
 }
 
 ///|
-fn ns_normalize(network_simplex : NetworkSimplex) -> Array[Int] {
+fn ns_normalize(network_simplex : NetworkSimplex) -> Array[Int32] {
   let mut highest = ns_int_min_value
   let mut lowest = ns_int_max_value
   for node in network_simplex.graph.nodes {
@@ -574,7 +574,7 @@ fn ns_normalize(network_simplex : NetworkSimplex) -> Array[Int] {
 }
 
 ///|
-fn ns_balance(network_simplex : NetworkSimplex, filling : Array[Int]) -> Unit {
+fn ns_balance(network_simplex : NetworkSimplex, filling : Array[Int32]) -> Unit {
   for node in network_simplex.graph.nodes {
     if node.get_incoming_edges().length() == node.get_outgoing_edges().length() {
       let mut new_layer = node.get_layer()
@@ -713,7 +713,7 @@ fn ns_execute_impl(
 ///|
 pub fn NetworkSimplex::execute(
   self : NetworkSimplex,
-  monitor? : @core.IElkProgressMonitor = @core.new_basic_progress_monitor(),
+  monitor~ : @core.IElkProgressMonitor = @core.new_basic_progress_monitor(),
 ) -> Unit raise {
   ignore(monitor.begin("Network simplex", 1.0))
   if self.graph.nodes.length() < 1 {

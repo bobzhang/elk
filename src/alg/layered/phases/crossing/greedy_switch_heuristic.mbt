@@ -28,9 +28,9 @@ pub struct GreedySwitchHeuristic {
   greedy_switch_type : @options.GreedySwitchType
   mut current_node_order : Array[Array[@runtime.LNode]]
   mut switch_decider : SwitchDecider?
-  mut port_positions : Array[Int]
+  mut port_positions : Array[Int32]
   graph_data : GraphInfoHolder
-  mut n_ports : Int
+  mut n_ports : Int32
 }
 
 ///|
@@ -52,7 +52,7 @@ pub fn new_greedy_switch_heuristic(
 pub fn GreedySwitchHeuristic::minimize_crossings(
   self : GreedySwitchHeuristic,
   order : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
   forward_sweep : Bool,
   is_first_sweep : Bool,
 ) -> Bool raise {
@@ -76,7 +76,7 @@ pub fn GreedySwitchHeuristic::set_first_layer_order(
 fn GreedySwitchHeuristic::set_up(
   self : GreedySwitchHeuristic,
   order : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
   forward_sweep : Bool,
 ) -> Unit raise {
   self.current_node_order = order
@@ -89,7 +89,7 @@ fn GreedySwitchHeuristic::set_up(
 ///|
 fn GreedySwitchHeuristic::get_new_switch_decider(
   self : GreedySwitchHeuristic,
-  free_layer_index : Int,
+  free_layer_index : Int32,
   side : CrossingCountSide,
 ) -> SwitchDecider raise {
   let crossing_matrix_filler = new_crossing_matrix_filler(
@@ -112,7 +112,7 @@ fn GreedySwitchHeuristic::get_new_switch_decider(
 ///|
 fn GreedySwitchHeuristic::continue_switching_until_no_improvement_in_layer(
   self : GreedySwitchHeuristic,
-  free_layer_index : Int,
+  free_layer_index : Int32,
 ) -> Bool raise {
   let mut improved = false
   let mut continue_switching = true
@@ -126,7 +126,7 @@ fn GreedySwitchHeuristic::continue_switching_until_no_improvement_in_layer(
 ///|
 fn GreedySwitchHeuristic::sweep_downward_in_layer(
   self : GreedySwitchHeuristic,
-  layer_index : Int,
+  layer_index : Int32,
 ) -> Bool raise {
   let mut continue_switching = false
   let length_of_free_layer = self.current_node_order[layer_index].length()
@@ -146,9 +146,9 @@ fn GreedySwitchHeuristic::sweep_downward_in_layer(
 ///|
 fn GreedySwitchHeuristic::switch_if_improves(
   self : GreedySwitchHeuristic,
-  layer_index : Int,
-  upper_node_index : Int,
-  lower_node_index : Int,
+  layer_index : Int32,
+  upper_node_index : Int32,
+  lower_node_index : Int32,
 ) -> Bool raise {
   let decider = self.greedy_switch_heuristic_switch_decider()
   if decider.does_switch_reduce_crossings(upper_node_index, lower_node_index) {
@@ -162,9 +162,9 @@ fn GreedySwitchHeuristic::switch_if_improves(
 ///|
 fn GreedySwitchHeuristic::exchange_nodes(
   self : GreedySwitchHeuristic,
-  index_one : Int,
-  index_two : Int,
-  layer_index : Int,
+  index_one : Int32,
+  index_two : Int32,
+  layer_index : Int32,
 ) -> Unit raise {
   let decider = self.greedy_switch_heuristic_switch_decider()
   decider.notify_of_switch(
@@ -181,8 +181,8 @@ fn GreedySwitchHeuristic::exchange_nodes(
 fn GreedySwitchHeuristic::start_index(
   self : GreedySwitchHeuristic,
   is_forward_sweep : Bool,
-  length : Int,
-) -> Int {
+  length : Int32,
+) -> Int32 {
   ignore(self)
   if is_forward_sweep {
     0
@@ -208,9 +208,9 @@ pub fn GreedySwitchHeuristic::is_deterministic(
 ///|
 pub fn GreedySwitchHeuristic::init_at_port_level(
   self : GreedySwitchHeuristic,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   ignore(l)
@@ -223,7 +223,7 @@ pub fn GreedySwitchHeuristic::init_at_port_level(
 ///|
 pub fn GreedySwitchHeuristic::init_at_layer_level(
   self : GreedySwitchHeuristic,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   ignore(self)

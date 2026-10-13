@@ -1,9 +1,9 @@
 ///|
 pub struct ElkLabel {
   priv mut arena : GraphArena
-  priv mut slot : Int
-  priv mut generation : Int
-  priv id : Int
+  priv mut slot : Int32
+  priv mut generation : Int32
+  priv id : Int32
 }
 
 ///|
@@ -73,7 +73,7 @@ priv struct LabelData {
 
 ///|
 priv struct LabelSlot {
-  mut generation : Int
+  mut generation : Int32
   handle : ElkLabel
   mut data : LabelData?
 }

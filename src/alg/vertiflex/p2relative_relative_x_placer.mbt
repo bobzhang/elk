@@ -147,7 +147,7 @@ fn vertiflex_split_group(
   group : Array[@graph.ElkNode],
   width_left_ref : Ref[Double],
   width_right_ref : Ref[Double],
-) -> Int {
+) -> Int32 {
   if group.length() == 1 {
     return 0
   }

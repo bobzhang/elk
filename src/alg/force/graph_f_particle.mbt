@@ -41,7 +41,7 @@ pub fn fparticle_radius(particle : FParticle) -> Double {
 pub fn fparticle_get_int_property(
   particle : FParticle,
   property : ForceIntOption,
-) -> Int {
+) -> Int32 {
   match particle {
     Node(node) => fnode_get_int_property(node, property)
     _ => property.get_default()

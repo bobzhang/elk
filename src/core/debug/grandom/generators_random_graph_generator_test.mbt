@@ -9,7 +9,7 @@ fn core_debug_grandom_random_graph_test_random(seed : Int64) -> @random.Rand {
 }
 
 ///|
-fn core_debug_grandom_random_graph_count_edges(root : @graph.ElkNode) -> Int {
+fn core_debug_grandom_random_graph_count_edges(root : @graph.ElkNode) -> Int32 {
   let mut count = 0
   for node in @graph.node_all_descendants_including_self(root) {
     count = count + @graph.node_contained_edges(node).length()
@@ -18,7 +18,7 @@ fn core_debug_grandom_random_graph_count_edges(root : @graph.ElkNode) -> Int {
 }
 
 ///|
-fn core_debug_grandom_random_graph_count_ports(root : @graph.ElkNode) -> Int {
+fn core_debug_grandom_random_graph_count_ports(root : @graph.ElkNode) -> Int32 {
   let mut count = 0
   for node in @graph.node_all_descendants_including_self(root) {
     count = count + @graph.node_ports(node).length()
@@ -39,7 +39,7 @@ fn core_debug_grandom_random_graph_shape_to_node(
 ///|
 fn core_debug_grandom_random_graph_has_cycle_from(
   node : @graph.ElkNode,
-  states : Map[@graph.ElkNode, Int],
+  states : Map[@graph.ElkNode, Int32],
 ) -> Bool {
   match states.get(node) {
     Some(1) => return true
@@ -64,7 +64,7 @@ fn core_debug_grandom_random_graph_has_cycle_from(
 
 ///|
 fn core_debug_grandom_random_graph_is_acyclic(root : @graph.ElkNode) -> Bool {
-  let states : Map[@graph.ElkNode, Int] = Map([])
+  let states : Map[@graph.ElkNode, Int32] = Map([])
   for node in @graph.node_all_descendants_including_self(root) {
     if node == root {
       continue

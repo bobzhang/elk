@@ -1,8 +1,8 @@
 ///|
-let self_loop_holder_unvisited : Int = 0
+let self_loop_holder_unvisited : Int32 = 0
 
 ///|
-let self_loop_holder_visited : Int = 1
+let self_loop_holder_visited : Int32 = 1
 
 ///|
 pub(all) suberror SelfLoopHolderException {
@@ -38,10 +38,10 @@ fn[T] self_loop_holder_raise_illegal_state(
 pub(all) struct SelfLoopHolder {
   l_node : LNode
   sl_hyper_loops : Array[SelfHyperLoop]
-  sl_ports : Map[Int, SelfLoopPort]
-  sl_port_order : Array[Int]
+  sl_ports : Map[Int32, SelfLoopPort]
+  sl_port_order : Array[Int32]
   mut are_ports_hidden : Bool
-  routing_slot_count : Array[Int]
+  routing_slot_count : Array[Int32]
 }
 
 ///|
@@ -218,7 +218,7 @@ pub fn SelfLoopHolder::get_sl_hyper_loops(
 ///|
 pub fn SelfLoopHolder::get_sl_port_map(
   self : SelfLoopHolder,
-) -> Map[Int, SelfLoopPort] {
+) -> Map[Int32, SelfLoopPort] {
   self.sl_ports
 }
 
@@ -238,7 +238,7 @@ pub fn SelfLoopHolder::set_ports_hidden(
 ///|
 pub fn SelfLoopHolder::get_routing_slot_count(
   self : SelfLoopHolder,
-) -> Array[Int] {
+) -> Array[Int32] {
   self.routing_slot_count
 }
 

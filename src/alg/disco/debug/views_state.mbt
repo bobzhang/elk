@@ -11,7 +11,7 @@ pub fn dis_co_debug_state_values() -> Array[State] {
 }
 
 ///|
-pub fn dis_co_debug_state_at(index : Int) -> State {
+pub fn dis_co_debug_state_at(index : Int32) -> State {
   dis_co_debug_state_values()[index]
 }
 

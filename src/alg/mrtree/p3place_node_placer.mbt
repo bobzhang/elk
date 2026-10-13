@@ -47,7 +47,7 @@ fn mrtree_node_placer_mean_node_width(
 ///|
 fn mrtree_node_placer_apportion(
   node : MrtreeNode,
-  level : Int,
+  level : Int32,
   spacing : Double,
   direction_value : String,
 ) -> Unit raise {
@@ -169,7 +169,7 @@ fn mrtree_node_placer_apportion(
 ///|
 fn mrtree_node_placer_first_walk(
   current_node : MrtreeNode,
-  level : Int,
+  level : Int32,
   spacing : Double,
   direction_value : String,
 ) -> Unit raise {

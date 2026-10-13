@@ -16,7 +16,7 @@ fn mrtree_order_balance_layout_processor_configuration(
 fn mrtree_order_balance_target_value(
   edge : MrtreeEdge,
   weighting : MrtreeOrderWeighting,
-) -> Int {
+) -> Int32 {
   let target = mrtree_edge_target(edge)
   match weighting {
     FAN => mrtree_node_fan(target)

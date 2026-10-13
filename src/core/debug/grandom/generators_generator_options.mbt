@@ -250,14 +250,14 @@ pub fn CoreDebugGRandomRandVal::val(
 pub fn CoreDebugGRandomRandVal::int_val(
   self : CoreDebugGRandomRandVal,
   random : @random.Rand,
-) -> Int raise {
+) -> Int32 raise {
   self.val(random).round().to_int()
 }
 
 ///|
 pub fn CoreDebugGRandomRandVal::default_int(
   self : CoreDebugGRandomRandVal,
-) -> Int {
+) -> Int32 {
   self.exact.round().to_int()
 }
 
@@ -288,7 +288,7 @@ pub fn CoreDebugGRandomRandVal::set_stddv(
 ///|
 pub fn CoreDebugGRandomRandVal::set_min(
   self : CoreDebugGRandomRandVal,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   self.min = value.to_double()
 }
@@ -296,7 +296,7 @@ pub fn CoreDebugGRandomRandVal::set_min(
 ///|
 pub fn CoreDebugGRandomRandVal::set_max(
   self : CoreDebugGRandomRandVal,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   self.max = value.to_double()
 }
@@ -319,7 +319,7 @@ pub fn CoreDebugGRandomRandVal::default_val(
 }
 
 ///|
-pub let core_debug_grandom_number_of_graphs : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_number_of_graphs : @graph.IProperty[Int32] = @graph.new_property(
   "randomWizard.numberOfGraphs", 1,
 )
 
@@ -422,7 +422,7 @@ pub let core_debug_grandom_time_based_randomization : @graph.IProperty[Bool] = @
 )
 
 ///|
-pub let core_debug_grandom_randomization_seed : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_randomization_seed : @graph.IProperty[Int32] = @graph.new_property(
   "basic.randomizationSeed", 0,
 )
 
@@ -484,42 +484,42 @@ pub let core_debug_grandom_port_constraints : @graph.IProperty[
 ] = @graph.new_property("layout.portConstraints", Undefined)
 
 ///|
-pub let core_debug_grandom_incoming_north_side : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_incoming_north_side : @graph.IProperty[Int32] = @graph.new_property(
   "layout.incomingNorthSide", 10,
 )
 
 ///|
-pub let core_debug_grandom_incoming_east_side : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_incoming_east_side : @graph.IProperty[Int32] = @graph.new_property(
   "layout.incomingEastSide", 5,
 )
 
 ///|
-pub let core_debug_grandom_incoming_south_side : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_incoming_south_side : @graph.IProperty[Int32] = @graph.new_property(
   "layout.incomingSouthSide", 10,
 )
 
 ///|
-pub let core_debug_grandom_incoming_west_side : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_incoming_west_side : @graph.IProperty[Int32] = @graph.new_property(
   "layout.incomingWestSide", 75,
 )
 
 ///|
-pub let core_debug_grandom_outgoing_north_side : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_outgoing_north_side : @graph.IProperty[Int32] = @graph.new_property(
   "layout.outgoingNorthSide", 10,
 )
 
 ///|
-pub let core_debug_grandom_outgoing_east_side : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_outgoing_east_side : @graph.IProperty[Int32] = @graph.new_property(
   "layout.outgoingEastSide", 75,
 )
 
 ///|
-pub let core_debug_grandom_outgoing_south_side : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_outgoing_south_side : @graph.IProperty[Int32] = @graph.new_property(
   "layout.outgoingSouthSide", 10,
 )
 
 ///|
-pub let core_debug_grandom_outgoing_west_side : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_outgoing_west_side : @graph.IProperty[Int32] = @graph.new_property(
   "layout.outgoingWestSide", 5,
 )
 
@@ -557,12 +557,12 @@ pub let core_debug_grandom_edge_labels : @graph.IProperty[Bool] = @graph.new_pro
 )
 
 ///|
-pub let core_debug_grandom_max_width : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_max_width : @graph.IProperty[Int32] = @graph.new_property(
   "basic.maxWidth", 0,
 )
 
 ///|
-pub let core_debug_grandom_max_degree : @graph.IProperty[Int] = @graph.new_property(
+pub let core_debug_grandom_max_degree : @graph.IProperty[Int32] = @graph.new_property(
   "basic.maxDegree", 0,
 )
 
@@ -608,7 +608,7 @@ pub let core_debug_grandom_exact_relative_hier : @graph.IProperty[
 ///|
 pub(all) struct CoreDebugGRandomGeneratorOptions {
   bool_values : Map[@graph.PropertyId, Bool]
-  int_values : Map[@graph.PropertyId, Int]
+  int_values : Map[@graph.PropertyId, Int32]
   double_values : Map[@graph.PropertyId, Double]
   string_values : Map[@graph.PropertyId, String]
   rand_values : Map[@graph.PropertyId, CoreDebugGRandomRandVal]
@@ -661,8 +661,8 @@ pub fn CoreDebugGRandomGeneratorOptions::get_bool_property(
 ///|
 pub fn CoreDebugGRandomGeneratorOptions::set_int_property(
   self : CoreDebugGRandomGeneratorOptions,
-  property : @graph.IProperty[Int],
-  value : Int,
+  property : @graph.IProperty[Int32],
+  value : Int32,
 ) -> Unit {
   self.int_values[property.get_property_id()] = value
 }
@@ -670,8 +670,8 @@ pub fn CoreDebugGRandomGeneratorOptions::set_int_property(
 ///|
 pub fn CoreDebugGRandomGeneratorOptions::get_int_property(
   self : CoreDebugGRandomGeneratorOptions,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   match self.int_values.get(property.get_property_id()) {
     Some(value) => value
     None => property.get_default()

@@ -19,7 +19,7 @@ fn core_ui_test_reset_environment() -> @service.LayoutConnectorsService {
 
 ///|
 fn core_ui_test_make_setup(
-  workbench_id : Int,
+  workbench_id : Int32,
   connector : @service.IDiagramLayoutConnector,
 ) -> @service.ILayoutSetup {
   @service.new_layout_setup(
@@ -136,7 +136,7 @@ test "AlgorithmContentProvider and selection dialog filtering" {
     content="org.eclipse.elk.category.layered",
   )
 
-  let selected_count : Ref[Int] = Ref(0)
+  let selected_count : Ref[Int32] = Ref(0)
   let dialog = new_algorithm_selection_dialog(metadata, algorithm_data.get_id())
   dialog.add_algorithm_selection_listener(
     new_core_ui_algorithm_selection_listener(_ => {

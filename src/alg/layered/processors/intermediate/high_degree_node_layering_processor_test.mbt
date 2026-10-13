@@ -21,7 +21,7 @@ fn high_degree_test_new_layer(graph : @runtime.LGraph) -> @runtime.Layer {
 fn high_degree_test_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
   node.set_id(id)
@@ -59,7 +59,7 @@ fn high_degree_test_connect(
 }
 
 ///|
-fn high_degree_test_layer_index(node : @runtime.LNode) -> Int {
+fn high_degree_test_layer_index(node : @runtime.LNode) -> Int32 {
   match node.get_layer() {
     Some(layer) => layer.get_index()
     None => abort("node has no layer")

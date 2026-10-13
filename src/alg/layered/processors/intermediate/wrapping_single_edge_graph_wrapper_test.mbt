@@ -77,7 +77,7 @@ fn single_edge_wrapper_test_connect(
 
 ///|
 fn single_edge_wrapper_test_new_path_graph(
-  layer_count : Int,
+  layer_count : Int32,
 ) -> (@runtime.LGraph, Array[@runtime.Layer], Array[@runtime.LNode]) {
   let graph = @runtime.new_l_graph()
   graph.set_property_direction(

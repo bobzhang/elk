@@ -22,7 +22,7 @@ pub(all) struct AbstractCoreDebugGRandomUiModule {
 
 ///|
 pub fn new_abstract_core_debug_grandom_ui_module(
-  plugin_id? : String = core_debug_grandom_ui_plugin_id,
+  plugin_id~ : String = core_debug_grandom_ui_plugin_id,
 ) -> AbstractCoreDebugGRandomUiModule {
   { plugin_id, }
 }

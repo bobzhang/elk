@@ -1,6 +1,6 @@
 ///|
 pub struct RandomGeneratorFile {
-  marker : Int
+  marker : Int32
 }
 
 ///|

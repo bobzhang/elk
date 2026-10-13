@@ -1,6 +1,6 @@
 ///|
 struct ComponentsCompactionComponentOffset {
-  component_id : Int
+  component_id : Int32
   old_position : @core.KVector
   offset_node : @compaction.CNode
 }

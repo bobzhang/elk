@@ -16,7 +16,7 @@ pub fn new_layered_layout_state() -> LayeredLayoutState {
 }
 
 ///|
-fn layered_layout_state_seeded_next_boolean(seed_value : Int) -> Bool {
+fn layered_layout_state_seeded_next_boolean(seed_value : Int32) -> Bool {
   let multiplier = 25214903917L
   let addend = 11L
   let mask = 281474976710655L
@@ -27,11 +27,11 @@ fn layered_layout_state_seeded_next_boolean(seed_value : Int) -> Bool {
 
 ///|
 fn layered_layout_state_random_for_seed(
-  seed_value : Int,
+  seed_value : Int32,
 ) -> GreedySwitchMockRandom {
   if seed_value == 0 {
     new_greedy_switch_mock_random_seeded(
-      @random.Rand::new().int(limit=@int.MAX_VALUE),
+      @random.Rand().int(limit=@int.MAX_VALUE),
     )
   } else {
     new_greedy_switch_mock_random_seeded(seed_value)
@@ -41,12 +41,12 @@ fn layered_layout_state_random_for_seed(
 ///|
 pub fn LayeredLayoutState::initialize_random(
   self : LayeredLayoutState,
-  seed_value : Int,
+  seed_value : Int32,
 ) -> Unit {
   self.random = Some(layered_layout_state_random_for_seed(seed_value))
   self.first_random_boolean = Some(
     if seed_value == 0 {
-      @random.Rand::new().int(limit=2) == 0
+      @random.Rand().int(limit=2) == 0
     } else {
       layered_layout_state_seeded_next_boolean(seed_value)
     },
@@ -56,7 +56,7 @@ pub fn LayeredLayoutState::initialize_random(
 ///|
 pub fn LayeredLayoutState::random(
   self : LayeredLayoutState,
-  seed_value : Int,
+  seed_value : Int32,
 ) -> GreedySwitchMockRandom {
   match self.random {
     Some(random) => random

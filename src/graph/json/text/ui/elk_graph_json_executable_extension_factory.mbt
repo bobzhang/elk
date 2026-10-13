@@ -1,16 +1,16 @@
 ///|
-pub let graph_json_text_ui_status_error : Int = 4
+pub let graph_json_text_ui_status_error : Int32 = 4
 
 ///|
 pub struct GraphJsonTextUiStatus {
-  severity : Int
+  severity : Int32
   symbolic_name : String
   message : String
 }
 
 ///|
 pub fn new_graph_json_text_ui_status(
-  severity : Int,
+  severity : Int32,
   symbolic_name : String,
   message : String,
 ) -> GraphJsonTextUiStatus {

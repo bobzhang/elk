@@ -1,5 +1,5 @@
 ///|
-fn graphviz_text_runner_bytes_to_string(bytes : Array[Int]) -> String {
+fn graphviz_text_runner_bytes_to_string(bytes : Array[Int32]) -> String {
   let encoded : Array[Byte] = []
   for byte in bytes {
     encoded.push(byte.to_byte())
@@ -8,9 +8,9 @@ fn graphviz_text_runner_bytes_to_string(bytes : Array[Int]) -> String {
 }
 
 ///|
-fn graphviz_text_runner_string_to_bytes(text : String) -> Array[Int] {
+fn graphviz_text_runner_string_to_bytes(text : String) -> Array[Int32] {
   let bytes = @utf8.encode(text)
-  let result : Array[Int] = []
+  let result : Array[Int32] = []
   for byte in bytes {
     result.push(byte.to_int())
   }
@@ -22,10 +22,10 @@ pub fn new_graphviz_process_from_text_runner(
   run_fn : (String) -> String?,
 ) -> GraphvizProcess {
   let input_sink = new_graphviz_byte_array_output_stream()
-  let output_bytes_ref : Ref[Array[Int]] = Ref([])
+  let output_bytes_ref : Ref[Array[Int32]] = Ref([])
   let loaded_ref : Ref[Bool] = Ref(false)
-  let index_ref : Ref[Int] = Ref(0)
-  let mark_ref : Ref[Int] = Ref(0)
+  let index_ref : Ref[Int32] = Ref(0)
+  let mark_ref : Ref[Int32] = Ref(0)
   let closed_ref : Ref[Bool] = Ref(false)
 
   let ensure_loaded = () => {
@@ -52,7 +52,11 @@ pub fn new_graphviz_process_from_text_runner(
       value
     }
   }
-  let read_bytes_with_offset_fn = (bytes : Array[Int], off : Int, len : Int) => {
+  let read_bytes_with_offset_fn = (
+    bytes : Array[Int32],
+    off : Int32,
+    len : Int32,
+  ) => {
     ensure_loaded()
     if closed_ref.val || index_ref.val >= output_bytes_ref.val.length() {
       -1
@@ -73,10 +77,10 @@ pub fn new_graphviz_process_from_text_runner(
       count
     }
   }
-  let read_bytes_fn = (bytes : Array[Int]) => {
+  let read_bytes_fn = (bytes : Array[Int32]) => {
     read_bytes_with_offset_fn(bytes, 0, bytes.length())
   }
-  let skip_fn = (n : Int) => {
+  let skip_fn = (n : Int32) => {
     ensure_loaded()
     if closed_ref.val || n <= 0 {
       0
@@ -96,7 +100,7 @@ pub fn new_graphviz_process_from_text_runner(
     }
   }
   let close_fn = () => closed_ref.val = true
-  let mark_fn = (_readlimit : Int) => {
+  let mark_fn = (_readlimit : Int32) => {
     if !closed_ref.val {
       mark_ref.val = index_ref.val
     }

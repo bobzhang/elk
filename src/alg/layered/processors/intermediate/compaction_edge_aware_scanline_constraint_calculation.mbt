@@ -171,7 +171,7 @@ fn edge_aware_scanline_overlap(
 fn edge_aware_scanline_timestamp_comparator(
   left : EdgeAwareScanlineTimestamp,
   right : EdgeAwareScanlineTimestamp,
-) -> Int {
+) -> Int32 {
   let left_hitbox = left.node.hitbox()
   let right_hitbox = right.node.hitbox()
 

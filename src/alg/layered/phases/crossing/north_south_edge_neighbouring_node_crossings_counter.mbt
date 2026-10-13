@@ -53,9 +53,9 @@ fn north_south_origin_of(node : @runtime.LNode) -> @runtime.LNode? {
 
 ///|
 pub struct NorthSouthEdgeNeighbouringNodeCrossingsCounter {
-  mut upper_lower_crossings : Int
-  mut lower_upper_crossings : Int
-  port_positions : Map[Int, Int]
+  mut upper_lower_crossings : Int32
+  mut lower_upper_crossings : Int32
+  port_positions : Map[Int32, Int32]
   layer : Array[@runtime.LNode]
 }
 
@@ -223,7 +223,7 @@ fn NorthSouthEdgeNeighbouringNodeCrossingsCounter::number_of_north_south_edges(
   self : NorthSouthEdgeNeighbouringNodeCrossingsCounter,
   node : @runtime.LNode,
   side : @core.PortSide,
-) -> Int {
+) -> Int32 {
   let mut number_of_edges = 0
   for port in node.get_port_side_view(side) {
     if self.has_connected_north_south_edge(port) {
@@ -262,7 +262,7 @@ fn NorthSouthEdgeNeighbouringNodeCrossingsCounter::have_different_origins(
 fn NorthSouthEdgeNeighbouringNodeCrossingsCounter::origin_port_position_of(
   self : NorthSouthEdgeNeighbouringNodeCrossingsCounter,
   node : @runtime.LNode,
-) -> Int raise {
+) -> Int32 raise {
   let origin = north_south_origin_port_of(node)
   let key = @runtime.lport_internal_handle(origin)
   self.port_positions.get(key).unwrap()
@@ -316,13 +316,13 @@ fn NorthSouthEdgeNeighbouringNodeCrossingsCounter::is_normal(
 ///|
 pub fn NorthSouthEdgeNeighbouringNodeCrossingsCounter::get_upper_lower_crossings(
   self : NorthSouthEdgeNeighbouringNodeCrossingsCounter,
-) -> Int {
+) -> Int32 {
   self.upper_lower_crossings
 }
 
 ///|
 pub fn NorthSouthEdgeNeighbouringNodeCrossingsCounter::get_lower_upper_crossings(
   self : NorthSouthEdgeNeighbouringNodeCrossingsCounter,
-) -> Int {
+) -> Int32 {
   self.lower_upper_crossings
 }

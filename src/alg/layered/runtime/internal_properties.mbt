@@ -83,7 +83,7 @@ pub let internal_properties_port_dummy : @graph.IProperty[LNode?] = @graph.new_p
 )
 
 ///|
-pub let internal_properties_crossing_hint : @graph.IProperty[Int] = @graph.new_property(
+pub let internal_properties_crossing_hint : @graph.IProperty[Int32] = @graph.new_property(
   "crossingHint", 0,
 )
 
@@ -137,7 +137,7 @@ pub let internal_properties_long_edge_target_node : @graph.IProperty[LNode?] = @
 
 ///|
 pub let internal_properties_target_node_model_order : @graph.IProperty[
-  Map[Int, Int],
+  Map[Int32, Int32],
 ] = @graph.new_property("targetNode.modelOrder", Map([]))
 
 ///|
@@ -197,13 +197,13 @@ pub let internal_properties_ext_port_replaced_dummies : @graph.IProperty[
 ] = @graph.new_property("externalPortReplacedDummies", [])
 
 ///|
-pub let internal_properties_tarjan_lowlink : @graph.IProperty[Int] = @graph.new_property(
+pub let internal_properties_tarjan_lowlink : @graph.IProperty[Int32] = @graph.new_property(
   "tarjan.lowlink",
   @int.MAX_VALUE,
 )
 
 ///|
-pub let internal_properties_tarjan_id : @graph.IProperty[Int] = @graph.new_property(
+pub let internal_properties_tarjan_id : @graph.IProperty[Int32] = @graph.new_property(
   "tarjan.id", -1,
 )
 
@@ -246,17 +246,17 @@ pub let internal_properties_weight : @graph.IProperty[Double] = @graph.new_prope
 )
 
 ///|
-pub let internal_properties_model_order : @graph.IProperty[Int] = @graph.new_property(
+pub let internal_properties_model_order : @graph.IProperty[Int32] = @graph.new_property(
   "modelOrder", -1,
 )
 
 ///|
-pub let internal_properties_max_model_order_nodes : @graph.IProperty[Int] = @graph.new_property(
+pub let internal_properties_max_model_order_nodes : @graph.IProperty[Int32] = @graph.new_property(
   "modelOrder.maximum", 0,
 )
 
 ///|
-pub let internal_properties_cb_num_model_order_groups : @graph.IProperty[Int] = @graph.new_property(
+pub let internal_properties_cb_num_model_order_groups : @graph.IProperty[Int32] = @graph.new_property(
   "modelOrderGroups.cb.number", 0,
 )
 

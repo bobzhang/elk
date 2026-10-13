@@ -1,11 +1,11 @@
 ///|
 pub(all) struct CoreUiAlgorithmSelectionListener {
-  id : Int
+  id : Int32
   on_selection_fn : (CoreUiLayoutMetaData) -> Unit
 }
 
 ///|
-let core_ui_algorithm_selection_listener_id_ref : Ref[Int] = Ref(1)
+let core_ui_algorithm_selection_listener_id_ref : Ref[Int32] = Ref(1)
 
 ///|
 pub fn new_core_ui_algorithm_selection_listener(

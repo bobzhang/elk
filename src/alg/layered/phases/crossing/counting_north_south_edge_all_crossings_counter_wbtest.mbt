@@ -1,7 +1,7 @@
 ///|
 fn ns_counter_test_new_node(
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   node_type : @runtime.NodeType,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()
@@ -12,7 +12,10 @@ fn ns_counter_test_new_node(
 }
 
 ///|
-fn ns_counter_test_new_port(node : @runtime.LNode, id : Int) -> @runtime.LPort {
+fn ns_counter_test_new_port(
+  node : @runtime.LNode,
+  id : Int32,
+) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_id(id)
   port.set_node(Some(node))

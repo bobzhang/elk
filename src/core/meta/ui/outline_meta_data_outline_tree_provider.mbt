@@ -9,7 +9,7 @@ pub(all) struct CoreMetaOutlineNode {
 pub fn new_core_meta_outline_node(
   kind : String,
   label : String,
-  children? : Array[CoreMetaOutlineNode] = [],
+  children~ : Array[CoreMetaOutlineNode] = [],
 ) -> CoreMetaOutlineNode {
   { kind, label, children, }
 }

@@ -112,7 +112,7 @@ fn nodespacing_capture_layered_edges(
 ///|
 fn nodespacing_capture_layered_port(
   port : LPortAdapter,
-  source_index : Int,
+  source_index : Int32,
 ) -> @nodespacing.NodeSpacingPort {
   {
     source_index,
@@ -160,7 +160,7 @@ fn nodespacing_optional_string(
 fn nodespacing_capture_layered_node(
   graph : LGraphAdapter,
   node : LNodeAdapter,
-  source_index : Int,
+  source_index : Int32,
 ) -> @nodespacing.NodeSpacingNode {
   let ports = node.get_ports()
   {

@@ -3,9 +3,9 @@ pub struct AllCrossingsCounter {
   mut crossing_counter : CrossingsCounter?
   has_hyper_edges_east_of_index : Array[Bool]
   mut hyperedge_crossings_counter : HyperedgeCrossingsCounter?
-  in_layer_edge_counts : Array[Int]
+  in_layer_edge_counts : Array[Int32]
   has_north_south_ports : Array[Bool]
-  mut n_ports : Int
+  mut n_ports : Int32
 }
 
 ///|
@@ -79,7 +79,7 @@ fn all_crossings_counter_port_side_is(
 pub fn AllCrossingsCounter::count_all_crossings(
   self : AllCrossingsCounter,
   current_order : Array[Array[@runtime.LNode]],
-) -> Int raise {
+) -> Int32 raise {
   if current_order.length() == 0 {
     return 0
   }
@@ -106,9 +106,9 @@ pub fn AllCrossingsCounter::count_all_crossings(
 ///|
 fn AllCrossingsCounter::count_crossings_at(
   self : AllCrossingsCounter,
-  layer_index : Int,
+  layer_index : Int32,
   current_order : Array[Array[@runtime.LNode]],
-) -> Int raise {
+) -> Int32 raise {
   let counter = all_crossings_counter_crossings_counter(self)
   let mut total_crossings = 0
   let left_layer = current_order[layer_index]
@@ -143,8 +143,8 @@ fn AllCrossingsCounter::count_crossings_at(
 ///|
 pub fn AllCrossingsCounter::init_at_node_level(
   self : AllCrossingsCounter,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   ignore(n)
@@ -157,9 +157,9 @@ pub fn AllCrossingsCounter::init_at_node_level(
 ///|
 pub fn AllCrossingsCounter::init_at_port_level(
   self : AllCrossingsCounter,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   let port = node_order[l][n].get_ports()[p]
@@ -178,10 +178,10 @@ pub fn AllCrossingsCounter::init_at_port_level(
 ///|
 pub fn AllCrossingsCounter::init_at_edge_level(
   self : AllCrossingsCounter,
-  l : Int,
-  n : Int,
-  p : Int,
-  e : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
+  e : Int32,
   edge : @runtime.LEdge,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {

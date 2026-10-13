@@ -1,5 +1,5 @@
 ///|
-pub let graph_text_ui_max_entries : Int = 1000
+pub let graph_text_ui_max_entries : Int32 = 1000
 
 ///|
 pub struct ElkGraphUiProposalProvider {
@@ -12,7 +12,7 @@ pub struct ElkGraphUiProposalProvider {
 pub fn new_elk_graph_ui_proposal_provider(
   metadata : @core.OptionMetadata,
   ide_provider? : @ide.ElkGraphIdeProposalProvider,
-  grammar? : @text.ElkGraphGrammarAccess = @text.new_elk_graph_grammar_access(),
+  grammar~ : @text.ElkGraphGrammarAccess = @text.new_elk_graph_grammar_access(),
 ) -> ElkGraphUiProposalProvider {
   let ide_provider = ide_provider.unwrap_or(
     @ide.new_elk_graph_ide_proposal_provider(metadata),

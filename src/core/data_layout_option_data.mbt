@@ -67,7 +67,7 @@ pub(all) struct LayoutOptionDependency {
 ///|
 pub fn new_layout_option_dependency(
   option_id : String,
-  expected_value? : String? = None,
+  expected_value~ : String? = None,
 ) -> LayoutOptionDependency {
   { option_id, expected_value, }
 }
@@ -106,18 +106,18 @@ pub(all) struct LayoutOptionData {
 ///|
 pub fn new_layout_option_data(
   id : String,
-  name? : String = "",
-  description? : String = "",
-  group? : String = "",
-  option_type? : LayoutOptionValueType = ObjectType,
-  lower_bound? : Double? = None,
-  lower_bound_exclusive? : Bool = false,
-  targets? : Array[LayoutOptionTarget] = [],
-  visibility? : LayoutOptionVisibility = VisibleOption,
-  choices? : Array[String] = [],
-  dependencies? : Array[LayoutOptionDependency] = [],
-  advanced_choices? : Array[String] = [],
-  experimental_choices? : Array[String] = [],
+  name~ : String = "",
+  description~ : String = "",
+  group~ : String = "",
+  option_type~ : LayoutOptionValueType = ObjectType,
+  lower_bound~ : Double? = None,
+  lower_bound_exclusive~ : Bool = false,
+  targets~ : Array[LayoutOptionTarget] = [],
+  visibility~ : LayoutOptionVisibility = VisibleOption,
+  choices~ : Array[String] = [],
+  dependencies~ : Array[LayoutOptionDependency] = [],
+  advanced_choices~ : Array[String] = [],
+  experimental_choices~ : Array[String] = [],
 ) -> LayoutOptionData {
   {
     id,
@@ -211,14 +211,14 @@ pub fn LayoutOptionData::get_choices(self : LayoutOptionData) -> Array[String] {
 }
 
 ///|
-pub fn LayoutOptionData::get_enum_value_count(self : LayoutOptionData) -> Int {
+pub fn LayoutOptionData::get_enum_value_count(self : LayoutOptionData) -> Int32 {
   self.choices.length()
 }
 
 ///|
 pub fn LayoutOptionData::get_enum_value(
   self : LayoutOptionData,
-  index : Int,
+  index : Int32,
 ) -> String {
   self.choices[index]
 }
@@ -227,7 +227,7 @@ pub fn LayoutOptionData::get_enum_value(
 pub fn LayoutOptionData::add_dependency(
   self : LayoutOptionData,
   option_id : String,
-  expected_value? : String? = None,
+  expected_value~ : String? = None,
 ) -> Unit {
   self.dependencies.push(
     new_layout_option_dependency(option_id, expected_value~),
@@ -320,7 +320,7 @@ pub fn LayoutOptionData::parse_value(
         None => value
       }
     IntType => {
-      let parsed : Result[Int, Error] = try
+      let parsed : Result[Int32, Error] = try
         @string.parse_int(value.trim())
       catch {
         error => Err(error)

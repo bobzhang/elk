@@ -32,7 +32,7 @@ pub fn new_scanline_overlap_check(
 }
 
 ///|
-fn spore_java_double_compare(left : Double, right : Double) -> Int {
+fn spore_java_double_compare(left : Double, right : Double) -> Int32 {
   if left < right {
     return -1
   }
@@ -51,7 +51,7 @@ fn spore_java_double_compare(left : Double, right : Double) -> Int {
 }
 
 ///|
-fn spore_scanline_node_compare_left(n1 : Node, n2 : Node) -> Int {
+fn spore_scanline_node_compare_left(n1 : Node, n2 : Node) -> Int32 {
   let cmp_x = spore_java_double_compare(n1.rect.x, n2.rect.x)
   if cmp_x != 0 {
     return cmp_x
@@ -72,7 +72,7 @@ fn spore_scanline_node_compare_left(n1 : Node, n2 : Node) -> Int {
 fn spore_scanline_timestamp_comparator(
   p1 : SporeTimestamp,
   p2 : SporeTimestamp,
-) -> Int {
+) -> Int32 {
   let mut y1 = p1.node.rect.y
   if !p1.low {
     y1 = y1 + p1.node.rect.height

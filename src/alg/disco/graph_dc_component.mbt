@@ -5,7 +5,7 @@ pub struct DCComponent {
   mut changed : Bool
   mut bounds : @core.KVector
   mut min_corner_of_bounding_rectangle : @core.KVector
-  mut id : Int
+  mut id : Int32
 }
 
 ///|
@@ -151,11 +151,11 @@ fn DCComponent::update(self : DCComponent) -> Unit {
 }
 
 ///|
-pub fn DCComponent::get_id(self : DCComponent) -> Int {
+pub fn DCComponent::get_id(self : DCComponent) -> Int32 {
   self.id
 }
 
 ///|
-pub fn DCComponent::set_id(self : DCComponent, id : Int) -> Unit {
+pub fn DCComponent::set_id(self : DCComponent, id : Int32) -> Unit {
   self.id = id
 }

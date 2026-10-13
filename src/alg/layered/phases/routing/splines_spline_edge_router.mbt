@@ -2,7 +2,7 @@
 let spline_edge_router_max_vertical_diff_for_straight : Double = 0.2
 
 ///|
-pub let spline_edge_router_spline_dimension : Int = 3
+pub let spline_edge_router_spline_dimension : Int32 = 3
 
 ///|
 priv suberror SplineEdgeRouterException {
@@ -223,7 +223,7 @@ fn spline_edge_router_port_node(
 ///|
 fn spline_edge_router_segment_identity(
   segment : @runtime.SplineSegment,
-) -> Int raise SplineEdgeRouterException {
+) -> Int32 raise SplineEdgeRouterException {
   if segment.edges.is_empty() {
     spline_edge_router_raise("segment must contain at least one edge")
   }
@@ -389,7 +389,7 @@ fn spline_edge_router_dependency_remove(
 ///|
 fn spline_edge_router_find_and_add_successor(
   edge : @runtime.LEdge,
-  successing_edge : Map[Int, @runtime.LEdge],
+  successing_edge : Map[Int32, @runtime.LEdge],
 ) -> Unit raise SplineEdgeRouterException {
   let target_node = spline_edge_router_port_node(
     spline_edge_router_edge_target(edge),
@@ -442,7 +442,7 @@ fn spline_edge_router_clear_then_fill_mappings(
   spline_segments_layer : Array[@runtime.SplineSegment],
   self_loops_layer : Array[@runtime.LEdge],
   start_edges : Array[@runtime.LEdge],
-  successing_edge : Map[Int, @runtime.LEdge],
+  successing_edge : Map[Int32, @runtime.LEdge],
 ) -> Unit raise SplineEdgeRouterException {
   left_ports_layer.clear()
   right_ports_layer.clear()
@@ -541,7 +541,7 @@ fn spline_edge_router_create_spline_segments(
   left_ports : Array[@runtime.LPort],
   right_ports : Array[@runtime.LPort],
   hyper_edges : Array[@runtime.SplineSegment],
-  edge_to_segment_map : Map[Int, @runtime.SplineSegment],
+  edge_to_segment_map : Map[Int32, @runtime.SplineSegment],
 ) -> Unit raise {
   for edge in edges {
     let source_port = spline_edge_router_edge_source(edge)
@@ -570,7 +570,7 @@ fn spline_edge_router_create_spline_segments_for_hyper_edges(
   reversed : Bool,
   edges_remaining : Array[@runtime.LEdge],
   hyper_edges : Array[@runtime.SplineSegment],
-  edge_to_segment_map : Map[Int, @runtime.SplineSegment],
+  edge_to_segment_map : Map[Int32, @runtime.SplineSegment],
 ) -> Unit raise {
   let ports_to_process = match side_to_process {
     Left => left_ports
@@ -661,7 +661,7 @@ fn spline_edge_router_create_segments_and_compute_ranking(
   right_ports : Array[@runtime.LPort],
   edges_remaining : Array[@runtime.LEdge],
   spline_segments : Array[@runtime.SplineSegment],
-  edge_to_segment_map : Map[Int, @runtime.SplineSegment],
+  edge_to_segment_map : Map[Int32, @runtime.SplineSegment],
   random : @random.Rand,
 ) -> Unit raise {
   spline_edge_router_create_spline_segments_for_hyper_edges(
@@ -1021,7 +1021,7 @@ fn spline_edge_router_topological_numbering(
 ///|
 fn spline_edge_router_get_edge_chain(
   start : @runtime.LEdge,
-  successing_edge : Map[Int, @runtime.LEdge],
+  successing_edge : Map[Int32, @runtime.LEdge],
 ) -> Array[@runtime.LEdge] {
   let edge_chain : Array[@runtime.LEdge] = []
   let mut current : @runtime.LEdge? = Some(start)
@@ -1035,8 +1035,8 @@ fn spline_edge_router_get_edge_chain(
 ///|
 fn spline_edge_router_get_spline_path(
   start : @runtime.LEdge,
-  successing_edge : Map[Int, @runtime.LEdge],
-  edge_to_segment_map : Map[Int, @runtime.SplineSegment],
+  successing_edge : Map[Int32, @runtime.LEdge],
+  edge_to_segment_map : Map[Int32, @runtime.SplineSegment],
 ) -> Array[@runtime.SplineSegment] raise SplineEdgeRouterException {
   let segment_chain : Array[@runtime.SplineSegment] = []
   let mut current : @runtime.LEdge? = Some(start)
@@ -1259,8 +1259,8 @@ fn spline_edge_router_process(
 
     let start_edges : Array[@runtime.LEdge] = []
     let all_spline_segments : Array[@runtime.SplineSegment] = []
-    let edge_to_segment_map : Map[Int, @runtime.SplineSegment] = Map([])
-    let successing_edge : Map[Int, @runtime.LEdge] = Map([])
+    let edge_to_segment_map : Map[Int32, @runtime.SplineSegment] = Map([])
+    let successing_edge : Map[Int32, @runtime.LEdge] = Map([])
 
     let layers = layered_graph.get_layers()
     let first_layer = layers[0]
@@ -1272,7 +1272,7 @@ fn spline_edge_router_process(
       last_layer,
     )
 
-    let random = @random.Rand::new()
+    let random = @random.Rand()
     let mut layer_index = 0
     let mut left_layer : @runtime.Layer? = None
     let mut xpos = 0.0
@@ -1409,7 +1409,7 @@ fn spline_edge_router_process(
 
 ///|
 pub fn new_spline_edge_router_layout_phase(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   @core.new_layout_phase(
     (graph, monitor) => spline_edge_router_process(graph, monitor, state),

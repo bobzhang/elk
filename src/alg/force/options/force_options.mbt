@@ -10,10 +10,13 @@ pub fn new_force_bool_option(
 }
 
 ///|
-pub type ForceIntOption = @graph.IProperty[Int]
+pub type ForceIntOption = @graph.IProperty[Int32]
 
 ///|
-pub fn new_force_int_option(id : String, default_value : Int) -> ForceIntOption {
+pub fn new_force_int_option(
+  id : String,
+  default_value : Int32,
+) -> ForceIntOption {
   @graph.new_property(id, default_value)
 }
 

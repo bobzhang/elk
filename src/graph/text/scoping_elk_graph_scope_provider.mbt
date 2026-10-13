@@ -5,7 +5,7 @@ pub struct ElkGraphScopeProvider {
 
 ///|
 pub fn new_elk_graph_scope_provider(
-  base? : AbstractElkGraphScopeProvider = new_abstract_elk_graph_scope_provider(),
+  base~ : AbstractElkGraphScopeProvider = new_abstract_elk_graph_scope_provider(),
 ) -> ElkGraphScopeProvider {
   { base, }
 }

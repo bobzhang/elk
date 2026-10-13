@@ -1,5 +1,5 @@
 ///|
-pub type GraphIssueSeverity = Int
+pub type GraphIssueSeverity = Int32
 
 ///|
 pub let issue_error : GraphIssueSeverity = 1

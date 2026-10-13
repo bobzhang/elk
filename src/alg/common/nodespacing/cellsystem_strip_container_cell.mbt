@@ -8,7 +8,7 @@ pub(all) enum Strip {
 pub type StripContainerCell = Cell
 
 ///|
-fn strip_container_area_index(area : ContainerArea) -> Int {
+fn strip_container_area_index(area : ContainerArea) -> Int32 {
   match area {
     Begin => 0
     Center => 1

@@ -5,10 +5,10 @@ pub fn dispose_layered_graph(root : LGraph) -> Unit {
   let ports : Array[LPort] = []
   let edges : Array[LEdge] = []
   let labels : Array[LLabel] = []
-  let seen_graphs : Map[Int, Unit] = Map([])
-  let seen_nodes : Map[Int, Unit] = Map([])
-  let seen_ports : Map[Int, Unit] = Map([])
-  let seen_edges : Map[Int, Unit] = Map([])
+  let seen_graphs : Map[Int32, Unit] = Map([])
+  let seen_nodes : Map[Int32, Unit] = Map([])
+  let seen_ports : Map[Int32, Unit] = Map([])
+  let seen_edges : Map[Int32, Unit] = Map([])
   let mut graph_index = 0
   let mut node_index = 0
   let mut port_index = 0

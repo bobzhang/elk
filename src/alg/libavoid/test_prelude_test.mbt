@@ -35,7 +35,7 @@ let port_side = @test.port_side
 
 ///|
 fn new_elk_progress_monitor(
-  task_name? : String = "",
+  task_name~ : String = "",
 ) -> @core.IElkProgressMonitor {
   @core.new_elk_progress_monitor(task_name~)
 }

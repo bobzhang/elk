@@ -21,11 +21,11 @@ pub struct GraphJsonTextUiContentAssistContext {
 
 ///|
 pub fn new_graph_json_text_ui_content_assist_context(
-  prefix? : String = "",
-  current_model? : @text.GraphJsonTextElement? = None,
-  current_property_key? : @text.GraphJsonTextPropertyKey? = None,
-  current_edge_section? : @graph.ElkEdgeSection? = None,
-  conflict_on_a? : Bool = false,
+  prefix~ : String = "",
+  current_model~ : @text.GraphJsonTextElement? = None,
+  current_property_key~ : @text.GraphJsonTextPropertyKey? = None,
+  current_edge_section~ : @graph.ElkEdgeSection? = None,
+  conflict_on_a~ : Bool = false,
 ) -> GraphJsonTextUiContentAssistContext {
   {
     prefix,

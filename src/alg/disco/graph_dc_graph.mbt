@@ -12,7 +12,7 @@ pub struct DCGraph {
 ///|
 pub fn new_dc_graph(
   components : Array[Array[DCElement]],
-  inset? : Double = 0.0,
+  inset~ : Double = 0.0,
 ) -> DCGraph {
   let dc_components : Array[DCComponent] = []
   for elements in components {

@@ -1,8 +1,8 @@
 ///|
-let hyper_edge_segment_dependency_next_handle_ref : Ref[Int] = Ref(0)
+let hyper_edge_segment_dependency_next_handle_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn hyper_edge_segment_dependency_next_handle() -> Int {
+fn hyper_edge_segment_dependency_next_handle() -> Int32 {
   let handle = hyper_edge_segment_dependency_next_handle_ref.val
   hyper_edge_segment_dependency_next_handle_ref.val = handle + 1
   handle
@@ -11,7 +11,7 @@ fn hyper_edge_segment_dependency_next_handle() -> Int {
 ///|
 fn hyper_edge_segment_dependency_internal_handle(
   dependency : HyperEdgeSegmentDependency,
-) -> Int {
+) -> Int32 {
   dependency.dependency_handle
 }
 
@@ -82,7 +82,7 @@ pub enum DependencyType {
 }
 
 ///|
-pub let critical_dependency_weight : Int = 1
+pub let critical_dependency_weight : Int32 = 1
 
 ///|
 fn dependency_type_to_string(dependency_type : DependencyType) -> String {
@@ -94,11 +94,11 @@ fn dependency_type_to_string(dependency_type : DependencyType) -> String {
 
 ///|
 pub struct HyperEdgeSegmentDependency {
-  dependency_handle : Int
+  dependency_handle : Int32
   dependency_type : DependencyType
   mut source : HyperEdgeSegment?
   mut target : HyperEdgeSegment?
-  weight : Int
+  weight : Int32
 }
 
 ///|
@@ -106,7 +106,7 @@ fn new_hyper_edge_segment_dependency(
   dependency_type : DependencyType,
   source : HyperEdgeSegment?,
   target : HyperEdgeSegment?,
-  weight : Int,
+  weight : Int32,
 ) -> HyperEdgeSegmentDependency {
   let dependency = {
     dependency_handle: hyper_edge_segment_dependency_next_handle(),
@@ -124,7 +124,7 @@ fn new_hyper_edge_segment_dependency(
 pub fn hyper_edge_segment_dependency_create_and_add_regular(
   source : HyperEdgeSegment,
   target : HyperEdgeSegment,
-  weight : Int,
+  weight : Int32,
 ) -> HyperEdgeSegmentDependency {
   new_hyper_edge_segment_dependency(Regular, Some(source), Some(target), weight)
 }
@@ -222,7 +222,7 @@ pub fn HyperEdgeSegmentDependency::set_target(
 ///|
 pub fn HyperEdgeSegmentDependency::get_weight(
   self : HyperEdgeSegmentDependency,
-) -> Int {
+) -> Int32 {
   self.weight
 }
 

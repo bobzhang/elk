@@ -284,7 +284,7 @@ fn label_and_node_size_processor_process(
 
 ///|
 pub fn new_label_and_node_size_processor_layout_processor(
-  state? : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
+  state~ : @runtime.LayeredRunState = @runtime.new_layered_run_state(),
 ) -> @core.TypedLayoutProcessor[@runtime.LGraph] {
   @core.new_layout_processor((graph, monitor) => {
     label_and_node_size_processor_process(graph, monitor, state)

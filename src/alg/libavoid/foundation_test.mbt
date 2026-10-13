@@ -102,8 +102,8 @@ test "LibavoidServerPool fetch release dispose and plugin stop interaction" {
 ///|
 test "LibavoidServer executes configured transport with protocol input" {
   libavoid_server_reset_runtime_for_test()
-  let captured_input_ref : Ref[Array[Int]] = Ref([])
-  let captured_timeout_ref : Ref[Int] = Ref(0)
+  let captured_input_ref : Ref[Array[Int32]] = Ref([])
+  let captured_timeout_ref : Ref[Int32] = Ref(0)
   libavoid_server_set_default_transport(
     Some(
       new_libavoid_server_transport((input, timeout) => {
@@ -147,8 +147,8 @@ test "panic Libavoid server output parser reports ERROR blocks" {
 ///|
 test "Libavoid text runner transport parses server output" {
   libavoid_server_reset_runtime_for_test()
-  let captured_input_ref : Ref[Array[Int]] = Ref([])
-  let captured_timeout_ref : Ref[Int] = Ref(0)
+  let captured_input_ref : Ref[Array[Int32]] = Ref([])
+  let captured_timeout_ref : Ref[Int32] = Ref(0)
   libavoid_server_set_default_transport(
     Some(
       new_libavoid_server_transport_from_text_runner((input, timeout) => {

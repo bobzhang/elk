@@ -4,7 +4,7 @@ pub type ScanlineEventHandler[T] = (T) -> Unit
 ///|
 fn[T] scanline_sort_in_place(
   points : Array[T],
-  comparator : (T, T) -> Int raise?,
+  comparator : (T, T) -> Int32 raise?,
 ) -> Unit raise? {
   let length = points.length()
   for i in 1..<length {
@@ -21,7 +21,7 @@ fn[T] scanline_sort_in_place(
 ///|
 pub fn[T] scanline_execute(
   points : Array[T],
-  comparator : (T, T) -> Int raise?,
+  comparator : (T, T) -> Int32 raise?,
   event_handlers : Array[ScanlineEventHandler[T]],
 ) -> Unit raise? {
   let copy = points.copy()
@@ -36,7 +36,7 @@ pub fn[T] scanline_execute(
 ///|
 pub fn[T] scanline_execute_single(
   points : Array[T],
-  comparator : (T, T) -> Int raise?,
+  comparator : (T, T) -> Int32 raise?,
   event_handler : ScanlineEventHandler[T],
 ) -> Unit raise? {
   scanline_execute(points, comparator, [event_handler])
@@ -45,7 +45,7 @@ pub fn[T] scanline_execute_single(
 ///|
 pub fn[T] scanline_execute_single_raise(
   points : Array[T],
-  comparator : (T, T) -> Int raise?,
+  comparator : (T, T) -> Int32 raise?,
   event_handler : (T) -> Unit raise,
 ) -> Unit raise {
   let copy = points.copy()

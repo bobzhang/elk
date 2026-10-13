@@ -133,7 +133,7 @@ fn label_placer_has_inline_labels(
 
 ///|
 pub struct LabelPlacer {
-  _reserved : Int
+  _reserved : Int32
 }
 
 ///|

@@ -1,5 +1,5 @@
 ///|
-pub let graph_json_text_ui_max_entries : Int = 1000
+pub let graph_json_text_ui_max_entries : Int32 = 1000
 
 ///|
 pub struct ElkGraphJsonUiProposalProvider {
@@ -11,8 +11,8 @@ pub struct ElkGraphJsonUiProposalProvider {
 ///|
 pub fn new_elk_graph_json_ui_proposal_provider(
   metadata : @core.OptionMetadata,
-  ide_provider? : @ide.ElkGraphJsonIdeProposalProvider? = None,
-  grammar? : @text.ElkGraphJsonGrammarAccess = @text.new_elk_graph_json_grammar_access(),
+  ide_provider~ : @ide.ElkGraphJsonIdeProposalProvider? = None,
+  grammar~ : @text.ElkGraphJsonGrammarAccess = @text.new_elk_graph_json_grammar_access(),
 ) -> ElkGraphJsonUiProposalProvider {
   let ide_provider = match ide_provider {
     Some(value) => value

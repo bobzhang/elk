@@ -31,7 +31,7 @@ fn l_graph_util_test_create_external_port_dummy_or_abort(
   property_holder : LPort,
   ext_port_constraints : @core.PortConstraints,
   port_side : @core.PortSide,
-  net_flow : Int,
+  net_flow : Int32,
   port_node_size : @core.KVector?,
   port_position : @core.KVector?,
   port_size : @core.KVector,

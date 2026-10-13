@@ -11,7 +11,7 @@ pub struct Polyominoes {
 pub fn new_polyominoes(
   polyominoes : Array[Polyomino],
   aspect_ratio : Double,
-  fill? : Bool = false,
+  fill~ : Bool = false,
 ) -> Polyominoes raise {
   let polys : Array[Polyomino] = []
   let mut grid_width = 0

@@ -1,15 +1,15 @@
 ///|
-let ledge_next_handle_ref : Ref[Int] = Ref(0)
+let ledge_next_handle_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn ledge_next_handle() -> Int {
+fn ledge_next_handle() -> Int32 {
   let handle = ledge_next_handle_ref.val
   ledge_next_handle_ref.val = handle + 1
   handle
 }
 
 ///|
-pub fn ledge_internal_handle(edge : LEdge) -> Int {
+pub fn ledge_internal_handle(edge : LEdge) -> Int32 {
   edge.edge_handle
 }
 
@@ -32,12 +32,12 @@ fn[T] ledge_raise_illegal_state(message : String) -> T raise LEdgeException {
 ///|
 pub struct LEdge {
   graph_element : LGraphElement
-  edge_handle : Int
+  edge_handle : Int32
   bend_points : @core.KVectorChain
   mut source : LPort?
   mut target : LPort?
   labels : Array[LLabel]
-  priv mut int_properties : Map[@graph.PropertyId, Int]?
+  priv mut int_properties : Map[@graph.PropertyId, Int32]?
   priv mut double_properties : Map[@graph.PropertyId, Double]?
   priv mut kvector_properties : Map[@graph.PropertyId, @core.KVector]?
   priv mut kvector_chain_properties : Map[@graph.PropertyId, @core.KVectorChain]?
@@ -70,17 +70,17 @@ pub fn new_l_edge() -> LEdge {
 }
 
 ///|
-pub fn LEdge::get_handle(self : LEdge) -> Int {
+pub fn LEdge::get_handle(self : LEdge) -> Int32 {
   self.edge_handle
 }
 
 ///|
-pub fn LEdge::get_id(self : LEdge) -> Int {
+pub fn LEdge::get_id(self : LEdge) -> Int32 {
   self.graph_element.get_id()
 }
 
 ///|
-pub fn LEdge::set_id(self : LEdge, id : Int) -> Unit {
+pub fn LEdge::set_id(self : LEdge, id : Int32) -> Unit {
   self.graph_element.set_id(id)
 }
 
@@ -329,8 +329,8 @@ pub fn LEdge::set_property_bool(
 ///|
 pub fn LEdge::set_property_int(
   self : LEdge,
-  property : @graph.IProperty[Int],
-  value : Int,
+  property : @graph.IProperty[Int32],
+  value : Int32,
 ) -> Unit {
   self.int_properties = Some(
     layered_property_bag_set(
@@ -374,8 +374,8 @@ pub fn LEdge::set_property_kvector(
 ///|
 pub fn LEdge::get_property_int(
   self : LEdge,
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   match
     layered_property_bag_get(self.int_properties, property.get_property_id()) {
     Some(value) => value
@@ -413,7 +413,7 @@ pub fn LEdge::get_property_kvector(
 ///|
 pub fn LEdge::has_property_int(
   self : LEdge,
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   layered_property_bag_has(self.int_properties, property.get_property_id())
 }

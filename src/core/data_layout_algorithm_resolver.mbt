@@ -7,7 +7,7 @@ pub(all) struct LayoutAlgorithmResolver {
 ///|
 pub fn new_layout_algorithm_resolver(
   metadata : OptionMetadata,
-  default_layout_algorithm_id? : String = "org.eclipse.elk.layered",
+  default_layout_algorithm_id~ : String = "org.eclipse.elk.layered",
 ) -> LayoutAlgorithmResolver {
   { metadata, default_layout_algorithm_id, }
 }

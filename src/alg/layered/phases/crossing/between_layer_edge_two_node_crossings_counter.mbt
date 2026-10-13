@@ -1,8 +1,8 @@
 ///|
 priv struct BetweenLayerAdjacency {
-  position : Int
-  mut cardinality : Int
-  mut current_cardinality : Int
+  position : Int32
+  mut cardinality : Int32
+  mut current_cardinality : Int32
 }
 
 ///|
@@ -10,9 +10,9 @@ struct BetweenLayerAdjacencyList {
   _node : @runtime.LNode
   _side : @core.PortSide
   adjacency_list : Array[BetweenLayerAdjacency]
-  mut size : Int
-  mut current_size : Int
-  mut current_index : Int
+  mut size : Int32
+  mut current_size : Int32
+  mut current_index : Int32
 }
 
 ///|
@@ -77,7 +77,7 @@ fn between_layer_add_adjacency(
   adjacency_list : BetweenLayerAdjacencyList,
   edge : @runtime.LEdge,
   side : @core.PortSide,
-  port_positions : Map[Int, Int],
+  port_positions : Map[Int32, Int32],
 ) -> Bool {
   match between_layer_adjacent_port_of(edge, side) {
     Some(adjacent_port) =>
@@ -110,7 +110,7 @@ fn between_layer_add_adjacency(
 fn between_layer_collect_adjacencies(
   node : @runtime.LNode,
   side : @core.PortSide,
-  port_positions : Map[Int, Int],
+  port_positions : Map[Int32, Int32],
 ) -> BetweenLayerAdjacencyList {
   let list : BetweenLayerAdjacencyList = {
     _node: node,
@@ -165,19 +165,19 @@ fn BetweenLayerAdjacencyList::reset(self : BetweenLayerAdjacencyList) -> Unit {
 }
 
 ///|
-fn BetweenLayerAdjacencyList::first(self : BetweenLayerAdjacencyList) -> Int {
+fn BetweenLayerAdjacencyList::first(self : BetweenLayerAdjacencyList) -> Int32 {
   self.adjacency_list[self.current_index].position
 }
 
 ///|
-fn BetweenLayerAdjacencyList::size(self : BetweenLayerAdjacencyList) -> Int {
+fn BetweenLayerAdjacencyList::size(self : BetweenLayerAdjacencyList) -> Int32 {
   self.current_size
 }
 
 ///|
 fn BetweenLayerAdjacencyList::count_adjacencies_below_node_of_first_port(
   self : BetweenLayerAdjacencyList,
-) -> Int {
+) -> Int32 {
   self.current_size -
   self.adjacency_list[self.current_index].current_cardinality
 }
@@ -206,19 +206,19 @@ fn BetweenLayerAdjacencyList::remove_first(
 
 ///|
 pub struct BetweenLayerEdgeTwoNodeCrossingsCounter {
-  mut upper_lower_crossings : Int
-  mut lower_upper_crossings : Int
+  mut upper_lower_crossings : Int32
+  mut lower_upper_crossings : Int32
   current_node_order : Array[Array[@runtime.LNode]]
-  free_layer_index : Int
-  port_positions : Map[Int, Int]
-  eastern_adjacencies : Map[Int, BetweenLayerAdjacencyList]
-  western_adjacencies : Map[Int, BetweenLayerAdjacencyList]
+  free_layer_index : Int32
+  port_positions : Map[Int32, Int32]
+  eastern_adjacencies : Map[Int32, BetweenLayerAdjacencyList]
+  western_adjacencies : Map[Int32, BetweenLayerAdjacencyList]
 }
 
 ///|
 pub fn new_between_layer_edge_two_node_crossings_counter(
   current_node_order : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
 ) -> BetweenLayerEdgeTwoNodeCrossingsCounter {
   let counter : BetweenLayerEdgeTwoNodeCrossingsCounter = {
     upper_lower_crossings: 0,
@@ -250,7 +250,7 @@ fn BetweenLayerEdgeTwoNodeCrossingsCounter::free_layer_is_not_last_layer(
 ///|
 fn BetweenLayerEdgeTwoNodeCrossingsCounter::set_port_positions_for_layer(
   self : BetweenLayerEdgeTwoNodeCrossingsCounter,
-  layer_index : Int,
+  layer_index : Int32,
   port_side : @core.PortSide,
 ) -> Unit {
   let mut port_id = 0
@@ -285,8 +285,8 @@ fn BetweenLayerEdgeTwoNodeCrossingsCounter::reset_crossing_count(
 ///|
 fn BetweenLayerEdgeTwoNodeCrossingsCounter::is_below(
   self : BetweenLayerEdgeTwoNodeCrossingsCounter,
-  first_port : Int,
-  second_port : Int,
+  first_port : Int32,
+  second_port : Int32,
 ) -> Bool {
   ignore(self)
   first_port > second_port
@@ -297,7 +297,7 @@ fn BetweenLayerEdgeTwoNodeCrossingsCounter::get_adjacency_for(
   self : BetweenLayerEdgeTwoNodeCrossingsCounter,
   node : @runtime.LNode,
   side : @core.PortSide,
-  adjacencies : Map[Int, BetweenLayerAdjacencyList],
+  adjacencies : Map[Int32, BetweenLayerAdjacencyList],
 ) -> BetweenLayerAdjacencyList {
   if adjacencies.is_empty() {
     for candidate in self.current_node_order[self.free_layer_index] {
@@ -456,13 +456,13 @@ pub fn BetweenLayerEdgeTwoNodeCrossingsCounter::count_both_side_crossings(
 ///|
 pub fn BetweenLayerEdgeTwoNodeCrossingsCounter::get_upper_lower_crossings(
   self : BetweenLayerEdgeTwoNodeCrossingsCounter,
-) -> Int {
+) -> Int32 {
   self.upper_lower_crossings
 }
 
 ///|
 pub fn BetweenLayerEdgeTwoNodeCrossingsCounter::get_lower_upper_crossings(
   self : BetweenLayerEdgeTwoNodeCrossingsCounter,
-) -> Int {
+) -> Int32 {
   self.lower_upper_crossings
 }

@@ -1,5 +1,5 @@
 ///|
-fn model_order_node_contains(values : Array[Int], value : Int) -> Bool {
+fn model_order_node_contains(values : Array[Int32], value : Int32) -> Bool {
   for candidate in values {
     if candidate == value {
       return true
@@ -9,7 +9,7 @@ fn model_order_node_contains(values : Array[Int], value : Int) -> Bool {
 }
 
 ///|
-fn model_order_node_add_unique(values : Array[Int], value : Int) -> Unit {
+fn model_order_node_add_unique(values : Array[Int32], value : Int32) -> Unit {
   if model_order_node_contains(values, value) {
     return
   }
@@ -18,8 +18,8 @@ fn model_order_node_add_unique(values : Array[Int], value : Int) -> Unit {
 
 ///|
 fn model_order_node_add_all_unique(
-  target : Array[Int],
-  source : Array[Int],
+  target : Array[Int32],
+  source : Array[Int32],
 ) -> Unit {
   for value in source {
     model_order_node_add_unique(target, value)
@@ -28,9 +28,9 @@ fn model_order_node_add_all_unique(
 
 ///|
 fn model_order_node_associations_get(
-  associations : Map[Int, Array[Int]],
-  node_handle : Int,
-) -> Array[Int] {
+  associations : Map[Int32, Array[Int32]],
+  node_handle : Int32,
+) -> Array[Int32] {
   match associations.get(node_handle) {
     Some(values) => values
     None => {
@@ -42,7 +42,7 @@ fn model_order_node_associations_get(
 }
 
 ///|
-fn model_order_node_layer_id(node : @runtime.LNode) -> Int {
+fn model_order_node_layer_id(node : @runtime.LNode) -> Int32 {
   match node.get_layer() {
     Some(layer) => layer.get_id()
     None => 0
@@ -165,7 +165,7 @@ fn model_order_node_get_first_outgoing_target_port_of_node(
 ///|
 fn model_order_node_require_max_model_order_nodes(
   graph : @runtime.LGraph,
-) -> Int {
+) -> Int32 {
   graph.get_property_int(@runtime.internal_properties_max_model_order_nodes)
 }
 
@@ -175,8 +175,8 @@ pub struct ModelOrderNodeComparator {
   graph : @runtime.LGraph
   ordering_strategy : @options.OrderingStrategy
   group_order_strategy : @options.GroupOrderStrategy
-  mut bigger_than : Map[Int, Array[Int]]
-  mut smaller_than : Map[Int, Array[Int]]
+  mut bigger_than : Map[Int32, Array[Int32]]
+  mut smaller_than : Map[Int32, Array[Int32]]
   long_edge_node_order : @options.LongEdgeOrderingStrategy
   before_ports : Bool
 }
@@ -227,7 +227,7 @@ pub fn new_model_order_node_comparator(
 fn ModelOrderNodeComparator::get_model_order_from_connected_edges(
   self : ModelOrderNodeComparator,
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   for port in node.get_ports() {
     if !port.get_incoming_edges().is_empty() {
       let edge = port.get_incoming_edges()[0]
@@ -296,7 +296,7 @@ fn ModelOrderNodeComparator::handle_helper_dummy_nodes(
   self : ModelOrderNodeComparator,
   n1 : @runtime.LNode,
   n2 : @runtime.LNode,
-) -> Int raise {
+) -> Int32 raise {
   if model_order_node_type_equals(n1.get_type(), LongEdge) &&
     model_order_node_type_equals(n2.get_type(), Normal) {
     let dummy_node_source_port = model_order_node_get_first_incoming_source_port_of_node(
@@ -516,7 +516,7 @@ fn ModelOrderNodeComparator::handle_helper_dummy_nodes(
 }
 
 ///|
-fn model_order_node_compare_int(left : Int, right : Int) -> Int {
+fn model_order_node_compare_int(left : Int32, right : Int32) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -531,9 +531,9 @@ fn ModelOrderNodeComparator::update_elk_0_8_1_compare_result(
   self : ModelOrderNodeComparator,
   n1 : @runtime.LNode,
   n2 : @runtime.LNode,
-  n1_order : Int,
-  n2_order : Int,
-) -> Int {
+  n1_order : Int32,
+  n2_order : Int32,
+) -> Int32 {
   if n1_order > n2_order {
     self.update_bigger_and_smaller_associations(n1, n2)
   } else {
@@ -547,7 +547,7 @@ fn ModelOrderNodeComparator::compare_nodes_and_edges_elk_0_8_1(
   self : ModelOrderNodeComparator,
   n1 : @runtime.LNode,
   n2 : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let n1_handle = @runtime.lnode_internal_handle(n1)
   let n2_handle = @runtime.lnode_internal_handle(n2)
 
@@ -646,7 +646,7 @@ pub fn ModelOrderNodeComparator::compare(
   self : ModelOrderNodeComparator,
   n1 : @runtime.LNode,
   n2 : @runtime.LNode,
-) -> Int raise {
+) -> Int32 raise {
   // D2 embeds elkjs 0.8.2 (ELK 0.8.1), whose NODES_AND_EDGES
   // comparator predates the feedback-edge and group-order extensions below.
   match self.ordering_strategy {

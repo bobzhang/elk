@@ -15,7 +15,7 @@ fn greedy_switch_processor_test_is_one_sided(cross_type : CrossMinType) -> Bool 
 ///|
 fn greedy_switch_processor_test_node_handles(
   nodes : Array[@runtime.LNode],
-) -> Array[Int] {
+) -> Array[Int32] {
   let handles = []
   for node in nodes {
     handles.push(node.get_handle())

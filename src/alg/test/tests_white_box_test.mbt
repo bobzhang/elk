@@ -2,19 +2,19 @@
 let white_box_test_processor_id : String = "org.eclipse.elk.alg.layered.p2layers.NetworkSimplexLayerer"
 
 ///|
-fn white_box_test_default_configuration() -> TestConfiguration[Ref[Int]] {
+fn white_box_test_default_configuration() -> TestConfiguration[Ref[Int32]] {
   new_test_configuration(apply_base_configuration_fn=(
-    _test_instance : Ref[Int],
+    _test_instance : Ref[Int32],
     _graph : ElkNode,
   ) => ())
 }
 
 ///|
 fn new_white_box_test_runner(
-  whitebox_tests : Array[WhiteboxTestMethod[Ref[Int], Int]],
-) -> LayoutTestRunner[Ref[Int], Int] raise {
+  whitebox_tests : Array[WhiteboxTestMethod[Ref[Int32], Int32]],
+) -> LayoutTestRunner[Ref[Int32], Int32] raise {
   let graph = new_test_graph(
-    (_test_instance : Ref[Int]) => create_graph(),
+    (_test_instance : Ref[Int32]) => create_graph(),
     "graphMethod(compoundGraph)",
   )
   new_layout_test_runner(
@@ -34,7 +34,7 @@ test "WhiteBoxTest executes whitebox test after matching processor event" {
   let counter = Ref(0)
   let whitebox_test = new_whitebox_test_method(
     "testNoLayerlessNodes",
-    (test_instance : Ref[Int], graph : Int) => {
+    (test_instance : Ref[Int32], graph : Int32) => {
       if graph <= 0 {
         abort("There are layerless nodes left!")
       }
@@ -45,10 +45,10 @@ test "WhiteBoxTest executes whitebox test after matching processor event" {
   )
 
   let graph = new_test_graph(
-    (_test_instance : Ref[Int]) => create_graph(),
+    (_test_instance : Ref[Int32]) => create_graph(),
     "graphMethod(compoundGraph)",
   )
-  let runner : LayoutTestRunner[Ref[Int], Int] = new_layout_test_runner(
+  let runner : LayoutTestRunner[Ref[Int32], Int32] = new_layout_test_runner(
     () => counter,
     [test_algorithm_identity()],
     [white_box_test_default_configuration()],
@@ -76,7 +76,7 @@ test "WhiteBoxTest fails when fail_if_not_executed whitebox test did not run" {
 
   let whitebox_test = new_whitebox_test_method(
     "testProperLayering",
-    (test_instance : Ref[Int], graph : Int) => {
+    (test_instance : Ref[Int32], graph : Int32) => {
       ignore(test_instance)
       ignore(graph)
     },
@@ -103,7 +103,7 @@ test "WhiteBoxTest only_on_root_node ignores non-root execution points" {
 
   let whitebox_test = new_whitebox_test_method(
     "testOnlyOnRoot",
-    (test_instance : Ref[Int], graph : Int) => {
+    (test_instance : Ref[Int32], graph : Int32) => {
       ignore(test_instance)
       ignore(graph)
     },

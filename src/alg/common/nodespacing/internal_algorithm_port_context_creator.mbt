@@ -2,7 +2,7 @@
 fn port_context_creator_create_port_context(
   node_context : NodeContext,
   port : NodeSpacingPort,
-  volatile_id : Int,
+  volatile_id : Int32,
   im_port_labels : Bool,
 ) -> Unit {
   let port_context = new_port_context(node_context, port, volatile_id)

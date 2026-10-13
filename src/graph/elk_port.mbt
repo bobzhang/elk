@@ -1,9 +1,9 @@
 ///|
 pub struct ElkPort {
   priv arena : GraphArena
-  priv slot : Int
-  priv generation : Int
-  priv id : Int
+  priv slot : Int32
+  priv generation : Int32
+  priv id : Int32
 }
 
 ///|
@@ -44,7 +44,7 @@ priv struct PortData {
 
 ///|
 priv struct PortSlot {
-  mut generation : Int
+  mut generation : Int32
   handle : ElkPort
   mut data : PortData?
 }

@@ -1,8 +1,8 @@
 ///|
 fn new_execution_info_for_core_debug_views_test(
   name : String,
-  with_log? : Bool = false,
-  with_graph? : Bool = false,
+  with_log~ : Bool = false,
+  with_graph~ : Bool = false,
 ) -> ExecutionInfo {
   let monitor = @core.new_elk_progress_monitor(task_name=name)
   if with_log || with_graph {

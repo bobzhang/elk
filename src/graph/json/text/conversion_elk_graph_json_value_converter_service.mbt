@@ -8,9 +8,9 @@ pub struct ElkGraphJsonValueConverterService {
 ///|
 pub fn new_elk_graph_json_value_converter_service(
   metadata : @core.OptionMetadata,
-  number_value_converter? : GraphJsonTextNumberValueConverter = new_graph_json_text_number_value_converter(),
-  property_key_value_converter? : GraphJsonTextPropertyKeyValueConverter? = None,
-  property_value_value_converter? : GraphJsonTextPropertyValueValueConverter? = None,
+  number_value_converter~ : GraphJsonTextNumberValueConverter = new_graph_json_text_number_value_converter(),
+  property_key_value_converter~ : GraphJsonTextPropertyKeyValueConverter? = None,
+  property_value_value_converter~ : GraphJsonTextPropertyValueValueConverter? = None,
 ) -> ElkGraphJsonValueConverterService {
   let property_key_value_converter = match property_key_value_converter {
     Some(value) => value

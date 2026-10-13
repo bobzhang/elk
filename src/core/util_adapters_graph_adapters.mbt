@@ -5,8 +5,8 @@ pub(all) struct GraphElementAdapter[T] {
   set_size_fn : (KVector) -> Unit
   get_position_fn : () -> KVector
   set_position_fn : (KVector) -> Unit
-  get_property_int_fn : (@graph.IProperty[Int]) -> Int
-  has_property_int_fn : (@graph.IProperty[Int]) -> Bool
+  get_property_int_fn : (@graph.IProperty[Int32]) -> Int32
+  has_property_int_fn : (@graph.IProperty[Int32]) -> Bool
   get_property_bool_fn : (@graph.IProperty[Bool]) -> Bool
   has_property_bool_fn : (@graph.IProperty[Bool]) -> Bool
   get_property_double_fn : (@graph.IProperty[Double]) -> Double
@@ -17,7 +17,7 @@ pub(all) struct GraphElementAdapter[T] {
     String,
   ]
   has_property_string_array_fn : (@graph.IProperty[Array[String]]) -> Bool
-  mut volatile_id : Int
+  mut volatile_id : Int32
 }
 
 ///|
@@ -27,8 +27,8 @@ pub fn[T] new_graph_element_adapter(
   set_size_fn : (KVector) -> Unit,
   get_position_fn : () -> KVector,
   set_position_fn : (KVector) -> Unit,
-  get_property_int_fn : (@graph.IProperty[Int]) -> Int,
-  has_property_int_fn : (@graph.IProperty[Int]) -> Bool,
+  get_property_int_fn : (@graph.IProperty[Int32]) -> Int32,
+  has_property_int_fn : (@graph.IProperty[Int32]) -> Bool,
   get_property_bool_fn : (@graph.IProperty[Bool]) -> Bool,
   has_property_bool_fn : (@graph.IProperty[Bool]) -> Bool,
   get_property_double_fn : (@graph.IProperty[Double]) -> Double,
@@ -98,15 +98,15 @@ pub fn[T] GraphElementAdapter::set_position(
 ///|
 pub fn[T] GraphElementAdapter::get_property_int(
   self : GraphElementAdapter[T],
-  property : @graph.IProperty[Int],
-) -> Int {
+  property : @graph.IProperty[Int32],
+) -> Int32 {
   (self.get_property_int_fn)(property)
 }
 
 ///|
 pub fn[T] GraphElementAdapter::has_property_int(
   self : GraphElementAdapter[T],
-  property : @graph.IProperty[Int],
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   (self.has_property_int_fn)(property)
 }
@@ -178,14 +178,14 @@ pub fn[T] GraphElementAdapter::has_property_string_array(
 ///|
 pub fn[T] GraphElementAdapter::get_volatile_id(
   self : GraphElementAdapter[T],
-) -> Int {
+) -> Int32 {
   self.volatile_id
 }
 
 ///|
 pub fn[T] GraphElementAdapter::set_volatile_id(
   self : GraphElementAdapter[T],
-  volatile_id : Int,
+  volatile_id : Int32,
 ) -> Unit {
   self.volatile_id = volatile_id
 }
@@ -225,7 +225,7 @@ pub(all) struct NodeAdapter[T, G, L, P, E] {
   get_incoming_edges_fn : () -> Array[E]
   get_outgoing_edges_fn : () -> Array[E]
   sort_port_list_fn : () -> Unit raise
-  sort_port_list_with_fn : ((P, P) -> Int raise) -> Unit raise
+  sort_port_list_with_fn : ((P, P) -> Int32 raise) -> Unit raise
   is_compound_node_fn : () -> Bool
   get_padding_fn : () -> ElkPadding
   set_padding_fn : (ElkPadding) -> Unit
@@ -242,7 +242,7 @@ pub fn[T, G, L, P, E] new_node_adapter(
   get_incoming_edges_fn : () -> Array[E],
   get_outgoing_edges_fn : () -> Array[E],
   sort_port_list_fn : () -> Unit raise,
-  sort_port_list_with_fn : ((P, P) -> Int raise) -> Unit raise,
+  sort_port_list_with_fn : ((P, P) -> Int32 raise) -> Unit raise,
   is_compound_node_fn : () -> Bool,
   get_padding_fn : () -> ElkPadding,
   set_padding_fn : (ElkPadding) -> Unit,
@@ -318,7 +318,7 @@ pub fn[T, G, L, P, E] NodeAdapter::sort_port_list(
 ///|
 pub fn[T, G, L, P, E] NodeAdapter::sort_port_list_with(
   self : NodeAdapter[T, G, L, P, E],
-  comparator : (P, P) -> Int raise,
+  comparator : (P, P) -> Int32 raise,
 ) -> Unit raise {
   (self.sort_port_list_with_fn)(comparator)
 }

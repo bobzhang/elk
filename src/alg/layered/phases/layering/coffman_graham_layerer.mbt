@@ -85,10 +85,10 @@ fn coffman_graham_layerer_require_edge_target_node(
 
 ///|
 fn coffman_graham_layerer_compare_nodes_in_topo(
-  in_topo : Array[Array[Int]],
+  in_topo : Array[Array[Int32]],
   u : @runtime.LNode,
   v : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let in_list_u = in_topo[u.get_id()]
   let in_list_v = in_topo[v.get_id()]
   let mut index_u = in_list_u.length()
@@ -122,7 +122,7 @@ fn coffman_graham_layerer_compare_nodes_in_topo(
 ///|
 fn coffman_graham_layerer_insert_source(
   sources : Array[@runtime.LNode],
-  in_topo : Array[Array[Int]],
+  in_topo : Array[Array[Int32]],
   node : @runtime.LNode,
 ) -> Unit {
   let mut insert_index = 0
@@ -141,7 +141,7 @@ fn coffman_graham_layerer_insert_source(
 ///|
 fn coffman_graham_layerer_insert_sink(
   sinks : Array[@runtime.LNode],
-  topo_ord : Array[Int],
+  topo_ord : Array[Int32],
   node : @runtime.LNode,
 ) -> Unit {
   let node_topo = topo_ord[node.get_id()]

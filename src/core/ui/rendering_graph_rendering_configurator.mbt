@@ -1,9 +1,9 @@
 ///|
-pub let core_ui_swt_normal : Int = 0
+pub let core_ui_swt_normal : Int32 = 0
 
 ///|
 pub(all) struct CoreUiDisplay {
-  id : Int
+  id : Int32
 } derive(Eq)
 
 ///|
@@ -14,18 +14,18 @@ pub fn new_core_ui_display() -> CoreUiDisplay {
 ///|
 pub(all) struct CoreUiColor {
   display : CoreUiDisplay
-  r : Int
-  g : Int
-  b : Int
+  r : Int32
+  g : Int32
+  b : Int32
   mut disposed : Bool
 }
 
 ///|
 pub fn new_core_ui_color(
   display : CoreUiDisplay,
-  r : Int,
-  g : Int,
-  b : Int,
+  r : Int32,
+  g : Int32,
+  b : Int32,
 ) -> CoreUiColor {
   { display, r, g, b, disposed: false, }
 }
@@ -44,8 +44,8 @@ pub fn core_ui_color_is_disposed(color : CoreUiColor) -> Bool {
 pub(all) struct CoreUiFont {
   display : CoreUiDisplay
   name : String
-  size : Int
-  style : Int
+  size : Int32
+  style : Int32
   mut disposed : Bool
 }
 
@@ -53,8 +53,8 @@ pub(all) struct CoreUiFont {
 pub fn new_core_ui_font(
   display : CoreUiDisplay,
   name : String,
-  size : Int,
-  style : Int,
+  size : Int32,
+  style : Int32,
 ) -> CoreUiFont {
   { display, name, size, style, disposed: false, }
 }
@@ -70,30 +70,30 @@ pub fn core_ui_font_is_disposed(font : CoreUiFont) -> Bool {
 }
 
 ///|
-let core_ui_node_font_size : Int = 9
+let core_ui_node_font_size : Int32 = 9
 
 ///|
-let core_ui_port_font_size : Int = 6
+let core_ui_port_font_size : Int32 = 6
 
 ///|
-let core_ui_edge_font_size : Int = 8
+let core_ui_edge_font_size : Int32 = 8
 
 ///|
-pub let core_ui_min_font_height : Int = 3
+pub let core_ui_min_font_height : Int32 = 3
 
 ///|
 pub(all) struct GraphRenderingConfigurator {
   mut node_border_color : CoreUiColor?
   mut node_fill_color : CoreUiColor?
   mut node_label_font : CoreUiFont?
-  mut node_font_size : Int
+  mut node_font_size : Int32
   mut port_border_color : CoreUiColor?
   mut port_fill_color : CoreUiColor?
   mut port_label_font : CoreUiFont?
-  mut port_font_size : Int
+  mut port_font_size : Int32
   mut edge_color : CoreUiColor?
   mut edge_label_font : CoreUiFont?
-  mut edge_font_size : Int
+  mut edge_font_size : Int32
   mut label_border_color : CoreUiColor?
   mut label_fill_color : CoreUiColor?
   mut label_text_color : CoreUiColor?
@@ -220,7 +220,7 @@ pub fn GraphRenderingConfigurator::dispose(
 }
 
 ///|
-fn core_ui_scaled_font_size(base_size : Int, scale : Double) -> Int {
+fn core_ui_scaled_font_size(base_size : Int32, scale : Double) -> Int32 {
   let scaled = (base_size.to_double() * scale).round().to_int()
   if scaled > 2 {
     scaled

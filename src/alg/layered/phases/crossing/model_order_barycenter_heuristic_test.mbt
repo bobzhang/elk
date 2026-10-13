@@ -1,7 +1,7 @@
 ///|
 fn model_order_barycenter_test_node_ids(
   nodes : Array[@runtime.LNode],
-) -> Array[Int] {
+) -> Array[Int32] {
   let ids = []
   for node in nodes {
     ids.push(node.get_id())

@@ -20,9 +20,9 @@ fn node_promotion_layer_of(
 
 ///|
 fn node_promotion_require_bi_layer_key(
-  bi_layer_map : BiLinkedHashMultiMap[Int],
+  bi_layer_map : BiLinkedHashMultiMap[Int32],
   node : @runtime.LNode,
-) -> Int raise NodePromotionException {
+) -> Int32 raise NodePromotionException {
   match bi_layer_map.get_key(node.get_id()) {
     Some(layer_key) => layer_key
     None => node_promotion_raise("node is not present in bi-layer map")
@@ -94,7 +94,7 @@ fn node_promotion_add_unique_node(
 }
 
 ///|
-fn node_promotion_model_order(node : @runtime.LNode) -> Int {
+fn node_promotion_model_order(node : @runtime.LNode) -> Int32 {
   if node.has_property_int(@runtime.internal_properties_model_order) {
     node.get_property_int(@runtime.internal_properties_model_order)
   } else {
@@ -106,7 +106,7 @@ fn node_promotion_model_order(node : @runtime.LNode) -> Int {
 fn node_promotion_compare_model_order_desc(
   left : @runtime.LNode,
   right : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   if left.has_property_int(@runtime.internal_properties_model_order) &&
     right.has_property_int(@runtime.internal_properties_model_order) {
     node_promotion_model_order(right) - node_promotion_model_order(left)
@@ -119,7 +119,7 @@ fn node_promotion_compare_model_order_desc(
 fn node_promotion_compare_model_order_asc(
   left : @runtime.LNode,
   right : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   if left.has_property_int(@runtime.internal_properties_model_order) &&
     right.has_property_int(@runtime.internal_properties_model_order) {
     node_promotion_model_order(left) - node_promotion_model_order(right)
@@ -149,7 +149,7 @@ fn node_promotion_node_type_is_normal(node_type : @runtime.NodeType) -> Bool {
 ///|
 fn node_promotion_insertion_sort_nodes(
   nodes : Array[@runtime.LNode],
-  compare : (@runtime.LNode, @runtime.LNode) -> Int,
+  compare : (@runtime.LNode, @runtime.LNode) -> Int32,
 ) -> Unit {
   let mut i = 1
   while i < nodes.length() {
@@ -165,7 +165,7 @@ fn node_promotion_insertion_sort_nodes(
 }
 
 ///|
-fn node_promotion_insertion_sort_ints(values : Array[Int]) -> Unit {
+fn node_promotion_insertion_sort_ints(values : Array[Int32]) -> Unit {
   let mut i = 1
   while i < values.length() {
     let current = values[i]
@@ -180,7 +180,7 @@ fn node_promotion_insertion_sort_ints(values : Array[Int]) -> Unit {
 }
 
 ///|
-fn node_promotion_max_width(values : Array[Int]) -> Int {
+fn node_promotion_max_width(values : Array[Int32]) -> Int32 {
   let mut result = 0
   for value in values {
     if value > result {
@@ -202,7 +202,7 @@ fn node_promotion_max_width_pixel(values : Array[Double]) -> Double {
 }
 
 ///|
-fn node_promotion_degree_array(size : Int) -> Array[Array[Int]] {
+fn node_promotion_degree_array(size : Int32) -> Array[Array[Int32]] {
   let result = []
   for _ in 0..<size {
     result.push([0, 0, 0])
@@ -289,7 +289,7 @@ fn node_promotion_is_model_order_strategy(
 ///|
 fn node_promotion_require_node_by_id(
   state : NodePromotionState,
-  node_id : Int,
+  node_id : Int32,
 ) -> @runtime.LNode raise NodePromotionException {
   match state.nodes_by_id.get(node_id) {
     Some(node) => node
@@ -299,7 +299,7 @@ fn node_promotion_require_node_by_id(
 
 ///|
 priv struct NodePromotionResult {
-  dummy_diff : Int
+  dummy_diff : Int32
   max_width_not_exceeded : Bool
 }
 
@@ -308,19 +308,19 @@ priv struct NodePromotionState {
   master_graph : @runtime.LGraph
   mut nodes_with_incoming_edges : Array[@runtime.LNode]
   mut nodes : Array[@runtime.LNode]
-  mut current_width : Array[Int]
+  mut current_width : Array[Int32]
   mut current_width_pixel : Array[Double]
-  mut layers : Array[Int]
-  mut degree_diff : Array[Array[Int]]
-  mut max_width : Int
+  mut layers : Array[Int32]
+  mut degree_diff : Array[Array[Int32]]
+  mut max_width : Int32
   mut max_width_pixel : Double
-  mut dummy_node_count : Int
-  mut max_height : Int
+  mut dummy_node_count : Int32
+  mut max_height : Int32
   mut node_size_affix : Double
   mut dummy_size : Double
   mut promotion_strategy : @options.NodePromotionStrategy
-  mut bi_layer_map : BiLinkedHashMultiMap[Int]
-  mut nodes_by_id : Map[Int, @runtime.LNode]
+  mut bi_layer_map : BiLinkedHashMultiMap[Int32]
+  mut nodes_by_id : Map[Int32, @runtime.LNode]
 }
 
 ///|
@@ -534,7 +534,7 @@ fn node_promotion_promote_node(
 ///|
 fn node_promotion_promotion_magic(
   state : NodePromotionState,
-  should_continue : (Int, Int) -> Bool,
+  should_continue : (Int32, Int32) -> Bool,
 ) -> Unit raise NodePromotionException {
   let mut iteration_counter = 0
   let mut reduced_dummies = 0
@@ -922,7 +922,9 @@ fn node_promotion_process(
     let promote_until = layered_graph.get_property_int(
       @options.layered_options_layering_node_promotion_max_iterations,
     )
-    let always_continue = (_reduced_dummies : Int, _iterations : Int) => true
+    let always_continue = (_reduced_dummies : Int32, _iterations : Int32) => {
+      true
+    }
 
     match strategy {
       Nikolov => node_promotion_promotion_magic(state, always_continue)
@@ -950,16 +952,16 @@ fn node_promotion_process(
       NodeCountPercentage => {
         let promote_until_n = (state.layers.length() * promote_until + 99) / 100
         node_promotion_promotion_magic(state, (
-          _reduced_dummies : Int,
-          iterations : Int,
+          _reduced_dummies : Int32,
+          iterations : Int32,
         ) => iterations < promote_until_n)
       }
       DummyNodePercentage => {
         let promote_until_d = (state.dummy_node_count * promote_until + 99) /
           100
         node_promotion_promotion_magic(state, (
-          reduced_dummies : Int,
-          _iterations : Int,
+          reduced_dummies : Int32,
+          _iterations : Int32,
         ) => reduced_dummies < promote_until_d)
       }
       ModelOrderLeftToRight =>

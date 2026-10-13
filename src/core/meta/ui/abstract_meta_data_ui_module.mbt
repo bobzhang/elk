@@ -22,7 +22,7 @@ pub(all) struct AbstractMetaDataUiModule {
 
 ///|
 pub fn new_abstract_meta_data_ui_module(
-  plugin_id? : String = core_meta_ui_plugin_id,
+  plugin_id~ : String = core_meta_ui_plugin_id,
 ) -> AbstractMetaDataUiModule {
   { plugin_id, }
 }

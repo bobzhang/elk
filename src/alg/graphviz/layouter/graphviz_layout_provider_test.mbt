@@ -7,8 +7,8 @@ fn graphviz_layout_provider_test_model() -> @dot.DotGraphvizModel {
 
 ///|
 fn graphviz_layout_provider_test_process(
-  stdout_bytes : Array[Int],
-  destroyed_ref : Ref[Int],
+  stdout_bytes : Array[Int32],
+  destroyed_ref : Ref[Int32],
 ) -> GraphvizProcess {
   new_graphviz_process(
     new_graphviz_byte_array_output_stream().as_output_stream(),
@@ -59,7 +59,7 @@ test "GraphvizLayoutProvider returns early for empty parent" {
   graphviz_tool_set_default_locations_for_test(["/usr/bin/"])
   graphviz_tool_set_executable_probe_for_test(path => path == "/usr/bin/dot")
 
-  let process_count : Ref[Int] = Ref(0)
+  let process_count : Ref[Int32] = Ref(0)
   graphviz_tool_set_process_factory_for_test(_args => {
     process_count.val = process_count.val + 1
     Some(
@@ -87,9 +87,9 @@ test "GraphvizLayoutProvider runs pipeline and records debug streams" {
   graphviz_tool_set_default_locations_for_test(["/usr/bin/"])
   graphviz_tool_set_executable_probe_for_test(path => path == "/usr/bin/dot")
 
-  let destroyed_ref : Ref[Int] = Ref(0)
-  let parse_input_ref : Ref[Array[Int]] = Ref([])
-  let serialized_ref : Ref[Array[Int]] = Ref([])
+  let destroyed_ref : Ref[Int32] = Ref(0)
+  let parse_input_ref : Ref[Array[Int32]] = Ref([])
+  let serialized_ref : Ref[Array[Int32]] = Ref([])
   let parser_model = graphviz_layout_provider_test_model()
 
   graphviz_tool_set_process_factory_for_test(_args => {
@@ -141,7 +141,7 @@ test "GraphvizLayoutProvider honors reuse-process preference and dispose stops t
 
   graphviz_tool_set_default_locations_for_test(["/usr/bin/"])
   graphviz_tool_set_executable_probe_for_test(path => path == "/usr/bin/dot")
-  let destroyed_ref : Ref[Int] = Ref(0)
+  let destroyed_ref : Ref[Int32] = Ref(0)
   graphviz_tool_set_process_factory_for_test(_args => {
     Some(
       graphviz_layout_provider_test_process(

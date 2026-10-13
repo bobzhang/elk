@@ -114,7 +114,7 @@ pub fn json_debug_util_create_debug_graph_hypernodes(
 pub fn debug_util_log_debug_graph_hypernodes(
   monitor : @core.IElkProgressMonitor,
   layered_graph : @runtime.LGraph,
-  layer_index : Int,
+  layer_index : Int32,
   hypernodes : Array[HyperEdgeSegment],
   debug_prefix : String,
   label : String,

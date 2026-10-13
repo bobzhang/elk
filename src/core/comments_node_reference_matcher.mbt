@@ -60,7 +60,7 @@ fn node_reference_matcher_is_word_char(ch : Char) -> Bool {
 ///|
 fn node_reference_matcher_is_word_boundary(
   chars : Array[Char],
-  index : Int,
+  index : Int32,
 ) -> Bool {
   if index <= 0 || index >= chars.length() {
     true
@@ -74,7 +74,7 @@ fn node_reference_matcher_is_word_boundary(
 ///|
 fn node_reference_matcher_segment_matches(
   comment_chars : Array[Char],
-  start : Int,
+  start : Int32,
   segment : Array[Char],
   case_sensitive : Bool,
 ) -> Bool {

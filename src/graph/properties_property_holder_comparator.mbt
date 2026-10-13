@@ -15,7 +15,7 @@ pub fn[T : Compare + FromJson] PropertyHolderComparator::compare(
   self : PropertyHolderComparator[T],
   ph1 : IPropertyHolder,
   ph2 : IPropertyHolder,
-) -> Int {
+) -> Int32 {
   let p1 = ph1.get_property(self.property)
   let p2 = ph2.get_property(self.property)
   Compare::compare(p1, p2)

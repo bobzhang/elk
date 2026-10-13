@@ -14,7 +14,7 @@ pub struct AbstractGraphvizDotRuntimeModule {
 
 ///|
 pub fn new_abstract_graphviz_dot_runtime_module(
-  properties? : Map[String, String] = Map([]),
+  properties~ : Map[String, String] = Map([]),
 ) -> AbstractGraphvizDotRuntimeModule {
   { properties, }
 }

@@ -6,7 +6,7 @@ pub struct AbstractElkGraphJsonSyntacticSequencer {
 
 ///|
 pub fn new_abstract_elk_graph_json_syntactic_sequencer(
-  grammar_access? : ElkGraphJsonGrammarAccess = new_elk_graph_json_grammar_access(),
+  grammar_access~ : ElkGraphJsonGrammarAccess = new_elk_graph_json_grammar_access(),
 ) -> AbstractElkGraphJsonSyntacticSequencer {
   {
     grammar_access,

@@ -1,35 +1,39 @@
 ///|
 pub struct ISweepPortDistributor {
   initializable : IInitializable
-  distribute_ports_while_sweeping_fn : (Array[Array[@runtime.LNode]], Int, Bool) -> Bool raise
+  distribute_ports_while_sweeping_fn : (
+    Array[Array[@runtime.LNode]],
+    Int32,
+    Bool,
+  ) -> Bool raise
 }
 
 ///|
 pub fn new_i_sweep_port_distributor(
-  distribute_ports_while_sweeping : (Array[Array[@runtime.LNode]], Int, Bool) -> Bool raise,
-  init_at_layer_level? : (Int, Array[Array[@runtime.LNode]]) -> Unit = (_, _) => {
+  distribute_ports_while_sweeping : (Array[Array[@runtime.LNode]], Int32, Bool) -> Bool raise,
+  init_at_layer_level~ : (Int32, Array[Array[@runtime.LNode]]) -> Unit = (_, _) => {
     ()
   },
-  init_at_node_level? : (Int, Int, Array[Array[@runtime.LNode]]) -> Unit = (
+  init_at_node_level~ : (Int32, Int32, Array[Array[@runtime.LNode]]) -> Unit = (
     _,
     _,
     _,
   ) => (),
-  init_at_port_level? : (Int, Int, Int, Array[Array[@runtime.LNode]]) -> Unit = (
+  init_at_port_level~ : (Int32, Int32, Int32, Array[Array[@runtime.LNode]]) -> Unit = (
     _,
     _,
     _,
     _,
   ) => (),
-  init_at_edge_level? : (
-    Int,
-    Int,
-    Int,
-    Int,
+  init_at_edge_level~ : (
+    Int32,
+    Int32,
+    Int32,
+    Int32,
     @runtime.LEdge,
     Array[Array[@runtime.LNode]],
   ) -> Unit = (_, _, _, _, _, _) => (),
-  init_after_traversal? : () -> Unit = () => (),
+  init_after_traversal~ : () -> Unit = () => (),
 ) -> ISweepPortDistributor {
   {
     initializable: new_i_initializable(
@@ -59,7 +63,7 @@ pub fn i_sweep_port_distributor_init(
 pub fn ISweepPortDistributor::distribute_ports_while_sweeping(
   self : ISweepPortDistributor,
   order : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool raise {
   (self.distribute_ports_while_sweeping_fn)(
@@ -77,7 +81,7 @@ pub fn ISweepPortDistributor::as_initializable(
 ///|
 pub fn ISweepPortDistributor::init_at_layer_level(
   self : ISweepPortDistributor,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.initializable.init_at_layer_level(l, node_order)
@@ -86,8 +90,8 @@ pub fn ISweepPortDistributor::init_at_layer_level(
 ///|
 pub fn ISweepPortDistributor::init_at_node_level(
   self : ISweepPortDistributor,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.initializable.init_at_node_level(l, n, node_order)
@@ -96,9 +100,9 @@ pub fn ISweepPortDistributor::init_at_node_level(
 ///|
 pub fn ISweepPortDistributor::init_at_port_level(
   self : ISweepPortDistributor,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.initializable.init_at_port_level(l, n, p, node_order)
@@ -107,10 +111,10 @@ pub fn ISweepPortDistributor::init_at_port_level(
 ///|
 pub fn ISweepPortDistributor::init_at_edge_level(
   self : ISweepPortDistributor,
-  l : Int,
-  n : Int,
-  p : Int,
-  e : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
+  e : Int32,
   edge : @runtime.LEdge,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {

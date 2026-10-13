@@ -26,7 +26,7 @@ fn abstract_barycenter_is_order_fixed(node : @runtime.LNode) -> Bool {
 }
 
 ///|
-fn abstract_barycenter_side_ordinal(side : @core.PortSide) -> Int {
+fn abstract_barycenter_side_ordinal(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -50,7 +50,7 @@ fn abstract_barycenter_same_layer(
 }
 
 ///|
-fn abstract_barycenter_node_layer_id(node : @runtime.LNode) -> Int {
+fn abstract_barycenter_node_layer_id(node : @runtime.LNode) -> Int32 {
   node.get_layer().unwrap().get_id()
 }
 
@@ -59,10 +59,10 @@ pub struct AbstractBarycenterPortDistributor {
   mut port_ranks : Array[Double]
   mut min_barycenter : Double
   mut max_barycenter : Double
-  node_positions : Array[Array[Int]]
+  node_positions : Array[Array[Int32]]
   mut port_barycenter : Array[Double]
   in_layer_ports : Array[@runtime.LPort]
-  mut n_ports : Int
+  mut n_ports : Int32
   calculate_port_ranks_fn : (
     AbstractBarycenterPortDistributor,
     @runtime.LNode,
@@ -73,7 +73,7 @@ pub struct AbstractBarycenterPortDistributor {
 
 ///|
 pub fn new_abstract_barycenter_port_distributor(
-  num_layers : Int,
+  num_layers : Int32,
   calculate_port_ranks : (
     AbstractBarycenterPortDistributor,
     @runtime.LNode,
@@ -108,7 +108,7 @@ pub fn AbstractBarycenterPortDistributor::get_port_ranks(
 pub fn AbstractBarycenterPortDistributor::distribute_ports_while_sweeping(
   self : AbstractBarycenterPortDistributor,
   node_order : Array[Array[@runtime.LNode]],
-  current_index : Int,
+  current_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool raise {
   self.update_node_positions(node_order, current_index)
@@ -383,7 +383,7 @@ fn AbstractBarycenterPortDistributor::deal_with_north_south_ports(
 fn AbstractBarycenterPortDistributor::position_of(
   self : AbstractBarycenterPortDistributor,
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let layer_id = abstract_barycenter_node_layer_id(node)
   self.node_positions[layer_id][node.get_id()]
 }
@@ -392,7 +392,7 @@ fn AbstractBarycenterPortDistributor::position_of(
 fn AbstractBarycenterPortDistributor::update_node_positions(
   self : AbstractBarycenterPortDistributor,
   node_order : Array[Array[@runtime.LNode]],
-  current_index : Int,
+  current_index : Int32,
 ) -> Unit {
   let layer = node_order[current_index]
   for i in 0..<layer.length() {
@@ -417,8 +417,8 @@ fn AbstractBarycenterPortDistributor::has_nested_graph(
 ///|
 fn AbstractBarycenterPortDistributor::is_not_first_layer(
   self : AbstractBarycenterPortDistributor,
-  length : Int,
-  current_index : Int,
+  length : Int32,
+  current_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool {
   ignore(self)
@@ -466,7 +466,7 @@ fn AbstractBarycenterPortDistributor::compare_ports(
   self : AbstractBarycenterPortDistributor,
   port1 : @runtime.LPort,
   port2 : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   let side1 = port1.get_side()
   let side2 = port2.get_side()
   if !@runtime.lnode_port_side_equals(side1, side2) {
@@ -494,7 +494,7 @@ fn AbstractBarycenterPortDistributor::compare_ports(
 ///|
 pub fn AbstractBarycenterPortDistributor::init_at_layer_level(
   self : AbstractBarycenterPortDistributor,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.node_positions[l] = Array::make(node_order[l].length(), 0)
@@ -503,8 +503,8 @@ pub fn AbstractBarycenterPortDistributor::init_at_layer_level(
 ///|
 pub fn AbstractBarycenterPortDistributor::init_at_node_level(
   self : AbstractBarycenterPortDistributor,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   let node = node_order[l][n]
@@ -515,9 +515,9 @@ pub fn AbstractBarycenterPortDistributor::init_at_node_level(
 ///|
 pub fn AbstractBarycenterPortDistributor::init_at_port_level(
   self : AbstractBarycenterPortDistributor,
-  l : Int,
-  n : Int,
-  p : Int,
+  l : Int32,
+  n : Int32,
+  p : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   node_order[l][n].get_ports()[p].set_id(self.n_ports)

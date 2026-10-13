@@ -6,7 +6,7 @@ pub struct GraphvizDotParser {
 
 ///|
 pub fn new_graphviz_dot_parser(
-  grammar_access? : GraphvizDotGrammarAccess = new_graphviz_dot_grammar_access(),
+  grammar_access~ : GraphvizDotGrammarAccess = new_graphviz_dot_grammar_access(),
 ) -> GraphvizDotParser {
   {
     grammar_access,

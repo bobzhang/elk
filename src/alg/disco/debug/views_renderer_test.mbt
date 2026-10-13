@@ -1,5 +1,5 @@
 ///|
-fn expect_some_int_in_renderer_test(value : Int?) -> Int {
+fn expect_some_int_in_renderer_test(value : Int32?) -> Int32 {
   match value {
     Some(v) => v
     None => abort("Expected Some(Int)")

@@ -1,8 +1,8 @@
 ///|
 fn gmoc_new_node(
   constraint : String,
-  model_order : Int,
-  group_id : Int,
+  model_order : Int32,
+  group_id : Int32,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()
   node.set_property_string(

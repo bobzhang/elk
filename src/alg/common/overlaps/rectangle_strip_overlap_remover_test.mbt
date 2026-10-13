@@ -2,7 +2,7 @@
 fn overlaps_rect_eq(
   value : Double,
   expected : Double,
-  eps? : Double = 0.0001,
+  eps~ : Double = 0.0001,
 ) -> Unit raise {
   if (value - expected).abs() > eps {
     fail("Expected \{expected}, got \{value}")

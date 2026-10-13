@@ -21,7 +21,7 @@ pub fn ElkGraphQuickfixProvider::supports_issue(
 pub fn ElkGraphQuickfixProvider::remove_option(
   self : ElkGraphQuickfixProvider,
   properties : Array[@text.GraphTextPropertyAssignment],
-  index : Int,
+  index : Int32,
 ) -> Array[@text.GraphTextPropertyAssignment] {
   ignore(self)
   if index < 0 || index >= properties.length() {

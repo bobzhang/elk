@@ -168,7 +168,7 @@ fn hyperedge_dummy_merger_merge_nodes(
 }
 
 ///|
-fn hyperedge_dummy_merger_dfs(port : @runtime.LPort, index : Int) -> Unit {
+fn hyperedge_dummy_merger_dfs(port : @runtime.LPort, index : Int32) -> Unit {
   port.set_id(index)
 
   for connected in port.get_connected_ports() {

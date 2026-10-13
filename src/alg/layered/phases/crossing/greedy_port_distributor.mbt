@@ -92,8 +92,8 @@ fn greedy_port_distributor_swap_ports_on_node(
 ///|
 pub struct GreedyPortDistributor {
   mut crossings_counter : CrossingsCounter?
-  mut n_ports : Int
-  mut port_pos : Array[Int]
+  mut n_ports : Int32
+  mut port_pos : Array[Int32]
   mut hierarchical_crossings_counter : BetweenLayerEdgeTwoNodeCrossingsCounter?
 }
 
@@ -121,7 +121,7 @@ fn GreedyPortDistributor::init_for_layers(
 fn GreedyPortDistributor::initialize(
   self : GreedyPortDistributor,
   node_order : Array[Array[@runtime.LNode]],
-  current_index : Int,
+  current_index : Int32,
   is_forward_sweep : Bool,
 ) -> Unit raise {
   if is_forward_sweep && current_index > 0 {
@@ -199,8 +199,8 @@ fn GreedyPortDistributor::switch_ports(
   self : GreedyPortDistributor,
   ports : Array[@runtime.LPort],
   node : @runtime.LNode,
-  top_port : Int,
-  bottom_port : Int,
+  top_port : Int32,
+  bottom_port : Int32,
 ) -> Unit raise {
   let counter = greedy_port_distributor_crossings_counter(self)
   counter.switch_ports(ports[top_port], ports[bottom_port])
@@ -255,7 +255,7 @@ fn GreedyPortDistributor::distribute_ports_on_node(
 fn GreedyPortDistributor::distribute_ports_in_layer(
   self : GreedyPortDistributor,
   node_order : Array[Array[@runtime.LNode]],
-  current_index : Int,
+  current_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool raise {
   let side = if is_forward_sweep { @core.PortSide::West } else { East }
@@ -307,7 +307,7 @@ fn GreedyPortDistributor::distribute_ports_in_layer(
 pub fn GreedyPortDistributor::distribute_ports_while_sweeping(
   self : GreedyPortDistributor,
   node_order : Array[Array[@runtime.LNode]],
-  current_index : Int,
+  current_index : Int32,
   is_forward_sweep : Bool,
 ) -> Bool raise {
   self.initialize(node_order, current_index, is_forward_sweep)
@@ -317,8 +317,8 @@ pub fn GreedyPortDistributor::distribute_ports_while_sweeping(
 ///|
 pub fn GreedyPortDistributor::init_at_node_level(
   self : GreedyPortDistributor,
-  l : Int,
-  n : Int,
+  l : Int32,
+  n : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   let node = node_order[l][n]

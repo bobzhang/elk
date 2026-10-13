@@ -2,8 +2,8 @@
 pub struct GridElkNode {
   node : @graph.ElkNode
   mut grid : Array[Array[@graph.ElkNode?]]
-  mut rows : Int
-  mut cols : Int
+  mut rows : Int32
+  mut cols : Int32
 }
 
 ///|
@@ -35,8 +35,8 @@ pub fn new_grid_elk_node(elk_node : @graph.ElkNode) -> GridElkNode {
 ///|
 pub fn GridElkNode::put(
   self : GridElkNode,
-  col : Int,
-  row : Int,
+  col : Int32,
+  row : Int32,
   item : @graph.ElkNode,
 ) -> Unit raise TopdownpackingGridException {
   if col >= self.cols || row >= self.rows {
@@ -50,8 +50,8 @@ pub fn GridElkNode::put(
 ///|
 pub fn GridElkNode::get(
   self : GridElkNode,
-  col : Int,
-  row : Int,
+  col : Int32,
+  row : Int32,
 ) -> @graph.ElkNode? raise TopdownpackingGridException {
   if col >= self.cols || row >= self.rows {
     topdownpacking_grid_raise(
@@ -64,7 +64,7 @@ pub fn GridElkNode::get(
 ///|
 pub fn GridElkNode::get_row(
   self : GridElkNode,
-  row : Int,
+  row : Int32,
 ) -> Array[@graph.ElkNode?] raise TopdownpackingGridException {
   if row >= self.rows {
     topdownpacking_grid_raise(
@@ -77,7 +77,7 @@ pub fn GridElkNode::get_row(
 ///|
 pub fn GridElkNode::get_column(
   self : GridElkNode,
-  col : Int,
+  col : Int32,
 ) -> Array[@graph.ElkNode?] raise TopdownpackingGridException {
   if col >= self.cols {
     topdownpacking_grid_raise(
@@ -94,20 +94,20 @@ pub fn GridElkNode::get_column(
 }
 
 ///|
-pub fn GridElkNode::get_columns(self : GridElkNode) -> Int {
+pub fn GridElkNode::get_columns(self : GridElkNode) -> Int32 {
   self.cols
 }
 
 ///|
-pub fn GridElkNode::get_rows(self : GridElkNode) -> Int {
+pub fn GridElkNode::get_rows(self : GridElkNode) -> Int32 {
   self.rows
 }
 
 ///|
 pub fn GridElkNode::set_grid_size(
   self : GridElkNode,
-  cols : Int,
-  rows : Int,
+  cols : Int32,
+  rows : Int32,
 ) -> Unit {
   self.cols = cols
   self.rows = rows

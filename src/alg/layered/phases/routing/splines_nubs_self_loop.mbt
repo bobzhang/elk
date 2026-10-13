@@ -25,7 +25,7 @@ fn nubs_self_loop_default_points() -> Array[@core.KVector] {
 ///|
 fn nubs_self_loop_normalize_corner_points(
   corner_bend_points : Array[@core.KVector],
-  required_size : Int,
+  required_size : Int32,
 ) -> Array[@core.KVector] {
   let normalized = []
   for point in corner_bend_points {
@@ -46,7 +46,7 @@ fn nubs_self_loop_normalize_corner_points(
 ///|
 fn new_nubs_self_loop_internal(
   clamped : Bool,
-  dimension : Int,
+  dimension : Int32,
   k_vectors : Array[@core.KVector],
 ) -> NubsSelfLoop raise {
   {
@@ -80,7 +80,7 @@ pub fn new_nubs_self_loop_copy(nubs : NubsSelfLoop) -> NubsSelfLoop {
 
 ///|
 pub fn new_nubs_self_loop(
-  dimension : Int,
+  dimension : Int32,
   k_vectors : Array[@core.KVector],
 ) -> NubsSelfLoop raise {
   new_nubs_self_loop_internal(true, dimension, k_vectors)
@@ -89,7 +89,7 @@ pub fn new_nubs_self_loop(
 ///|
 pub fn new_nubs_self_loop_with_clamped(
   clamped : Bool,
-  dimension : Int,
+  dimension : Int32,
   k_vectors : Array[@core.KVector],
 ) -> NubsSelfLoop raise {
   new_nubs_self_loop_internal(clamped, dimension, k_vectors)
@@ -118,7 +118,7 @@ pub fn NubsSelfLoop::get_control_points(
 }
 
 ///|
-pub fn NubsSelfLoop::get_dim(self : NubsSelfLoop) -> Int {
+pub fn NubsSelfLoop::get_dim(self : NubsSelfLoop) -> Int32 {
   self.nub_spline.get_dim()
 }
 

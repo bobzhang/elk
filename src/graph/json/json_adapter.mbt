@@ -131,7 +131,7 @@ pub fn JsonAdapter::opt_string(
 pub fn JsonAdapter::opt_string_at(
   self : JsonAdapter,
   arr : Array[Json],
-  index : Int,
+  index : Int32,
 ) -> String? {
   if index < 0 || index >= arr.length() {
     None
@@ -183,7 +183,7 @@ pub fn JsonAdapter::opt_json_object(
 }
 
 ///|
-pub fn JsonAdapter::size_json_arr(self : JsonAdapter, o : Array[Json]) -> Int {
+pub fn JsonAdapter::size_json_arr(self : JsonAdapter, o : Array[Json]) -> Int32 {
   ignore(self)
   o.length()
 }
@@ -226,7 +226,7 @@ pub fn JsonAdapter::get_json_obj(
 pub fn JsonAdapter::get_json_arr(
   self : JsonAdapter,
   arr : Array[Json],
-  index : Int,
+  index : Int32,
 ) -> Json? {
   ignore(self)
   if index < 0 || index >= arr.length() {

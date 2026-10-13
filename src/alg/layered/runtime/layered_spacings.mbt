@@ -42,7 +42,7 @@ fn layered_spacings_dependent_spacing_options() -> Array[
 fn layered_spacings_factor_index(
   factors : Array[(@graph.IProperty[Double], Double)],
   option : @graph.IProperty[Double],
-) -> Int? {
+) -> Int32? {
   for i in 0..<factors.length() {
     let (current_option, _) = factors[i]
     if current_option.get_property_id() == option.get_property_id() {

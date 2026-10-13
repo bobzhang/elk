@@ -1,7 +1,7 @@
 ///|
 fn greedy_switch_heuristic_test_new_node(
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   node_type : @runtime.NodeType,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node()
@@ -15,7 +15,7 @@ fn greedy_switch_heuristic_test_new_node(
 fn greedy_switch_heuristic_test_new_port(
   node : @runtime.LNode,
   side : @core.PortSide,
-  id : Int,
+  id : Int32,
 ) -> @runtime.LPort {
   let port = @runtime.new_l_port()
   port.set_node(Some(node))

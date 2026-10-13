@@ -6,7 +6,7 @@ pub(all) enum StressDimension {
 }
 
 ///|
-pub fn stress_dimension_from_int(value : Int) -> StressDimension {
+pub fn stress_dimension_from_int(value : Int32) -> StressDimension {
   match value {
     1 => StressDimensionX
     2 => StressDimensionY

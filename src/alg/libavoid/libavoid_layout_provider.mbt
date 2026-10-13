@@ -164,7 +164,7 @@ pub fn register_libavoid_layout_algorithm(
 ///|
 pub fn add_libavoid_layout_algorithm_with_text_runner(
   builder : @engine.EngineBuilder,
-  run_fn : (Array[Int], Int) -> String? raise,
+  run_fn : (Array[Int32], Int32) -> String? raise,
 ) -> @engine.EngineBuilder {
   libavoid_server_set_default_transport(
     Some(new_libavoid_server_transport_from_text_runner(run_fn)),

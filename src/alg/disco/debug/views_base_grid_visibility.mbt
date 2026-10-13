@@ -11,7 +11,7 @@ pub fn base_grid_visibility_values() -> Array[BaseGridVisibility] {
 }
 
 ///|
-pub fn base_grid_visibility_at(index : Int) -> BaseGridVisibility {
+pub fn base_grid_visibility_at(index : Int32) -> BaseGridVisibility {
   base_grid_visibility_values()[index]
 }
 

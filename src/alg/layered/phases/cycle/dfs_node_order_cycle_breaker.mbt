@@ -47,7 +47,7 @@ fn dfs_node_order_cycle_breaker_reverse_edge(
 }
 
 ///|
-fn dfs_node_order_cycle_breaker_model_order_sort(values : Array[Int]) -> Unit {
+fn dfs_node_order_cycle_breaker_model_order_sort(values : Array[Int32]) -> Unit {
   let mut i = 1
   while i < values.length() {
     let value = values[i]
@@ -79,9 +79,9 @@ fn dfs_node_order_cycle_breaker_group_model_order(
 fn dfs_node_order_cycle_breaker_target_model_order(
   state : DfsNodeOrderCycleBreakerState,
   edge : @runtime.LEdge,
-  model_order_map_size : Int,
+  model_order_map_size : Int32,
   group_model_order : Bool,
-) -> Int raise DfsNodeOrderCycleBreakerException {
+) -> Int32 raise DfsNodeOrderCycleBreakerException {
   let target = dfs_node_order_cycle_breaker_require_target_node(edge)
   if !target.has_property_int(@runtime.internal_properties_model_order) {
     return @int.MAX_VALUE - model_order_map_size
@@ -114,7 +114,7 @@ fn dfs_node_order_cycle_breaker_dfs(
   state.visited[node_id] = true
   state.active[node_id] = true
 
-  let model_order_map : Map[Int, Array[@runtime.LEdge]] = Map([])
+  let model_order_map : Map[Int32, Array[@runtime.LEdge]] = Map([])
   let group_model_order = dfs_node_order_cycle_breaker_group_model_order(state)
 
   for edge in node.get_outgoing_edges() {

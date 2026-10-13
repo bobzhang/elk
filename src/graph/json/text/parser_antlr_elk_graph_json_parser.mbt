@@ -8,7 +8,7 @@ pub struct ElkGraphJsonParser {
 ///|
 pub fn new_elk_graph_json_parser(
   metadata : @core.OptionMetadata,
-  grammar_access? : ElkGraphJsonGrammarAccess = new_elk_graph_json_grammar_access(),
+  grammar_access~ : ElkGraphJsonGrammarAccess = new_elk_graph_json_grammar_access(),
 ) -> ElkGraphJsonParser {
   {
     metadata,

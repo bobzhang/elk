@@ -42,7 +42,7 @@ pub fn node_label_placement_to_string(placement : NodeLabelPlacement) -> String 
 }
 
 ///|
-pub fn node_label_placement_value_of(i : Int) -> NodeLabelPlacement {
+pub fn node_label_placement_value_of(i : Int32) -> NodeLabelPlacement {
   node_label_placement_values()[i]
 }
 
@@ -120,7 +120,7 @@ pub fn node_label_placement_outside_bottom_right() -> Array[NodeLabelPlacement] 
 fn count_node_label_placement(
   placements : Array[NodeLabelPlacement],
   values : Array[NodeLabelPlacement],
-) -> Int {
+) -> Int32 {
   fn equals(left : NodeLabelPlacement, right : NodeLabelPlacement) -> Bool {
     match (left, right) {
       (NodeLabelHLeft, NodeLabelHLeft) => true

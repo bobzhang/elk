@@ -7,7 +7,7 @@ pub(all) struct IFactory[T] {
 ///|
 pub fn[T] new_factory(
   create_fn : () -> T,
-  destroy_fn? : (T) -> Unit = _ => (),
+  destroy_fn~ : (T) -> Unit = _ => (),
 ) -> IFactory[T] {
   { create_fn, destroy_fn, }
 }

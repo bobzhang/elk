@@ -52,7 +52,7 @@ test "PlainJavaInitializationTest algorithm property is available for all expect
     }
   })
 
-  let runner : LayoutTestRunner[Unit, Int] = new_layout_test_runner(
+  let runner : LayoutTestRunner[Unit, Int32] = new_layout_test_runner(
     () => (),
     tests_plain_java_initialization_algorithms(metadata),
     [tests_plain_java_initialization_default_configuration()],

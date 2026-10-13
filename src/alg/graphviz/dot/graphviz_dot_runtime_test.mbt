@@ -17,7 +17,7 @@ fn graphviz_dot_runtime_test_data_map(
 
 ///|
 fn graphviz_dot_runtime_test_formatter(
-  max_width_ref : Ref[Int],
+  max_width_ref : Ref[Int32],
   undefined_only_ref : Ref[Bool],
 ) -> GraphvizDotFormatter2 {
   request => {
@@ -81,7 +81,7 @@ test "GraphvizDotRuntimeModule binds GraphvizDotSerializer" {
 
 ///|
 test "GraphvizDotSerializer configures formatter request" {
-  let max_width_ref : Ref[Int] = Ref(-1)
+  let max_width_ref : Ref[Int32] = Ref(-1)
   let undefined_only_ref : Ref[Bool] = Ref(false)
   let formatter_provider : () -> GraphvizDotFormatter2 = () => {
     graphviz_dot_runtime_test_formatter(max_width_ref, undefined_only_ref)

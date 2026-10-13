@@ -12,7 +12,7 @@ fn concrete_sort_by_input_model_port_side(name : String) -> @core.PortSide {
 fn concrete_sort_by_input_model_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  model_order : Int,
+  model_order : Int32,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
   node.set_layer(Some(layer))
@@ -36,7 +36,7 @@ fn concrete_sort_by_input_model_new_port(
 fn concrete_sort_by_input_model_connect(
   source : @runtime.LPort,
   target : @runtime.LPort,
-  model_order : Int,
+  model_order : Int32,
 ) -> @runtime.LEdge {
   let edge = @runtime.new_l_edge()
   edge.set_source(Some(source))
@@ -77,7 +77,7 @@ fn concrete_sort_by_input_model_run(
 fn concrete_sort_by_input_model_port_index(
   node : @runtime.LNode,
   port : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   let ports = node.get_ports()
   for i in 0..<ports.length() {
     if ports[i].get_handle() == port.get_handle() {
@@ -91,7 +91,7 @@ fn concrete_sort_by_input_model_port_index(
 fn concrete_sort_by_input_model_node_index(
   layer : @runtime.Layer,
   node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let nodes = layer.get_nodes()
   for i in 0..<nodes.length() {
     if nodes[i].get_handle() == node.get_handle() {

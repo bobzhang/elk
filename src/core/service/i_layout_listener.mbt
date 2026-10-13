@@ -1,8 +1,8 @@
 ///|
-let layout_listener_next_id_ref : Ref[Int] = Ref(0)
+let layout_listener_next_id_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn next_layout_listener_id() -> Int {
+fn next_layout_listener_id() -> Int32 {
   let id = layout_listener_next_id_ref.val
   layout_listener_next_id_ref.val = id + 1
   id
@@ -15,18 +15,18 @@ pub fn reset_layout_listener_ids_for_test() -> Unit {
 
 ///|
 pub(all) struct ILayoutListener {
-  id : Int
+  id : Int32
   layout_about_to_start_fn : (LayoutMapping, @core.IElkProgressMonitor) -> Unit
   layout_done_fn : (LayoutMapping, @core.IElkProgressMonitor) -> Unit
 }
 
 ///|
 pub fn new_layout_listener(
-  layout_about_to_start_fn? : (LayoutMapping, @core.IElkProgressMonitor) -> Unit = (
+  layout_about_to_start_fn~ : (LayoutMapping, @core.IElkProgressMonitor) -> Unit = (
     _,
     _,
   ) => (),
-  layout_done_fn? : (LayoutMapping, @core.IElkProgressMonitor) -> Unit = (_, _) => {
+  layout_done_fn~ : (LayoutMapping, @core.IElkProgressMonitor) -> Unit = (_, _) => {
     ()
   },
 ) -> ILayoutListener {

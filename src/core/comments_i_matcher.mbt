@@ -1,8 +1,8 @@
 ///|
-let core_comments_next_matcher_id_ref : Ref[Int] = Ref(0)
+let core_comments_next_matcher_id_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn core_comments_next_matcher_id() -> Int {
+fn core_comments_next_matcher_id() -> Int32 {
   let id = core_comments_next_matcher_id_ref.val
   core_comments_next_matcher_id_ref.val = id + 1
   id
@@ -10,7 +10,7 @@ fn core_comments_next_matcher_id() -> Int {
 
 ///|
 pub(all) struct IMatcher[C, T] {
-  id : Int
+  id : Int32
   raw_fn : (C, T) -> Double raise
   normalized_fn : (C, T) -> Double raise
   preprocess_fn : (IDataProvider[C, T], Bool) -> Unit raise
@@ -76,6 +76,6 @@ pub fn[C, T] IMatcher::cleanup(self : IMatcher[C, T]) -> Unit raise {
 }
 
 ///|
-pub fn[C, T] IMatcher::matcher_id(self : IMatcher[C, T]) -> Int {
+pub fn[C, T] IMatcher::matcher_id(self : IMatcher[C, T]) -> Int32 {
   self.id
 }

@@ -13,7 +13,7 @@ pub fn new_test_method_signature(
   is_public : Bool,
   return_type : String,
   parameter_types : Array[String],
-  annotations? : Array[String] = [],
+  annotations~ : Array[String] = [],
 ) -> TestMethodSignature {
   {
     name,
@@ -129,13 +129,13 @@ pub fn test_util_ensure_not_annotated_with(
 ///|
 pub struct TestClassConstructorSignature {
   is_public : Bool
-  parameter_count : Int
+  parameter_count : Int32
 }
 
 ///|
 pub fn new_test_class_constructor_signature(
   is_public : Bool,
-  parameter_count : Int,
+  parameter_count : Int32,
 ) -> TestClassConstructorSignature {
   { is_public, parameter_count, }
 }

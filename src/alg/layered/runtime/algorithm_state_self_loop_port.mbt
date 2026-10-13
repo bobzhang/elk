@@ -8,7 +8,7 @@ pub(all) struct SelfLoopPort {
 }
 
 ///|
-fn self_loop_port_connected_edge_count(l_port : LPort) -> Int {
+fn self_loop_port_connected_edge_count(l_port : LPort) -> Int32 {
   l_port.get_connected_edges().length()
 }
 
@@ -75,6 +75,6 @@ pub fn SelfLoopPort::get_outgoing_sl_edges(
 }
 
 ///|
-pub fn SelfLoopPort::get_sl_net_flow(self : SelfLoopPort) -> Int {
+pub fn SelfLoopPort::get_sl_net_flow(self : SelfLoopPort) -> Int32 {
   self.incoming_sl_edges.length() - self.outgoing_sl_edges.length()
 }

@@ -220,7 +220,7 @@ fn core_debug_grandom_configuration_parser_set_flow_side(
 ) -> Unit raise {
   let amount = match
     core_debug_grandom_configuration_parser_to_optional_rand_val(quantity) {
-    Some(rand_val) => rand_val.int_val(@random.Rand::new())
+    Some(rand_val) => rand_val.int_val(Rand())
     None => 0
   }
   match flow_type {
@@ -317,8 +317,8 @@ fn core_debug_grandom_configuration_parser_set_graph_type(
 ///|
 fn core_debug_grandom_configuration_parser_set_if_exists_int(
   options : CoreDebugGRandomGeneratorOptions,
-  value : Int?,
-  property : @graph.IProperty[Int],
+  value : Int32?,
+  property : @graph.IProperty[Int32],
 ) -> Bool {
   match value {
     Some(number) => {

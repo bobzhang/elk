@@ -1,6 +1,6 @@
 ///|
 pub struct AbstractRadiusExtensionCompaction {
-  mut compaction_step : Int
+  mut compaction_step : Int32
   mut spacing : Double
   mut root : @graph.ElkNode?
 }
@@ -118,7 +118,7 @@ pub fn AbstractRadiusExtensionCompaction::overlap_layer(
 ///|
 pub fn AbstractRadiusExtensionCompaction::set_compaction_step(
   self : AbstractRadiusExtensionCompaction,
-  compaction_step : Int,
+  compaction_step : Int32,
 ) -> Unit {
   self.compaction_step = compaction_step
 }
@@ -126,7 +126,7 @@ pub fn AbstractRadiusExtensionCompaction::set_compaction_step(
 ///|
 pub fn AbstractRadiusExtensionCompaction::compaction_step(
   self : AbstractRadiusExtensionCompaction,
-) -> Int {
+) -> Int32 {
   self.compaction_step
 }
 

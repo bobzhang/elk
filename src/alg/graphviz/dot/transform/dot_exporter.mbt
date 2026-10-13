@@ -82,12 +82,12 @@ pub let dot_exporter_use_splines : @graph.IProperty[Bool] = @graph.new_property(
 )
 
 ///|
-pub let dot_exporter_next_node_id : @graph.IProperty[Int] = @graph.new_property(
+pub let dot_exporter_next_node_id : @graph.IProperty[Int32] = @graph.new_property(
   "dotExporter.nextNodeId", 1,
 )
 
 ///|
-pub let dot_exporter_next_edge_id : @graph.IProperty[Int] = @graph.new_property(
+pub let dot_exporter_next_edge_id : @graph.IProperty[Int32] = @graph.new_property(
   "dotExporter.nextEdgeId", 1,
 )
 
@@ -126,7 +126,7 @@ pub fn dot_exporter_create_attribute(
 ///|
 pub fn dot_exporter_create_attribute_int(
   name : String,
-  value : Int,
+  value : Int32,
 ) -> DotAttribute {
   dot_exporter_create_attribute(name, "\"" + value.to_string() + "\"")
 }
@@ -221,7 +221,7 @@ fn dot_exporter_parse_edge_label_placement(
 }
 
 ///|
-fn dot_exporter_parse_int_token(text : String?) -> Int? {
+fn dot_exporter_parse_int_token(text : String?) -> Int32? {
   let normalized = match text {
     Some(v) => v.trim().to_owned()
     None => ""
@@ -229,7 +229,7 @@ fn dot_exporter_parse_int_token(text : String?) -> Int? {
   if normalized.is_empty() {
     return None
   }
-  let parsed_int : Result[Int, Error] = try
+  let parsed_int : Result[Int32, Error] = try
     @string.parse_int(normalized)
   catch {
     error => Err(error)
@@ -947,12 +947,12 @@ fn dot_exporter_is_number_char(c : Char) -> Bool {
 }
 
 ///|
-fn dot_exporter_slice(text : String, start : Int, end_ : Int) -> String {
+fn dot_exporter_slice(text : String, start : Int32, end_ : Int32) -> String {
   text[start:end_].to_owned()
 }
 
 ///|
-fn dot_exporter_slice_from(text : String, start : Int) -> String {
+fn dot_exporter_slice_from(text : String, start : Int32) -> String {
   text[start:].to_owned()
 }
 
@@ -1408,7 +1408,7 @@ pub fn dot_exporter_create_attribute_map(
 }
 
 ///|
-fn dot_exporter_char_at(source : String, index : Int) -> Char {
+fn dot_exporter_char_at(source : String, index : Int32) -> Char {
   source[index].unsafe_to_char()
 }
 

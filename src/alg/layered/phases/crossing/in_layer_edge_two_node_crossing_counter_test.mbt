@@ -9,7 +9,7 @@ fn in_layer_counter_bb_port_side_west() -> @core.PortSide {
 }
 
 ///|
-fn in_layer_counter_bb_pair_value(value : Int?) -> Int {
+fn in_layer_counter_bb_pair_value(value : Int32?) -> Int32 {
   match value {
     Some(v) => v
     None => 0
@@ -19,7 +19,7 @@ fn in_layer_counter_bb_pair_value(value : Int?) -> Int {
 ///|
 fn in_layer_counter_bb_port_count(
   current_order : Array[Array[@runtime.LNode]],
-) -> Int {
+) -> Int32 {
   let mut count = 0
   for layer in current_order {
     for node in layer {
@@ -43,7 +43,7 @@ fn in_layer_counter_bb_graph_order(
 ///|
 fn in_layer_counter_bb_init_counters(
   graph : @runtime.LGraph,
-  layer_index : Int,
+  layer_index : Int32,
 ) -> (CrossingsCounter, CrossingsCounter, Array[@runtime.LNode]) {
   let current_order = in_layer_counter_bb_graph_order(graph)
   let node_order = current_order[layer_index]
@@ -79,9 +79,9 @@ fn in_layer_counter_bb_count_crossings(
   left_counter : CrossingsCounter,
   right_counter : CrossingsCounter,
   node_order : Array[@runtime.LNode],
-  upper_node_index : Int,
-  lower_node_index : Int,
-) -> (Int, Int) {
+  upper_node_index : Int32,
+  lower_node_index : Int32,
+) -> (Int32, Int32) {
   let left_crossings = left_counter.count_in_layer_crossings_between_nodes_in_both_orders(
     node_order[upper_node_index],
     node_order[lower_node_index],
@@ -106,8 +106,8 @@ fn in_layer_counter_bb_switch_order_and_notify_counter(
   left_counter : CrossingsCounter,
   right_counter : CrossingsCounter,
   node_order : Array[@runtime.LNode],
-  index_one : Int,
-  index_two : Int,
+  index_one : Int32,
+  index_two : Int32,
 ) -> Unit {
   left_counter.switch_nodes(
     node_order[index_one],
@@ -129,10 +129,10 @@ fn in_layer_counter_bb_assert_crossings(
   left_counter : CrossingsCounter,
   right_counter : CrossingsCounter,
   node_order : Array[@runtime.LNode],
-  upper_node_index : Int,
-  lower_node_index : Int,
-  expected_upper_lower : Int,
-  expected_lower_upper : Int,
+  upper_node_index : Int32,
+  lower_node_index : Int32,
+  expected_upper_lower : Int32,
+  expected_lower_upper : Int32,
 ) -> Unit raise {
   let (upper_lower, lower_upper) = in_layer_counter_bb_count_crossings(
     left_counter, right_counter, node_order, upper_node_index, lower_node_index,

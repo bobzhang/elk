@@ -144,7 +144,7 @@ test "DisCoGraphRenderingConfigurator dispose releases resources" {
 }
 
 ///|
-fn pattern_non_zero_alpha_count(pattern : DisCoDebugPattern) -> Int {
+fn pattern_non_zero_alpha_count(pattern : DisCoDebugPattern) -> Int32 {
   let mut count = 0
   let mut index = 0
   while index < pattern.alpha_data.length() {

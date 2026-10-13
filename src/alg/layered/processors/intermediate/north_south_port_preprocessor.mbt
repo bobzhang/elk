@@ -86,7 +86,7 @@ fn north_south_port_preprocessor_port_side_equals(
 }
 
 ///|
-fn north_south_port_preprocessor_port_side_rank(side : @core.PortSide) -> Int {
+fn north_south_port_preprocessor_port_side_rank(side : @core.PortSide) -> Int32 {
   match side {
     SideUndefined => 0
     North => 1
@@ -170,7 +170,7 @@ fn north_south_port_preprocessor_add_successor(
 fn north_south_port_preprocessor_insert_node_at(
   layer : @runtime.Layer,
   node : @runtime.LNode,
-  index : Int,
+  index : Int32,
 ) -> Unit {
   node.set_layer(Some(layer))
 
@@ -201,7 +201,7 @@ fn north_south_port_preprocessor_insert_node_at(
 fn north_south_port_preprocessor_compare_ports_for_sorting(
   port1 : @runtime.LPort,
   port2 : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   let side1 = port1.get_side()
   let side2 = port2.get_side()
   let side_diff = north_south_port_preprocessor_port_side_rank(side1) -
@@ -311,7 +311,7 @@ fn north_south_port_preprocessor_model_order_north_south_input_reversing(
 fn north_south_port_preprocessor_find_port_index(
   ports : Array[@runtime.LPort],
   target : @runtime.LPort,
-) -> Int {
+) -> Int32 {
   for i in 0..<ports.length() {
     if north_south_port_preprocessor_lport_equals(ports[i], target) {
       return i

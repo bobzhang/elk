@@ -5,14 +5,14 @@ pub struct FGraph {
   labels : Array[FLabel]
   bendpoints : Array[FBendpoint]
   bool_properties : Map[@graph.PropertyId, Bool]
-  int_properties : Map[@graph.PropertyId, Int]
+  int_properties : Map[@graph.PropertyId, Int32]
   double_properties : Map[@graph.PropertyId, Double]
   model_properties : Map[@graph.PropertyId, ForceModelStrategy]
   padding_properties : Map[@graph.PropertyId, @core.ElkPadding]
   node_properties : Map[@graph.PropertyId, @graph.ElkNode]
   random_properties : Map[@graph.PropertyId, @core.JavaRandom]
   vector_properties : Map[@graph.PropertyId, @core.KVector]
-  adjacency : Array[Array[Int]]
+  adjacency : Array[Array[Int32]]
 }
 
 ///|
@@ -97,7 +97,7 @@ pub fn FGraph::get_property(self : FGraph, property : ForceBoolOption) -> Bool {
 pub fn FGraph::set_int_property(
   self : FGraph,
   property : ForceIntOption,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   self.int_properties[property.get_property_id()] = value
 }
@@ -106,7 +106,7 @@ pub fn FGraph::set_int_property(
 pub fn FGraph::get_int_property(
   self : FGraph,
   property : ForceIntOption,
-) -> Int {
+) -> Int32 {
   match self.int_properties.get(property.get_property_id()) {
     Some(value) => value
     None => property.get_default()
@@ -271,7 +271,7 @@ pub fn FGraph::get_connection(
   self : FGraph,
   particle1 : FParticle,
   particle2 : FParticle,
-) -> Int {
+) -> Int32 {
   match (particle1, particle2) {
     (Node(node1), Node(node2)) => {
       let node1_id = fnode_id(node1)

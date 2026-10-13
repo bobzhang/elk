@@ -1,6 +1,6 @@
 ///|
 priv enum NodePropertyValue {
-  NodeIntValue(Int)
+  NodeIntValue(Int32)
   NodeDoubleValue(Double)
   NodeBoolValue(Bool)
   NodeStringValue(String)

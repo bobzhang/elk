@@ -10,7 +10,7 @@ pub struct VertiFlexSession {
   priv max_y : Map[@graph.ElkNode, Double]
   priv roots : Map[@graph.ElkNode, @graph.ElkNode]
   priv edge_bend_heights : Map[@graph.ElkNode, Double]
-  priv node_model_orders : Map[@graph.ElkNode, Int]
+  priv node_model_orders : Map[@graph.ElkNode, Int32]
 }
 
 ///|
@@ -244,7 +244,7 @@ pub fn vertiflex_internal_edge_bend_height(
 pub fn vertiflex_internal_set_node_model_order(
   session : VertiFlexSession,
   node : @graph.ElkNode,
-  order : Int,
+  order : Int32,
 ) -> Unit {
   session.node_model_orders[node] = order
 }
@@ -253,7 +253,7 @@ pub fn vertiflex_internal_set_node_model_order(
 pub fn vertiflex_internal_node_model_order(
   session : VertiFlexSession,
   node : @graph.ElkNode,
-) -> Int {
+) -> Int32 {
   match session.node_model_orders.get(node) {
     Some(order) => order
     None => 0

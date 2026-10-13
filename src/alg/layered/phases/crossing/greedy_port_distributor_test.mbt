@@ -1,5 +1,5 @@
 ///|
-fn greedy_port_test_port_handles(ports : Array[@runtime.LPort]) -> Array[Int] {
+fn greedy_port_test_port_handles(ports : Array[@runtime.LPort]) -> Array[Int32] {
   let handles = []
   for port in ports {
     handles.push(port.get_handle())

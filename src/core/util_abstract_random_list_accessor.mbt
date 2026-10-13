@@ -35,7 +35,7 @@ pub fn[T] new_abstract_random_list_accessor(
 ///|
 pub fn[T] AbstractRandomListAccessor::get_list_item(
   self : AbstractRandomListAccessor[T],
-  index : Int,
+  index : Int32,
 ) -> T raise {
   if index < 0 {
     try random_list_accessor_raise("Invalid index: \{index}") catch {
@@ -55,7 +55,7 @@ pub fn[T] AbstractRandomListAccessor::get_list_item(
 ///|
 pub fn[T] AbstractRandomListAccessor::set_list_item(
   self : AbstractRandomListAccessor[T],
-  index : Int,
+  index : Int32,
   value : T,
 ) -> Unit raise {
   if index < 0 {
@@ -80,7 +80,7 @@ pub fn[T] AbstractRandomListAccessor::set_list_item(
 ///|
 pub fn[T] AbstractRandomListAccessor::get_list_size(
   self : AbstractRandomListAccessor[T],
-) -> Int {
+) -> Int32 {
   self.list.length()
 }
 
@@ -94,7 +94,7 @@ pub fn[T] AbstractRandomListAccessor::clear_list(
 ///|
 pub fn[T] AbstractRandomListAccessor::ensure_list_size(
   self : AbstractRandomListAccessor[T],
-  size : Int,
+  size : Int32,
 ) -> Unit {
   let mut i = self.list.length()
   while i < size {

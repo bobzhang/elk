@@ -22,7 +22,7 @@ pub struct AbstractElkGraphUiModule {
 
 ///|
 pub fn new_abstract_elk_graph_ui_module(
-  plugin_id? : String = graph_text_ui_plugin_id,
+  plugin_id~ : String = graph_text_ui_plugin_id,
 ) -> AbstractElkGraphUiModule {
   { plugin_id, }
 }

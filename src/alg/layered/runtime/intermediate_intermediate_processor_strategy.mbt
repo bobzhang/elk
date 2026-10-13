@@ -63,7 +63,7 @@ pub(all) enum IntermediateProcessorStrategy {
 ///|
 pub fn intermediate_processor_strategy_ordinal(
   strategy : IntermediateProcessorStrategy,
-) -> Int {
+) -> Int32 {
   match strategy {
     DirectionPreprocessor => 0
     CommentPreprocessor => 1

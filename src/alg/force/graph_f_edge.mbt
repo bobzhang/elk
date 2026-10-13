@@ -19,7 +19,7 @@ priv struct FEdgeData {
   mut target : FNode?
   labels : Array[FLabel]
   bendpoints : Array[FBendpoint]
-  mut int_properties : Map[@graph.PropertyId, Int]?
+  mut int_properties : Map[@graph.PropertyId, Int32]?
   mut double_properties : Map[@graph.PropertyId, Double]?
   mut bool_properties : Map[@graph.PropertyId, Bool]?
   mut origin : @graph.ElkEdge?
@@ -84,7 +84,7 @@ pub fn fedge_bendpoints(edge : FEdge) -> Array[FBendpoint] {
 pub fn fedge_set_int_property(
   edge : FEdge,
   property : ForceIntOption,
-  value : Int,
+  value : Int32,
 ) -> Unit {
   let data = edge.data
   data.int_properties = Some(
@@ -98,7 +98,7 @@ pub fn fedge_set_int_property(
 }
 
 ///|
-pub fn fedge_get_int_property(edge : FEdge, property : ForceIntOption) -> Int {
+pub fn fedge_get_int_property(edge : FEdge, property : ForceIntOption) -> Int32 {
   let data = edge.data
   match
     force_property_bag_get(data.int_properties, property.get_property_id()) {

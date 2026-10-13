@@ -28,9 +28,9 @@ pub struct ElkGraphJsonValidator {
 ///|
 pub fn new_elk_graph_json_validator(
   metadata : @core.OptionMetadata,
-  base? : AbstractElkGraphJsonValidator = new_abstract_elk_graph_json_validator(),
-  layout_option_validator? : @core.LayoutOptionValidator? = None,
-  value_converter? : GraphJsonTextPropertyValueValueConverter? = None,
+  base~ : AbstractElkGraphJsonValidator = new_abstract_elk_graph_json_validator(),
+  layout_option_validator~ : @core.LayoutOptionValidator? = None,
+  value_converter~ : GraphJsonTextPropertyValueValueConverter? = None,
 ) -> ElkGraphJsonValidator {
   let layout_option_validator = match layout_option_validator {
     Some(value) => value
@@ -304,7 +304,7 @@ pub fn ElkGraphJsonValidator::check_unique_properties(
 ) -> Array[GraphJsonTextValidationIssue] {
   ignore(self)
   let issues : Array[GraphJsonTextValidationIssue] = []
-  let used : Map[String, Int] = Map([])
+  let used : Map[String, Int32] = Map([])
   for property in properties {
     let key_id = graph_json_text_property_key_id(property.key)
     match used.get(key_id) {
@@ -355,7 +355,7 @@ pub fn ElkGraphJsonValidator::check_unique_names_for_node(
   node : @graph.ElkNode,
 ) -> Array[GraphJsonTextValidationIssue] {
   ignore(self)
-  let used : Map[String, Int] = Map([])
+  let used : Map[String, Int32] = Map([])
   let issues : Array[GraphJsonTextValidationIssue] = []
   for child in @graph.node_children(node) {
     let id = @graph.node_identifier(child)
@@ -616,7 +616,7 @@ pub fn ElkGraphJsonValidator::check_unique_section_names(
   edge : @graph.ElkEdge,
 ) -> Array[GraphJsonTextValidationIssue] {
   ignore(self)
-  let used : Map[String, Int] = Map([])
+  let used : Map[String, Int32] = Map([])
   let issues : Array[GraphJsonTextValidationIssue] = []
   for section in @graph.edge_sections(edge) {
     let id = @graph.edge_section_identifier(section)

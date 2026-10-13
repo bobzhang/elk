@@ -35,7 +35,7 @@ pub fn core_meta_md_option_target_type_labels() -> CoreMetaMdOptionTargetType {
 ///|
 pub fn core_meta_md_option_target_type_value(
   target_type : CoreMetaMdOptionTargetType,
-) -> Int {
+) -> Int32 {
   match target_type {
     CoreMetaMdOptionTargetTypeParents => 0
     CoreMetaMdOptionTargetTypeNodes => 1
@@ -93,7 +93,7 @@ pub fn core_meta_md_option_target_type_from_name(
 
 ///|
 pub fn core_meta_md_option_target_type_from_int(
-  value : Int,
+  value : Int32,
 ) -> CoreMetaMdOptionTargetType? {
   if value == 0 {
     Some(CoreMetaMdOptionTargetTypeParents)

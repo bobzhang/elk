@@ -5,7 +5,7 @@ pub struct TEdge {
 }
 
 ///|
-fn t_edge_to_signed_int32(value : Int64) -> Int {
+fn t_edge_to_signed_int32(value : Int64) -> Int32 {
   let masked = value & 4294967295L
   if masked >= 2147483648L {
     (masked - 4294967296L).to_int()
@@ -26,7 +26,7 @@ pub fn TEdge::equals(self : TEdge, other : TEdge) -> Bool {
 }
 
 ///|
-pub fn TEdge::hash_code(self : TEdge) -> Int {
+pub fn TEdge::hash_code(self : TEdge) -> Int32 {
   t_edge_to_signed_int32(
     Int64::from_int(self.u.hash_code()) + Int64::from_int(self.v.hash_code()),
   )

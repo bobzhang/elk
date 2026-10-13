@@ -44,7 +44,7 @@ fn crossings_bb_cross_min_type_barycenter() -> CrossMinType {
 }
 
 ///|
-fn crossings_bb_pair_value(value : Int?) -> Int {
+fn crossings_bb_pair_value(value : Int32?) -> Int32 {
   match value {
     Some(v) => v
     None => 0
@@ -52,7 +52,9 @@ fn crossings_bb_pair_value(value : Int?) -> Int {
 }
 
 ///|
-fn crossings_bb_num_ports(current_order : Array[Array[@runtime.LNode]]) -> Int {
+fn crossings_bb_num_ports(
+  current_order : Array[Array[@runtime.LNode]],
+) -> Int32 {
   let mut num_ports = 0
   for layer in current_order {
     for node in layer {

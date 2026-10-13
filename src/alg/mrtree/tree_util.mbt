@@ -19,7 +19,7 @@ pub fn mrtree_tree_util_get_root(graph : MrtreeGraph) -> MrtreeNode? {
 }
 
 ///|
-pub fn mrtree_tree_util_depth(root : MrtreeNode) -> Int raise {
+pub fn mrtree_tree_util_depth(root : MrtreeNode) -> Int32 raise {
   let children = mrtree_tree_util_get_children(root)
   if children.length() == 0 {
     1
@@ -53,7 +53,7 @@ pub fn mrtree_tree_util_get_children(node : MrtreeNode) -> Array[MrtreeNode] {
 pub fn mrtree_tree_util_root_distance(
   node : MrtreeNode,
   root : MrtreeNode,
-) -> Int raise {
+) -> Int32 raise {
   if node == root {
     return 0
   }
@@ -224,7 +224,7 @@ pub fn mrtree_tree_util_is_cycle_inducing(
 }
 
 ///|
-pub fn mrtree_tree_util_get_unique_long(a : Int, b : Int) -> Int64 {
+pub fn mrtree_tree_util_get_unique_long(a : Int32, b : Int32) -> Int64 {
   (Int64::from_int(a) << 32) | (Int64::from_int(b) & 4294967295L)
 }
 
@@ -346,7 +346,7 @@ pub fn mrtree_tree_util_get_lowest_parent(
 ///|
 pub fn mrtree_tree_util_get_left_most(
   current_level : Array[MrtreeNode],
-  depth? : Int = -1,
+  depth~ : Int32 = -1,
 ) -> MrtreeNode? raise {
   if current_level.is_empty() {
     return None

@@ -1,8 +1,8 @@
 ///|
-let next_experiment_runner_id_ref : Ref[Int] = Ref(0)
+let next_experiment_runner_id_ref : Ref[Int32] = Ref(0)
 
 ///|
-fn next_experiment_runner_id() -> Int {
+fn next_experiment_runner_id() -> Int32 {
   let next = next_experiment_runner_id_ref.val + 1
   next_experiment_runner_id_ref.val = next
   next
@@ -16,7 +16,7 @@ pub fn reset_experiment_runner_ids_for_test() -> Unit {
 ///|
 fn describe_method_name_for_runner(
   method_name : String,
-  runner_id : Int,
+  runner_id : Int32,
 ) -> String {
   method_name + " (" + runner_id.to_string() + ")"
 }
@@ -45,7 +45,7 @@ fn[T, G] register_whitebox_processor_mappings(
 
 ///|
 pub struct ExperimentRunner[T, G] {
-  runner_id : Int
+  runner_id : Int32
   create_test_instance_fn : () -> T
   experimental_object : ExperimentalObject[T]
   blackbox_tests : Array[BlackboxTestMethod[T]]
@@ -103,7 +103,7 @@ pub fn[T, G] ExperimentRunner::get_name(
 ///|
 pub fn[T, G] ExperimentRunner::get_runner_id(
   self : ExperimentRunner[T, G],
-) -> Int {
+) -> Int32 {
   self.runner_id
 }
 

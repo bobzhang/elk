@@ -32,7 +32,7 @@ fn sort_by_input_model_test_node_type(name : String) -> @runtime.NodeType {
 fn sort_by_input_model_test_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  model_order : Int,
+  model_order : Int32,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))
   node.set_layer(Some(layer))
@@ -56,7 +56,7 @@ fn sort_by_input_model_test_new_port(
 fn sort_by_input_model_test_connect(
   source : @runtime.LPort,
   target : @runtime.LPort,
-  model_order : Int,
+  model_order : Int32,
   reversed : Bool,
 ) -> @runtime.LEdge {
   let edge = @runtime.new_l_edge()

@@ -95,7 +95,7 @@ pub struct BKAlignedLayout {
 ///|
 pub fn new_bk_aligned_layout(
   layered_graph : @runtime.LGraph,
-  node_count : Int,
+  node_count : Int32,
   vdir : BKVDirection?,
   hdir : BKHDirection?,
 ) -> BKAlignedLayout {
@@ -141,8 +141,8 @@ pub fn BKAlignedLayout::cleanup(self : BKAlignedLayout) -> Unit {
 
 ///|
 fn bk_aligned_layout_require_index(
-  length : Int,
-  index : Int,
+  length : Int32,
+  index : Int32,
   kind : String,
 ) -> Unit raise BKAlignedLayoutException {
   if index < 0 || index >= length {
@@ -185,7 +185,7 @@ pub fn BKAlignedLayout::require_root(
 ///|
 pub fn BKAlignedLayout::require_root_by_id(
   self : BKAlignedLayout,
-  node_id : Int,
+  node_id : Int32,
 ) -> @runtime.LNode raise BKAlignedLayoutException {
   bk_aligned_layout_require_index(self.root.length(), node_id, "root")
   match self.root[node_id] {
@@ -206,7 +206,7 @@ pub fn BKAlignedLayout::require_align(
 ///|
 pub fn BKAlignedLayout::require_align_by_id(
   self : BKAlignedLayout,
-  node_id : Int,
+  node_id : Int32,
 ) -> @runtime.LNode raise BKAlignedLayoutException {
   bk_aligned_layout_require_index(self.align.length(), node_id, "align")
   match self.align[node_id] {
@@ -227,7 +227,7 @@ pub fn BKAlignedLayout::require_sink(
 ///|
 pub fn BKAlignedLayout::require_sink_by_id(
   self : BKAlignedLayout,
-  node_id : Int,
+  node_id : Int32,
 ) -> @runtime.LNode raise BKAlignedLayoutException {
   bk_aligned_layout_require_index(self.sink.length(), node_id, "sink")
   match self.sink[node_id] {
@@ -248,7 +248,7 @@ pub fn BKAlignedLayout::require_y(
 ///|
 pub fn BKAlignedLayout::require_y_by_id(
   self : BKAlignedLayout,
-  node_id : Int,
+  node_id : Int32,
 ) -> Double raise BKAlignedLayoutException {
   bk_aligned_layout_require_index(self.y.length(), node_id, "y")
   match self.y[node_id] {
@@ -261,7 +261,7 @@ pub fn BKAlignedLayout::require_y_by_id(
 ///|
 pub fn BKAlignedLayout::set_y_by_id(
   self : BKAlignedLayout,
-  node_id : Int,
+  node_id : Int32,
   value : Double,
 ) -> Unit raise BKAlignedLayoutException {
   bk_aligned_layout_require_index(self.y.length(), node_id, "y")

@@ -2,18 +2,18 @@
 pub struct GmfConnectorLayoutSettings {
   animate : Bool
   zoom_to_fit : Bool
-  min_anim_time : Int
-  max_anim_time : Int
-  anim_time_factor : Int
+  min_anim_time : Int32
+  max_anim_time : Int32
+  anim_time_factor : Int32
 }
 
 ///|
 pub fn new_gmf_connector_layout_settings(
-  animate? : Bool = false,
-  zoom_to_fit? : Bool = false,
-  min_anim_time? : Int = 0,
-  max_anim_time? : Int = 0,
-  anim_time_factor? : Int = 0,
+  animate~ : Bool = false,
+  zoom_to_fit~ : Bool = false,
+  min_anim_time~ : Int32 = 0,
+  max_anim_time~ : Int32 = 0,
+  anim_time_factor~ : Int32 = 0,
 ) -> GmfConnectorLayoutSettings {
   { animate, zoom_to_fit, min_anim_time, max_anim_time, anim_time_factor, }
 }
@@ -58,7 +58,7 @@ pub struct GmfLayoutMapping {
   mut layout_command : GmfLayoutCommand?
   mut command_stack : GmfCommandStack?
   mut coordinate_offset : GmfPoint?
-  mut animation_time : Int
+  mut animation_time : Int32
 }
 
 ///|
@@ -85,7 +85,7 @@ fn new_gmf_layout_mapping(
 }
 
 ///|
-pub fn GmfLayoutMapping::graph_element_count(self : GmfLayoutMapping) -> Int {
+pub fn GmfLayoutMapping::graph_element_count(self : GmfLayoutMapping) -> Int32 {
   self.node_map.length() +
   self.port_map.length() +
   self.edge_map.length() +
@@ -114,7 +114,7 @@ pub struct GmfDiagramLayoutConnector {
 
 ///|
 pub fn new_gmf_diagram_layout_connector(
-  edit_part_filter? : IEditPartFilter = new_i_edit_part_filter_default_impl(),
+  edit_part_filter~ : IEditPartFilter = new_i_edit_part_filter_default_impl(),
 ) -> GmfDiagramLayoutConnector {
   { edit_part_filter, }
 }
@@ -798,7 +798,7 @@ pub fn GmfDiagramLayoutConnector::build_layout_graph(
 pub fn GmfDiagramLayoutConnector::count_nodes(
   self : GmfDiagramLayoutConnector,
   node : @graph.ElkNode,
-) -> Int {
+) -> Int32 {
   let mut count = 0
   for child in @graph.node_children(node) {
     count = count + self.count_nodes(child) + 1
@@ -812,7 +812,7 @@ pub fn GmfDiagramLayoutConnector::calc_animation_time(
   mapping : GmfLayoutMapping,
   settings : GmfConnectorLayoutSettings,
   viewer_not_visible : Bool,
-) -> Int {
+) -> Int32 {
   ignore(viewer_not_visible)
   if !settings.animate {
     return 0
@@ -875,7 +875,7 @@ fn gmf_diagram_layout_connector_transfer_shape(
   y : Double,
   width : Double,
   height : Double,
-  element_id : Int,
+  element_id : Int32,
 ) -> Unit {
   gmf_set_layout_element_shape(element_id, x, y, width, height)
   request.add_element(element_id, edit_part)
@@ -885,7 +885,7 @@ fn gmf_diagram_layout_connector_transfer_shape(
 fn gmf_diagram_layout_connector_transfer_edge(
   request : ApplyLayoutRequest,
   edit_part : GmfEditPart,
-  element_id : Int,
+  element_id : Int32,
   edge : @graph.ElkEdge,
 ) -> Unit raise {
   let bends = new_gmf_point_list()
@@ -1021,7 +1021,7 @@ pub fn GmfDiagramLayoutConnector::apply_transferred_layout(
 pub fn GmfDiagramLayoutConnector::apply_layout_internal(
   self : GmfDiagramLayoutConnector,
   mapping : GmfLayoutMapping,
-  animation_time : Int,
+  animation_time : Int32,
 ) -> Unit raise {
   self.transfer_layout(mapping)
   ignore(animation_time)
@@ -1033,7 +1033,7 @@ pub fn GmfDiagramLayoutConnector::apply_layout(
   self : GmfDiagramLayoutConnector,
   mapping : GmfLayoutMapping,
   settings : GmfConnectorLayoutSettings,
-  viewer_not_visible? : Bool = false,
+  viewer_not_visible~ : Bool = false,
 ) -> Unit raise {
   mapping.animation_time = self.calc_animation_time(
     mapping, settings, viewer_not_visible,

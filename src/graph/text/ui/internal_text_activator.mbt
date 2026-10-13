@@ -61,7 +61,7 @@ pub struct GraphTextConfigurationElement {
 
 ///|
 pub fn new_graph_text_configuration_element(
-  contributor? : String? = None,
+  contributor~ : String? = None,
 ) -> GraphTextConfigurationElement {
   { contributor, }
 }
@@ -84,7 +84,7 @@ pub struct GraphTextExecutableExtension {
 
 ///|
 pub fn new_graph_text_executable_extension(
-  set_initialization_data_fn? : (
+  set_initialization_data_fn~ : (
     GraphTextConfigurationElement?,
     String?,
     GraphTextInitializationData?,
@@ -137,7 +137,7 @@ pub struct GraphTextUiBundle {
 
 ///|
 pub fn new_graph_text_ui_bundle(
-  symbolic_name? : String = graph_text_ui_plugin_id,
+  symbolic_name~ : String = graph_text_ui_plugin_id,
 ) -> GraphTextUiBundle {
   { symbolic_name, classes: Map([]), }
 }
@@ -197,7 +197,7 @@ pub fn GraphTextUiInjector::get_instance(
 }
 
 ///|
-pub fn GraphTextUiInjector::provider_count(self : GraphTextUiInjector) -> Int {
+pub fn GraphTextUiInjector::provider_count(self : GraphTextUiInjector) -> Int32 {
   self.providers.to_array().length()
 }
 
@@ -250,7 +250,7 @@ pub fn TextActivator::register_bundle_class(
 }
 
 ///|
-pub fn TextActivator::injector_count(self : TextActivator) -> Int {
+pub fn TextActivator::injector_count(self : TextActivator) -> Int32 {
   self.injectors.to_array().length()
 }
 

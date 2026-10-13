@@ -1,15 +1,15 @@
 ///|
 pub struct NeighborhoodInformation {
-  mut node_count : Int
-  mut layer_index : Array[Int]
-  mut node_index : Array[Int]
+  mut node_count : Int32
+  mut layer_index : Array[Int32]
+  mut node_index : Array[Int32]
   mut left_neighbors : Array[Array[(@runtime.LNode, @runtime.LEdge)]]
   mut right_neighbors : Array[Array[(@runtime.LNode, @runtime.LEdge)]]
 }
 
 ///|
 fn bk_neighbor_lists_with_capacity(
-  count : Int,
+  count : Int32,
 ) -> Array[Array[(@runtime.LNode, @runtime.LEdge)]] {
   let lists : Array[Array[(@runtime.LNode, @runtime.LEdge)]] = []
   for i = 0; i < count; i = i + 1 {

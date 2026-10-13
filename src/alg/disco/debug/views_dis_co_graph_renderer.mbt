@@ -6,19 +6,19 @@ let dis_co_graph_renderer_arrow_width : Double = 7.0
 
 ///|
 pub struct DisCoPaintRectangle {
-  x : Int
-  y : Int
-  width : Int
-  height : Int
+  x : Int32
+  y : Int32
+  width : Int32
+  height : Int32
   mut painted : Bool
 }
 
 ///|
 pub fn new_dis_co_paint_rectangle(
-  x : Int,
-  y : Int,
-  width : Int,
-  height : Int,
+  x : Int32,
+  y : Int32,
+  width : Int32,
+  height : Int32,
 ) -> DisCoPaintRectangle {
   { x, y, width, height, painted: false, }
 }
@@ -71,8 +71,8 @@ fn dis_co_graph_renderer_element_offset_or_zero(
 ///|
 fn dis_co_paint_rectangle_contains_point(
   rectangle : DisCoPaintRectangle,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> Bool {
   x >= rectangle.x &&
   y >= rectangle.y &&
@@ -82,12 +82,12 @@ fn dis_co_paint_rectangle_contains_point(
 
 ///|
 fn dis_co_geometry_orientation(
-  ax : Int,
-  ay : Int,
-  bx : Int,
-  by : Int,
-  cx : Int,
-  cy : Int,
+  ax : Int32,
+  ay : Int32,
+  bx : Int32,
+  by : Int32,
+  cx : Int32,
+  cy : Int32,
 ) -> Double {
   (bx - ax).to_double() * (cy - ay).to_double() -
   (by - ay).to_double() * (cx - ax).to_double()
@@ -95,12 +95,12 @@ fn dis_co_geometry_orientation(
 
 ///|
 fn dis_co_geometry_on_segment(
-  ax : Int,
-  ay : Int,
-  bx : Int,
-  by : Int,
-  cx : Int,
-  cy : Int,
+  ax : Int32,
+  ay : Int32,
+  bx : Int32,
+  by : Int32,
+  cx : Int32,
+  cy : Int32,
 ) -> Bool {
   cx >= @cmp.minimum(ax, bx) &&
   cx <= @cmp.maximum(ax, bx) &&
@@ -110,14 +110,14 @@ fn dis_co_geometry_on_segment(
 
 ///|
 fn dis_co_geometry_segments_intersect(
-  ax : Int,
-  ay : Int,
-  bx : Int,
-  by : Int,
-  cx : Int,
-  cy : Int,
-  dx : Int,
-  dy : Int,
+  ax : Int32,
+  ay : Int32,
+  bx : Int32,
+  by : Int32,
+  cx : Int32,
+  cy : Int32,
+  dx : Int32,
+  dy : Int32,
 ) -> Bool {
   let o1 = dis_co_geometry_orientation(ax, ay, bx, by, cx, cy)
   let o2 = dis_co_geometry_orientation(ax, ay, bx, by, dx, dy)
@@ -150,9 +150,9 @@ fn dis_co_geometry_segments_intersect(
 
 ///|
 fn dis_co_geometry_point_in_polygon(
-  coords : Array[Int],
-  px : Int,
-  py : Int,
+  coords : Array[Int32],
+  px : Int32,
+  py : Int32,
 ) -> Bool {
   let len = coords.length()
   if len < 6 {
@@ -334,11 +334,11 @@ fn dis_co_paint_rectangle_from_edge(
 
 ///|
 pub struct DisCoPaintPolygon {
-  coords_scaled_and_rounded : Array[Int]
-  min_x : Int
-  min_y : Int
-  max_x : Int
-  max_y : Int
+  coords_scaled_and_rounded : Array[Int32]
+  min_x : Int32
+  min_y : Int32
+  max_x : Int32
+  max_y : Int32
   mut painted : Bool
 }
 
@@ -357,7 +357,7 @@ fn new_dis_co_paint_polygon(
   let mut max_y = -@int.MAX_VALUE
 
   let len = coords.length()
-  let rounded : Array[Int] = []
+  let rounded : Array[Int32] = []
   let mut index = 0
   while index < len {
     let x = ((coords[index] + component_offset.x) * scale + offset.x)
@@ -524,8 +524,8 @@ fn dis_co_graph_renderer_extension_key(
 ///|
 fn dis_co_graph_renderer_poly_cell_key(
   poly : @disco.DCPolyomino,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) -> String {
   "cell:" +
   poly.get_id().to_string() +
@@ -544,8 +544,8 @@ fn dis_co_graph_renderer_poly_center_key(poly : @disco.DCPolyomino) -> String {
 fn dis_co_graph_renderer_poly_extension_key(
   poly : @disco.DCPolyomino,
   direction : @polyomino.PolyominoDirection,
-  start : Int,
-  end_ : Int,
+  start : Int32,
+  end_ : Int32,
 ) -> String {
   "polyext:" +
   poly.get_id().to_string() +
@@ -621,7 +621,7 @@ pub struct DisCoGraphRenderer {
 ///|
 pub fn new_dis_co_graph_renderer(
   configurator : DisCoGraphRenderingConfigurator,
-  scale? : Double = config_state_get_scale(new_config_state()),
+  scale~ : Double = config_state_get_scale(new_config_state()),
 ) -> DisCoGraphRenderer {
   dis_co_graph_rendering_configurator_initialize(configurator, scale)
   let state = new_config_state()
@@ -700,7 +700,7 @@ pub fn dis_co_graph_renderer_mark_dirty(
 }
 
 ///|
-fn dis_co_graph_renderer_max_depth(node : @graph.ElkNode) -> Int {
+fn dis_co_graph_renderer_max_depth(node : @graph.ElkNode) -> Int32 {
   let mut depth = 0
   for child in @graph.node_children(node) {
     let child_depth = dis_co_graph_renderer_max_depth(child) + 1
@@ -790,7 +790,7 @@ fn dis_co_graph_renderer_make_arrow(
   renderer : DisCoGraphRenderer,
   point1 : @core.KVector,
   point2 : @core.KVector,
-) -> Array[Int]? {
+) -> Array[Int32]? {
   if point1.x == point2.x || point1.y == point2.y {
     if point1.x == point2.x && point1.y == point2.y {
       return None
@@ -800,7 +800,7 @@ fn dis_co_graph_renderer_make_arrow(
     return None
   }
 
-  let arrow : Array[Int] = [0, 0, 0, 0, 0, 0]
+  let arrow : Array[Int32] = [0, 0, 0, 0, 0, 0]
   arrow[0] = point2.x.round().to_int()
   arrow[1] = point2.y.round().to_int()
 
@@ -995,7 +995,7 @@ fn dis_co_graph_renderer_render_component_graph(
   component_graph : @disco.DCGraph,
   area : DisCoPaintRectangle,
   offset : @core.KVector,
-  level_number : Int,
+  level_number : Int32,
 ) -> Unit raise {
   ignore(level_number)
   let boundaries = @core.new_kvector_xy(
@@ -1059,7 +1059,7 @@ fn dis_co_graph_renderer_render_polyominoes(
   polys : Array[@disco.DCPolyomino],
   area : DisCoPaintRectangle,
   offset : @core.KVector,
-  level_number : Int,
+  level_number : Int32,
 ) -> Unit {
   ignore(level_number)
 
@@ -1177,7 +1177,7 @@ fn dis_co_graph_renderer_render_recursively(
   parent : @graph.ElkNode,
   area : DisCoPaintRectangle,
   offset : @core.KVector,
-  level_number : Int,
+  level_number : Int32,
 ) -> Unit raise {
   let component_graph = dis_co_graph_renderer_component_graph_of(
     renderer, parent,
@@ -1353,28 +1353,28 @@ pub fn dis_co_graph_renderer_get_state(
 ///|
 pub fn dis_co_graph_renderer_debug_bounds_cache_size(
   renderer : DisCoGraphRenderer,
-) -> Int {
+) -> Int32 {
   renderer.bounds_map.length()
 }
 
 ///|
 pub fn dis_co_graph_renderer_debug_polygon_cache_size(
   renderer : DisCoGraphRenderer,
-) -> Int {
+) -> Int32 {
   renderer.polygon_map.length()
 }
 
 ///|
 pub fn dis_co_graph_renderer_debug_poly_cell_cache_size(
   renderer : DisCoGraphRenderer,
-) -> Int {
+) -> Int32 {
   renderer.polyomino_map.length()
 }
 
 ///|
 pub fn dis_co_graph_renderer_debug_painted_bounds_count(
   renderer : DisCoGraphRenderer,
-) -> Int {
+) -> Int32 {
   let mut count = 0
   renderer.bounds_map.each((_key, value) => {
     if value.painted {
@@ -1387,7 +1387,7 @@ pub fn dis_co_graph_renderer_debug_painted_bounds_count(
 ///|
 pub fn dis_co_graph_renderer_debug_painted_polygon_count(
   renderer : DisCoGraphRenderer,
-) -> Int {
+) -> Int32 {
   let mut count = 0
   renderer.polygon_map.each((_key, value) => {
     if value.painted {
@@ -1400,7 +1400,7 @@ pub fn dis_co_graph_renderer_debug_painted_polygon_count(
 ///|
 pub fn dis_co_graph_renderer_debug_painted_poly_cell_count(
   renderer : DisCoGraphRenderer,
-) -> Int {
+) -> Int32 {
   let mut count = 0
   renderer.polyomino_map.each((_key, value) => {
     if value.painted {
@@ -1415,6 +1415,6 @@ pub fn dis_co_graph_renderer_debug_make_arrow(
   renderer : DisCoGraphRenderer,
   point1 : @core.KVector,
   point2 : @core.KVector,
-) -> Array[Int]? {
+) -> Array[Int32]? {
   dis_co_graph_renderer_make_arrow(renderer, point1, point2)
 }

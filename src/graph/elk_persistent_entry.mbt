@@ -6,8 +6,8 @@ pub struct ElkPersistentEntry {
 
 ///|
 pub fn new_elk_persistent_entry(
-  key? : String = "",
-  value? : String? = None,
+  key~ : String = "",
+  value~ : String? = None,
 ) -> ElkPersistentEntry {
   { key, value, }
 }

@@ -12,19 +12,19 @@ let core_ui_graph_renderer_edge_type_option_id : String = "org.eclipse.elk.edgeT
 
 ///|
 pub(all) struct CoreUiPaintRectangle {
-  x : Int
-  y : Int
-  width : Int
-  height : Int
+  x : Int32
+  y : Int32
+  width : Int32
+  height : Int32
   mut painted : Bool
 }
 
 ///|
 pub fn new_core_ui_paint_rectangle(
-  x : Int,
-  y : Int,
-  width : Int,
-  height : Int,
+  x : Int32,
+  y : Int32,
+  width : Int32,
+  height : Int32,
 ) -> CoreUiPaintRectangle {
   { x, y, width, height, painted: false, }
 }
@@ -96,7 +96,7 @@ fn core_ui_paint_rectangle_from_edge(
 ///|
 pub(all) struct CoreUiGraphics {
   operations : Array[String]
-  mut alpha : Int
+  mut alpha : Int32
   mut font : CoreUiFont?
 }
 
@@ -106,7 +106,7 @@ pub fn new_core_ui_graphics() -> CoreUiGraphics {
 }
 
 ///|
-pub fn CoreUiGraphics::set_alpha(self : CoreUiGraphics, alpha : Int) -> Unit {
+pub fn CoreUiGraphics::set_alpha(self : CoreUiGraphics, alpha : Int32) -> Unit {
   self.alpha = alpha
 }
 
@@ -119,7 +119,7 @@ pub fn CoreUiGraphics::set_font(
 }
 
 ///|
-pub fn CoreUiGraphics::font_height(self : CoreUiGraphics) -> Int {
+pub fn CoreUiGraphics::font_height(self : CoreUiGraphics) -> Int32 {
   match self.font {
     Some(font) => font.size
     None => 0
@@ -196,7 +196,7 @@ pub fn GraphRenderer::set_scale(self : GraphRenderer, scale : Double) -> Unit {
 fn core_ui_graph_renderer_scale(
   renderer : GraphRenderer,
   value : Double,
-) -> Int {
+) -> Int32 {
   (renderer.scale * value).round().to_int()
 }
 
@@ -283,7 +283,7 @@ fn core_ui_graph_renderer_set_rect(
 }
 
 ///|
-fn core_ui_graph_renderer_max_depth(parent : @graph.ElkNode) -> Int {
+fn core_ui_graph_renderer_max_depth(parent : @graph.ElkNode) -> Int32 {
   let mut max_depth = 0
   for child in @graph.node_children(parent) {
     let depth = core_ui_graph_renderer_max_depth(child) + 1
@@ -301,7 +301,7 @@ fn core_ui_graph_renderer_render_label(
   graphics : CoreUiGraphics,
   area : CoreUiPaintRectangle,
   offset : @core.KVector,
-  label_alpha : Int,
+  label_alpha : Int32,
 ) -> Unit {
   if graphics.font_height() < core_ui_min_font_height {
     return
@@ -342,7 +342,7 @@ fn core_ui_graph_renderer_render_port(
   graphics : CoreUiGraphics,
   area : CoreUiPaintRectangle,
   offset : @core.KVector,
-  label_alpha : Int,
+  label_alpha : Int32,
 ) -> Unit {
   let key = core_ui_graph_renderer_key_port(port)
   let rect = core_ui_graph_renderer_put_if_absent(
@@ -449,7 +449,7 @@ fn core_ui_graph_renderer_make_arrow(
   renderer : GraphRenderer,
   point1 : @core.KVector,
   point2 : @core.KVector,
-) -> Array[Int]? {
+) -> Array[Int32]? {
   if point1.x == point2.x && point1.y == point2.y {
     return None
   }
@@ -486,7 +486,7 @@ fn core_ui_graph_renderer_make_arrow(
 }
 
 ///|
-fn core_ui_graph_renderer_join_ints(values : Array[Int]) -> String {
+fn core_ui_graph_renderer_join_ints(values : Array[Int32]) -> String {
   let rendered : Array[String] = []
   for value in values {
     rendered.push(value.to_string())
@@ -499,7 +499,7 @@ pub fn GraphRenderer::make_arrow_for_test(
   self : GraphRenderer,
   point1 : @core.KVector,
   point2 : @core.KVector,
-) -> Array[Int]? {
+) -> Array[Int32]? {
   core_ui_graph_renderer_make_arrow(self, point1, point2)
 }
 
@@ -510,7 +510,7 @@ fn core_ui_graph_renderer_render_edge(
   graphics : CoreUiGraphics,
   area : CoreUiPaintRectangle,
   offset : @core.KVector,
-  label_alpha : Int,
+  label_alpha : Int32,
 ) -> Unit {
   if renderer.configurator.get_edge_color() is None {
     return
@@ -578,7 +578,7 @@ fn core_ui_graph_renderer_render_node_children(
   graphics : CoreUiGraphics,
   area : CoreUiPaintRectangle,
   offset : @core.KVector,
-  node_alpha : Int,
+  node_alpha : Int32,
 ) -> Unit {
   for child_node in @graph.node_children(parent) {
     let key = core_ui_graph_renderer_key_node(child_node)

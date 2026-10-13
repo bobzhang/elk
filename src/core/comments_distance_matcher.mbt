@@ -11,19 +11,19 @@ let distance_matcher_out_right = 4
 let distance_matcher_out_bottom = 8
 
 ///|
-let distance_matcher_out_top_left : Int = distance_matcher_out_top |
+let distance_matcher_out_top_left : Int32 = distance_matcher_out_top |
   distance_matcher_out_left
 
 ///|
-let distance_matcher_out_bottom_left : Int = distance_matcher_out_bottom |
+let distance_matcher_out_bottom_left : Int32 = distance_matcher_out_bottom |
   distance_matcher_out_left
 
 ///|
-let distance_matcher_out_top_right : Int = distance_matcher_out_top |
+let distance_matcher_out_top_right : Int32 = distance_matcher_out_top |
   distance_matcher_out_right
 
 ///|
-let distance_matcher_out_bottom_right : Int = distance_matcher_out_bottom |
+let distance_matcher_out_bottom_right : Int32 = distance_matcher_out_bottom |
   distance_matcher_out_right
 
 ///|
@@ -56,7 +56,11 @@ fn[C, T] distance_matcher_bounds_provider_or_raise(
 }
 
 ///|
-fn distance_matcher_outcode(rect : ElkRectangle, x : Double, y : Double) -> Int {
+fn distance_matcher_outcode(
+  rect : ElkRectangle,
+  x : Double,
+  y : Double,
+) -> Int32 {
   let mut out = 0
 
   if rect.width <= 0.0 {

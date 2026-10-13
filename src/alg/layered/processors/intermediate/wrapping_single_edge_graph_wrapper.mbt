@@ -42,9 +42,9 @@ fn single_edge_graph_wrapper_reverse_edge(
 
 ///|
 fn single_edge_graph_wrapper_validify_indexes_looking_back_internal(
-  desired_cuts : Array[Int],
-  valid_cuts : Array[Int],
-) -> Array[Int] {
+  desired_cuts : Array[Int32],
+  valid_cuts : Array[Int32],
+) -> Array[Int32] {
   let final_cuts = []
   let mut valid_idx = 0
   let mut cut_idx = 0
@@ -81,8 +81,8 @@ fn single_edge_graph_wrapper_validify_indexes_looking_back_internal(
 ///|
 pub fn single_edge_graph_wrapper_validify_indexes_greedily(
   graph_stats : GraphStats,
-  cuts : Array[Int],
-) -> Array[Int] {
+  cuts : Array[Int32],
+) -> Array[Int32] {
   let valid_cuts = []
   let mut offset = 0
   for item in cuts {
@@ -102,8 +102,8 @@ pub fn single_edge_graph_wrapper_validify_indexes_greedily(
 ///|
 pub fn single_edge_graph_wrapper_validify_indexes_looking_back(
   graph_stats : GraphStats,
-  desired_cuts : Array[Int],
-) -> Array[Int] {
+  desired_cuts : Array[Int32],
+) -> Array[Int32] {
   if desired_cuts.is_empty() {
     return []
   }
@@ -128,7 +128,7 @@ pub fn single_edge_graph_wrapper_validify_indexes_looking_back(
 fn single_edge_graph_wrapper_perform_cuts(
   graph : @runtime.LGraph,
   graph_stats : GraphStats,
-  cuts : Array[Int],
+  cuts : Array[Int32],
 ) -> Unit raise SingleEdgeGraphWrapperException {
   if cuts.is_empty() {
     return

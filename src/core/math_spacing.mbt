@@ -130,7 +130,7 @@ pub fn Spacing::equals(self : Spacing, other : Spacing) -> Bool {
 }
 
 ///|
-pub fn Spacing::hash_code(self : Spacing) -> Int {
+pub fn Spacing::hash_code(self : Spacing) -> Int32 {
   let code1 = (self.left.hash() << 16) | (self.bottom.hash() & 0xffff)
   let code2 = (self.right.hash() << 16) | (self.top.hash() & 0xffff)
   code1 ^ code2

@@ -75,7 +75,7 @@ fn long_edge_joiner_port_side_ports(
 fn long_edge_joiner_edge_index(
   edges : Array[@runtime.LEdge],
   edge : @runtime.LEdge,
-) -> Int {
+) -> Int32 {
   for i in 0..<edges.length() {
     if @runtime.ledge_internal_handle(edges[i]) ==
       @runtime.ledge_internal_handle(edge) {
@@ -89,7 +89,7 @@ fn long_edge_joiner_edge_index(
 fn long_edge_joiner_set_target_and_insert_at_index(
   edge : @runtime.LEdge,
   new_target : @runtime.LPort,
-  target_index : Int,
+  target_index : Int32,
 ) -> Unit {
   edge.set_target(Some(new_target))
   let incoming = new_target.get_incoming_edges()

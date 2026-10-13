@@ -7,7 +7,7 @@ fn msd_cut_index_heuristic_guarantee_valid() -> Bool {
 fn msd_cut_index_heuristic_get_cut_indexes(
   graph : @runtime.LGraph,
   graph_stats : GraphStats,
-) -> Array[Int] raise {
+) -> Array[Int32] raise {
   let widths = graph_stats.get_widths()
   let heights = graph_stats.get_heights()
 
@@ -25,7 +25,7 @@ fn msd_cut_index_heuristic_get_cut_indexes(
   )
 
   let mut best_max_scale = -@double.infinity
-  let mut best_cuts : Array[Int] = []
+  let mut best_cuts : Array[Int32] = []
 
   let mut lower = cut_cnt - freedom
   if lower < 0 {

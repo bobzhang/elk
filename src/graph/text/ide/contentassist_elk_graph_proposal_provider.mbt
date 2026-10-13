@@ -22,10 +22,10 @@ pub fn new_graph_text_ide_content_assist_entry(
   proposal : String,
   prefix : String,
   kind : String,
-  label? : String? = None,
-  description? : String? = None,
-  documentation? : String? = None,
-  source? : String? = None,
+  label~ : String? = None,
+  description~ : String? = None,
+  documentation~ : String? = None,
+  source~ : String? = None,
 ) -> GraphTextIdeContentAssistEntry {
   { proposal, prefix, kind, label, description, documentation, source, }
 }
@@ -77,11 +77,11 @@ pub struct GraphTextIdeContentAssistContext {
 
 ///|
 pub fn new_graph_text_ide_content_assist_context(
-  prefix? : String = "",
-  current_model? : @text.GraphTextElement? = None,
-  current_property_key? : @text.GraphTextPropertyKey? = None,
-  current_edge_section? : @graph.ElkEdgeSection? = None,
-  conflict_on_a? : Bool = false,
+  prefix~ : String = "",
+  current_model~ : @text.GraphTextElement? = None,
+  current_property_key~ : @text.GraphTextPropertyKey? = None,
+  current_edge_section~ : @graph.ElkEdgeSection? = None,
+  conflict_on_a~ : Bool = false,
 ) -> GraphTextIdeContentAssistContext {
   {
     prefix,
@@ -180,7 +180,7 @@ pub struct ElkGraphIdeProposalProvider {
 ///|
 pub fn new_elk_graph_ide_proposal_provider(
   metadata : @core.OptionMetadata,
-  grammar? : @text.ElkGraphGrammarAccess = @text.new_elk_graph_grammar_access(),
+  grammar~ : @text.ElkGraphGrammarAccess = @text.new_elk_graph_grammar_access(),
 ) -> ElkGraphIdeProposalProvider {
   { metadata, grammar, }
 }
@@ -298,7 +298,7 @@ fn graph_text_ide_push_value_entry(
   acceptor : GraphTextIdeCompletionProposalAcceptor,
   context : GraphTextIdeContentAssistContext,
   proposal : String,
-  description? : String? = None,
+  description~ : String? = None,
 ) -> Unit {
   acceptor.accept(
     new_graph_text_ide_content_assist_entry(

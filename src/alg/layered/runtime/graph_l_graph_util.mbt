@@ -465,7 +465,7 @@ pub fn compute_graph_properties(layered_graph : LGraph) -> Unit {
 }
 
 ///|
-pub fn get_minimal_model_order(graph : LGraph) -> Int {
+pub fn get_minimal_model_order(graph : LGraph) -> Int32 {
   let mut order = @int.MAX_VALUE
   for node in graph.get_layerless_nodes() {
     if node.has_property_int(internal_properties_model_order) {
@@ -835,7 +835,7 @@ pub fn create_external_port_dummy(
   property_holder : LPort,
   ext_port_constraints : @core.PortConstraints,
   port_side : @core.PortSide,
-  net_flow : Int,
+  net_flow : Int32,
   port_node_size : @core.KVector?,
   port_position : @core.KVector?,
   port_size : @core.KVector,

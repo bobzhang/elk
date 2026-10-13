@@ -1,6 +1,6 @@
 ///|
-fn graphviz_tool_test_ascii(text : String) -> Array[Int] {
-  let bytes : Array[Int] = []
+fn graphviz_tool_test_ascii(text : String) -> Array[Int32] {
+  let bytes : Array[Int32] = []
   for ch in text {
     bytes.push(ch.to_int())
   }
@@ -8,7 +8,7 @@ fn graphviz_tool_test_ascii(text : String) -> Array[Int] {
 }
 
 ///|
-fn graphviz_tool_test_byte_stream(bytes : Array[Int]) -> GraphvizInputStream {
+fn graphviz_tool_test_byte_stream(bytes : Array[Int32]) -> GraphvizInputStream {
   new_graphviz_byte_array_input_stream(bytes).as_input_stream()
 }
 
@@ -21,10 +21,10 @@ fn graphviz_tool_test_output_stream(
 
 ///|
 fn graphviz_tool_test_fake_process(
-  stdout_bytes : Array[Int],
-  stderr_bytes : Array[Int],
-  destroyed_ref : Ref[Int],
-  closed_ref : Ref[Int],
+  stdout_bytes : Array[Int32],
+  stderr_bytes : Array[Int32],
+  destroyed_ref : Ref[Int32],
+  closed_ref : Ref[Int32],
 ) -> GraphvizProcess {
   let stdin_sink = new_graphviz_byte_array_output_stream()
   let stdout_stream = graphviz_tool_test_byte_stream(stdout_bytes)
@@ -95,8 +95,8 @@ test "GraphvizTool initialize assembles command line and graph stream" {
   graphviz_tool_set_default_locations_for_test(["/usr/bin/"])
   graphviz_tool_set_executable_probe_for_test(path => path == "/usr/bin/dot")
 
-  let destroyed_ref : Ref[Int] = Ref(0)
-  let closed_ref : Ref[Int] = Ref(0)
+  let destroyed_ref : Ref[Int32] = Ref(0)
+  let closed_ref : Ref[Int32] = Ref(0)
   graphviz_tool_set_process_factory_for_test(_args => {
     Some(
       graphviz_tool_test_fake_process(
@@ -116,7 +116,7 @@ test "GraphvizTool initialize assembles command line and graph stream" {
   )
 
   let output = tool.output()
-  let stream_bytes : Array[Int] = []
+  let stream_bytes : Array[Int32] = []
   let mut next = output.read()
   while next >= 0 {
     stream_bytes.push(next)
@@ -136,8 +136,8 @@ test "panic GraphvizTool cleanup error raises GraphvizException message" {
   graphviz_tool_set_default_locations_for_test(["/usr/bin/"])
   graphviz_tool_set_executable_probe_for_test(path => path == "/usr/bin/dot")
 
-  let destroyed_ref : Ref[Int] = Ref(0)
-  let closed_ref : Ref[Int] = Ref(0)
+  let destroyed_ref : Ref[Int32] = Ref(0)
+  let closed_ref : Ref[Int32] = Ref(0)
   graphviz_tool_set_process_factory_for_test(_args => {
     Some(
       graphviz_tool_test_fake_process(
@@ -168,7 +168,7 @@ test "Graphviz text runner process adapts input and output streams" {
   input.flush()
 
   let output = process.get_input_stream()
-  let bytes : Array[Int] = []
+  let bytes : Array[Int32] = []
   let mut next = output.read()
   while next >= 0 {
     bytes.push(next)

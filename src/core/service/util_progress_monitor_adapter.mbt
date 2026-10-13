@@ -1,14 +1,14 @@
 ///|
 pub(all) struct ProgressMonitorAdapter {
   progress_monitor : @core.IElkProgressMonitor
-  mut submitted_work : Int
-  max_hierarchy_levels : Int
+  mut submitted_work : Int32
+  max_hierarchy_levels : Int32
 }
 
 ///|
 pub fn new_progress_monitor_adapter(
   progress_monitor : @core.IElkProgressMonitor,
-  max_hierarchy_levels? : Int = -1,
+  max_hierarchy_levels~ : Int32 = -1,
 ) -> ProgressMonitorAdapter {
   { progress_monitor, submitted_work: 0, max_hierarchy_levels, }
 }
@@ -18,7 +18,7 @@ pub fn ProgressMonitorAdapter::begin(
   self : ProgressMonitorAdapter,
   name : String,
   total_work : Double,
-  top_instance? : Bool = true,
+  top_instance~ : Bool = true,
 ) -> Unit raise {
   if top_instance {
     ignore(self.progress_monitor.begin(name, total_work))
@@ -30,7 +30,7 @@ pub fn ProgressMonitorAdapter::begin(
 ///|
 pub fn ProgressMonitorAdapter::done(
   self : ProgressMonitorAdapter,
-  top_instance? : Bool = true,
+  top_instance~ : Bool = true,
 ) -> Unit raise {
   if top_instance {
     self.progress_monitor.done()
@@ -66,7 +66,7 @@ pub fn ProgressMonitorAdapter::worked(
   self : ProgressMonitorAdapter,
   completed_work : Double,
   total_work : Double,
-  top_instance? : Bool = true,
+  top_instance~ : Bool = true,
 ) -> Unit {
   ignore(total_work)
   if top_instance {

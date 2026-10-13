@@ -12,7 +12,7 @@ fn mrtree_compaction_insert_sorted(
   nodes : Array[MrtreeNode],
   node : MrtreeNode,
   direction_vector : @core.KVector,
-) -> Int {
+) -> Int32 {
   let node_projection = mrtree_compaction_projection(node, direction_vector)
   let mut index = 0
   while index < nodes.length() &&
@@ -28,7 +28,7 @@ fn mrtree_compaction_insert_sorted(
 fn mrtree_compaction_sorted_remove(
   nodes : Array[MrtreeNode],
   node : MrtreeNode,
-) -> Int {
+) -> Int32 {
   let mut index = 0
   while index < nodes.length() && nodes[index] != node {
     index += 1
@@ -347,7 +347,7 @@ fn mrtree_compaction_processor_process(
       }
 
       if mrtree_graph_edge_routing_mode(graph) is AVOID_OVERLAP {
-        let mut level_index : Int? = None
+        let mut level_index : Int32? = None
         for i in 0..<levels.length() {
           let level = levels[i]
           if level.x <= new_pos && level.y >= new_pos_size {

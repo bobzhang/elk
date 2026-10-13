@@ -40,7 +40,7 @@ fn[T] test_graph_creator_copy_array(arr : Array[T]) -> Array[T] {
 ///|
 fn[T] test_graph_creator_get_by_indices(
   items : Array[T],
-  indices : Array[Int],
+  indices : Array[Int32],
 ) -> Array[T] {
   let copy = []
   for i in indices {
@@ -66,9 +66,9 @@ fn test_graph_creator_side_equals(
 
 ///|
 pub struct GreedySwitchTestGraphCreator {
-  mut port_id : Int
-  mut node_id : Int
-  mut edge_id : Int
+  mut port_id : Int32
+  mut node_id : Int32
+  mut edge_id : Int32
   mut graph : @runtime.LGraph
   mut random : @state.GreedySwitchMockRandom
   state : @runtime.LayeredRunState
@@ -821,7 +821,7 @@ pub fn GreedySwitchTestGraphCreator::set_port_order_fixed(
 ///|
 pub fn GreedySwitchTestGraphCreator::make_layers(
   self : GreedySwitchTestGraphCreator,
-  amount : Int,
+  amount : Int32,
 ) -> Array[@runtime.Layer] {
   self.make_layers_in_graph(amount, self.graph)
 }
@@ -829,7 +829,7 @@ pub fn GreedySwitchTestGraphCreator::make_layers(
 ///|
 pub fn GreedySwitchTestGraphCreator::make_layers_in_graph(
   self : GreedySwitchTestGraphCreator,
-  amount : Int,
+  amount : Int32,
   graph : @runtime.LGraph,
 ) -> Array[@runtime.Layer] {
   let layers = []
@@ -893,7 +893,7 @@ pub fn GreedySwitchTestGraphCreator::add_in_layer_edge_port_node(
 ///|
 pub fn GreedySwitchTestGraphCreator::add_nodes_to_layer(
   self : GreedySwitchTestGraphCreator,
-  amount_of_nodes : Int,
+  amount_of_nodes : Int32,
   layer : @runtime.Layer,
 ) -> Array[@runtime.LNode] {
   let nodes = []
@@ -977,7 +977,7 @@ pub fn GreedySwitchTestGraphCreator::add_port_on_side(
 ///|
 pub fn GreedySwitchTestGraphCreator::add_ports_on_side(
   self : GreedySwitchTestGraphCreator,
-  n : Int,
+  n : Int32,
   node : @runtime.LNode,
   port_side : @core.PortSide,
 ) -> Array[@runtime.LPort] {
@@ -1004,7 +1004,7 @@ fn GreedySwitchTestGraphCreator::add_port_to(
 pub fn[T] GreedySwitchTestGraphCreator::get_list_copy_in_index_order(
   self : GreedySwitchTestGraphCreator,
   list : Array[T],
-  indices : Array[Int],
+  indices : Array[Int32],
 ) -> Array[T] {
   ignore(self)
   test_graph_creator_get_by_indices(list, indices)
@@ -1013,8 +1013,8 @@ pub fn[T] GreedySwitchTestGraphCreator::get_list_copy_in_index_order(
 ///|
 pub fn[T] GreedySwitchTestGraphCreator::copy_of_list_switching_order(
   self : GreedySwitchTestGraphCreator,
-  i : Int,
-  j : Int,
+  i : Int32,
+  j : Int32,
   list : Array[T],
 ) -> Array[T] {
   ignore(self)
@@ -1029,8 +1029,8 @@ pub fn[T] GreedySwitchTestGraphCreator::copy_of_list_switching_order(
 ///|
 pub fn[T] GreedySwitchTestGraphCreator::switch_order_in_array(
   self : GreedySwitchTestGraphCreator,
-  i : Int,
-  j : Int,
+  i : Int32,
+  j : Int32,
   arr : Array[T],
 ) -> Array[T] {
   ignore(self)
@@ -1127,8 +1127,8 @@ pub fn GreedySwitchTestGraphCreator::nested_graph(
 ///|
 pub fn GreedySwitchTestGraphCreator::switch_order_of_nodes_in_layer(
   self : GreedySwitchTestGraphCreator,
-  node_one : Int,
-  node_two : Int,
+  node_one : Int32,
+  node_two : Int32,
   layer : @runtime.Layer,
 ) -> Array[@runtime.LNode] {
   ignore(self)
@@ -1144,7 +1144,7 @@ pub fn GreedySwitchTestGraphCreator::switch_order_of_nodes_in_layer(
 ///|
 pub fn GreedySwitchTestGraphCreator::copy_of_nodes_in_layer(
   self : GreedySwitchTestGraphCreator,
-  layer_index : Int,
+  layer_index : Int32,
 ) -> Array[@runtime.LNode] {
   test_graph_creator_copy_array(
     self.graph.get_layers()[layer_index].get_nodes(),
@@ -1154,9 +1154,9 @@ pub fn GreedySwitchTestGraphCreator::copy_of_nodes_in_layer(
 ///|
 pub fn GreedySwitchTestGraphCreator::copy_of_switch_order_of_nodes_in_layer(
   self : GreedySwitchTestGraphCreator,
-  node_one : Int,
-  node_two : Int,
-  layer_index : Int,
+  node_one : Int32,
+  node_two : Int32,
+  layer_index : Int32,
 ) -> Array[@runtime.LNode] {
   let layer = self.copy_of_nodes_in_layer(layer_index)
   self.get_copy_with_switched_order(node_one, node_two, layer)
@@ -1165,8 +1165,8 @@ pub fn GreedySwitchTestGraphCreator::copy_of_switch_order_of_nodes_in_layer(
 ///|
 pub fn GreedySwitchTestGraphCreator::get_copy_with_switched_order(
   self : GreedySwitchTestGraphCreator,
-  node_one : Int,
-  node_two : Int,
+  node_one : Int32,
+  node_two : Int32,
   layer : Array[@runtime.LNode],
 ) -> Array[@runtime.LNode] {
   ignore(self)
@@ -1181,7 +1181,7 @@ pub fn GreedySwitchTestGraphCreator::get_copy_with_switched_order(
 ///|
 pub fn GreedySwitchTestGraphCreator::east_west_edges_from_to(
   self : GreedySwitchTestGraphCreator,
-  number_of_nodes : Int,
+  number_of_nodes : Int32,
   left : @runtime.LNode,
   right : @runtime.LNode,
 ) -> Unit {
@@ -1206,7 +1206,7 @@ pub fn GreedySwitchTestGraphCreator::east_west_edge_from_to_port_node(
 pub fn GreedySwitchTestGraphCreator::copy_ports_in_index_order(
   self : GreedySwitchTestGraphCreator,
   node : @runtime.LNode,
-  indices : Array[Int],
+  indices : Array[Int32],
 ) -> Array[@runtime.LPort] {
   ignore(self)
   let ports = node.get_ports()

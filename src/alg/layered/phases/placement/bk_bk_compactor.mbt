@@ -46,10 +46,10 @@ pub struct BKCompactor {
   thresh_strategy : BkThresholdStrategy
   ni : NeighborhoodInformation
   spacings : @runtime.Spacings
-  class_nodes : Map[Int, @runtime.LNode]
-  class_outgoing : Map[Int, Array[(Int, Double)]]
-  class_indegree : Map[Int, Int]
-  class_shift : Map[Int, Double]
+  class_nodes : Map[Int32, @runtime.LNode]
+  class_outgoing : Map[Int32, Array[(Int32, Double)]]
+  class_indegree : Map[Int32, Int32]
+  class_shift : Map[Int32, Double]
 }
 
 ///|
@@ -83,7 +83,7 @@ pub fn new_bk_compactor(
 fn BKCompactor::ensure_class_node(
   self : BKCompactor,
   sink_node : @runtime.LNode,
-) -> Int {
+) -> Int32 {
   let handle = sink_node.get_handle()
   if !self.class_nodes.contains(handle) {
     self.class_nodes[handle] = sink_node
@@ -122,7 +122,7 @@ fn BKCompactor::place_classes(
   self : BKCompactor,
   bal : BKAlignedLayout,
 ) -> Unit raise BKAlignedLayoutException {
-  let queue : Array[Int] = []
+  let queue : Array[Int32] = []
   for entry in self.class_nodes.to_array() {
     let (handle, _) = entry
     let indegree = match self.class_indegree.get(handle) {

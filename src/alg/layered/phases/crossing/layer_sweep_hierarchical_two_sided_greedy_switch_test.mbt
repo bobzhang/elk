@@ -1,7 +1,7 @@
 ///|
 fn layer_sweep_two_sided_node_handles(
   nodes : Array[@runtime.LNode],
-) -> Array[Int] {
+) -> Array[Int32] {
   let handles = []
   for node in nodes {
     handles.push(node.get_handle())
@@ -12,7 +12,7 @@ fn layer_sweep_two_sided_node_handles(
 ///|
 fn layer_sweep_two_sided_port_handles(
   ports : Array[@runtime.LPort],
-) -> Array[Int] {
+) -> Array[Int32] {
   let handles = []
   for port in ports {
     handles.push(port.get_handle())

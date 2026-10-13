@@ -1,13 +1,13 @@
 ///|
 pub struct BinaryIndexedTree {
-  mut binary_sums : Array[Int]
-  mut nums_per_index : Array[Int]
-  mut current_size : Int
-  max_num : Int
+  mut binary_sums : Array[Int32]
+  mut nums_per_index : Array[Int32]
+  mut current_size : Int32
+  max_num : Int32
 }
 
 ///|
-pub fn new_binary_indexed_tree(max_num : Int) -> BinaryIndexedTree {
+pub fn new_binary_indexed_tree(max_num : Int32) -> BinaryIndexedTree {
   {
     binary_sums: Array::make(max_num + 1, 0),
     nums_per_index: Array::make(max_num, 0),
@@ -17,7 +17,7 @@ pub fn new_binary_indexed_tree(max_num : Int) -> BinaryIndexedTree {
 }
 
 ///|
-pub fn BinaryIndexedTree::add(self : BinaryIndexedTree, index : Int) -> Unit {
+pub fn BinaryIndexedTree::add(self : BinaryIndexedTree, index : Int32) -> Unit {
   self.current_size = self.current_size + 1
   self.nums_per_index[index] = self.nums_per_index[index] + 1
   let mut i = index + 1
@@ -28,7 +28,10 @@ pub fn BinaryIndexedTree::add(self : BinaryIndexedTree, index : Int) -> Unit {
 }
 
 ///|
-pub fn BinaryIndexedTree::rank(self : BinaryIndexedTree, index : Int) -> Int {
+pub fn BinaryIndexedTree::rank(
+  self : BinaryIndexedTree,
+  index : Int32,
+) -> Int32 {
   let mut i = index
   let mut sum = 0
   while i > 0 {
@@ -39,14 +42,14 @@ pub fn BinaryIndexedTree::rank(self : BinaryIndexedTree, index : Int) -> Int {
 }
 
 ///|
-pub fn BinaryIndexedTree::size(self : BinaryIndexedTree) -> Int {
+pub fn BinaryIndexedTree::size(self : BinaryIndexedTree) -> Int32 {
   self.current_size
 }
 
 ///|
 pub fn BinaryIndexedTree::remove_all(
   self : BinaryIndexedTree,
-  index : Int,
+  index : Int32,
 ) -> Unit {
   let num_entries = self.nums_per_index[index]
   if num_entries == 0 {

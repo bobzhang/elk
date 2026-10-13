@@ -125,8 +125,8 @@ fn graph_stats_determine_height(
 ///|
 fn graph_stats_determine_chunk_width(
   graph_stats : GraphStats,
-  low_idx : Int,
-  high_idx : Int,
+  low_idx : Int32,
+  high_idx : Int32,
 ) -> Double {
   let layers = graph_stats.graph.get_layers()
   let mut width = 0.0
@@ -139,8 +139,8 @@ fn graph_stats_determine_chunk_width(
 ///|
 fn graph_stats_determine_chunk_height(
   graph_stats : GraphStats,
-  low_idx : Int,
-  high_idx : Int,
+  low_idx : Int32,
+  high_idx : Int32,
 ) -> Double {
   let layers = graph_stats.graph.get_layers()
   let mut height = 0.0
@@ -292,7 +292,7 @@ pub struct GraphStats {
   spacing : Double
   in_layer_spacing : Double
   dar : Double
-  longest_path : Int
+  longest_path : Int32
   mut max_width : Double?
   mut max_height : Double?
   mut sum_width : Double?
@@ -354,7 +354,7 @@ pub fn GraphStats::get_approximate_layering_width(
 ///|
 pub fn GraphStats::get_approximate_chunk_based_layering_width(
   self : GraphStats,
-  cuts : Array[Int],
+  cuts : Array[Int32],
 ) -> Double raise {
   if cuts.is_empty() {
     return self.get_approximate_layering_width()
@@ -400,7 +400,7 @@ pub fn GraphStats::get_approximate_layering_height(
 ///|
 pub fn GraphStats::get_approximate_chunk_based_layering_height(
   self : GraphStats,
-  cuts : Array[Int],
+  cuts : Array[Int32],
 ) -> Double {
   if cuts.is_empty() {
     return 0.0
@@ -469,7 +469,10 @@ pub fn GraphStats::get_heights(self : GraphStats) -> Array[Double] raise {
 }
 
 ///|
-pub fn GraphStats::is_cut_allowed(self : GraphStats, layer_index : Int) -> Bool {
+pub fn GraphStats::is_cut_allowed(
+  self : GraphStats,
+  layer_index : Int32,
+) -> Bool {
   if self.cuts_allowed is None {
     graph_stats_init_cut_allowed(self)
   }

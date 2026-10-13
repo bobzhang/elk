@@ -1,5 +1,8 @@
 ///|
-fn model_order_barycenter_contains(values : Array[Int], value : Int) -> Bool {
+fn model_order_barycenter_contains(
+  values : Array[Int32],
+  value : Int32,
+) -> Bool {
   for candidate in values {
     if candidate == value {
       return true
@@ -9,7 +12,10 @@ fn model_order_barycenter_contains(values : Array[Int], value : Int) -> Bool {
 }
 
 ///|
-fn model_order_barycenter_add_unique(values : Array[Int], value : Int) -> Unit {
+fn model_order_barycenter_add_unique(
+  values : Array[Int32],
+  value : Int32,
+) -> Unit {
   if model_order_barycenter_contains(values, value) {
     return
   }
@@ -18,8 +24,8 @@ fn model_order_barycenter_add_unique(values : Array[Int], value : Int) -> Unit {
 
 ///|
 fn model_order_barycenter_add_all_unique(
-  target : Array[Int],
-  source : Array[Int],
+  target : Array[Int32],
+  source : Array[Int32],
 ) -> Unit {
   for value in source {
     model_order_barycenter_add_unique(target, value)
@@ -28,9 +34,9 @@ fn model_order_barycenter_add_all_unique(
 
 ///|
 fn model_order_barycenter_associations_for(
-  associations : Map[Int, Array[Int]],
-  node_handle : Int,
-) -> Array[Int] raise {
+  associations : Map[Int32, Array[Int32]],
+  node_handle : Int32,
+) -> Array[Int32] raise {
   match associations.get(node_handle) {
     Some(values) => values
     None => {
@@ -49,7 +55,7 @@ fn model_order_barycenter_associations_for(
 }
 
 ///|
-fn model_order_barycenter_compare_int(left : Int, right : Int) -> Int {
+fn model_order_barycenter_compare_int(left : Int32, right : Int32) -> Int32 {
   if left < right {
     -1
   } else if left > right {
@@ -62,8 +68,8 @@ fn model_order_barycenter_compare_int(left : Int, right : Int) -> Int {
 ///|
 pub struct ModelOrderBarycenterHeuristic {
   base : BarycenterHeuristic
-  mut bigger_than : Map[Int, Array[Int]]
-  mut smaller_than : Map[Int, Array[Int]]
+  mut bigger_than : Map[Int32, Array[Int32]]
+  mut smaller_than : Map[Int32, Array[Int32]]
 }
 
 ///|
@@ -95,7 +101,7 @@ fn ModelOrderBarycenterHeuristic::compare_based_on_transitive_dependencies(
   self : ModelOrderBarycenterHeuristic,
   first : @runtime.LNode,
   second : @runtime.LNode,
-) -> Int raise {
+) -> Int32 raise {
   let first_handle = @runtime.lnode_internal_handle(first)
   let second_handle = @runtime.lnode_internal_handle(second)
 
@@ -191,7 +197,7 @@ fn ModelOrderBarycenterHeuristic::compare_based_on_barycenter(
   self : ModelOrderBarycenterHeuristic,
   first : @runtime.LNode,
   second : @runtime.LNode,
-) -> Int raise {
+) -> Int32 raise {
   let first_state = self.base.state_of(first)
   let second_state = self.base.state_of(second)
 
@@ -222,7 +228,7 @@ fn ModelOrderBarycenterHeuristic::compare_nodes(
   self : ModelOrderBarycenterHeuristic,
   first : @runtime.LNode,
   second : @runtime.LNode,
-) -> Int raise {
+) -> Int32 raise {
   let transitive_comparison = self.compare_based_on_transitive_dependencies(
     first, second,
   )
@@ -251,7 +257,7 @@ fn ModelOrderBarycenterHeuristic::compare_nodes(
 ///|
 pub fn model_order_barycenter_heuristic_insertion_sort(
   layer : Array[@runtime.LNode],
-  comparator : (@runtime.LNode, @runtime.LNode) -> Int raise,
+  comparator : (@runtime.LNode, @runtime.LNode) -> Int32 raise,
   barycenter_heuristic : ModelOrderBarycenterHeuristic,
 ) -> Unit raise {
   let mut i = 1
@@ -335,7 +341,7 @@ pub fn ModelOrderBarycenterHeuristic::set_first_layer_order(
 pub fn ModelOrderBarycenterHeuristic::minimize_crossings(
   self : ModelOrderBarycenterHeuristic,
   order : Array[Array[@runtime.LNode]],
-  free_layer_index : Int,
+  free_layer_index : Int32,
   forward_sweep : Bool,
   is_first_sweep : Bool,
 ) -> Bool raise {
@@ -400,7 +406,7 @@ pub fn ModelOrderBarycenterHeuristic::init_after_traversal(
 ///|
 pub fn ModelOrderBarycenterHeuristic::init_at_layer_level(
   self : ModelOrderBarycenterHeuristic,
-  l : Int,
+  l : Int32,
   node_order : Array[Array[@runtime.LNode]],
 ) -> Unit {
   self.base.init_at_layer_level(l, node_order)

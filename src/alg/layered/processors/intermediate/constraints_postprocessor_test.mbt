@@ -17,7 +17,7 @@ fn constraints_postprocessor_test_node_type(name : String) -> @runtime.NodeType 
 fn constraints_postprocessor_test_new_node(
   graph : @runtime.LGraph,
   layer : @runtime.Layer,
-  id : Int,
+  id : Int32,
   node_type : @runtime.NodeType,
 ) -> @runtime.LNode {
   let node = @runtime.new_l_node(graph=Some(graph))

@@ -2,14 +2,14 @@
 struct SelfLoopPreprocessorTestGraph {
   test_graph : @runtime.LGraph
   self_loop_node : @runtime.LNode
-  regular_ports : Map[Int, Bool]
-  only_self_loop_ports : Map[Int, Bool]
-  unconnected_ports : Map[Int, Bool]
+  regular_ports : Map[Int32, Bool]
+  only_self_loop_ports : Map[Int32, Bool]
+  unconnected_ports : Map[Int32, Bool]
 }
 
 ///|
 fn self_loop_preprocessor_test_add_port(
-  port_set : Map[Int, Bool],
+  port_set : Map[Int32, Bool],
   port : @runtime.LPort,
 ) -> Unit {
   port_set[@runtime.lport_internal_handle(port)] = true
@@ -18,7 +18,7 @@ fn self_loop_preprocessor_test_add_port(
 ///|
 fn self_loop_preprocessor_test_contains_port(
   l_node : @runtime.LNode,
-  handle : Int,
+  handle : Int32,
 ) -> Bool {
   for l_port in l_node.get_ports() {
     if @runtime.lport_internal_handle(l_port) == handle {
@@ -31,7 +31,7 @@ fn self_loop_preprocessor_test_contains_port(
 ///|
 fn self_loop_preprocessor_test_assert_node_contains_ports(
   l_node : @runtime.LNode,
-  port_set : Map[Int, Bool],
+  port_set : Map[Int32, Bool],
 ) -> Unit {
   for entry in port_set.to_array() {
     let (handle, _) = entry

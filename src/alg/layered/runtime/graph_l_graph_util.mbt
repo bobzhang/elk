@@ -1137,6 +1137,12 @@ pub fn change_coord_system(
   old_graph : LGraph,
   new_graph : LGraph,
 ) -> Unit {
+  if old_graph.get_handle() == new_graph.get_handle() {
+    // Nothing has to be done; going through absolute coordinates and back
+    // would not always give the same point again.
+    return
+  }
+
   let mut graph = old_graph
   let mut node : LNode? = None
   while true {

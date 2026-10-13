@@ -812,3 +812,23 @@ test "change_coord_system converts points between nested graph coordinate system
   inspect(unchanged.x, content="9")
   inspect(unchanged.y, content="9")
 }
+
+///|
+test "change_coord_system leaves a point of the same graph untouched" {
+  // Adding the offsets up to the root and subtracting them again is not exact.
+  let root_graph = new_l_graph()
+  let parent_node = new_l_node(graph=Some(root_graph))
+  ignore(parent_node.get_position().set_xy(0.7, 0.7))
+
+  let child_graph = new_l_graph()
+  child_graph.set_parent_node(Some(parent_node))
+  parent_node.set_nested_graph(Some(child_graph))
+  child_graph.set_offset_xy(0.2, 0.2)
+  child_graph.get_padding().set_left(0.3)
+  child_graph.get_padding().set_top(0.3)
+
+  let point = @core.new_kvector_xy(0.1, 0.1)
+  change_coord_system(point, child_graph, child_graph)
+  inspect(point.x, content="0.1")
+  inspect(point.y, content="0.1")
+}

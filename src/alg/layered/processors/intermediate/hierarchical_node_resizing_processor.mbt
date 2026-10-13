@@ -122,80 +122,6 @@ fn hierarchical_node_resizing_processor_resize_node(
 }
 
 ///|
-fn hierarchical_node_resizing_processor_get_external_port_position(
-  graph : @runtime.LGraph,
-  port_dummy : @runtime.LNode,
-  port_width : Double,
-  port_height : Double,
-) -> @core.KVector {
-  let port_position = @core.new_kvector_copy(port_dummy.get_position())
-  port_position.x = port_position.x + port_dummy.get_size().x / 2.0
-  port_position.y = port_position.y + port_dummy.get_size().y / 2.0
-  let port_offset = port_dummy.get_property_double(
-    @options.layered_options_port_border_offset,
-  )
-
-  let graph_size = graph.get_size()
-  let padding = graph.get_padding()
-  let graph_offset = graph.get_offset()
-
-  match
-    port_dummy.get_property_port_side(
-      @runtime.internal_properties_ext_port_side,
-    ) {
-    North => {
-      port_position.x = port_position.x +
-        padding.left +
-        graph_offset.x -
-        port_width / 2.0
-      port_position.y = -port_height - port_offset
-      port_dummy.get_position().y = -(padding.top + port_offset + graph_offset.y)
-    }
-    East => {
-      port_position.x = graph_size.x +
-        padding.left +
-        padding.right +
-        port_offset
-      port_position.y = port_position.y +
-        padding.top +
-        graph_offset.y -
-        port_height / 2.0
-      port_dummy.get_position().x = graph_size.x +
-        padding.right +
-        port_offset -
-        graph_offset.x
-    }
-    South => {
-      port_position.x = port_position.x +
-        padding.left +
-        graph_offset.x -
-        port_width / 2.0
-      port_position.y = graph_size.y +
-        padding.top +
-        padding.bottom +
-        port_offset
-      port_dummy.get_position().y = graph_size.y +
-        padding.bottom +
-        port_offset -
-        graph_offset.y
-    }
-    West => {
-      port_position.x = -port_width - port_offset
-      port_position.y = port_position.y +
-        padding.top +
-        graph_offset.y -
-        port_height / 2.0
-      port_dummy.get_position().x = -(padding.left +
-        port_offset +
-        graph_offset.x)
-    }
-    SideUndefined => ()
-  }
-
-  port_position
-}
-
-///|
 fn hierarchical_node_resizing_processor_graph_layout_to_node(
   node : @runtime.LNode,
   lgraph : @runtime.LGraph,
@@ -209,7 +135,7 @@ fn hierarchical_node_resizing_processor_graph_layout_to_node(
           @runtime.internal_properties_origin_l_port,
         ) {
         Some(port) => {
-          let port_position = hierarchical_node_resizing_processor_get_external_port_position(
+          let port_position = @runtime.get_external_port_position(
             lgraph,
             child_node,
             port.get_size().x,

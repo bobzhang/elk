@@ -169,9 +169,7 @@ fn nodespacing_capture_elk_node(
     port_labels_treat_as_group: node.get_property_bool(
       @core.port_labels_treat_as_group,
     ),
-    node_labels_placement: node.get_property_string_array(
-      @core.node_labels_placement,
-    ),
+    node_labels_placement: nodespacing_node_labels_placement(node),
     node_labels_padding: node.get_property_string(
       nodespacing_node_labels_padding_property,
     ),
@@ -323,4 +321,42 @@ fn apply_elk_node_spacing_output(
   // Cached bindings are stale after port reordering and belong to this codec
   // invocation, so release them at the apply boundary.
   adapter.child_nodes = None
+}
+
+///|
+/// The node's label placement. A graph read from JSON carries the option
+/// as text, e.g. `[H_CENTER V_TOP, INSIDE]`, under any of the id's accepted
+/// spellings; a typed property wins when there is one.
+fn nodespacing_node_labels_placement(
+  node : @core.ElkNodeAdapter,
+) -> Array[String] {
+  if node.has_property_string_array(@core.node_labels_placement) {
+    return node.get_property_string_array(@core.node_labels_placement)
+  }
+  for
+    key in [
+      "org.eclipse.elk.nodeLabels.placement", "elk.nodeLabels.placement", "nodeLabels.placement",
+    ] {
+    guard @graph.node_layout_option_string_value(node.get_node(), key)
+      is Some(text) else {
+      continue
+    }
+    let values = []
+    let current = StringBuilder()
+    for c in text {
+      if c is (' ' | '\t' | '\n' | ',' | '[' | ']') {
+        if !current.is_empty() {
+          values.push(current.to_string())
+          current.reset()
+        }
+      } else {
+        current.write_char(c)
+      }
+    }
+    if !current.is_empty() {
+      values.push(current.to_string())
+    }
+    return values
+  }
+  node.get_property_string_array(@core.node_labels_placement)
 }

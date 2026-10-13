@@ -5,14 +5,20 @@
 /// graphs carry the same reference so cycle breaking, crossing minimization,
 /// and edge routing consume one deterministic random sequence without storing
 /// the random object in a generic graph property map.
+///
+/// ELK keeps a `Random` of its own on every graph it configures. The graphs of
+/// a hierarchical run are therefore keyed by their handle in `graph_randoms`;
+/// `random` is the generator of the graph configured last, and the one handed
+/// out for a graph that was never configured.
 pub struct LayeredLayoutState {
   mut random : GreedySwitchMockRandom?
+  graph_randoms : Map[Int32, GreedySwitchMockRandom]
   mut first_random_boolean : Bool?
 }
 
 ///|
 pub fn new_layered_layout_state() -> LayeredLayoutState {
-  { random: None, first_random_boolean: None, }
+  { random: None, graph_randoms: Map([]), first_random_boolean: None, }
 }
 
 ///|
@@ -54,6 +60,33 @@ pub fn LayeredLayoutState::initialize_random(
 }
 
 ///|
+/// Gives the graph with the given handle a random number generator of its own,
+/// as `GraphConfigurator` does when it configures a graph.
+pub fn LayeredLayoutState::initialize_graph_random(
+  self : LayeredLayoutState,
+  graph_handle : Int32,
+  seed_value : Int32,
+) -> Unit {
+  self.initialize_random(seed_value)
+  if self.random is Some(random) {
+    self.graph_randoms[graph_handle] = random
+  }
+}
+
+///|
+/// The random number generator of the graph with the given handle.
+pub fn LayeredLayoutState::graph_random(
+  self : LayeredLayoutState,
+  graph_handle : Int32,
+  seed_value : Int32,
+) -> GreedySwitchMockRandom {
+  match self.graph_randoms.get(graph_handle) {
+    Some(random) => random
+    None => self.random(seed_value)
+  }
+}
+
+///|
 pub fn LayeredLayoutState::random(
   self : LayeredLayoutState,
   seed_value : Int32,
@@ -75,6 +108,7 @@ pub fn LayeredLayoutState::install_random(
   first_boolean : Bool?,
 ) -> Unit {
   self.random = Some(random)
+  self.graph_randoms.clear()
   self.first_random_boolean = first_boolean
 }
 
@@ -88,5 +122,6 @@ pub fn LayeredLayoutState::first_random_boolean(
 ///|
 pub fn LayeredLayoutState::clear(self : LayeredLayoutState) -> Unit {
   self.random = None
+  self.graph_randoms.clear()
   self.first_random_boolean = None
 }

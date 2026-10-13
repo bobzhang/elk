@@ -35,10 +35,13 @@ pub fn GreedySwitchMockRandom::set_seed_int(Self, Int) -> Unit
 
 pub struct LayeredLayoutState {
   mut random : GreedySwitchMockRandom?
+  graph_randoms : Map[Int, GreedySwitchMockRandom]
   mut first_random_boolean : Bool?
 }
 pub fn LayeredLayoutState::clear(Self) -> Unit
 pub fn LayeredLayoutState::first_random_boolean(Self) -> Bool?
+pub fn LayeredLayoutState::graph_random(Self, Int, Int) -> GreedySwitchMockRandom
+pub fn LayeredLayoutState::initialize_graph_random(Self, Int, Int) -> Unit
 pub fn LayeredLayoutState::initialize_random(Self, Int) -> Unit
 pub fn LayeredLayoutState::install_random(Self, GreedySwitchMockRandom, Bool?) -> Unit
 pub fn LayeredLayoutState::random(Self, Int) -> GreedySwitchMockRandom

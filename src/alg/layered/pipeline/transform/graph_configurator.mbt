@@ -98,7 +98,7 @@ pub fn graph_configurator_initialize_layout_state(
   lgraph : LGraph,
   state : @runtime.LayeredRunState,
 ) -> Unit {
-  state.initialize_random(lgraph.get_property_int(@core.random_seed))
+  state.initialize_graph_random(lgraph)
 }
 
 ///|

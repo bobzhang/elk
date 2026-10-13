@@ -32,6 +32,31 @@ pub fn LayeredRunState::initialize_random(
 }
 
 ///|
+/// Gives `graph` a random number generator of its own, seeded with its
+/// `randomSeed`.
+pub fn LayeredRunState::initialize_graph_random(
+  self : LayeredRunState,
+  graph : LGraph,
+) -> Unit {
+  self.random_state.initialize_graph_random(
+    graph.get_handle(),
+    graph.get_property_int(@core.random_seed),
+  )
+}
+
+///|
+/// The random number generator of `graph` (ELK's `InternalProperties.RANDOM`).
+pub fn LayeredRunState::graph_random(
+  self : LayeredRunState,
+  graph : LGraph,
+) -> @state.GreedySwitchMockRandom {
+  self.random_state.graph_random(
+    graph.get_handle(),
+    graph.get_property_int(@core.random_seed),
+  )
+}
+
+///|
 pub fn LayeredRunState::random(
   self : LayeredRunState,
   seed_value : Int32,

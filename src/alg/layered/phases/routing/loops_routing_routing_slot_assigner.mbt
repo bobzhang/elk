@@ -575,9 +575,7 @@ pub fn RoutingSlotAssigner::assign_routing_slots(
   self.create_crossing_graph(sl_holder, label_crossing_matrix)
   orthogonal_routing_generator_break_non_critical_cycles(
     self.hyper_edge_segments,
-    self.state.random(
-      sl_holder.get_l_node().get_graph().get_property_int(@core.random_seed),
-    ),
+    self.state.graph_random(sl_holder.get_l_node().get_graph()),
   )
   self.do_assign_routing_slots(sl_holder, label_crossing_matrix)
 

@@ -267,7 +267,7 @@ fn greedy_cycle_breaker_process_with_chooser(
   ignore(monitor.begin("Greedy cycle removal", 1.0))
 
   let nodes = layered_graph.get_layerless_nodes()
-  let random = state.random(layered_graph.get_property_int(@core.random_seed))
+  let random = state.graph_random(layered_graph)
   let state = {
     indeg: Array::make(nodes.length(), 0),
     outdeg: Array::make(nodes.length(), 0),

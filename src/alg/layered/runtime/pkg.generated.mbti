@@ -1002,9 +1002,11 @@ pub fn LayeredRunState::get_breaking_point(Self, LNode) -> BPInfo?
 pub fn LayeredRunState::get_end_label_cells(Self, LNode) -> Array[EndLabelCell]
 pub fn LayeredRunState::get_self_loop_holder(Self, LNode) -> SelfLoopHolder?
 pub fn LayeredRunState::get_spline_segments(Self, LEdge) -> Array[SplineSegment]
+pub fn LayeredRunState::graph_random(Self, LGraph) -> @state.GreedySwitchMockRandom
 pub fn LayeredRunState::has_end_label_cells(Self, LNode) -> Bool
 pub fn LayeredRunState::has_self_loop_holder(Self, LNode) -> Bool
 pub fn LayeredRunState::has_spline_segments(Self, LEdge) -> Bool
+pub fn LayeredRunState::initialize_graph_random(Self, LGraph) -> Unit
 pub fn LayeredRunState::initialize_random(Self, Int) -> Unit
 pub fn LayeredRunState::install_random(Self, @state.GreedySwitchMockRandom, Bool?) -> Unit
 pub fn LayeredRunState::random(Self, Int) -> @state.GreedySwitchMockRandom

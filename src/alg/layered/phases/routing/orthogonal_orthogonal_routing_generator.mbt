@@ -137,7 +137,7 @@ fn OrthogonalRoutingGenerator::graph_random(
   self : OrthogonalRoutingGenerator,
   layered_graph : @runtime.LGraph,
 ) -> @state.GreedySwitchMockRandom {
-  self.state.random(layered_graph.get_property_int(@core.random_seed))
+  self.state.graph_random(layered_graph)
 }
 
 ///|

@@ -69,7 +69,7 @@ fn graph_info_random(
   graph : @runtime.LGraph,
   state : @runtime.LayeredRunState,
 ) -> @state.GreedySwitchMockRandom {
-  state.random(graph.get_property_int(@core.random_seed))
+  state.graph_random(graph)
 }
 
 ///|

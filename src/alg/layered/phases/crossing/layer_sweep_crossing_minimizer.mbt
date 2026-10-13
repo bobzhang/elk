@@ -1117,9 +1117,7 @@ fn LayerSweepCrossingMinimizer::initialize(
 ) -> Array[GraphInfoHolder] {
   self.clear_graph_info_holders()
 
-  self.random = self.state.random(
-    root_graph.get_property_int(@core.random_seed),
-  )
+  self.random = self.state.graph_random(root_graph)
   self.random_seed = self.random.next_long()
 
   let graphs_to_sweep_on = []

@@ -225,6 +225,8 @@ pub fn layered_spacings_exception_message(LayeredSpacingsException) -> String
 
 pub fn layered_spacings_get_individual_or_default(LNode, @graph.IProperty[Double]) -> Double
 
+pub fn layered_spacings_individual_property(@graph.IProperty[Double]) -> @graph.IProperty[Double]
+
 pub fn layered_spacings_with_base_value(Double) -> LayeredSpacingsBuilder
 
 pub fn layered_test_update_containment(@graph.ElkEdge?) -> Unit

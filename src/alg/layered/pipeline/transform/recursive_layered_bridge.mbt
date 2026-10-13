@@ -225,7 +225,11 @@ fn recursive_layered_copy_individual_spacing_options(
           value => Ok(value)
         }
         match parsed {
-          Ok(value) => target_node.set_property_double(property, value)
+          Ok(value) =>
+            target_node.set_property_double(
+              @runtime.layered_spacings_individual_property(property),
+              value,
+            )
           Err(_) => ()
         }
       }
@@ -422,7 +426,9 @@ fn recursive_layered_copy_elk_node_properties(
       }
       if parsed is Ok(value) {
         target_node.set_property_double(
-          @graph.new_property(option_id, 0.0),
+          @runtime.layered_spacings_individual_property(
+            @graph.new_property(option_id, 0.0),
+          ),
           value,
         )
       }

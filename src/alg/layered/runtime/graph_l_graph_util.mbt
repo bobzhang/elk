@@ -1174,11 +1174,7 @@ pub fn get_individual_or_inherited(
   node : LNode,
   property : @graph.IProperty[Double],
 ) -> Double {
-  if node.has_property_double(property) {
-    node.get_property_double(property)
-  } else {
-    node.get_graph().get_property_double(property)
-  }
+  layered_spacings_get_individual_or_default(node, property)
 }
 
 ///|

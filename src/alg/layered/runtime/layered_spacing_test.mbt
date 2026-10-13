@@ -120,8 +120,14 @@ test "Spacings uses max of node-specific and graph spacing values" {
   let types = node_type_values()
   let (graph, normal, long_edge) = layered_spacing_test_pair(types[0], types[1])
   graph.set_property_double(@core.spacing_edge_node, 31.0)
-  normal.set_property_double(@core.spacing_edge_node, 5.0)
-  long_edge.set_property_double(@core.spacing_edge_node, 42.0)
+  normal.set_property_double(
+    layered_spacings_individual_property(@core.spacing_edge_node),
+    5.0,
+  )
+  long_edge.set_property_double(
+    layered_spacings_individual_property(@core.spacing_edge_node),
+    42.0,
+  )
   let spacings = new_layered_spacings(graph)
   assert_double_eq(
     spacings.get_vertical_spacing(normal, long_edge),

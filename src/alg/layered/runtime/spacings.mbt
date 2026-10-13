@@ -42,11 +42,26 @@ pub fn layered_spacings_get_individual_or_default(
   node : LNode,
   property : @graph.IProperty[Double],
 ) -> Double {
-  if node.has_property_double(property) {
-    node.get_property_double(property)
+  let individual = layered_spacings_individual_property(property)
+  if node.has_property_double(individual) {
+    node.get_property_double(individual)
   } else {
     node.get_graph().get_property_double(property)
   }
+}
+
+///|
+/// Where a node keeps its individual override of a spacing option
+/// (`spacing.individual`). It must not share the option's own id: a
+/// compound node also carries that option as a setting for its children,
+/// which says nothing about the space around the node itself.
+pub fn layered_spacings_individual_property(
+  property : @graph.IProperty[Double],
+) -> @graph.IProperty[Double] {
+  @graph.new_property(
+    "org.eclipse.elk.spacing.individual/" + property.get_id(),
+    property.get_default(),
+  )
 }
 
 ///|

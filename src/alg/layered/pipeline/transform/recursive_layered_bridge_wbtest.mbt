@@ -107,7 +107,11 @@ test "recursive layered context copies individual spacing overrides to LNode" {
     None => fail("missing node mapping")
   }
 
-  assert_true(lnode.has_property_double(@core.spacing_edge_label))
+  assert_true(
+    lnode.has_property_double(
+      @runtime.layered_spacings_individual_property(@core.spacing_edge_label),
+    ),
+  )
   assert_eq(
     @runtime.get_individual_or_inherited(lnode, @core.spacing_edge_label),
     42.5,

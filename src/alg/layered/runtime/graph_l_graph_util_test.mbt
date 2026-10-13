@@ -326,7 +326,10 @@ test "get_individual_or_inherited follows node override then graph fallback" {
     content="17",
   )
 
-  node.set_property_double(@core.spacing_edge_label, 3.0)
+  node.set_property_double(
+    layered_spacings_individual_property(@core.spacing_edge_label),
+    3.0,
+  )
   inspect(
     get_individual_or_inherited(node, @core.spacing_edge_label),
     content="3",

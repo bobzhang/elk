@@ -2761,6 +2761,43 @@ fn recursive_layered_create_context(
       }
     None => ()
   }
+  // Boolean options that later phases read from the LGraph. createLGraph
+  // copies every property of the ELK graph; here each one is carried over
+  // by name.
+  for
+    option in [
+      @options.layered_options_unnecessary_bendpoints, @options.layered_options_merge_hierarchy_edges,
+    ] {
+    match
+      recursive_layered_parse_bool(
+        recursive_layered_primary_option(node, option.get_id(), unset),
+      ) {
+      Some(value) => layered_graph.set_property_bool(option, value)
+      None => ()
+    }
+  }
+  // `spacing.portsSurrounding` is read per node as "individual or
+  // inherited", so the graph has to carry it for its nodes to inherit. It
+  // is kept both parsed and as text, the two forms its readers expect.
+  let ports_surrounding = recursive_layered_primary_option(
+    node,
+    @options.layered_options_spacing_ports_surrounding.get_id(),
+    unset,
+  )
+  if ports_surrounding != unset {
+    let margin = @core.new_elk_margin()
+    margin.parse(ports_surrounding)
+    layered_graph.set_property_elk_margin(
+      @options.layered_options_spacing_ports_surrounding, margin,
+    )
+    layered_graph.set_property_string(
+      @graph.new_property(
+        @options.layered_options_spacing_ports_surrounding.get_id(),
+        "",
+      ),
+      ports_surrounding,
+    )
+  }
   layered_graph.set_property_double(
     @options.layered_options_aspect_ratio,
     if aspect_ratio_value > 0.0 {

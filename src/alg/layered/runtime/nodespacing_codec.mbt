@@ -219,9 +219,18 @@ fn nodespacing_capture_layered_node(
       node.get_node(),
       @core.spacing_label_port_vertical,
     ),
-    spacing_ports_surrounding: node.get_property_string(
-      nodespacing_ports_surrounding,
-    ),
+    // IndividualSpacings.getIndividualOrInherited: the node's own value,
+    // else the one of the graph it lives in.
+    spacing_ports_surrounding: if node.has_property_string(
+        nodespacing_ports_surrounding,
+      ) {
+      node.get_property_string(nodespacing_ports_surrounding)
+    } else {
+      node
+      .get_node()
+      .get_graph()
+      .get_property_string(nodespacing_ports_surrounding)
+    },
     alignment_default: node.get_property_string(nodespacing_alignment_default),
     alignment_north: nodespacing_optional_string(
       node, nodespacing_alignment_north,

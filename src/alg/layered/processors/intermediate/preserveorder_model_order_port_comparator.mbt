@@ -363,12 +363,257 @@ pub fn ModelOrderPortComparator::check_port_model_order(
 }
 
 ///|
+fn ModelOrderPortComparator::update_elk_0_9_1_compare_result(
+  self : ModelOrderPortComparator,
+  p1 : @runtime.LPort,
+  p2 : @runtime.LPort,
+  p1_order : Int32,
+  p2_order : Int32,
+) -> Int32 {
+  if p1_order > p2_order {
+    self.update_bigger_and_smaller_associations(p1, p2, 1)
+  } else {
+    self.update_bigger_and_smaller_associations(p2, p1, 1)
+  }
+  model_order_port_compare_int(p1_order, p2_order)
+}
+
+///|
+/// `ModelOrderPortComparator.compare` of ELK 0.9.1.
+fn ModelOrderPortComparator::compare_elk_0_9_1(
+  self : ModelOrderPortComparator,
+  original_p1 : @runtime.LPort,
+  original_p2 : @runtime.LPort,
+) -> Int32 raise ModelOrderPortComparatorException {
+  let mut p1 = original_p1
+  let mut p2 = original_p2
+
+  if self.port_model_order &&
+    model_order_port_side_equals(p1.get_side(), West) &&
+    model_order_port_side_equals(p2.get_side(), West) {
+    // WEST ports sort descending, all other sides ascending.
+    p1 = original_p2
+    p2 = original_p1
+  }
+
+  let p1_handle = @runtime.lport_internal_handle(p1)
+  let p2_handle = @runtime.lport_internal_handle(p2)
+  if model_order_port_contains(
+      model_order_port_associations_for(self.bigger_than, p1_handle),
+      p2_handle,
+    ) {
+    return 1
+  }
+  if model_order_port_contains(
+      model_order_port_associations_for(self.bigger_than, p2_handle),
+      p1_handle,
+    ) {
+    return -1
+  }
+  if model_order_port_contains(
+      model_order_port_associations_for(self.smaller_than, p1_handle),
+      p2_handle,
+    ) {
+    return -1
+  }
+  // ELK looks p1 up in `biggerThan.get(p2)` a second time here, which cannot
+  // hold any more; only the entry for p2 is created.
+  ignore(model_order_port_associations_for(self.smaller_than, p2_handle))
+
+  // Sort ports by their sides: NORTH < EAST < SOUTH < WEST.
+  if !model_order_port_side_equals(p1.get_side(), p2.get_side()) {
+    let result = model_order_port_compare_int(
+      model_order_port_side_ordinal(p1.get_side()),
+      model_order_port_side_ordinal(p2.get_side()),
+    )
+    if result == -1 {
+      self.update_bigger_and_smaller_associations(p2, p1, 1)
+    } else {
+      self.update_bigger_and_smaller_associations(p1, p2, 1)
+    }
+    return result
+  }
+
+  // Sort incoming edges by the order of the nodes they come from.
+  if !p1.get_incoming_edges().is_empty() && !p2.get_incoming_edges().is_empty() {
+    if self.port_model_order {
+      let result = model_order_port_check_port_model_order_elk_0_9_1(p1, p2)
+      if result != 0 {
+        if result == -1 {
+          self.update_bigger_and_smaller_associations(p2, p1, 1)
+        } else {
+          self.update_bigger_and_smaller_associations(p1, p2, 1)
+        }
+        return result
+      }
+    }
+    let p1_edge = p1.get_incoming_edges()[0]
+    let p2_edge = p2.get_incoming_edges()[0]
+    let p1_node = model_order_port_require_node(
+      Some(model_order_port_require_source(Some(p1_edge))),
+    )
+    let p2_node = model_order_port_require_node(
+      Some(model_order_port_require_source(Some(p2_edge))),
+    )
+    let p1_node_handle = model_order_port_node_handle(p1_node)
+    let p2_node_handle = model_order_port_node_handle(p2_node)
+    if p1_node_handle == p2_node_handle {
+      return self.update_elk_0_9_1_compare_result(
+        p1,
+        p2,
+        p1_edge.get_property_int(@runtime.internal_properties_model_order),
+        p2_edge.get_property_int(@runtime.internal_properties_model_order),
+      )
+    }
+    for previous_node in self.previous_layer {
+      let previous_handle = model_order_port_node_handle(previous_node)
+      if previous_handle == p1_node_handle {
+        self.update_bigger_and_smaller_associations(p1, p2, 1)
+        return 1
+      } else if previous_handle == p2_node_handle {
+        self.update_bigger_and_smaller_associations(p2, p1, 1)
+        return -1
+      }
+    }
+  }
+
+  // Sort outgoing edges by the model order of their edges.
+  if !p1.get_outgoing_edges().is_empty() && !p2.get_outgoing_edges().is_empty() {
+    let p1_target_node = p1.get_property_l_node(
+      @runtime.internal_properties_long_edge_target_node,
+    )
+    let p2_target_node = p2.get_property_l_node(
+      @runtime.internal_properties_long_edge_target_node,
+    )
+
+    if model_order_port_strategy_is_prefer_nodes(self.strategy) &&
+      p1_target_node is Some(target1) &&
+      p2_target_node is Some(target2) &&
+      target1.has_property_int(@runtime.internal_properties_model_order) &&
+      target2.has_property_int(@runtime.internal_properties_model_order) {
+      return self.update_elk_0_9_1_compare_result(
+        p1,
+        p2,
+        target1.get_property_int(@runtime.internal_properties_model_order),
+        target2.get_property_int(@runtime.internal_properties_model_order),
+      )
+    }
+
+    if self.port_model_order {
+      let result = model_order_port_check_port_model_order_elk_0_9_1(p1, p2)
+      if result != 0 {
+        if result == -1 {
+          self.update_bigger_and_smaller_associations(p2, p1, 1)
+        } else {
+          self.update_bigger_and_smaller_associations(p1, p2, 1)
+        }
+        return result
+      }
+    }
+
+    let p1_edge = p1.get_outgoing_edges()[0]
+    let p2_edge = p2.get_outgoing_edges()[0]
+    let mut p1_order = 0
+    let mut p2_order = 0
+    if p1_edge.has_property_int(@runtime.internal_properties_model_order) {
+      p1_order = p1_edge.get_property_int(
+        @runtime.internal_properties_model_order,
+      )
+    }
+    if p2_edge.has_property_int(@runtime.internal_properties_model_order) {
+      // ELK reads the model order of p1's edge here as well.
+      p2_order = p1_edge.get_property_int(
+        @runtime.internal_properties_model_order,
+      )
+    }
+
+    // Same target node: backward edges below.
+    if p1_target_node is Some(target1) &&
+      p2_target_node is Some(target2) &&
+      model_order_port_node_handle(target1) ==
+      model_order_port_node_handle(target2) {
+      let p1_reversed = p1_edge.get_property_bool(
+        @runtime.internal_properties_reversed,
+      )
+      let p2_reversed = p2_edge.get_property_bool(
+        @runtime.internal_properties_reversed,
+      )
+      if p1_reversed && !p2_reversed {
+        self.update_bigger_and_smaller_associations(p1, p2, 1)
+        return 1
+      } else if !p1_reversed && p2_reversed {
+        self.update_bigger_and_smaller_associations(p2, p1, 1)
+        return -1
+      }
+      return self.update_elk_0_9_1_compare_result(p1, p2, p1_order, p2_order)
+    }
+    if self.has_target_node_model_order {
+      if p1_target_node is Some(target) &&
+        self.target_node_model_order.get(model_order_port_node_handle(target))
+        is Some(value) {
+        p1_order = value
+      }
+      if p2_target_node is Some(target) &&
+        self.target_node_model_order.get(model_order_port_node_handle(target))
+        is Some(value) {
+        p2_order = value
+      }
+    }
+    return self.update_elk_0_9_1_compare_result(p1, p2, p1_order, p2_order)
+  }
+
+  // Sort outgoing ports before incoming ports.
+  if !p1.get_incoming_edges().is_empty() && !p2.get_outgoing_edges().is_empty() {
+    self.update_bigger_and_smaller_associations(p1, p2, 1)
+    1
+  } else if !p1.get_outgoing_edges().is_empty() &&
+    !p2.get_incoming_edges().is_empty() {
+    self.update_bigger_and_smaller_associations(p2, p1, 1)
+    -1
+  } else if p1.has_property_int(@runtime.internal_properties_model_order) &&
+    p2.has_property_int(@runtime.internal_properties_model_order) {
+    // The ports have no edges: compare their own model order.
+    self.update_elk_0_9_1_compare_result(
+      p1,
+      p2,
+      p1.get_property_int(@runtime.internal_properties_model_order),
+      p2.get_property_int(@runtime.internal_properties_model_order),
+    )
+  } else {
+    self.update_bigger_and_smaller_associations(p2, p1, 1)
+    -1
+  }
+}
+
+///|
+fn model_order_port_check_port_model_order_elk_0_9_1(
+  p1 : @runtime.LPort,
+  p2 : @runtime.LPort,
+) -> Int32 {
+  if p1.has_property_int(@runtime.internal_properties_model_order) &&
+    p2.has_property_int(@runtime.internal_properties_model_order) {
+    return model_order_port_compare_int(
+      p1.get_property_int(@runtime.internal_properties_model_order),
+      p2.get_property_int(@runtime.internal_properties_model_order),
+    )
+  }
+  0
+}
+
+///|
 pub fn ModelOrderPortComparator::compare(
   self : ModelOrderPortComparator,
   original_p1 : @runtime.LPort,
   original_p2 : @runtime.LPort,
 ) -> Int32 raise {
   try {
+    // elkjs 0.9.3 embeds ELK 0.9.1, whose NODES_AND_EDGES comparator predates
+    // the per-side reversal and group-order extensions below.
+    match self.strategy {
+      NodesAndEdges => return self.compare_elk_0_9_1(original_p1, original_p2)
+      _ => ()
+    }
+
     let p1 = original_p1
     let p2 = original_p2
 

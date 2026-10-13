@@ -260,6 +260,58 @@ test "mermaid flowchart: back edges" {
 }
 
 ///|
+test "mermaid flowchart: g40" {
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "BRANDES_KOEPF", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": false, "elk.direction": "LEFT", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]"}, "children": [{"id": "B",
+    #|"width": 152, "height": 45}, {"id": "C", "width": 152, "height": 45}, {"id": "D",
+    #|"width": 152, "height": 45}, {"id": "F", "width": 152, "height": 45}, {"id": "A",
+    #|"width": 152, "height": 45}, {"id": "E", "width": 152, "height": 45}], "edges": [{"id": "L_B_C_0",
+    #|"sources": ["B"], "targets": ["C"], "labels": [{"width": 0, "height": 0, "text": "",
+    #|"layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_D_F_0", "sources": ["D"], "targets": ["F"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_C_F_0", "sources": ["C"], "targets": ["F"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_D_C_0", "sources": ["D"], "targets": ["C"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_A_C_0", "sources": ["A"], "targets": ["C"], "labels": [{"width": 7, "height": 21,
+    #|"text": "x", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_C_D_0", "sources": ["C"], "targets": ["D"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_C_E_0", "sources": ["C"], "targets": ["E"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]}],
+    #|"width": 964, "height": 175.33333333333334}
+  inspect(
+    mermaid_parity_layout(input),
+    content=(
+      #|root 964x175.33333333333334
+      #|B: 608, 91.25 152x45
+      #|C: 416, 35.000000000000014 152x45
+      #|D: 204, 33.33333333333334 152x45
+      #|F: 12, 12 152x45
+      #|A: 800, 17.750000000000014 152x45
+      #|E: 204, 118.33333333333334 152x45
+      #|L_B_C_0: 608,113.75 588,113.75 588,61.666666666666686 568,61.666666666666686
+      #|L_D_F_0: 204,55.83333333333334 184,55.83333333333334 184,38.66666666666667 164,38.66666666666667
+      #|L_C_F_0: 416,50.000000000000014 396,50.000000000000014 396,12.333333333333343 280,12.333333333333343 184,12.333333333333343 184,30.33333333333333 164,30.33333333333333
+      #|L_D_C_0: 356,60.000000000000014 416,60.000000000000014
+      #|L_A_C_0: 800,40.250000000000014 588,40.250000000000014 588,53.33333333333335 568,53.33333333333335
+      #|L_A_C_0 label: 680.5, 29.250000000000014
+      #|L_C_D_0: 416,55.000000000000014 376,55.000000000000014 376,51.66666666666668 356,51.66666666666668
+      #|L_C_E_0: 416,65.00000000000001 396,65.00000000000001 396,140.83333333333334 356,140.83333333333334
+    ),
+  )
+}
+
+///|
 test "mermaid flowchart: subgraph simple" {
   let input =
     #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",

@@ -280,14 +280,21 @@ fn sort_by_input_model_processor_process(
         port_model_order,
       )
       let ports = node.get_ports()
-      for i = 1; i < ports.length(); i = i + 1 {
-        let current = ports[i]
-        let mut j = i
-        while j > 0 && port_comparator.compare(ports[j - 1], current) > 0 {
-          ports[j] = ports[j - 1]
-          j = j - 1
+      if ordering_strategy is NodesAndEdges {
+        // ELK 0.9.1, as the comparator: `Collections.sort`.
+        preserveorder_gwt_merge_sort(ports, (p1, p2) => {
+          port_comparator.compare(p1, p2)
+        })
+      } else {
+        for i = 1; i < ports.length(); i = i + 1 {
+          let current = ports[i]
+          let mut j = i
+          while j > 0 && port_comparator.compare(ports[j - 1], current) > 0 {
+            ports[j] = ports[j - 1]
+            j = j - 1
+          }
+          ports[j] = current
         }
-        ports[j] = current
       }
       port_comparator.clear_transitive_ordering()
 
@@ -305,7 +312,18 @@ fn sort_by_input_model_processor_process(
       graph, previous_layer, ordering_strategy, long_edge_strategy, group_order_strategy,
       false,
     )
-    sort_by_input_model_processor_insertion_sort(layer.get_nodes(), comparator)
+    if ordering_strategy is NodesAndEdges {
+      // ELK 0.9.1, as the comparator: `Collections.sort`.
+      preserveorder_gwt_merge_sort(layer.get_nodes(), (n1, n2) => {
+        comparator.compare(n1, n2)
+      })
+      comparator.clear_transitive_ordering()
+    } else {
+      sort_by_input_model_processor_insertion_sort(
+        layer.get_nodes(),
+        comparator,
+      )
+    }
 
     if monitor.is_logging_enabled() {
       monitor.log("Layer " + layer_index.to_string() + ": " + layer.to_string())

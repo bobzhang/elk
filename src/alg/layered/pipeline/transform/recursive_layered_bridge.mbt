@@ -120,42 +120,6 @@ fn node_string_property_value_by_candidates(
 }
 
 ///|
-fn node_layout_option_value_by_candidates_with_ancestors(
-  node : @graph.ElkNode,
-  candidates : Array[String],
-) -> String? {
-  match node_layout_option_value_by_candidates(node, candidates) {
-    Some(option) => Some(option)
-    None =>
-      match @graph.node_parent(node) {
-        Some(parent) =>
-          node_layout_option_value_by_candidates_with_ancestors(
-            parent, candidates,
-          )
-        None => None
-      }
-  }
-}
-
-///|
-fn node_string_property_value_by_candidates_with_ancestors(
-  node : @graph.ElkNode,
-  candidates : Array[String],
-) -> String? {
-  match node_string_property_value_by_candidates(node, candidates) {
-    Some(value) => Some(value)
-    None =>
-      match @graph.node_parent(node) {
-        Some(parent) =>
-          node_string_property_value_by_candidates_with_ancestors(
-            parent, candidates,
-          )
-        None => None
-      }
-  }
-}
-
-///|
 fn placement_tokens(value : String) -> Array[String] {
   let normalized = value
     .replace_all(old="[", new="")
@@ -2181,11 +2145,13 @@ fn recursive_layered_direction_option(node : @graph.ElkNode) -> String {
     "elk.direction",
     "direction",
   ]
-  match node_layout_option_value_by_candidates_with_ancestors(node, keys) {
+  // The direction is the graph's own. A nested graph of the same layout
+  // run gets its parent's through `inherited_direction`; one that is laid
+  // out separately does not inherit it at all.
+  match node_layout_option_value_by_candidates(node, keys) {
     Some(value) => value
     None =>
-      match
-        node_string_property_value_by_candidates_with_ancestors(node, keys) {
+      match node_string_property_value_by_candidates(node, keys) {
         Some(value) => value
         None => @graph.node_get_string_property(node, @core.direction)
       }

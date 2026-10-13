@@ -109,6 +109,26 @@ fn model_order_node_first_source_port_connected_to_previous_layer(
 }
 
 ///|
+/// The source port ELK 0.9.1 orders a node by: the source of the first edge of
+/// the last port whose first incoming edge comes from another layer.
+fn model_order_node_source_port_in_other_layer(
+  node : @runtime.LNode,
+) -> @runtime.LPort? {
+  let layer_handle = node.get_layer().map(@runtime.layer_internal_handle)
+  let mut source_port = None
+  for port in node.get_ports() {
+    if !port.get_incoming_edges().is_empty() &&
+      port.get_incoming_edges()[0].get_source() is Some(source) &&
+      source.get_node() is Some(source_node) &&
+      source_node.get_layer().map(@runtime.layer_internal_handle) !=
+      layer_handle {
+      source_port = Some(source)
+    }
+  }
+  source_port
+}
+
+///|
 fn model_order_node_get_first_incoming_port_of_node(
   node : @runtime.LNode,
 ) -> @runtime.LPort? {
@@ -527,7 +547,7 @@ fn model_order_node_compare_int(left : Int32, right : Int32) -> Int32 {
 }
 
 ///|
-fn ModelOrderNodeComparator::update_elk_0_8_1_compare_result(
+fn ModelOrderNodeComparator::update_elk_0_9_1_compare_result(
   self : ModelOrderNodeComparator,
   n1 : @runtime.LNode,
   n2 : @runtime.LNode,
@@ -543,7 +563,7 @@ fn ModelOrderNodeComparator::update_elk_0_8_1_compare_result(
 }
 
 ///|
-fn ModelOrderNodeComparator::compare_nodes_and_edges_elk_0_8_1(
+fn ModelOrderNodeComparator::compare_nodes_and_edges_elk_0_9_1(
   self : ModelOrderNodeComparator,
   n1 : @runtime.LNode,
   n2 : @runtime.LNode,
@@ -566,22 +586,14 @@ fn ModelOrderNodeComparator::compare_nodes_and_edges_elk_0_8_1(
   if model_order_node_contains(n1_smaller, n2_handle) {
     return -1
   }
-  let n2_smaller = model_order_node_associations_get(
-    self.smaller_than,
-    n2_handle,
-  )
-  if model_order_node_contains(n2_smaller, n1_handle) {
-    return 1
-  }
+  // ELK looks n1 up in `biggerThan.get(n2)` a second time here, which cannot
+  // hold any more; only the entry for n2 is created.
+  ignore(model_order_node_associations_get(self.smaller_than, n2_handle))
 
   if !n1.has_property_int(@runtime.internal_properties_model_order) ||
     !n2.has_property_int(@runtime.internal_properties_model_order) {
-    let p1_source_port = model_order_node_get_first_incoming_source_port_of_node(
-      n1,
-    )
-    let p2_source_port = model_order_node_get_first_incoming_source_port_of_node(
-      n2,
-    )
+    let p1_source_port = model_order_node_source_port_in_other_layer(n1)
+    let p2_source_port = model_order_node_source_port_in_other_layer(n2)
 
     match (p1_source_port, p2_source_port) {
       (Some(source1), Some(source2)) =>
@@ -600,9 +612,7 @@ fn ModelOrderNodeComparator::compare_nodes_and_edges_elk_0_8_1(
                   return 1
                 }
               }
-              return self.update_elk_0_8_1_compare_result(
-                n1,
-                n2,
+              return model_order_node_compare_int(
                 self.get_model_order_from_connected_edges(n1),
                 self.get_model_order_from_connected_edges(n2),
               )
@@ -625,7 +635,7 @@ fn ModelOrderNodeComparator::compare_nodes_and_edges_elk_0_8_1(
       _ => ()
     }
 
-    return self.update_elk_0_8_1_compare_result(
+    return self.update_elk_0_9_1_compare_result(
       n1,
       n2,
       self.get_model_order_from_connected_edges(n1),
@@ -633,7 +643,7 @@ fn ModelOrderNodeComparator::compare_nodes_and_edges_elk_0_8_1(
     )
   }
 
-  self.update_elk_0_8_1_compare_result(
+  self.update_elk_0_9_1_compare_result(
     n1,
     n2,
     n1.get_property_int(@runtime.internal_properties_model_order),
@@ -647,10 +657,10 @@ pub fn ModelOrderNodeComparator::compare(
   n1 : @runtime.LNode,
   n2 : @runtime.LNode,
 ) -> Int32 raise {
-  // D2 embeds elkjs 0.8.2 (ELK 0.8.1), whose NODES_AND_EDGES
-  // comparator predates the feedback-edge and group-order extensions below.
+  // elkjs 0.9.3 embeds ELK 0.9.1, whose NODES_AND_EDGES comparator predates
+  // the feedback-edge and group-order extensions below.
   match self.ordering_strategy {
-    NodesAndEdges => return self.compare_nodes_and_edges_elk_0_8_1(n1, n2)
+    NodesAndEdges => return self.compare_nodes_and_edges_elk_0_9_1(n1, n2)
     _ => ()
   }
 

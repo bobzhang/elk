@@ -192,3 +192,33 @@ test "applying a transformed graph releases pipeline-owned indexes" {
   assert_true(session.edge_assignments.is_empty())
   dispose_layered_graph(layered_graph)
 }
+
+///|
+test "nodes get a model order only if their own graph asks for one" {
+  // ELK 0.9.1: ElkGraphImporter.needsModelOrder looks at the node's parent.
+  let graph = @graph.create_graph()
+  @graph.node_set_layout_option_string_by_id(
+    graph, "org.eclipse.elk.hierarchyHandling", "INCLUDE_CHILDREN",
+  )
+  @graph.node_set_layout_option_string_by_id(
+    graph,
+    @options.layered_options_consider_model_order_strategy.get_id(),
+    "NODES_AND_EDGES",
+  )
+
+  let compound = @graph.create_node(Some(graph))
+  @graph.node_set_layout_option_string_by_id(
+    compound, "org.eclipse.elk.hierarchyHandling", "INCLUDE_CHILDREN",
+  )
+  let inner_a = @graph.create_node(Some(compound))
+  let inner_b = @graph.create_node(Some(compound))
+  let sibling = @graph.create_node(Some(graph))
+
+  let session = new_layered_transform_session()
+  recursive_layered_prepare_model_order_assignments(session, graph)
+
+  assert_eq(session.node_assignments.get(compound), Some(0))
+  assert_eq(session.node_assignments.get(sibling), Some(1))
+  assert_eq(session.node_assignments.get(inner_a), None)
+  assert_eq(session.node_assignments.get(inner_b), None)
+}

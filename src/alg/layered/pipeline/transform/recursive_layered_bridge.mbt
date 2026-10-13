@@ -782,15 +782,17 @@ fn recursive_layered_prepare_model_order_assignments(
   let node_assignments : Map[@graph.ElkNode, Int32] = Map([])
   let edge_assignments : Map[@graph.ElkEdge, Int32] = Map([])
   let cb_group_model_orders : Array[Int32] = []
-  let node_order_enabled = recursive_layered_needs_model_order_based_on_parent_node(
-    root_node,
-  )
-
+  // A node gets a model order if the graph it is a child of asks for one; the
+  // nodes of the whole hierarchy share one counter.
   let node_queue = @graph.node_children(root_node).copy()
+  let node_order_enabled_queue = node_queue.map(_ => {
+    recursive_layered_needs_model_order_based_on_parent_node(root_node)
+  })
   let mut node_queue_index = 0
   let mut node_index = 0
   while node_queue_index < node_queue.length() {
     let current = node_queue[node_queue_index]
+    let node_order_enabled = node_order_enabled_queue[node_queue_index]
     node_queue_index += 1
 
     if node_order_enabled &&
@@ -822,12 +824,17 @@ fn recursive_layered_prepare_model_order_assignments(
     if uses_layered &&
       has_hierarchy_handling_enabled &&
       (has_children || has_inside_self_loops) {
+      let child_order_enabled = recursive_layered_needs_model_order_based_on_parent_node(
+        current,
+      )
       for child in @graph.node_children(current) {
         node_queue.push(child)
+        node_order_enabled_queue.push(child_order_enabled)
       }
     }
   }
 
+  // Edges, in contrast, get one if the graph the layout run starts at does.
   let edge_order_enabled = recursive_layered_needs_model_order_based_on_parent_node(
     root_node,
   )

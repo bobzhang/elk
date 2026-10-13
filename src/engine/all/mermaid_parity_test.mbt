@@ -507,3 +507,72 @@ test "mermaid flowchart: nested subgraphs" {
     ),
   )
 }
+
+///|
+test "mermaid flowchart: g45" {
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "BRANDES_KOEPF", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": false, "elk.direction": "DOWN", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]"}, "children": [{"id": "S1",
+    #|"children": [{"id": "B", "width": 152, "height": 45, "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN"}},
+    #|{"id": "A", "width": 152, "height": 45, "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN"}},
+    #|{"id": "C", "width": 152, "height": 45, "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN"}}],
+    #|"labels": [{"text": "S1", "width": 17.125, "height": 19}], "layoutOptions": {"nodeSize.constraints": "[MINIMUM_SIZE, NODE_LABELS]",
+    #|"nodeSize.minimum": "(25.125, 0)", "spacing.baseValue": 24, "elk.layered.spacing.edgeNodeBetweenLayers": 30,
+    #|"elk.spacing.edgeEdge": 20, "spacing.nodeNode": 50, "elk.padding": "[top=24,left=24,bottom=24,right=24]",
+    #|"nodeLabels.placement": "[H_CENTER V_TOP, INSIDE]", "elk.layered.mergeEdges": false,
+    #|"elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED", "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
+    #|"elk.layered.cycleBreaking.strategy": "DEPTH_FIRST", "elk.layered.nodePlacement.networkSimplex.nodeFlexibility": "PORT_POSITION",
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]", "elk.hierarchyHandling": "INCLUDE_CHILDREN"},
+    #|"width": 604, "height": 117}, {"id": "D", "width": 152, "height": 45, "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN"}},
+    #|{"id": "F", "width": 152, "height": 45}, {"id": "G", "width": 152, "height": 45,
+    #|"layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN"}}, {"id": "E", "width": 152,
+    #|"height": 45, "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN"}}], "edges": [{"id": "L_B_D_0",
+    #|"sources": ["B"], "targets": ["D"], "labels": [{"width": 0, "height": 0, "text": "",
+    #|"layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_D_F_0", "sources": ["D"], "targets": ["F"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_D_G_0", "sources": ["D"], "targets": ["G"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_E_G_0", "sources": ["E"], "targets": ["G"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_B_E_0", "sources": ["B"], "targets": ["E"], "labels": [{"width": 15.578125,
+    #|"height": 21, "text": "no", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_G_A_0", "sources": ["A"], "targets": ["G"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_D_E_0", "sources": ["D"], "targets": ["E"], "labels": [{"width": 0, "height": 0,
+    #|"text": "", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]},
+    #|{"id": "L_C_D_0", "sources": ["C"], "targets": ["D"], "labels": [{"width": 21.796875,
+    #|"height": 21, "text": "yes", "layoutOptions": {"edgeLabels.inline": "true", "edgeLabels.placement": "CENTER"}}]}],
+    #|"width": 717, "height": 547}
+  inspect(
+    mermaid_parity_layout(input),
+    content=(
+      #|root 717x547
+      #|S1: 101, 12 604x117
+      #|  B: 24, 48 152x45
+      #|  A: 226, 48 152x45
+      #|  C: 428, 48 152x45
+      #|D: 76.5, 280 152x45
+      #|F: 12, 385 152x45
+      #|G: 359.5, 490 152x45
+      #|E: 335.2651041666667, 385 152x45
+      #|L_B_D_0: 179.26666666666665,105 179.26666666666665,139 179.26666666666665,159 136.49999999999997,159 136.49999999999997,229.5 136.49999999999997,260 130.5,260 130.5,280
+      #|L_D_F_0: 119.5,325 119.5,345 88,345 88,385
+      #|L_D_G_0: 152.5,325 152.5,365 184,365 184,407.5 184,470 402.5,470 402.5,490
+      #|L_E_G_0: 411.2651041666667,430 411.2651041666667,450 435.5,450 435.5,490
+      #|L_B_E_0: 222.7333333333333,105 222.7333333333333,139 222.7333333333333,179 433.2651041666667,179 433.2651041666667,302.5 433.2651041666667,385
+      #|L_B_E_0 label: 425.2651041666667, 219
+      #|L_G_A_0: 403,105 403,139 403,159 560.3984375,159 560.3984375,229.5 560.3984375,302.5 560.3984375,407.5 560.3984375,450 468.5,450 468.5,490
+      #|L_D_E_0: 185.5,325 185.5,345 389.2651041666667,345 389.2651041666667,385
+      #|L_C_D_0: 605,105 605,139 605,199 361,199 361,260 174.5,260 174.5,280
+      #|L_C_D_0 label: 350, 219
+    ),
+  )
+}

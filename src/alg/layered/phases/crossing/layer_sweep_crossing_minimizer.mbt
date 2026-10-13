@@ -795,6 +795,14 @@ fn LayerSweepCrossingMinimizer::minimize_crossings_with_counter(
   let consider_model_order_strategy = graph_data
     .l_graph()
     .get_property_string(@options.layered_options_consider_model_order_strategy)
+
+  // If the initial ordering (the model order) is already free of crossings,
+  // do not change anything: a first sweep would reorder unconnected ports.
+  let initial_crossings = self.count_current_number_of_crossings(graph_data)
+  if initial_crossings == 0 && first_try_with_initial_order {
+    return 0
+  }
+
   if (!first_try_with_initial_order && !second_try_with_initial_order) ||
     consider_model_order_strategy == "NONE" {
     ignore(
@@ -877,6 +885,16 @@ fn LayerSweepCrossingMinimizer::minimize_crossings_node_port_order_with_counter(
   let consider_model_order_strategy = graph_data
     .l_graph()
     .get_property_string(@options.layered_options_consider_model_order_strategy)
+
+  // If the initial ordering (the model order) is already free of crossings,
+  // do not change anything: a first sweep would reorder unconnected ports.
+  let initial_crossings = self.count_current_number_of_crossings_node_port_order(
+    graph_data,
+  )
+  if initial_crossings == 0.0 && first_try_with_initial_order {
+    return 0.0
+  }
+
   if (!first_try_with_initial_order && !second_try_with_initial_order) ||
     consider_model_order_strategy == "NONE" {
     ignore(

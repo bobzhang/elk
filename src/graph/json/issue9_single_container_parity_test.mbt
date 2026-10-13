@@ -91,6 +91,12 @@ fn graph_json_issue9_required_section(
 }
 
 ///|
+// Pins elkjs 0.8.2 coordinates. This branch follows elkjs 0.9.3 (ELK 0.9.1),
+// whose crossing minimizer keeps an initial order without crossings as it is.
+// elkjs 0.9.3 itself cannot lay this graph out: for the separately swept
+// "grid.cell 3" it then has no best sweep to order the parent's ports by and
+// fails in LayerSweepCrossingMinimizer.setPortOrderOnParentGraph.
+#skip
 test "issue9 single-container include-self layout matches elkjs 0.8.2" {
   let root = elk_graph_json_for_graph(graph_json_issue9_input_json()).to_elk()
   let engine = @core.new_recursive_graph_layout_engine(

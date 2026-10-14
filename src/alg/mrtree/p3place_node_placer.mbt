@@ -230,9 +230,18 @@ fn mrtree_node_placer_second_walk(
   ycoor : Double,
   modsum : Double,
   spacing : Double,
+  depth : Int32,
 ) -> Unit raise {
   match node {
     Some(current_node) => {
+      // On a cycle of siblings ELK recurses until the stack overflows (elkjs
+      // fails with "Maximum call stack size exceeded"); the call on the right
+      // sibling is a tail call here, which would loop forever.
+      if depth > 100000 {
+        @core.layout_runtime_raise_unsupported_configuration(
+          "java.lang.StackOverflowError",
+        )
+      }
       let xtemp = mrtree_node_prelim(current_node) + modsum
       let ytemp = ycoor + mrtree_node_level_height(current_node) / 2.0
       mrtree_node_set_xcoor(current_node, xtemp.round().to_int())
@@ -246,6 +255,7 @@ fn mrtree_node_placer_second_walk(
             ycoor + mrtree_node_level_height(current_node) + spacing,
             modsum + mrtree_node_modifier(current_node),
             spacing,
+            depth + 1,
           )
         }
       }
@@ -255,6 +265,7 @@ fn mrtree_node_placer_second_walk(
           ycoor,
           modsum,
           spacing,
+          depth + 1,
         )
       }
     }
@@ -305,6 +316,7 @@ fn mrtree_node_placer_process(
     0.0 - mrtree_node_level_height(root) / 2.0,
     0.0,
     spacing,
+    0,
   )
   match progress_monitor {
     Some(monitor) => monitor.worked(1.0)

@@ -13,9 +13,14 @@ priv struct MrtreeEdgeRouterInOutCounts {
 ///|
 fn mrtree_edge_router_layout_processor_configuration(
   graph : MrtreeGraph,
-) -> @core.LayoutProcessorConfiguration? {
-  ignore(graph)
-  Some(@core.layout_processor_configuration_create())
+) -> @core.LayoutProcessorConfiguration? raise {
+  Some(
+    @core.layout_processor_configuration_create()
+    .before(P4EdgeRouting)
+    .add(mrtree_intermediate_processor_factory(LevelCoords, graph))
+    .add(mrtree_intermediate_processor_factory(CompactionProc, graph))
+    .add(mrtree_intermediate_processor_factory(GraphBoundsProc, graph)),
+  )
 }
 
 ///|
@@ -46,7 +51,7 @@ fn mrtree_edge_router_middle_to_middle_edge_route(edge : MrtreeEdge) -> Unit {
 }
 
 ///|
-fn _mrtree_edge_router_middle_to_middle(graph : MrtreeGraph) -> Unit {
+fn mrtree_edge_router_middle_to_middle(graph : MrtreeGraph) -> Unit {
   for edge in mrtree_graph_edges(graph) {
     mrtree_edge_router_middle_to_middle_edge_route(edge)
   }
@@ -675,7 +680,12 @@ fn mrtree_edge_router_avoid_overlap_special_edges(
     ins_per_level.push(0)
   }
 
-  let distinct_edges = mrtree_graph_edges(graph).copy()
+  let distinct_edges = []
+  for edge in mrtree_graph_edges(graph) {
+    if !distinct_edges.contains(edge) {
+      distinct_edges.push(edge)
+    }
+  }
   for edge in distinct_edges {
     let source_level = mrtree_node_tree_level(mrtree_edge_source(edge))
     let target_level = mrtree_node_tree_level(mrtree_edge_target(edge))
@@ -864,7 +874,7 @@ fn mrtree_edge_router_avoid_overlap_special_edges(
 }
 
 ///|
-fn _mrtree_edge_router_avoid_overlap(graph : MrtreeGraph) -> Unit {
+fn mrtree_edge_router_avoid_overlap(graph : MrtreeGraph) -> Unit {
   let node_bendpoint_padding = mrtree_graph_spacing_edge_node(graph)
   let edge_end_texture_padding = mrtree_graph_edge_end_texture_length(graph)
   let direction_value = mrtree_graph_direction(graph)
@@ -886,14 +896,22 @@ fn mrtree_edge_router_process(
   progress_monitor : @core.IElkProgressMonitor?,
 ) -> Unit raise {
   match progress_monitor {
-    Some(monitor) => ignore(monitor.begin("Dull edge routing", 1.0))
+    Some(monitor) => ignore(monitor.begin("Edge routing", 1.0))
     None => ()
   }
 
-  for node in mrtree_graph_nodes(graph) {
-    for edge in mrtree_node_outgoing_edges(node) {
-      mrtree_edge_bend_points(edge).clear()
+  match mrtree_graph_edge_routing_mode(graph) {
+    MIDDLE_TO_MIDDLE => mrtree_edge_router_middle_to_middle(graph)
+    AVOID_OVERLAP => {
+      mrtree_edge_router_avoid_overlap(graph)
+      // fallback
+      for edge in mrtree_graph_edges(graph) {
+        if mrtree_edge_bend_points(edge).size() < 2 {
+          mrtree_edge_router_middle_to_middle_edge_route(edge)
+        }
+      }
     }
+    _ => ()
   }
 
   match progress_monitor {
@@ -906,7 +924,7 @@ fn mrtree_edge_router_process(
 pub fn new_mrtree_edge_router_layout_phase() -> @core.TypedLayoutProcessor[
   MrtreeGraph,
 ] {
-  @core.new_pure_layout_phase(
+  @core.new_layout_phase(
     mrtree_edge_router_process, mrtree_edge_router_layout_processor_configuration,
   )
 }

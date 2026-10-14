@@ -68,19 +68,22 @@ fn mrtree_first_or_create_edge_section(
 }
 
 ///|
+/// `ElkUtil.applyVectorChain` on the edge's first section: the first point
+/// is the start, the last the end, and the ones between are the bend points.
 fn mrtree_apply_vector_chain_to_edge(
   vector_chain : @core.KVectorChain,
   edge : @graph.ElkEdge,
-) -> Unit {
+) -> Unit raise {
   if vector_chain.size() < 2 {
-    return
+    @core.layout_runtime_raise_unsupported_configuration(
+      "java.lang.IllegalArgumentException: The vector chain must contain at least a source and a target point.",
+    )
   }
-
   let first_section = mrtree_first_or_create_edge_section(edge)
   let first_point = vector_chain.get(0)
   @graph.edge_section_set_start(first_section, first_point.x, first_point.y)
   @graph.edge_section_clear_bend_points(first_section)
-  for i in 0..<vector_chain.size() {
+  for i in 1..<(vector_chain.size() - 1) {
     let point = vector_chain.get(i)
     @graph.edge_section_add_bend_point(
       first_section,
@@ -171,124 +174,110 @@ pub fn MrtreeElkGraphImporter::import_graph(
 }
 
 ///|
-fn mrtree_apply_edges(graph : MrtreeGraph, offset : @core.KVector) -> Unit {
-  for edge in mrtree_graph_edges(graph) {
-    if mrtree_edge_origin(edge) is Some(elk_edge) {
-      let source_node = mrtree_edge_source(edge)
-      let target_node = mrtree_edge_target(edge)
-      let bend_points = mrtree_edge_bend_points(edge)
-      let source_point = mrtree_node_position(source_node).clone()
-      let target_point = mrtree_node_position(target_node).clone()
-      bend_points.add_first_vector(source_point)
-      bend_points.add_last_vector(target_point)
-      if bend_points.size() >= 2 {
-        mrtree_to_node_border(
-          source_point,
-          bend_points.get(1),
-          mrtree_node_size(source_node),
-        )
-        mrtree_to_node_border(
-          target_point,
-          bend_points.get(bend_points.size() - 2),
-          mrtree_node_size(target_node),
-        )
-      }
-      let translated = @core.new_kvector_chain()
-      for i in 0..<bend_points.size() {
-        translated.add_vector(bend_points.get(i).clone().add(offset))
-      }
-      mrtree_apply_vector_chain_to_edge(translated, elk_edge)
-    }
-  }
-}
-
-///|
-fn mrtree_to_node_border(
-  center : @core.KVector,
-  next : @core.KVector,
-  size : @core.KVector,
-) -> Unit {
-  let wh = size.x / 2.0
-  let hh = size.y / 2.0
-  let absx = (next.x - center.x).abs()
-  let absy = (next.y - center.y).abs()
-  let mut xscale = 1.0
-  let mut yscale = 1.0
-  if absx > wh {
-    xscale = wh / absx
-  }
-  if absy > hh {
-    yscale = hh / absy
-  }
-  let scale = @cmp.minimum(xscale, yscale)
-  center.x = center.x + scale * (next.x - center.x)
-  center.y = center.y + scale * (next.y - center.y)
-}
-
-///|
+/// `ElkGraphImporter.applyLayout` of ELK 0.9.1. The node positions are used
+/// as the nodes' locations as they are, while the graph's size is computed
+/// as if they were the nodes' centers.
 pub fn MrtreeElkGraphImporter::apply_layout(
   self : MrtreeElkGraphImporter,
   graph : MrtreeGraph,
-) -> Unit {
+) -> Unit raise {
   ignore(self)
   let elk_graph = match mrtree_graph_origin(graph) {
     Some(origin) => origin
     None => return
   }
-  let mut min_x = 1.0e20
-  let mut min_y = 1.0e20
-  let mut max_x = -1.0e20
-  let mut max_y = -1.0e20
+  let mut min_x = 2147483647.0
+  let mut min_y = 2147483647.0
+  let mut max_x = -2147483648.0
+  let mut max_y = -2147483648.0
   for node in mrtree_graph_nodes(graph) {
     let position = mrtree_node_position(node)
     let size = mrtree_node_size(node)
-    min_x = if position.x - size.x / 2.0 < min_x {
-      position.x - size.x / 2.0
-    } else {
-      min_x
-    }
-    min_y = if position.y - size.y / 2.0 < min_y {
-      position.y - size.y / 2.0
-    } else {
-      min_y
-    }
-    max_x = if position.x + size.x / 2.0 > max_x {
-      position.x + size.x / 2.0
-    } else {
-      max_x
-    }
-    max_y = if position.y + size.y / 2.0 > max_y {
-      position.y + size.y / 2.0
-    } else {
-      max_y
-    }
+    min_x = java_min(min_x, position.x - size.x / 2.0)
+    min_y = java_min(min_y, position.y - size.y / 2.0)
+    max_x = java_max(max_x, position.x + size.x / 2.0)
+    max_y = java_max(max_y, position.y + size.y / 2.0)
   }
 
-  let padding_value = mrtree_graph_padding(graph)
-  let offset = @core.new_kvector_xy(
-    padding_value.get_left() - min_x,
-    padding_value.get_top() - min_y,
+  let padding_value = mrtree_parse_padding(
+    @graph.node_get_string_property(elk_graph, mrtree_padding),
   )
 
   for node in mrtree_graph_nodes(graph) {
     match mrtree_node_origin(node) {
       Some(elk_node) => {
-        let node_position = mrtree_node_position(node).clone().add(offset)
-        @graph.node_set_location(
-          elk_node,
-          node_position.x - @graph.node_width(elk_node) / 2.0,
-          node_position.y - @graph.node_height(elk_node) / 2.0,
-        )
+        let position = mrtree_node_position(node)
+        @graph.node_set_location(elk_node, position.x, position.y)
       }
       None => ()
     }
   }
 
-  mrtree_apply_edges(graph, offset)
+  for edge in mrtree_graph_edges(graph) {
+    if mrtree_edge_origin(edge) is Some(elk_edge) {
+      mrtree_apply_vector_chain_to_edge(mrtree_edge_bend_points(edge), elk_edge)
+    }
+  }
 
   let width = max_x - min_x + padding_value.get_horizontal()
   let height = max_y - min_y + padding_value.get_vertical()
-  @graph.node_set_dimensions(elk_graph, width, height)
+  if !@graph.node_get_bool_property(elk_graph, @core.node_size_fixed_graph_size) {
+    ignore(
+      @core.resize_node(
+        elk_graph,
+        width,
+        height,
+        move_ports=false,
+        move_labels=false,
+      ),
+    )
+  }
+  @graph.node_set_double_property(
+    elk_graph,
+    @core.child_area_width,
+    width - padding_value.get_horizontal(),
+  )
+  @graph.node_set_double_property(
+    elk_graph,
+    @core.child_area_height,
+    height - padding_value.get_vertical(),
+  )
+}
+
+///|
+/// Java's `Math.min` for doubles.
+fn java_min(a : Double, b : Double) -> Double {
+  if a.is_nan() {
+    a
+  } else if a == 0.0 && b == 0.0 {
+    if 1.0 / a < 0.0 {
+      a
+    } else {
+      b
+    }
+  } else if a <= b {
+    a
+  } else {
+    b
+  }
+}
+
+///|
+/// Java's `Math.max` for doubles.
+fn java_max(a : Double, b : Double) -> Double {
+  if a.is_nan() {
+    a
+  } else if a == 0.0 && b == 0.0 {
+    if 1.0 / a > 0.0 {
+      a
+    } else {
+      b
+    }
+  } else if a >= b {
+    a
+  } else {
+    b
+  }
 }
 
 ///|
@@ -298,6 +287,6 @@ pub fn new_mrtree_elk_graph_as_igraph_importer() -> MrtreeIGraphImporter[
   let importer = new_mrtree_elk_graph_importer()
   new_mrtree_igraph_importer(
     fn(graph : @graph.ElkNode) raise { importer.import_graph(graph) },
-    fn(graph : MrtreeGraph) { importer.apply_layout(graph) },
+    graph => importer.apply_layout(graph),
   )
 }

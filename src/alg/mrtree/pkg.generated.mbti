@@ -293,7 +293,7 @@ pub fn mrtree_tree_util_get_last_point(MrtreeEdge) -> @core.KVector
 
 pub fn mrtree_tree_util_get_left_most(Array[MrtreeNode], depth? : Int) -> MrtreeNode? raise
 
-pub fn mrtree_tree_util_get_lowest_parent(MrtreeNode, MrtreeGraph) -> MrtreeNode?
+pub fn mrtree_tree_util_get_lowest_parent(MrtreeNode, MrtreeGraph) -> MrtreeNode? raise
 
 pub fn mrtree_tree_util_get_node_size_in_direction(MrtreeNode, String) -> Double
 
@@ -408,7 +408,7 @@ pub impl Eq for MrtreeEdge
 pub struct MrtreeElkGraphImporter {
   marker : Int
 }
-pub fn MrtreeElkGraphImporter::apply_layout(Self, MrtreeGraph) -> Unit
+pub fn MrtreeElkGraphImporter::apply_layout(Self, MrtreeGraph) -> Unit raise
 pub fn MrtreeElkGraphImporter::import_graph(Self, @graph.ElkNode) -> MrtreeGraph raise
 
 pub struct MrtreeGraph {

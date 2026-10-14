@@ -14,11 +14,6 @@ pub enum MrtreeIntermediateProcessorStrategy {
 }
 
 ///|
-let _mrtree_intermediate_processor_strategy_reserved : Array[
-  MrtreeIntermediateProcessorStrategy,
-] = [CompactionProc, LevelCoords, GraphBoundsProc]
-
-///|
 fn mrtree_intermediate_strategy_ordinal(
   strategy : MrtreeIntermediateProcessorStrategy,
 ) -> Int32 {

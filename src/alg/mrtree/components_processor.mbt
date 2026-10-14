@@ -54,9 +54,9 @@ fn mrtree_dfs(
         mrtree_dfs(target, visited, incidence, component=current_component),
       )
     }
-    if !mrtree_graph_edges(current_component).contains(edge) {
-      mrtree_graph_add_existing_edge(current_component, edge)
-    }
+    // add the edges an labels to the component; as in ELK, an edge between
+    // two nodes of the component is added once from each end
+    mrtree_graph_edges(current_component).push(edge)
   }
   Some(current_component)
 }
@@ -226,19 +226,49 @@ fn mrtree_process_graph_bounds(graph : MrtreeGraph) -> Unit raise {
 }
 
 ///|
+/// `ComponentsProcessor.applyPaddingAndNormalizePositions` of ELK 0.9.1: the
+/// padding is the first node's (its own `elk.padding`, or mrtree's default),
+/// and the graph is moved by the padding's horizontal and vertical sums
+/// (not by its left and top) minus the graph's minimal node coordinates.
 fn mrtree_apply_padding_and_normalize_positions(
   graph : MrtreeGraph,
 ) -> Unit raise {
-  let padding_value = mrtree_graph_padding(graph)
+  let padding_value = match mrtree_node_origin(mrtree_graph_nodes(graph)[0]) {
+    Some(elk_node) =>
+      mrtree_parse_padding(
+        @graph.node_get_string_property(elk_node, mrtree_padding),
+      )
+    None => @core.new_elk_padding_any(20.0)
+  }
   mrtree_graph_set_bb_up_left(graph, @core.new_kvector())
   let temp_graph = new_mrtree_graph()
   mrtree_move_graph(
     temp_graph,
     graph,
-    padding_value.get_left() - mrtree_graph_graph_xmin(graph),
-    padding_value.get_top() - mrtree_graph_graph_ymin(graph),
+    padding_value.get_horizontal() - mrtree_graph_graph_xmin(graph),
+    padding_value.get_vertical() - mrtree_graph_graph_ymin(graph),
   )
-  mrtree_process_graph_bounds(graph)
+}
+
+///|
+/// The property merge at the end of `ComponentsProcessor.pack`: a value of a
+/// later component replaces the merged one unless it is the property's
+/// default. Of the merged properties only the graph's minimal node
+/// coordinates are read afterwards.
+fn mrtree_merge_component_properties(
+  result : MrtreeGraph,
+  components : Array[MrtreeGraph],
+) -> Unit {
+  for component in components {
+    let xmin = mrtree_graph_graph_xmin(component)
+    if xmin != 0.0 {
+      mrtree_graph_set_graph_xmin(result, xmin)
+    }
+    let ymin = mrtree_graph_graph_ymin(component)
+    if ymin != 0.0 {
+      mrtree_graph_set_graph_ymin(result, ymin)
+    }
+  }
 }
 
 ///|
@@ -298,8 +328,7 @@ pub fn MrtreeComponentsProcessor::pack(
     x_pos += size.x + spacing
   }
 
-  let bounds_processor = new_mrtree_graph_bounds_processor_layout_processor()
-  bounds_processor.process(result, Some(@core.new_null_elk_progress_monitor()))
+  mrtree_merge_component_properties(result, sorted)
   mrtree_apply_padding_and_normalize_positions(result)
   result
 }

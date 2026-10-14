@@ -17,5 +17,7 @@ test "Mrtree EdgeRouter middle-to-middle routes to node borders" {
   )
 
   let bends = mrtree_edge_bend_points(edge)
-  inspect(bends.size(), content="0")
+  inspect(bends.size(), content="2")
+  inspect("\{bends.get(0).x},\{bends.get(0).y}", content="10,10")
+  inspect("\{bends.get(1).x},\{bends.get(1).y}", content="20,20")
 }

@@ -54,8 +54,8 @@ test "Mrtree NodeOrderer FAN weighting follows fan/leaf strategy" {
 }
 
 ///|
-test "Mrtree defaults to reference FAN weighting" {
-  assert_true(mrtree_graph_weighting(new_mrtree_graph()) is FAN)
+test "Mrtree defaults to MODEL_ORDER weighting as ELK 0.9.1" {
+  assert_true(mrtree_graph_weighting(new_mrtree_graph()) is MODEL_ORDER)
 }
 
 ///|

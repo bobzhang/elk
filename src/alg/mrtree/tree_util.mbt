@@ -230,9 +230,10 @@ pub fn mrtree_tree_util_get_unique_long(a : Int32, b : Int32) -> Int64 {
 
 ///|
 fn mrtree_tree_util_edge_signature(edge : MrtreeEdge) -> String {
-  let source = mrtree_edge_source(edge)
-  let target = mrtree_edge_target(edge)
-  "\{mrtree_node_id(source).to_string()}->\{mrtree_node_id(target).to_string()}"
+  // TEdge.toString
+  mrtree_node_to_string(mrtree_edge_source(edge)) +
+  "->" +
+  mrtree_node_to_string(mrtree_edge_target(edge))
 }
 
 ///|
@@ -318,29 +319,43 @@ pub fn mrtree_tree_util_get_all_outgoing_edges(
 pub fn mrtree_tree_util_get_lowest_parent(
   node : MrtreeNode,
   graph : MrtreeGraph,
-) -> MrtreeNode? {
+) -> MrtreeNode? raise {
+  // TreeUtil.getLowestParent: of the graph's nodes that are sources of the
+  // node's incoming edges, the first (in the graph's node order) whose center
+  // lies furthest along the layout direction
   if mrtree_node_incoming_edges(node).is_empty() {
     return None
   }
-  let direction_value = mrtree_graph_direction(graph)
-  let direction_vector = mrtree_tree_util_get_direction_vector(direction_value)
-  let mut best_parent : MrtreeNode? = None
-  let mut best_projection = -1.0e20
-  for edge in mrtree_node_incoming_edges(node) {
-    let parent = mrtree_edge_source(edge)
-    let parent_position = mrtree_node_position(parent)
-    let parent_size = mrtree_node_size(parent)
-    let center = @core.new_kvector_xy(
-      parent_position.x + parent_size.x / 2.0,
-      parent_position.y + parent_size.y / 2.0,
+  let direction_vector = mrtree_tree_util_get_direction_vector(
+    mrtree_graph_direction(graph),
+  )
+  let sources = mrtree_node_incoming_edges(node).map(mrtree_edge_source)
+  let parents = mrtree_graph_nodes(graph).filter(x => sources.contains(x))
+  if parents.is_empty() {
+    @core.layout_runtime_raise_unsupported_configuration(
+      "java.util.NoSuchElementException: No value present",
     )
-    let projection = center.dot_product(direction_vector)
-    if best_parent == None || projection > best_projection {
-      best_parent = Some(parent)
-      best_projection = projection
+  }
+  let projection = (x : MrtreeNode) => {
+    let position = mrtree_node_position(x)
+    let size = mrtree_node_size(x)
+    @core.new_kvector_xy(position.x + size.x / 2.0, position.y + size.y / 2.0).dot_product(
+      direction_vector,
+    )
+  }
+  let mut lowest_parent_pos = projection(parents[0])
+  for parent in parents {
+    let value = projection(parent)
+    if value > lowest_parent_pos {
+      lowest_parent_pos = value
     }
   }
-  best_parent
+  for parent in parents {
+    if projection(parent) == lowest_parent_pos {
+      return Some(parent)
+    }
+  }
+  None
 }
 
 ///|

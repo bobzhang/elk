@@ -665,9 +665,52 @@ pub fn node_get_string_set_property(
       NodeStringSetValue([]),
     ) {
     Some(NodeStringSetValue(value)) => value.copy()
-    None => property.get_default().copy()
-    _ => property.get_default().copy()
+    _ =>
+      match node_string_set_property_text(data, property.get_property_id()) {
+        Some(text) => parse_string_set_property_text(text)
+        None => property.get_default().copy()
+      }
   }
+}
+
+///|
+/// The text of an enum set option given as a string, as the JSON importer
+/// stores layout options.
+fn node_string_set_property_text(
+  data : NodeData,
+  property_id : PropertyId,
+) -> String? {
+  match
+    node_property_bag_get(data.properties, property_id, NodeStringValue("")) {
+    Some(NodeStringValue(text)) => Some(text)
+    _ => option_bag_get(data.layout_options, property_id)
+  }
+}
+
+///|
+/// Splits an enum set option's text into its constants, as ELK's
+/// `LayoutOptionData.parseValue` does for `ENUMSET` options: the separators
+/// are brackets, commas and whitespace (`"[MINIMUM_SIZE, NODE_LABELS]"`).
+fn parse_string_set_property_text(text : String) -> Array[String] {
+  let values = []
+  let mut start = 0
+  for i in 0..=text.length() {
+    let separator = i == text.length() ||
+      (match text[i] {
+        '[' | ']' | ',' | ' ' | '\t' | '\n' | '\r' => true
+        _ => false
+      })
+    if separator {
+      if i > start {
+        let value = text.unsafe_substring(start~, end=i)
+        if !values.contains(value) {
+          values.push(value)
+        }
+      }
+      start = i + 1
+    }
+  }
+  values
 }
 
 ///|
@@ -680,7 +723,8 @@ pub fn node_has_string_set_property(
     data.properties,
     property.get_property_id(),
     NodeStringSetValue([]),
-  )
+  ) ||
+  node_string_set_property_text(data, property.get_property_id()) is Some(_)
 }
 
 ///|

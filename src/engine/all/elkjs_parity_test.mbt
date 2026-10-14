@@ -1060,3 +1060,73 @@ test "stress: labelled edges, inline and not" {
     ),
   )
 }
+
+///|
+test "layered: edge label spacing set on the graph" {
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "LINEAR_SEGMENTS", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": true, "elk.direction": "RIGHT", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]", "elk.spacing.edgeLabel": "3.1"},
+    #|"children": [{"id": "n0", "width": 72.368, "height": 29.62}, {"id": "n1", "width": 136.932,
+    #|"height": 24.603}, {"id": "n2", "width": 91.911, "height": 42.316}, {"id": "n3",
+    #|"width": 109.473, "height": 25.819}, {"id": "n4", "width": 111.985, "height": 40.025}],
+    #|"edges": [{"id": "e0", "sources": ["n0"], "targets": ["n3"], "labels": [{"text": "L",
+    #|"width": 48.5841, "height": 10.2948, "layoutOptions": {"edgeLabels.inline": "false"}},
+    #|{"text": "L", "width": 15.0581, "height": 11.8578, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e1", "sources": ["n4"], "targets": ["n2"], "labels": [{"text": "L", "width": 16.2737,
+    #|"height": 10.3003, "layoutOptions": {"edgeLabels.inline": "true"}}, {"text": "L",
+    #|"width": 51.4966, "height": 16.3668, "layoutOptions": {"edgeLabels.inline": "false"}},
+    #|{"text": "L", "width": 37.7426, "height": 14.4649, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e2", "sources": ["n1"], "targets": ["n2"], "labels": [{"text": "L", "width": 10.2208,
+    #|"height": 13.5349, "layoutOptions": {"edgeLabels.inline": "true"}}, {"text": "L",
+    #|"width": 55.4274, "height": 17.4102, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e3", "sources": ["n2"], "targets": ["n3"], "labels": [{"text": "L", "width": 24.3277,
+    #|"height": 14.3567, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 46.3082, "height": 19.3504, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e4", "sources": ["n1"], "targets": ["n4"], "labels": [{"text": "L", "width": 27.1454,
+    #|"height": 9.6601, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 5.7036, "height": 19.818, "layoutOptions": {"edgeLabels.inline": "true"}},
+    #|{"text": "L", "width": 32.2697, "height": 8.4735, "layoutOptions": {"edgeLabels.inline": "false"}}]},
+    #|{"id": "e5", "sources": ["n3"], "targets": ["n0"], "labels": [{"text": "L", "width": 59.2095,
+    #|"height": 18.8614, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 8.0776, "height": 13.6582, "layoutOptions": {"edgeLabels.inline": "true"}},
+    #|{"text": "L", "width": 13.1075, "height": 14.3741, "layoutOptions": {"edgeLabels.inline": "true"}}]}]}
+  inspect(
+    mermaid_parity_layout(input),
+    content=(
+      #|root 1055.953x152.87893397229945
+      #|n0: 971.5849999999999, 70.78703333333331 72.368x29.62
+      #|n1: 12, 54.004716051478766 136.932x24.603
+      #|n2: 504.6833, 57.04931482891464 91.911x42.316
+      #|n3: 722.9024999999999, 58.396164431984744 109.473x25.819
+      #|n4: 261.20169999999996, 28.908833972299448 111.985x40.025
+      #|e0: 971.5849999999999,83.99369999999999 852.3754999999999,83.99369999999999 852.3754999999999,71.30566443198475 832.3754999999999,71.30566443198475
+      #|e0 label: 877.6881999999998, 88.09369999999998
+      #|e0 label: 894.4511999999999, 98.3885
+      #|e1: 373.1867,48.92133397229945 393.1867,48.92133397229945 393.1867,78.20731482891463 504.6833,78.20731482891463
+      #|e1 label: 430.79814999999996, 32.975314828914634
+      #|e1 label: 413.1867, 43.27561482891464
+      #|e1 label: 420.0637, 59.64241482891464
+      #|e2: 148.932,66.30621605147877 168.932,66.30621605147877 168.932,124.93383397229945 205.06685,124.93383397229945 438.93499999999995,124.93383397229945 484.6833,124.93383397229945 484.6833,78.20731482891463 504.6833,78.20731482891463
+      #|e2 label: 312.0838, 108.93383397229945
+      #|e2 label: 289.4805, 122.46873397229945
+      #|e3: 596.5943,78.20731482891463 616.5943,78.20731482891463 616.5943,71.30566443198475 722.9024999999999,71.30566443198475
+      #|e3 label: 647.5845499999999, 75.40566443198475
+      #|e3 label: 636.5943, 89.76236443198474
+      #|e4: 148.932,66.30621605147877 241.2017,66.30621605147877 241.2017,48.92133397229945 261.20169999999996,48.92133397229945
+      #|e4 label: 191.49415, 24.254616051478763
+      #|e4 label: 202.21505, 33.91471605147876
+      #|e4 label: 188.932, 53.73271605147876
+      #|e5: 832.3754999999999,71.30566443198475 852.3754999999999,71.30566443198475 852.3754999999999,62.9937 951.5849999999999,62.9937 951.5849999999999,83.99369999999999 971.5849999999999,83.99369999999999
+      #|e5 label: 872.3754999999999, 11.999999999999998
+      #|e5 label: 897.9414499999999, 30.861399999999996
+      #|e5 label: 895.4264999999999, 44.5196
+    ),
+  )
+}

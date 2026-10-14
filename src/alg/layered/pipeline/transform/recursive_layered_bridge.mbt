@@ -2774,6 +2774,31 @@ fn recursive_layered_create_context(
       }
     None => ()
   }
+  // The other spacing options the graph sets itself: createLGraph copies
+  // every property of the ELK graph (the ones handled above keep their
+  // treatment).
+  let handled = [
+    @core.spacing_node_node.get_id(),
+    @core.spacing_edge_edge.get_id(),
+    @core.spacing_edge_node.get_id(),
+    @core.spacing_node_self_loop.get_id(),
+    @options.layered_options_spacing_node_node_between_layers.get_id(),
+    @options.layered_options_spacing_edge_node_between_layers.get_id(),
+    @options.layered_options_spacing_edge_edge_between_layers.get_id(),
+  ]
+  for entry in @runtime.layered_spacings_with_base_value(0.0).factors() {
+    let (option, _) = entry
+    if handled.contains(option.get_id()) {
+      continue
+    }
+    match
+      recursive_layered_parse_double(
+        recursive_layered_primary_option(node, option.get_id(), unset),
+      ) {
+      Some(value) => layered_graph.set_property_double(option, value)
+      None => ()
+    }
+  }
   // Boolean options that later phases read from the LGraph. createLGraph
   // copies every property of the ELK graph; here each one is carried over
   // by name.

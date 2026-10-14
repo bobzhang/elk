@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/layered/compaction/components"
+package "bobzhang/elk/alg/layered/compaction/components"
 
 import {
-  "Milky2018/moon_elk/alg/common/compaction",
-  "Milky2018/moon_elk/core",
+  "bobzhang/elk/alg/common/compaction",
+  "bobzhang/elk/core",
 }
 
 // Values

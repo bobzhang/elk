@@ -1,8 +1,8 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/mrtree/options"
+package "bobzhang/elk/alg/mrtree/options"
 
 import {
-  "Milky2018/moon_elk/graph",
+  "bobzhang/elk/graph",
 }
 
 // Values

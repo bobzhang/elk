@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/graphviz/dot"
+package "bobzhang/elk/alg/graphviz/dot"
 
 import {
   "moonbitlang/core/debug",

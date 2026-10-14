@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/core/debug/grandom/ui"
+package "bobzhang/elk/core/debug/grandom/ui"
 
 import {
-  "Milky2018/moon_elk/core/debug/grandom",
-  "Milky2018/moon_elk/graph",
+  "bobzhang/elk/core/debug/grandom",
+  "bobzhang/elk/graph",
   "moonbitlang/core/debug",
 }
 

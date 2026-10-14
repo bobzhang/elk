@@ -5,10 +5,10 @@ import {
   "moonbitlang/core/math",
   "moonbitlang/core/random",
   "moonbitlang/core/string",
-  "Milky2018/moon_elk/graph",
+  "bobzhang/elk/graph",
 }
 
 import {
-  "Milky2018/moon_elk/alg/layered/runtime",
-  "Milky2018/moon_elk/engine/all" @all_engine,
+  "bobzhang/elk/alg/layered/runtime",
+  "bobzhang/elk/engine/all" @all_engine,
 } for "test"

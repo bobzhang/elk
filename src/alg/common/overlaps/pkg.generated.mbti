@@ -1,8 +1,8 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/common/overlaps"
+package "bobzhang/elk/alg/common/overlaps"
 
 import {
-  "Milky2018/moon_elk/core",
+  "bobzhang/elk/core",
 }
 
 // Values

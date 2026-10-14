@@ -1,10 +1,10 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/layered/pipeline/compound"
+package "bobzhang/elk/alg/layered/pipeline/compound"
 
 import {
-  "Milky2018/moon_elk/alg/layered/options",
-  "Milky2018/moon_elk/alg/layered/runtime",
-  "Milky2018/moon_elk/core",
+  "bobzhang/elk/alg/layered/options",
+  "bobzhang/elk/alg/layered/runtime",
+  "bobzhang/elk/core",
   "moonbitlang/core/debug",
 }
 

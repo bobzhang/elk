@@ -1,6 +1,6 @@
 import {
-  "Milky2018/moon_elk/graph/json" @graph_json,
-  "Milky2018/moon_elk/graph/text",
+  "bobzhang/elk/graph/json" @graph_json,
+  "bobzhang/elk/graph/text",
 }
 
 pkgtype(kind: "executable")

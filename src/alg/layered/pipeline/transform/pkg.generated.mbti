@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/layered/pipeline/transform"
+package "bobzhang/elk/alg/layered/pipeline/transform"
 
 import {
-  "Milky2018/moon_elk/alg/layered/runtime",
-  "Milky2018/moon_elk/graph",
+  "bobzhang/elk/alg/layered/runtime",
+  "bobzhang/elk/graph",
 }
 
 // Values

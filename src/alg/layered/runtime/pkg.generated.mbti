@@ -1,12 +1,12 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/layered/runtime"
+package "bobzhang/elk/alg/layered/runtime"
 
 import {
-  "Milky2018/moon_elk/alg/common/nodespacing",
-  "Milky2018/moon_elk/alg/layered/options",
-  "Milky2018/moon_elk/alg/layered/runtime/state",
-  "Milky2018/moon_elk/core",
-  "Milky2018/moon_elk/graph",
+  "bobzhang/elk/alg/common/nodespacing",
+  "bobzhang/elk/alg/layered/options",
+  "bobzhang/elk/alg/layered/runtime/state",
+  "bobzhang/elk/core",
+  "bobzhang/elk/graph",
   "moonbitlang/core/debug",
 }
 

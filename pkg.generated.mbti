@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk"
+package "bobzhang/elk"
 
 import {
   "moonbitlang/core/json",

@@ -1,4 +1,4 @@
-# Milky2018/moon_elk
+# bobzhang/elk
 
 A MoonBit port of Eclipse Layout Kernel (ELK).
 
@@ -9,9 +9,9 @@ In `moon.pkg`, import the packages you use:
 ```moonbit
 import {
   "moonbitlang/core/json" @json,
-  "Milky2018/moon_elk/core" @elk_core,
-  "Milky2018/moon_elk/graph" @elk_graph,
-  "Milky2018/moon_elk/graph/json" @elk_graph_json,
+  "bobzhang/elk/core" @elk_core,
+  "bobzhang/elk/graph" @elk_graph,
+  "bobzhang/elk/graph/json" @elk_graph_json,
 }
 ```
 

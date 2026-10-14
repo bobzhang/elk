@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/layered/runtime/state"
+package "bobzhang/elk/alg/layered/runtime/state"
 
 // Values
 pub fn new_greedy_switch_mock_random() -> GreedySwitchMockRandom

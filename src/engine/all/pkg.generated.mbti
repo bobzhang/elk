@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/engine/all"
+package "bobzhang/elk/engine/all"
 
 import {
-  "Milky2018/moon_elk/core",
-  "Milky2018/moon_elk/engine",
+  "bobzhang/elk/core",
+  "bobzhang/elk/engine",
 }
 
 // Values

@@ -1,4 +1,4 @@
-name = "Milky2018/moon_elk"
+name = "bobzhang/elk"
 
 version = "0.3.2"
 
@@ -6,7 +6,7 @@ source = "src"
 
 readme = "README.mbt.md"
 
-repository = "https://github.com/moonbit-community/moon_elk.git"
+repository = "https://github.com/bobzhang/elk.git"
 
 license = "EPL-2.0"
 

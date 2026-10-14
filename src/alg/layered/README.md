@@ -2,7 +2,7 @@
 
 `alg/layered` is a namespace directory, not a MoonBit package. Callers import
 the package that owns the capability they use; there is deliberately no
-compatibility facade at `Milky2018/moon_elk/alg/layered`.
+compatibility facade at `bobzhang/elk/alg/layered`.
 
 The implementation is split by dependency direction:
 

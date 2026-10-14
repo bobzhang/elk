@@ -1,12 +1,12 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/alg/graphviz/layouter"
+package "bobzhang/elk/alg/graphviz/layouter"
 
 import {
-  "Milky2018/moon_elk/alg/graphviz/dot",
-  "Milky2018/moon_elk/alg/graphviz/dot/transform",
-  "Milky2018/moon_elk/core",
-  "Milky2018/moon_elk/engine",
-  "Milky2018/moon_elk/graph",
+  "bobzhang/elk/alg/graphviz/dot",
+  "bobzhang/elk/alg/graphviz/dot/transform",
+  "bobzhang/elk/core",
+  "bobzhang/elk/engine",
+  "bobzhang/elk/graph",
   "moonbitlang/core/debug",
   "moonbitlang/core/ref",
 }

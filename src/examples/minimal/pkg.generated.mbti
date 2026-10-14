@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/examples/minimal"
+package "bobzhang/elk/examples/minimal"
 
 // Values
 pub fn layout_minimal_example() -> String raise

@@ -1,4 +1,4 @@
 import {
   "moonbitlang/core/json",
-  "Milky2018/moon_elk/engine/all" @all_engine,
+  "bobzhang/elk/engine/all" @all_engine,
 }

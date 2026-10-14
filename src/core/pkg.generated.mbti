@@ -1,8 +1,8 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Milky2018/moon_elk/core"
+package "bobzhang/elk/core"
 
 import {
-  "Milky2018/moon_elk/graph",
+  "bobzhang/elk/graph",
   "moonbitlang/core/debug",
   "moonbitlang/core/random",
 }

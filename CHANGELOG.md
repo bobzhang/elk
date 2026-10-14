@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.3.3 - 2026-10-14
+
+Released from the fork `bobzhang/elk`.
+
+### Fixed
+
+- Layered: the connected components of a graph share its random number
+  generator, as in ELK, instead of each seeding one of its own.
+- Layered: edge labels are written back by the label they came from, not
+  by their position in the list, which swapped a centre label with a head
+  or tail label.
+- Layered: the labels of a self loop stack by the direction the graph was
+  given (they were placed side by side in left-to-right graphs).
+- Layered: node margins use `NodeMarginCalculator`'s bounding-box
+  arithmetic, which removes last-bit differences from elkjs with groups.
+
+## 0.3.2 (bobzhang/elk) - 2026-10-14
+
+- The module is named `bobzhang/elk`; it is `moon_elk` 0.3.2 with the
+  elkjs 0.9.3 parity fixes that mermaid's graphs need.
+
 ## 0.3.0 - 2026-09-18
 
 ### Added

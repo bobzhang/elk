@@ -603,6 +603,10 @@ pub struct LayeredTransformSession {
   priv elk_to_lnode : Map[@graph.ElkNode, LNode]
   priv elk_to_lport : Map[@graph.ElkPort, LPort]
   priv ledge_to_elk_edge : Map[Int32, @graph.ElkEdge]
+  /// The layered label made for each edge label, to write its layout back
+  /// to: the processors that place end labels and center labels take the
+  /// labels off their edge and put them back in another order.
+  priv elk_label_to_llabel : Map[@graph.ElkLabel, LLabel]
 }
 
 ///|
@@ -618,6 +622,7 @@ pub fn new_layered_transform_session() -> LayeredTransformSession {
     elk_to_lnode: Map([]),
     elk_to_lport: Map([]),
     ledge_to_elk_edge: Map([]),
+    elk_label_to_llabel: Map([]),
   }
 }
 
@@ -631,6 +636,7 @@ pub fn LayeredTransformSession::clear(self : LayeredTransformSession) -> Unit {
   self.elk_to_lnode.clear()
   self.elk_to_lport.clear()
   self.ledge_to_elk_edge.clear()
+  self.elk_label_to_llabel.clear()
   self.node_assignments.clear()
   self.edge_assignments.clear()
   self.next_context_id = 1
@@ -3384,6 +3390,7 @@ fn recursive_layered_create_context(
         recursive_layered_add_graph_property(edge_parent_lgraph, EndLabels)
       }
       l_edge.get_labels().push(llabel)
+      session.elk_label_to_llabel[elk_label] = llabel
     }
   }
   graph_configurator_configure_graph_properties(
@@ -3840,17 +3847,12 @@ fn recursive_layered_apply_layout(
       )
       bend_index += 1
     }
-    let layered_labels = layered_edge.get_labels()
-    let mut layered_label_index = 0
     for elk_label in @graph.edge_labels(elk_edge) {
-      if @graph.label_text(elk_label).is_empty() {
+      // By origin, as ELK's layout transferrer does: the order of the
+      // labels of the layered edge is not the order they came in.
+      guard session.elk_label_to_llabel.get(elk_label) is Some(layered_label) else {
         continue
       }
-      if layered_label_index >= layered_labels.length() {
-        break
-      }
-      let layered_label = layered_labels[layered_label_index]
-      layered_label_index += 1
       @graph.label_set_dimensions(
         elk_label,
         layered_label.get_size().x,

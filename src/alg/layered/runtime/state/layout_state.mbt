@@ -67,8 +67,27 @@ pub fn LayeredLayoutState::initialize_graph_random(
   graph_handle : Int32,
   seed_value : Int32,
 ) -> Unit {
+  // A component of a graph that was configured before it was split keeps
+  // drawing from that graph's generator.
+  if self.graph_randoms.get(graph_handle) is Some(random) {
+    self.random = Some(random)
+    return
+  }
   self.initialize_random(seed_value)
   if self.random is Some(random) {
+    self.graph_randoms[graph_handle] = random
+  }
+}
+
+///|
+/// Makes the graph with handle `graph_handle` draw from the generator of
+/// the graph with handle `owner_handle`.
+pub fn LayeredLayoutState::share_graph_random(
+  self : LayeredLayoutState,
+  graph_handle : Int32,
+  owner_handle : Int32,
+) -> Unit {
+  if self.graph_randoms.get(owner_handle) is Some(random) {
     self.graph_randoms[graph_handle] = random
   }
 }

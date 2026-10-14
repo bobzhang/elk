@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.3.4 - 2026-10-14
+
+Released from the fork `bobzhang/elk`. Every change brings the port closer
+to elkjs 0.9.3 (ELK 0.9.1).
+
+### Fixed
+
+- Layered, `LINEAR_SEGMENTS`: a node's deflection adds each edge's term as
+  one sum, as Java's `+=` does; about forty other compound assignments had
+  the same rounding difference, among them stacked edge-label sizes.
+- Layered: spacing options set on the graph (`spacing.edgeLabel`,
+  `spacing.labelLabel`, ...) reach the algorithm.
+- Options given as strings of a set (`"[MINIMUM_SIZE, NODE_LABELS]"`) are
+  read, and `edgeLabels.inline` is a known option.
+- A container laid out by a non-layered algorithm gets a fixed size, as
+  `ElkUtil.resizeNode` does.
+- Rectpacking: a new row in a block fits by the row's height, or always in
+  a row of one block.
+- Mrtree follows ELK 0.9.1: edge routing, node positions, packing, the
+  write-back, model-order weighting by default, and the compaction
+  scanline; a cycle among siblings raises instead of looping.
+- Force and stress follow ELK 0.9.1's loop and label handling.
+- Radial, `KVector`, DisCo and splines use JavaScript's correctly rounded
+  `sin`, `cos`, `acos` and `atan2` (new package `jsmath`); a cycle below the
+  root raises instead of crashing.
+
 ## 0.3.3 - 2026-10-14
 
 Released from the fork `bobzhang/elk`.

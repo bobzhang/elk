@@ -82,8 +82,11 @@ pub fn rectpacking_initial_placement_place_rect_in_block(
       block.add_child(rect)
       return true
     } else if block.x + @graph.node_width(rect) <= bounding_width &&
-      block.y + block.height + @graph.node_height(rect) + node_node_spacing <=
-      row.y + row.height {
+      (
+        block.y + block.height + @graph.node_height(rect) + node_node_spacing <=
+        row.height ||
+        row.children.length() == 1
+      ) {
       block.add_child_in_new_row(rect)
       return true
     }

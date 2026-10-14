@@ -271,7 +271,7 @@ pub fn EadesModel::more_iterations(Self, Int) -> Bool
 pub struct ElkGraphImporter {
   _dummy : Unit
 }
-pub fn ElkGraphImporter::apply_layout(Self, FGraph) -> Unit
+pub fn ElkGraphImporter::apply_layout(Self, FGraph) -> Unit raise
 pub fn ElkGraphImporter::import_graph(Self, @graph.ElkNode) -> FGraph raise
 
 pub struct FBendpoint {

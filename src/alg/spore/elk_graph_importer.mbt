@@ -365,7 +365,15 @@ pub fn SporeElkGraphImporter::apply_positions(
   let padding = spore_padding_from_graph(elk_graph)
   let width = max_x - min_x + padding.get_horizontal()
   let height = max_y - min_y + padding.get_vertical()
-  @graph.node_set_dimensions(elk_graph, width, height)
+  ignore(
+    @core.resize_node(
+      elk_graph,
+      width,
+      height,
+      move_ports=true,
+      move_labels=true,
+    ),
+  )
 
   let dx = -min_x + padding.left
   let dy = -min_y + padding.top

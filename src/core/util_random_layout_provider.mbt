@@ -397,7 +397,15 @@ fn random_layout_provider_randomize(
 
   total_width = total_width + padding_value.left + padding_value.right
   total_height = total_height + padding_value.top + padding_value.bottom
-  @graph.node_set_dimensions(parent, total_width, total_height)
+  ignore(
+    resize_node(
+      parent,
+      total_width,
+      total_height,
+      move_ports=false,
+      move_labels=true,
+    ),
+  )
 }
 
 ///|

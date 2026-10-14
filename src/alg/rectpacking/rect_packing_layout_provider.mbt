@@ -250,16 +250,20 @@ pub fn RectPackingLayoutProvider::layout(
   rectpacking_apply_padding(rectangles, padding)
 
   if !fixed_graph_size {
-    @graph.node_set_dimensions(
-      layout_graph,
-      @graph.node_get_double_property(
-        layout_graph, rectpacking_internal_drawing_width,
-      ) +
-      padding.get_horizontal(),
-      @graph.node_get_double_property(
-        layout_graph, rectpacking_internal_drawing_height,
-      ) +
-      padding.get_vertical(),
+    ignore(
+      @core.resize_node(
+        layout_graph,
+        @graph.node_get_double_property(
+          layout_graph, rectpacking_internal_drawing_width,
+        ) +
+        padding.get_horizontal(),
+        @graph.node_get_double_property(
+          layout_graph, rectpacking_internal_drawing_height,
+        ) +
+        padding.get_vertical(),
+        move_ports=false,
+        move_labels=true,
+      ),
     )
   }
 

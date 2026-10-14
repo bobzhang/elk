@@ -127,7 +127,15 @@ fn fixed_layout_provider_apply_minimum_size(
   let parsed_minimum = new_kvector()
   parsed_minimum.parse(@graph.node_get_string_property(node, node_size_minimum))
   if parsed_minimum.x > 0.0 && parsed_minimum.y > 0.0 {
-    @graph.node_set_dimensions(node, parsed_minimum.x, parsed_minimum.y)
+    ignore(
+      resize_node(
+        node,
+        parsed_minimum.x,
+        parsed_minimum.y,
+        move_ports=true,
+        move_labels=true,
+      ),
+    )
   }
 }
 
@@ -365,10 +373,14 @@ pub fn FixedLayoutProvider::layout(
 
   if !@graph.node_get_bool_property(layout_node, node_size_fixed_graph_size) {
     let padding_value = fixed_layout_provider_parse_padding(layout_node)
-    @graph.node_set_dimensions(
-      layout_node,
-      maxx.val + padding_value.left + padding_value.right,
-      maxy.val + padding_value.top + padding_value.bottom,
+    ignore(
+      resize_node(
+        layout_node,
+        maxx.val + padding_value.left + padding_value.right,
+        maxy.val + padding_value.top + padding_value.bottom,
+        move_ports=true,
+        move_labels=true,
+      ),
     )
   }
 

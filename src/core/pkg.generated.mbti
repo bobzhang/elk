@@ -68,6 +68,8 @@ pub fn box_layout_provider_as_layout_provider(BoxLayoutProvider) -> AbstractLayo
 
 pub let box_packing_mode : @graph.IProperty[String]
 
+pub fn calc_port_side(@graph.ElkPort, String) -> String
+
 pub let child_area_height : @graph.IProperty[Double]
 
 pub let child_area_width : @graph.IProperty[Double]
@@ -657,6 +659,8 @@ pub fn random_layout_provider_as_layout_provider(RandomLayoutProvider) -> Abstra
 pub let random_seed : @graph.IProperty[Int]
 
 pub fn reset_layout_execution_listener_ids_for_test() -> Unit
+
+pub fn resize_node(@graph.ElkNode, Double, Double, move_ports~ : Bool, move_labels~ : Bool) -> KVector raise
 
 pub let resolved_algorithm : @graph.IProperty[String]
 

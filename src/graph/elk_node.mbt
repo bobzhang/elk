@@ -694,7 +694,7 @@ fn node_string_set_property_text(
 fn parse_string_set_property_text(text : String) -> Array[String] {
   let values = []
   let mut start = 0
-  for i in 0..=text.length() {
+  for i in 0..<=text.length() {
     let separator = i == text.length() ||
       (match text[i] {
         '[' | ']' | ',' | ' ' | '\t' | '\n' | '\r' => true

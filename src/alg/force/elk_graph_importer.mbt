@@ -643,7 +643,7 @@ pub fn ElkGraphImporter::import_graph(
 pub fn ElkGraphImporter::apply_layout(
   self : ElkGraphImporter,
   force_graph : FGraph,
-) -> Unit {
+) -> Unit raise {
   ignore(self)
   let graph = match
     force_graph.get_internal_node_property(force_internal_origin) {
@@ -716,7 +716,15 @@ pub fn ElkGraphImporter::apply_layout(
   let width = max_x - min_x + padding.get_horizontal()
   let height = max_y - min_y + padding.get_vertical()
   if !@graph.node_get_bool_property(graph, @core.node_size_fixed_graph_size) {
-    @graph.node_set_dimensions(graph, width, height)
+    ignore(
+      @core.resize_node(
+        graph,
+        width,
+        height,
+        move_ports=false,
+        move_labels=true,
+      ),
+    )
   }
   @graph.node_set_double_property(
     graph,
@@ -746,7 +754,7 @@ pub fn elk_graph_importer_as_igraph_importer(
         imported => imported
       }
     },
-    fn(force_graph) { importer.apply_layout(force_graph) },
+    force_graph => importer.apply_layout(force_graph),
   )
 }
 

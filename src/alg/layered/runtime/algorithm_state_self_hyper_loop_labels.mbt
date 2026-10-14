@@ -24,7 +24,12 @@ fn self_hyper_loop_labels_layout_direction(
   sl_loop : SelfHyperLoop,
 ) -> @core.Direction {
   let l_node = sl_loop.get_sl_holder().get_l_node()
-  l_node.get_graph().get_property_direction(layered_components_direction)
+  // The direction as the graph was given it, which the importer keeps as
+  // text: an undefined direction is neither horizontal nor vertical here,
+  // as in `SelfHyperLoopLabels`.
+  l_graph_util_direction_from_string(
+    l_node.get_graph().get_property_string(@core.direction),
+  )
 }
 
 ///|

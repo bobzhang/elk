@@ -1,42 +1,80 @@
 ///|
-fn mrtree_compaction_projection(
+/// A `TreeSet<TNode>` ordered by the nodes' projection on a direction: nodes
+/// with the same projection are the same element for the set.
+priv struct MrtreeProjectionSet {
+  nodes : Array[MrtreeNode]
+  direction_vector : @core.KVector
+}
+
+///|
+fn MrtreeProjectionSet::key(
+  self : MrtreeProjectionSet,
   node : MrtreeNode,
-  direction_vector : @core.KVector,
 ) -> Double {
-  let position = mrtree_node_position(node)
-  direction_vector.dot_product(@core.new_kvector_xy(position.x, position.y))
+  // TreeUtil.getDirectionVector(d).dotProduct(x.getPosition().clone())
+  self.direction_vector.dot_product(mrtree_node_position(node))
 }
 
 ///|
-fn mrtree_compaction_insert_sorted(
-  nodes : Array[MrtreeNode],
+/// The number of elements whose key is below the node's (`headSet(n).size()`).
+fn MrtreeProjectionSet::head_size(
+  self : MrtreeProjectionSet,
   node : MrtreeNode,
-  direction_vector : @core.KVector,
 ) -> Int32 {
-  let node_projection = mrtree_compaction_projection(node, direction_vector)
-  let mut index = 0
-  while index < nodes.length() &&
-        mrtree_compaction_projection(nodes[index], direction_vector) <=
-        node_projection {
-    index += 1
+  let key = self.key(node)
+  let mut count = 0
+  while count < self.nodes.length() &&
+        java_double_compare(self.key(self.nodes[count]), key) < 0 {
+    count += 1
   }
-  nodes.insert(index, node)
-  index
+  count
 }
 
 ///|
-fn mrtree_compaction_sorted_remove(
-  nodes : Array[MrtreeNode],
+fn MrtreeProjectionSet::add(
+  self : MrtreeProjectionSet,
   node : MrtreeNode,
-) -> Int32 {
-  let mut index = 0
-  while index < nodes.length() && nodes[index] != node {
-    index += 1
+) -> Unit {
+  let index = self.head_size(node)
+  if index < self.nodes.length() &&
+    java_double_compare(self.key(self.nodes[index]), self.key(node)) == 0 {
+    return
   }
-  if index < nodes.length() {
-    ignore(nodes.remove(index))
+  self.nodes.insert(index, node)
+}
+
+///|
+fn MrtreeProjectionSet::remove(
+  self : MrtreeProjectionSet,
+  node : MrtreeNode,
+) -> Unit {
+  let index = self.head_size(node)
+  if index < self.nodes.length() &&
+    java_double_compare(self.key(self.nodes[index]), self.key(node)) == 0 {
+    ignore(self.nodes.remove(index))
   }
-  index
+}
+
+///|
+/// `Double.compare`.
+fn java_double_compare(a : Double, b : Double) -> Int32 {
+  if a < b {
+    -1
+  } else if a > b {
+    1
+  } else {
+    let a_bits = if a.is_nan() {
+      0x7ff8000000000000L
+    } else {
+      a.reinterpret_as_int64()
+    }
+    let b_bits = if b.is_nan() {
+      0x7ff8000000000000L
+    } else {
+      b.reinterpret_as_int64()
+    }
+    a_bits.compare(b_bits)
+  }
 }
 
 ///|
@@ -87,7 +125,7 @@ fn mrtree_compaction_set_up_levels(
   let levels : Array[@core.KVector] = []
   for node in mrtree_graph_nodes(graph) {
     while mrtree_node_tree_level(node) > levels.length() - 1 {
-      levels.push(@core.new_kvector_xy(1.0e20, -1.0e20))
+      levels.push(@core.new_kvector_xy(@double.max_value, -@double.max_value))
     }
     let current_level = mrtree_node_tree_level(node)
     let level = levels[current_level]
@@ -169,43 +207,38 @@ fn mrtree_compaction_compute_node_constraints(
     points[j] = current
   }
 
-  let active_nodes = []
+  let set : MrtreeProjectionSet = { nodes: [], direction_vector, }
   let candidates : Map[MrtreeNode, MrtreeNode] = Map([])
 
   for point in points {
-    let current_node = point.get_first()
+    let r = point.get_first()
     if point.get_third() {
-      let index = mrtree_compaction_insert_sorted(
-        active_nodes, current_node, direction_vector,
-      )
-      if index > 0 {
-        candidates[current_node] = active_nodes[index - 1]
+      set.add(r)
+      let head = set.head_size(r)
+      if head > 0 {
+        candidates[r] = set.nodes[head - 1]
       }
-      if index + 1 < active_nodes.length() {
-        candidates[active_nodes[index + 1]] = current_node
+      if set.nodes.length() - head > 1 {
+        // getRightElement: the second element of the tail set
+        candidates[set.nodes[head + 1]] = r
       }
     } else {
-      let index = mrtree_compaction_sorted_remove(active_nodes, current_node)
-      if index > 0 {
-        let left_node = active_nodes[index - 1]
-        match candidates.get(current_node) {
-          Some(candidate_node) =>
-            if left_node == candidate_node {
-              mrtree_node_add_compact_constraint(current_node, left_node)
-            }
-          None => ()
+      // This deviates a bit from the proposed pseudo code but we need to
+      // check if right and left even exist
+      let head = set.head_size(r)
+      if head > 0 {
+        let left_node = set.nodes[head - 1]
+        if candidates.get(r) is Some(candidate) && candidate == left_node {
+          mrtree_node_add_compact_constraint(r, left_node)
         }
       }
-      if index < active_nodes.length() {
-        let right_node = active_nodes[index]
-        match candidates.get(right_node) {
-          Some(candidate_node) =>
-            if candidate_node == current_node {
-              mrtree_node_add_compact_constraint(right_node, current_node)
-            }
-          None => ()
+      if set.nodes.length() - head > 1 {
+        let right_node = set.nodes[head + 1]
+        if candidates.get(right_node) is Some(candidate) && candidate == r {
+          mrtree_node_add_compact_constraint(right_node, r)
         }
       }
+      set.remove(r)
     }
   }
 }
@@ -264,7 +297,8 @@ fn mrtree_compaction_processor_process(
     node_node_spacing / 2.0 / 2.0,
   )
 
-  let nodes = mrtree_graph_nodes(graph).copy()
+  // ELK sorts the graph's node list itself
+  let nodes = mrtree_graph_nodes(graph)
   mrtree_compaction_sort_nodes(nodes, direction_value)
 
   for node in nodes {
@@ -319,7 +353,10 @@ fn mrtree_compaction_processor_process(
                 new_pos_size = new_pos + node_size.y
               }
             }
-            None => ()
+            None =>
+              @core.layout_runtime_raise_unsupported_configuration(
+                "java.lang.NullPointerException",
+              )
           }
         }
         None =>
@@ -357,34 +394,46 @@ fn mrtree_compaction_processor_process(
         }
 
         if level_index != None {
+          // The Node ended up within a level
           if mrtree_tree_util_direction_is_horizontal(direction_value) {
             mrtree_node_position(node).x = new_pos
           } else {
             mrtree_node_position(node).y = new_pos
           }
-        } else if direction_value == "LEFT" || direction_value == "UP" {
-          for i in 1..<levels.length() {
-            if levels[i].x <= new_pos {
-              level_index = Some(i)
-              break
+        } else {
+          if direction_value == "LEFT" || direction_value == "UP" {
+            // Skip the first level as it only contains the SUPER_ROOT here
+            for i in 1..<levels.length() {
+              if levels[i].x <= new_pos {
+                level_index = Some(i)
+                break
+              }
+            }
+          } else {
+            for i in 1..<levels.length() {
+              if levels[i].x >= new_pos {
+                level_index = Some(i)
+                break
+              }
             }
           }
-        } else {
-          for i in 1..<levels.length() {
-            if levels[i].x >= new_pos {
-              level_index = Some(i)
-              break
+          // Force n into the found level
+          if level_index is Some(index) {
+            if mrtree_tree_util_direction_is_horizontal(direction_value) {
+              mrtree_node_position(node).x = levels[index].x
+            } else {
+              mrtree_node_position(node).y = levels[index].x
             }
           }
         }
 
         match level_index {
-          Some(index) => {
-            let forced_pos = levels[index].x
-            if mrtree_tree_util_direction_is_horizontal(direction_value) {
-              mrtree_node_position(node).x = forced_pos
-            } else {
-              mrtree_node_position(node).y = forced_pos
+          Some(found) => {
+            // levels.indexOf(level): the first level equal to the found one
+            let mut index = 0
+            while levels[index].x != levels[found].x ||
+                  levels[index].y != levels[found].y {
+              index += 1
             }
             if index > 0 && index != mrtree_node_tree_level(node) {
               mrtree_node_set_compact_level_ascension(node, true)

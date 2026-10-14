@@ -490,3 +490,171 @@ test "mrtree: middle-to-middle edge routing, upwards" {
     ),
   )
 }
+
+///|
+test "mrtree: compaction upwards, two parents" {
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "BRANDES_KOEPF", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": false, "elk.direction": "DOWN", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]"}, "children": [{"id": "t",
+    #|"children": [{"id": "n0", "width": 150, "height": 51}, {"id": "n1", "width": 150,
+    #|"height": 30}, {"id": "n2", "width": 60, "height": 44.25}, {"id": "n3", "width": 90.5,
+    #|"height": 44.25}, {"id": "n4", "width": 60, "height": 44.25}, {"id": "n5", "width": 120,
+    #|"height": 30}, {"id": "n6", "width": 90.5, "height": 44.25}, {"id": "n7", "width": 90.5,
+    #|"height": 30}], "labels": [{"text": "T", "width": 8.5625, "height": 19}], "layoutOptions": {"nodeSize.constraints": "[MINIMUM_SIZE, NODE_LABELS]",
+    #|"nodeSize.minimum": "(24.5625, 49)", "spacing.baseValue": 24, "elk.layered.spacing.edgeNodeBetweenLayers": 30,
+    #|"elk.spacing.edgeEdge": 20, "spacing.nodeNode": 50, "elk.padding": "[top=34,left=15,bottom=15,right=15]",
+    #|"nodeLabels.placement": "[H_CENTER V_TOP, INSIDE]", "elk.layered.mergeEdges": false,
+    #|"elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED", "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
+    #|"elk.layered.cycleBreaking.strategy": "DEPTH_FIRST", "elk.layered.nodePlacement.networkSimplex.nodeFlexibility": "PORT_POSITION",
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]", "elk.algorithm": "elk.mrtree",
+    #|"elk.hierarchyHandling": "SEPARATE_CHILDREN", "elk.aspectRatio": "2.0", "elk.contentAlignment": "H_CENTER V_TOP",
+    #|"elk.expandNodes": "true", "elk.direction": "UP", "elk.mrtree.compaction": "true"}}],
+    #|"edges": [{"id": "e0", "sources": ["n0"], "targets": ["n1"]}, {"id": "e1", "sources": ["n0"],
+    #|"targets": ["n2"]}, {"id": "e2", "sources": ["n2"], "targets": ["n3"]}, {"id": "e3",
+    #|"sources": ["n0"], "targets": ["n4"]}, {"id": "e4", "sources": ["n4"], "targets": ["n6"]},
+    #|{"id": "e5", "sources": ["n4"], "targets": ["n7"]}, {"id": "e6", "sources": ["n1"],
+    #|"targets": ["n5"]}, {"id": "e7", "sources": ["n4"], "targets": ["n5"]}, {"id": "e8",
+    #|"sources": ["n1"], "targets": ["n2"]}]}
+  inspect(
+    mermaid_parity_layout(input),
+    content=(
+      #|root 580x403.25
+      #|t: 12, 12 556x379.25
+      #|  n0: 228, 322.625 150x51
+      #|  n1: 95, 228 150x30
+      #|  n2: 210, 40 60x44.25
+      #|  n3: 194.75, 40 90.5x44.25
+      #|  n4: 406, 228 60x44.25
+      #|  n5: 40, 148 120x30
+      #|  n6: 319.75, 40 90.5x44.25
+      #|  n7: 460.75, 148 90.5x30
+      #|e0: 265.5,322.625 265.5,319.625 170,275.25 170,258
+      #|e1: 303,322.625 303,319.625 325.5,275.25 325.5,225 235.1875,181 235.1875,145 230,84.25
+      #|e2: 240,62.125 240,62.125
+      #|e3: 340.5,322.625 340.5,319.625 432.5,273.5707547169811 436,272.25
+      #|e4: 436,228 436,225 385.5625,181 385.5625,145 365,84.25
+      #|e5: 451,228 451,225 506,178
+      #|e6: 145,228 145,225 80,178
+      #|e7: 421,228 421,225 123.5,179.32075471698113 120,178
+      #|e8: 195,228 195,225 310.375,181 310.375,145 250,84.25
+    ),
+  )
+}
+
+///|
+test "mrtree: compaction leftwards, three components" {
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "BRANDES_KOEPF", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": false, "elk.direction": "DOWN", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]"}, "children": [{"id": "t",
+    #|"children": [{"id": "n0", "width": 150, "height": 44.25}, {"id": "n1", "width": 90.5,
+    #|"height": 51}, {"id": "n2", "width": 90.5, "height": 30}, {"id": "n3", "width": 150,
+    #|"height": 30}, {"id": "n4", "width": 150, "height": 30}, {"id": "n5", "width": 150,
+    #|"height": 44.25}, {"id": "n6", "width": 90.5, "height": 30}, {"id": "n7", "width": 60,
+    #|"height": 30}, {"id": "n8", "width": 120, "height": 51}], "labels": [{"text": "T",
+    #|"width": 8.5625, "height": 19}], "layoutOptions": {"nodeSize.constraints": "[MINIMUM_SIZE, NODE_LABELS]",
+    #|"nodeSize.minimum": "(24.5625, 49)", "spacing.baseValue": 24, "elk.layered.spacing.edgeNodeBetweenLayers": 30,
+    #|"elk.spacing.edgeEdge": 20, "spacing.nodeNode": 50, "elk.padding": "[top=34,left=15,bottom=15,right=15]",
+    #|"nodeLabels.placement": "[H_CENTER V_TOP, INSIDE]", "elk.layered.mergeEdges": false,
+    #|"elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED", "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
+    #|"elk.layered.cycleBreaking.strategy": "DEPTH_FIRST", "elk.layered.nodePlacement.networkSimplex.nodeFlexibility": "PORT_POSITION",
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]", "elk.algorithm": "elk.mrtree",
+    #|"elk.hierarchyHandling": "SEPARATE_CHILDREN", "elk.aspectRatio": "2.0", "elk.contentAlignment": "H_CENTER V_TOP",
+    #|"elk.expandNodes": "true", "elk.direction": "LEFT", "elk.mrtree.compaction": "true"}}],
+    #|"edges": [{"id": "e0", "sources": ["n1"], "targets": ["n2"]}, {"id": "e1", "sources": ["n2"],
+    #|"targets": ["n3"]}, {"id": "e2", "sources": ["n2"], "targets": ["n4"]}, {"id": "e3",
+    #|"sources": ["n3"], "targets": ["n6"]}, {"id": "e4", "sources": ["n1"], "targets": ["n8"]},
+    #|{"id": "e5", "sources": ["n7"], "targets": ["n0"]}]}
+  inspect(
+    mermaid_parity_layout(input),
+    content=(
+      #|root 685.25x331.625
+      #|t: 12, 12 661.25x307.625
+      #|  n0: 115, 283.625 150x44.25
+      #|  n1: 626, 136.625 90.5x51
+      #|  n2: 485.5, 102.125 90.5x30
+      #|  n3: 256.25, 62.125 150x30
+      #|  n4: 256.25, 142.125 150x30
+      #|  n5: 425, 283.625 150x44.25
+      #|  n6: 115, 62.125 90.5x30
+      #|  n7: 315, 290.75 60x30
+      #|  n8: 256.25, 182.625 120x51
+      #|e0: 626,153.625 623,153.625 576,117.125
+      #|e1: 485.5,112.125 482.5,112.125 406.25,77.125
+      #|e2: 485.5,122.125 482.5,122.125 406.25,157.125
+      #|e3: 256.25,77.125 253.25,77.125 205.5,77.125
+      #|e4: 626,170.625 623,170.625 409.25,208.125 376.25,208.125
+      #|e5: 315,305.75 312,305.75 265,305.75
+    ),
+  )
+}
+
+///|
+test "mrtree: compaction upwards, cycle" {
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "BRANDES_KOEPF", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": false, "elk.direction": "DOWN", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]"}, "children": [{"id": "t",
+    #|"children": [{"id": "n0", "width": 120, "height": 44.25}, {"id": "n1", "width": 120,
+    #|"height": 51}, {"id": "n2", "width": 150, "height": 51}, {"id": "n3", "width": 60,
+    #|"height": 51}, {"id": "n4", "width": 60, "height": 44.25}, {"id": "n5", "width": 150,
+    #|"height": 51}, {"id": "n6", "width": 90.5, "height": 51}, {"id": "n7", "width": 120,
+    #|"height": 51}, {"id": "n8", "width": 120, "height": 44.25}], "labels": [{"text": "T",
+    #|"width": 8.5625, "height": 19}], "layoutOptions": {"nodeSize.constraints": "[MINIMUM_SIZE, NODE_LABELS]",
+    #|"nodeSize.minimum": "(24.5625, 49)", "spacing.baseValue": 24, "elk.layered.spacing.edgeNodeBetweenLayers": 30,
+    #|"elk.spacing.edgeEdge": 20, "spacing.nodeNode": 50, "elk.padding": "[top=34,left=15,bottom=15,right=15]",
+    #|"nodeLabels.placement": "[H_CENTER V_TOP, INSIDE]", "elk.layered.mergeEdges": false,
+    #|"elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED", "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
+    #|"elk.layered.cycleBreaking.strategy": "DEPTH_FIRST", "elk.layered.nodePlacement.networkSimplex.nodeFlexibility": "PORT_POSITION",
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]", "elk.algorithm": "elk.mrtree",
+    #|"elk.hierarchyHandling": "SEPARATE_CHILDREN", "elk.aspectRatio": "2.0", "elk.contentAlignment": "H_CENTER V_TOP",
+    #|"elk.expandNodes": "true", "elk.direction": "UP", "elk.mrtree.compaction": "true"}}],
+    #|"edges": [{"id": "e0", "sources": ["n0"], "targets": ["n1"]}, {"id": "e1", "sources": ["n0"],
+    #|"targets": ["n2"]}, {"id": "e2", "sources": ["n2"], "targets": ["n3"]}, {"id": "e3",
+    #|"sources": ["n0"], "targets": ["n4"]}, {"id": "e4", "sources": ["n4"], "targets": ["n7"]},
+    #|{"id": "e5", "sources": ["n1"], "targets": ["n8"]}, {"id": "e6", "sources": ["n4"],
+    #|"targets": ["n2"]}, {"id": "e7", "sources": ["n7"], "targets": ["n0"]}]}
+  inspect(
+    mermaid_parity_layout(input),
+    content=(
+      #|root 684.25x420.625
+      #|t: 12, 12 660.25x396.625
+      #|  n0: 285, 267.875 120x44.25
+      #|  n1: 115, 166.5 120x51
+      #|  n2: 285, 166.5 150x51
+      #|  n3: 330, 65.5 60x51
+      #|  n4: 485, 166.5 60x44.25
+      #|  n5: 115, 362.125 150x51
+      #|  n6: 625, 65.5 90.5x51
+      #|  n7: 455, 65.5 120x51
+      #|  n8: 115, 72.25 120x44.25
+      #|e0: 315,267.875 315,264.875 178.5,218.82075471698113 175,217.5
+      #|e1: 345,267.875 345,264.875 360,217.5
+      #|e2: 360,166.5 360,163.5 360,116.5
+      #|e3: 375,267.875 375,264.875 511.5,212.07075471698113 515,210.75
+      #|e4: 515,166.5 515,163.5 515,116.5
+      #|e5: 175,166.5 175,163.5 175,116.5
+      #|e6: 485,189.27822580645162 435,190.36693548387098
+      #|e7: 515,65.5 515,62.5 578,62.5 578,322.125 345,322.125 345,315.125 345,312.125
+    ),
+  )
+}

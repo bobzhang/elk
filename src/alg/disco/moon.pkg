@@ -1,6 +1,7 @@
 import {
   "moonbitlang/core/double",
   "moonbitlang/core/math",
+  "bobzhang/elk/jsmath",
   "moonbitlang/core/string",
   "bobzhang/elk/core",
   "bobzhang/elk/graph",

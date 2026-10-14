@@ -49,7 +49,7 @@ fn angle_rotation_rotate(graph : @graph.ElkNode) -> Unit {
                 if wedge_angle <= 0.0 {
                   wedge_angle += 2.0 * @math.PI
                 }
-                let mut alignment_angle = @math.atan2(
+                let mut alignment_angle = @jsmath.atan2(
                   last_vector.y,
                   last_vector.x,
                 )

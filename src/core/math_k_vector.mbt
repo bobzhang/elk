@@ -51,7 +51,7 @@ pub fn new_kvector_between(start : KVector, end : KVector) -> KVector {
 
 ///|
 pub fn new_kvector_angle(angle : Double) -> KVector {
-  { x: @math.cos(angle), y: @math.sin(angle), }
+  { x: @jsmath.cos(angle), y: @jsmath.sin(angle), }
 }
 
 ///|
@@ -265,11 +265,11 @@ pub fn KVector::to_radians(self : KVector) -> Double raise {
     return 0.0
   }
   if self.x >= 0.0 && self.y >= 0.0 {
-    @math.asin(self.y / len)
+    @jsmath.asin(self.y / len)
   } else if self.x < 0.0 {
-    @math.PI - @math.asin(self.y / len)
+    @math.PI - @jsmath.asin(self.y / len)
   } else {
-    2.0 * @math.PI + @math.asin(self.y / len)
+    2.0 * @math.PI + @jsmath.asin(self.y / len)
   }
 }
 
@@ -302,15 +302,15 @@ pub fn kvector_cross_product(v : KVector, w : KVector) -> Double {
 
 ///|
 pub fn KVector::rotate(self : KVector, angle : Double) -> KVector {
-  let new_x = self.x * @math.cos(angle) - self.y * @math.sin(angle)
-  self.y = self.x * @math.sin(angle) + self.y * @math.cos(angle)
+  let new_x = self.x * @jsmath.cos(angle) - self.y * @jsmath.sin(angle)
+  self.y = self.x * @jsmath.sin(angle) + self.y * @jsmath.cos(angle)
   self.x = new_x
   self
 }
 
 ///|
 pub fn KVector::angle(self : KVector, other : KVector) -> Double {
-  @math.acos(self.dot_product(other) / (self.length() * other.length()))
+  @jsmath.acos(self.dot_product(other) / (self.length() * other.length()))
 }
 
 ///|

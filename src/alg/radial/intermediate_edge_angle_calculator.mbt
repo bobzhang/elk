@@ -25,7 +25,7 @@ pub fn new_radial_edge_angle_calculator_layout_processor() -> @core.TypedLayoutP
       )
 
       let edge_vector = @core.kvector_diff(end, start)
-      let angle = @math.atan2(edge_vector.y, edge_vector.x)
+      let angle = @jsmath.atan2(edge_vector.y, edge_vector.x)
 
       let target = try
         @graph.connectable_shape_to_node(Some(@graph.edge_targets(edge)[0]))

@@ -237,13 +237,13 @@ fn disco_transform_get_orthogonal_points(
 ) -> Array[@core.KVector] {
   let dif_x = nxt_x - cur_x
   let dif_y = nxt_y - cur_y
-  let angle_radians = @math.atan2(dif_x, dif_y)
+  let angle_radians = @jsmath.atan2(dif_x, dif_y)
   let orth_angle_ccw = angle_radians + @math.PI / 2.0
   let orth_angle_cw = angle_radians - @math.PI / 2.0
-  let x_ccw = radius * @math.sin(orth_angle_ccw) + cur_x
-  let y_ccw = radius * @math.cos(orth_angle_ccw) + cur_y
-  let x_cw = radius * @math.sin(orth_angle_cw) + cur_x
-  let y_cw = radius * @math.cos(orth_angle_cw) + cur_y
+  let x_ccw = radius * @jsmath.sin(orth_angle_ccw) + cur_x
+  let y_ccw = radius * @jsmath.cos(orth_angle_ccw) + cur_y
+  let x_cw = radius * @jsmath.sin(orth_angle_cw) + cur_x
+  let y_cw = radius * @jsmath.cos(orth_angle_cw) + cur_y
   [
     disco_transform_new_point(x_ccw, y_ccw),
     disco_transform_new_point(x_cw, y_cw),

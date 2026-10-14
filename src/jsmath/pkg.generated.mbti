@@ -1,0 +1,31 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/elk/jsmath"
+
+// Values
+pub fn acos(Double) -> Double
+
+pub fn asin(Double) -> Double
+
+pub fn atan(Double) -> Double
+
+pub fn atan2(Double, Double) -> Double
+
+pub fn cos(Double) -> Double
+
+pub fn floor_log10(Double) -> Double
+
+pub fn hypot(Double, Double) -> Double
+
+pub fn pow10(Int) -> Double
+
+pub fn sin(Double) -> Double
+
+pub fn tan(Double) -> Double
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

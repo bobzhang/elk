@@ -108,12 +108,12 @@ fn radial_position_nodes(
 ) -> Unit raise {
   let radial_offset = optimal_offset
   let alpha_point = (min_alpha + max_alpha) / 2.0 + radial_offset
-  let x_pos = current_radius * @math.cos(alpha_point)
-  let y_pos = current_radius * @math.sin(alpha_point)
+  let x_pos = current_radius * @jsmath.cos(alpha_point)
+  let y_pos = current_radius * @jsmath.sin(alpha_point)
   radial_center_nodes_on_radi(node, x_pos, y_pos)
 
   let number_of_leafs = wedge_criteria.calculate_wedge_space(node)
-  let tau = 2.0 * @math.acos(current_radius / current_radius + radius)
+  let tau = 2.0 * @jsmath.acos(current_radius / current_radius + radius)
   let mut s = 0.0
   let mut alpha = 0.0
   if tau < max_alpha - min_alpha {

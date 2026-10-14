@@ -139,7 +139,7 @@ pub fn radial_create_polar_comparator(
     let position1 = radial_internal_position(node1)
     let x_pos1 = position1.x
     let y_pos1 = position1.y + node_offset_y
-    let mut arc1 = @math.atan2(y_pos1, x_pos1)
+    let mut arc1 = @jsmath.atan2(y_pos1, x_pos1)
     if arc1 < 0.0 {
       arc1 += radial_two_pi
     }
@@ -151,7 +151,7 @@ pub fn radial_create_polar_comparator(
     let position2 = radial_internal_position(node2)
     let x_pos2 = position2.x
     let y_pos2 = position2.y + node_offset_y
-    let mut arc2 = @math.atan2(y_pos2, x_pos2)
+    let mut arc2 = @jsmath.atan2(y_pos2, x_pos2)
     if arc2 < 0.0 {
       arc2 += radial_two_pi
     }

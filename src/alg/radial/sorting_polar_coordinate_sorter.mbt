@@ -48,7 +48,7 @@ fn PolarCoordinateSorter::set_id_for_nodes(
     id += 1
 
     let node_successors = radial_get_successors(node)
-    let mut arc = @math.atan2(
+    let mut arc = @jsmath.atan2(
       @graph.node_y(node) + @graph.node_height(node) / 2.0,
       @graph.node_x(node) + @graph.node_width(node) / 2.0,
     )

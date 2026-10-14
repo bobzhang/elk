@@ -3,6 +3,7 @@ import {
   "moonbitlang/core/float",
   "moonbitlang/core/int",
   "moonbitlang/core/math",
+  "bobzhang/elk/jsmath",
   "moonbitlang/core/random",
   "moonbitlang/core/string",
   "bobzhang/elk/graph",

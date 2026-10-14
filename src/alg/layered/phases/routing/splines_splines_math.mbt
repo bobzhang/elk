@@ -69,7 +69,7 @@ pub fn splines_math_inner_angle_vectors(
   vector_1 : @core.KVector,
   vector_2 : @core.KVector,
 ) -> Double {
-  @math.acos(
+  @jsmath.acos(
     (vector_1.x * vector_2.x + vector_1.y * vector_2.y) /
     (vector_1.length() * vector_2.length()),
   )
@@ -151,7 +151,7 @@ pub fn splines_math_length_to_orthogonal(
     angle = angle - splines_math_quarter_pi
   }
 
-  factor.to_double() * @math.cos(angle) * point.length()
+  factor.to_double() * @jsmath.cos(angle) * point.length()
 }
 
 ///|

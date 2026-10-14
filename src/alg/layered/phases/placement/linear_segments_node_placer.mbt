@@ -610,11 +610,15 @@ fn linear_segments_calc_deflection(
               @options.layered_options_priority_straightness,
             )
             if prio >= min_prio && prio >= other_prio {
+              // Java's `nodeDeflection += a + b + c - portpos` sums the
+              // edge's term before adding it to the total.
               node_deflection = node_deflection +
-                other_node.get_position().y +
-                other_port.get_position().y +
-                other_port.get_anchor().y -
-                port_pos
+                (
+                  other_node.get_position().y +
+                  other_port.get_position().y +
+                  other_port.get_anchor().y -
+                  port_pos
+                )
               edge_weight_sum = edge_weight_sum + 1
             }
           }
@@ -644,11 +648,15 @@ fn linear_segments_calc_deflection(
               @options.layered_options_priority_straightness,
             )
             if prio >= min_prio && prio >= other_prio {
+              // Java's `nodeDeflection += a + b + c - portpos` sums the
+              // edge's term before adding it to the total.
               node_deflection = node_deflection +
-                other_node.get_position().y +
-                other_port.get_position().y +
-                other_port.get_anchor().y -
-                port_pos
+                (
+                  other_node.get_position().y +
+                  other_port.get_position().y +
+                  other_port.get_anchor().y -
+                  port_pos
+                )
               edge_weight_sum = edge_weight_sum + 1
             }
           }

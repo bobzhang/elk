@@ -370,9 +370,11 @@ test "ElkGraphImporter importGraph keeps edge desired length as explicit overrid
     Some(label) => label
     None => abort("missing imported label2")
   }
+  // As in ELK, a label is inline only by its own option: the graph's and
+  // the edge's are not inherited.
   assert_eq(
     flabel_get_bool_property(imported_label1, force_edge_labels_inline),
-    true,
+    false,
   )
   assert_eq(
     flabel_get_bool_property(imported_label2, force_edge_labels_inline),

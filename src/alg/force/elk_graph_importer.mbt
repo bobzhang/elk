@@ -504,9 +504,16 @@ fn force_transform_edges(
   parent_node : @graph.ElkNode,
   fgraph : FGraph,
   elem_map : Map[@graph.ElkNode, FNode],
-  graph_edge_labels_inline : Bool,
 ) -> Unit raise {
-  for edge in @graph.node_contained_edges(parent_node) {
+  // ELK goes through the children's outgoing edges (ElkGraphUtil
+  // .allOutgoingEdges), wherever the edges are contained
+  let edges = []
+  for child in @graph.node_children(parent_node) {
+    for edge in @graph.all_outgoing_edges(child) {
+      edges.push(edge)
+    }
+  }
+  for edge in edges {
     let sources = @graph.edge_sources(edge)
     let targets = @graph.edge_targets(edge)
     if sources.length() != 1 || targets.length() != 1 {
@@ -536,7 +543,9 @@ fn force_transform_edges(
     } noraise {
       value => value
     }
-    if source_node == target_node {
+    // exclude edges that pass hierarchy bounds as well as self-loops
+    if @graph.node_parent(source_node) != @graph.node_parent(target_node) ||
+      source_node == target_node {
       continue
     }
     match (elem_map.get(source_node), elem_map.get(target_node)) {
@@ -583,13 +592,6 @@ fn force_transform_edges(
           None => ()
         }
         fgraph.add_edge(new_edge)
-        let edge_labels_inline = bool_option_with_default(
-          @graph.edge_layout_option_string_value_by_option_id(
-            edge,
-            force_edge_labels_inline.get_property_id(),
-          ),
-          graph_edge_labels_inline,
-        )
         for edge_label in @graph.edge_labels(edge) {
           let new_label = new_flabel(
             new_edge,
@@ -612,7 +614,7 @@ fn force_transform_edges(
                 edge_label,
                 force_edge_labels_inline.get_property_id(),
               ),
-              edge_labels_inline,
+              force_edge_labels_inline.get_default(),
             ),
           )
           flabel_refresh_position(new_label)
@@ -631,11 +633,11 @@ pub fn ElkGraphImporter::import_graph(
 ) -> FGraph raise {
   ignore(self)
   let fgraph = new_fgraph()
-  let graph_edge_labels_inline = force_copy_graph_properties(graph, fgraph)
+  ignore(force_copy_graph_properties(graph, fgraph))
   fgraph.set_internal_node_property(force_internal_origin, graph)
   let elem_map : Map[@graph.ElkNode, FNode] = Map([])
   force_transform_nodes(graph, fgraph, elem_map)
-  force_transform_edges(graph, fgraph, elem_map, graph_edge_labels_inline)
+  force_transform_edges(graph, fgraph, elem_map)
   fgraph
 }
 

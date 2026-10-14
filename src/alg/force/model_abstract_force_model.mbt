@@ -111,21 +111,26 @@ pub fn abstract_force_model_layout(
   initialize_hook()
   let mut iteration_count = 0
   while more_iterations(iteration_count) && !monitor.is_canceled() {
+    abstract_force_model_iteration_done(state)
+    iteration_done_hook()
+
+    // calculate attractive and repulsive forces
     let particles = graph.get_particles()
-    for forcee in graph.get_nodes() {
+    for forcee in particles {
       for forcer in particles {
-        if force_particle_equals(forcer, Node(forcee)) {
-          continue
-        }
-        match calc_displacement(forcer, Node(forcee)) {
-          Some(displacement) =>
-            ignore(fnode_displacement(forcee).add(displacement))
-          None => ()
+        if !force_particle_equals(forcer, forcee) {
+          match calc_displacement(forcer, forcee) {
+            Some(displacement) =>
+              ignore(fparticle_displacement(forcee).add(displacement))
+            None => ()
+          }
         }
       }
     }
-    for node in graph.get_nodes() {
-      let displacement = fnode_displacement(node)
+
+    // apply calculated displacement
+    for particle in particles {
+      let displacement = fparticle_displacement(particle)
       ignore(
         displacement.bound(
           -state.disp_bound,
@@ -134,11 +139,9 @@ pub fn abstract_force_model_layout(
           state.disp_bound,
         ),
       )
-      ignore(fnode_position(node).add(displacement))
+      ignore(fparticle_position(particle).add(displacement))
       ignore(displacement.reset())
     }
-    abstract_force_model_iteration_done(state)
-    iteration_done_hook()
     iteration_count += 1
   }
   monitor.done()
@@ -158,55 +161,43 @@ fn force_particle_equals(left : FParticle, right : FParticle) -> Bool {
 ///|
 pub fn abstract_force_model_avoid_same_position(
   random_generator : @core.JavaRandom,
-  forcee : FParticle,
-  forcer : FParticle,
+  u : FParticle,
+  v : FParticle,
 ) -> Unit {
-  let forcee_position = fparticle_position(forcee)
-  let forcer_position = fparticle_position(forcer)
-  while forcee_position.x - forcer_position.x == 0.0 &&
-        forcee_position.y - forcer_position.y == 0.0 {
-    let mut tried_for_bendpoints = false
-    match (forcee, forcer) {
-      (Bendpoint(forcee_bendpoint), Bendpoint(forcer_bendpoint)) =>
-        if !tried_for_bendpoints {
-          let forcee_edge = fbendpoint_edge(forcee_bendpoint)
-          let forcee_vector = @core.new_kvector_copy(
-            fedge_target_point(forcee_edge),
-          ).sub(fedge_source_point(forcee_edge))
-          let forcee_length = forcee_vector.length()
-          if forcee_length > 0.0 {
-            let orthogonal_forcee = @core.new_kvector_xy(
-              forcee_vector.x / forcee_length * 2.0,
-              -(forcee_vector.y / forcee_length) * 2.0,
-            )
-            ignore(forcee_position.add(orthogonal_forcee))
-          }
-          let forcer_edge = fbendpoint_edge(forcer_bendpoint)
-          let forcer_vector = @core.new_kvector_copy(
-            fedge_target_point(forcer_edge),
-          ).sub(fedge_source_point(forcer_edge))
-          let forcer_length = forcer_vector.length()
-          if forcer_length > 0.0 {
-            let axis_factor = if forcee_vector.equals(forcer_vector) {
-              -2.0
-            } else {
-              2.0
-            }
-            let orthogonal_forcer = @core.new_kvector_xy(
-              forcer_vector.x / forcer_length * axis_factor,
-              -(forcer_vector.y / forcer_length) * axis_factor,
-            )
-            ignore(forcee_position.add(orthogonal_forcer))
-          }
-          tried_for_bendpoints = true
-        }
-      _ => ()
-    }
-    if !tried_for_bendpoints {
-      forcee_position.x = forcee_position.x + random_generator.double() - 0.5
-      forcee_position.y = forcee_position.y + random_generator.double() - 0.5
-      forcer_position.x = forcer_position.x + random_generator.double() - 0.5
-      forcer_position.y = forcer_position.y + random_generator.double() - 0.5
+  let pu = fparticle_position(u)
+  let pv = fparticle_position(v)
+  while pu.x - pv.x == 0.0 && pu.y - pv.y == 0.0 {
+    match (u, v) {
+      (Bendpoint(u_bendpoint), Bendpoint(v_bendpoint)) => {
+        // Wiggle orthogonal to edge direction
+        let u_edge = fbendpoint_edge(u_bendpoint)
+        let u_vector = @core.new_kvector_copy(fedge_target_point(u_edge)).sub(
+          fedge_source_point(u_edge),
+        )
+        let orthogonal_u = @core.new_kvector_xy(
+          u_vector.x / u_vector.length() * 2.0,
+          -u_vector.y / u_vector.length() * 2.0,
+        )
+        ignore(pu.add(orthogonal_u))
+        let v_edge = fbendpoint_edge(v_bendpoint)
+        let v_vector = @core.new_kvector_copy(fedge_target_point(v_edge)).sub(
+          fedge_source_point(v_edge),
+        )
+        // ELK compares the two new vectors by reference: never the same
+        let length = 2.0
+        let orthogonal_v = @core.new_kvector_xy(
+          v_vector.x / v_vector.length() * length,
+          -(v_vector.y / v_vector.length()) * length,
+        )
+        ignore(pu.add(orthogonal_v))
+      }
+      _ => {
+        // KVector.wiggle(random, 1)
+        pu.x += random_generator.double() * 1.0 - 0.5
+        pu.y += random_generator.double() * 1.0 - 0.5
+        pv.x += random_generator.double() * 1.0 - 0.5
+        pv.y += random_generator.double() * 1.0 - 0.5
+      }
     }
   }
 }

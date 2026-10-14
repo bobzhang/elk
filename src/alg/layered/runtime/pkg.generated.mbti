@@ -1014,6 +1014,7 @@ pub fn LayeredRunState::set_breaking_point(Self, LNode, BPInfo?) -> Unit
 pub fn LayeredRunState::set_end_label_cells(Self, LNode, Array[EndLabelCell]) -> Unit
 pub fn LayeredRunState::set_self_loop_holder(Self, LNode, SelfLoopHolder?) -> Unit
 pub fn LayeredRunState::set_spline_segments(Self, LEdge, Array[SplineSegment]) -> Unit
+pub fn LayeredRunState::share_graph_random(Self, LGraph, LGraph) -> Unit
 
 pub struct LayeredSpacingsBuilder {
   base_spacing : Double

@@ -45,6 +45,15 @@ pub fn LayeredRunState::initialize_graph_random(
 }
 
 ///|
+pub fn LayeredRunState::share_graph_random(
+  self : LayeredRunState,
+  graph : LGraph,
+  owner : LGraph,
+) -> Unit {
+  self.random_state.share_graph_random(graph.get_handle(), owner.get_handle())
+}
+
+///|
 /// The random number generator of `graph` (ELK's `InternalProperties.RANDOM`).
 pub fn LayeredRunState::graph_random(
   self : LayeredRunState,

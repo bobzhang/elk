@@ -931,7 +931,13 @@ fn ElkLayered::do_layout_inner(
   let actual_monitor = elk_layered_resolve_monitor(monitor)
   ignore(actual_monitor.begin("Layered layout", 1.0))
 
+  // ELK prepares the graph before splitting it, so its components share
+  // one random number generator.
+  self.layout_state.initialize_graph_random(lgraph)
   let components = self.components_processor.split(lgraph)
+  for comp in components {
+    self.layout_state.share_graph_random(comp, lgraph)
+  }
   if components.length() == 1 {
     let plan = graph_configurator_prepare_graph_for_layout(
       self.phase_registry,

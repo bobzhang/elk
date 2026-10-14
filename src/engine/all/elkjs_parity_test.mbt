@@ -1270,3 +1270,39 @@ test "layered: stacked inline and side labels" {
     ),
   )
 }
+
+///|
+test "radial: a cycle below the root fails instead of crashing" {
+  // n1 -> n2 -> n1 under the root n0: ELK recurses along the cycle until the
+  // stack overflows (elkjs: "Maximum call stack size exceeded").
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "BRANDES_KOEPF", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": false, "elk.direction": "DOWN", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]"}, "children": [{"id": "t",
+    #|"children": [{"id": "n0", "width": 150, "height": 51}, {"id": "n1", "width": 60,
+    #|"height": 30}, {"id": "n2", "width": 150, "height": 51}], "labels": [{"text": "T",
+    #|"width": 8.5625, "height": 19}], "layoutOptions": {"nodeSize.constraints": "[MINIMUM_SIZE, NODE_LABELS]",
+    #|"nodeSize.minimum": "(24.5625, 49)", "spacing.baseValue": 24, "elk.layered.spacing.edgeNodeBetweenLayers": 30,
+    #|"elk.spacing.edgeEdge": 20, "spacing.nodeNode": 50, "elk.padding": "[top=34,left=15,bottom=15,right=15]",
+    #|"nodeLabels.placement": "[H_CENTER V_TOP, INSIDE]", "elk.layered.mergeEdges": false,
+    #|"elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED", "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
+    #|"elk.layered.cycleBreaking.strategy": "DEPTH_FIRST", "elk.layered.nodePlacement.networkSimplex.nodeFlexibility": "PORT_POSITION",
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]", "elk.algorithm": "elk.radial",
+    #|"elk.hierarchyHandling": "SEPARATE_CHILDREN", "elk.aspectRatio": "2.0", "elk.contentAlignment": "H_CENTER V_TOP",
+    #|"elk.expandNodes": "true"}}], "edges": [{"id": "e0", "sources": ["n0"], "targets": ["n1"]},
+    #|{"id": "e1", "sources": ["n0"], "targets": ["n2"]}, {"id": "e2", "sources": ["n2"],
+    #|"targets": ["n1"]}, {"id": "e3", "sources": ["n1"], "targets": ["n2"]}, {"id": "e4",
+    #|"sources": ["n0"], "targets": ["n1"]}]}
+  let message = try mermaid_parity_layout(input) catch {
+    error => error.to_string()
+  } noraise {
+    _ => "no error"
+  }
+  assert_true(message.contains("StackOverflowError"))
+}

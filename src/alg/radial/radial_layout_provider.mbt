@@ -148,7 +148,16 @@ fn radial_layout_provider_layout_impl(
 
   let root = radial_find_root(layout_graph)
   match root {
-    Some(_) => {
+    Some(root_node) => {
+      // ELK walks the tree recursively from the root (e.g. to compute the
+      // wedges); on a cycle it recurses until the stack overflows (elkjs
+      // fails with "Maximum call stack size exceeded"), which would crash
+      // the port's native stack.
+      if radial_successors_reach_a_cycle(root_node) {
+        radial_layout_provider_raise_unsupported_configuration(
+          "java.lang.StackOverflowError",
+        )
+      }
       let mut layout_radius = @graph.node_get_double_property(
         layout_graph, radial_radius,
       )
@@ -168,4 +177,35 @@ fn radial_layout_provider_layout_impl(
         "The given graph is not a tree!",
       )
   }
+}
+
+///|
+/// Whether following successors from `root` reaches a node twice on one path.
+fn radial_successors_reach_a_cycle(root : @graph.ElkNode) -> Bool {
+  let on_path : Map[@graph.ElkNode, Bool] = Map([])
+  let done : Map[@graph.ElkNode, Bool] = Map([])
+  // (node, index of the next successor to visit)
+  let stack : Array[(@graph.ElkNode, Array[@graph.ElkNode], Int32)] = [
+    (root, radial_get_successors(root), 0),
+  ]
+  on_path[root] = true
+  while stack.length() > 0 {
+    let (node, successors, index) = stack[stack.length() - 1]
+    if index >= successors.length() {
+      ignore(stack.pop())
+      on_path.remove(node)
+      done[node] = true
+      continue
+    }
+    stack[stack.length() - 1] = (node, successors, index + 1)
+    let next = successors[index]
+    if on_path.contains(next) {
+      return true
+    }
+    if !done.contains(next) {
+      on_path[next] = true
+      stack.push((next, radial_get_successors(next), 0))
+    }
+  }
+  false
 }

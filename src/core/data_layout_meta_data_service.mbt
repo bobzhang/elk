@@ -433,6 +433,24 @@ pub fn OptionMetadata::register_default_options(self : OptionMetadata) -> Unit {
   )
   self.register_option(
     new_layout_option_data(
+      edge_labels_inline.get_id(),
+      name="Inline Edge Labels",
+      group="edgeLabels",
+      option_type=BoolType,
+      targets=[LabelsTarget],
+    ),
+  )
+  self.register_option(
+    new_layout_option_data(
+      edge_labels_placement.get_id(),
+      name="Edge Label Placement",
+      group="edgeLabels",
+      option_type=StringType,
+      targets=[LabelsTarget],
+    ),
+  )
+  self.register_option(
+    new_layout_option_data(
       port_constraints.get_id(),
       name="Port Constraints",
       group="port",

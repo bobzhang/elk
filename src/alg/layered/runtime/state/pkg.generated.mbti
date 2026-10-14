@@ -45,6 +45,7 @@ pub fn LayeredLayoutState::initialize_graph_random(Self, Int, Int) -> Unit
 pub fn LayeredLayoutState::initialize_random(Self, Int) -> Unit
 pub fn LayeredLayoutState::install_random(Self, GreedySwitchMockRandom, Bool?) -> Unit
 pub fn LayeredLayoutState::random(Self, Int) -> GreedySwitchMockRandom
+pub fn LayeredLayoutState::share_graph_random(Self, Int, Int) -> Unit
 
 // Type aliases
 

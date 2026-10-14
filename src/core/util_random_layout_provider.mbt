@@ -395,8 +395,8 @@ fn random_layout_provider_randomize(
     }
   }
 
-  total_width = total_width + padding_value.left + padding_value.right
-  total_height = total_height + padding_value.top + padding_value.bottom
+  total_width = total_width + (padding_value.left + padding_value.right)
+  total_height = total_height + (padding_value.top + padding_value.bottom)
   ignore(
     resize_node(
       parent,

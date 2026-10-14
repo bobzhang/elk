@@ -58,7 +58,7 @@ fn comment_postprocessor_process_node(
       for box in top_box_list {
         box.get_position().x = x
         box.get_position().y = base_line - box.get_size().y
-        x = x + box.get_size().x + comment_comment_spacing
+        x = x + (box.get_size().x + comment_comment_spacing)
 
         match comment_postprocessor_get_box_port(box) {
           Some(box_port) => {
@@ -106,7 +106,7 @@ fn comment_postprocessor_process_node(
       for box in bottom_box_list {
         box.get_position().x = x
         box.get_position().y = base_line
-        x = x + box.get_size().x + comment_comment_spacing
+        x = x + (box.get_size().x + comment_comment_spacing)
 
         match comment_postprocessor_get_box_port(box) {
           Some(box_port) => {

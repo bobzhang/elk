@@ -53,7 +53,7 @@ fn comment_node_margin_calculator_process_comments(
     }
     top_width = top_width +
       comment_comment_spacing * (top_boxes.length() - 1).to_double()
-    margin.top = margin.top + max_height + comment_node_spacing
+    margin.top = margin.top + (max_height + comment_node_spacing)
   }
 
   let mut bottom_width = 0.0
@@ -68,7 +68,7 @@ fn comment_node_margin_calculator_process_comments(
     }
     bottom_width = bottom_width +
       comment_comment_spacing * (bottom_boxes.length() - 1).to_double()
-    margin.bottom = margin.bottom + max_height + comment_node_spacing
+    margin.bottom = margin.bottom + (max_height + comment_node_spacing)
   }
 
   let max_comment_width = comment_node_margin_calculator_max(

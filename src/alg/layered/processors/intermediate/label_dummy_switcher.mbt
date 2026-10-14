@@ -442,20 +442,26 @@ fn label_dummy_switcher_compute_layer_width_sums(
 
   for left_dummy in info.left_long_edge_dummies {
     current_width_sum = current_width_sum +
-      layer_widths[label_dummy_switcher_require_layer(left_dummy).get_id()] +
-      min_space_between_layers
+      (
+        layer_widths[label_dummy_switcher_require_layer(left_dummy).get_id()] +
+        min_space_between_layers
+      )
     layer_width_sums.push(current_width_sum)
   }
 
   current_width_sum = current_width_sum +
-    layer_widths[label_dummy_switcher_require_layer(info.label_dummy).get_id()] +
-    min_space_between_layers
+    (
+      layer_widths[label_dummy_switcher_require_layer(info.label_dummy).get_id()] +
+      min_space_between_layers
+    )
   layer_width_sums.push(current_width_sum)
 
   for right_dummy in info.right_long_edge_dummies {
     current_width_sum = current_width_sum +
-      layer_widths[label_dummy_switcher_require_layer(right_dummy).get_id()] +
-      min_space_between_layers
+      (
+        layer_widths[label_dummy_switcher_require_layer(right_dummy).get_id()] +
+        min_space_between_layers
+      )
     layer_width_sums.push(current_width_sum)
   }
 

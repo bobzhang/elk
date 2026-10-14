@@ -151,7 +151,7 @@ fn hierarchical_port_orthogonal_restore_dummy(
       label.get_position().y = current_y
       label.get_position().x = x_center_relative_to_port -
         label.get_size().x / 2.0
-      current_y = current_y + label.get_size().y + label_label_spacing
+      current_y = current_y + (label.get_size().y + label_label_spacing)
     }
   } else if hierarchical_port_orthogonal_string_array_contains(
       port_label_placement, "OUTSIDE",

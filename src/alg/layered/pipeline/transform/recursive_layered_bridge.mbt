@@ -3566,9 +3566,7 @@ fn recursive_layered_apply_layout(
       match ext_side {
         North => {
           resolved_port_x = resolved_port_x +
-            padding_value.left +
-            graph_offset.x -
-            port_width_value / 2.0
+            (padding_value.left + graph_offset.x - port_width_value / 2.0)
           resolved_port_y = -port_height_value - border_offset
           owner_position.y = -(padding_value.top +
             border_offset +
@@ -3580,9 +3578,7 @@ fn recursive_layered_apply_layout(
             padding_value.right +
             border_offset
           resolved_port_y = resolved_port_y +
-            padding_value.top +
-            graph_offset.y -
-            port_height_value / 2.0
+            (padding_value.top + graph_offset.y - port_height_value / 2.0)
           owner_position.x = graph_size.x +
             padding_value.right +
             border_offset -
@@ -3590,9 +3586,7 @@ fn recursive_layered_apply_layout(
         }
         South => {
           resolved_port_x = resolved_port_x +
-            padding_value.left +
-            graph_offset.x -
-            port_width_value / 2.0
+            (padding_value.left + graph_offset.x - port_width_value / 2.0)
           resolved_port_y = graph_size.y +
             padding_value.top +
             padding_value.bottom +
@@ -3605,9 +3599,7 @@ fn recursive_layered_apply_layout(
         West => {
           resolved_port_x = -port_width_value - border_offset
           resolved_port_y = resolved_port_y +
-            padding_value.top +
-            graph_offset.y -
-            port_height_value / 2.0
+            (padding_value.top + graph_offset.y - port_height_value / 2.0)
           owner_position.x = -(padding_value.left +
             border_offset +
             graph_offset.x)
@@ -3645,9 +3637,7 @@ fn recursive_layered_apply_layout(
           match ext_side {
             North => {
               resolved_port_x = resolved_port_x +
-                padding_value.left +
-                graph_offset.x -
-                port_width_value / 2.0
+                (padding_value.left + graph_offset.x - port_width_value / 2.0)
               resolved_port_y = -port_height_value - border_offset
               owner_position.y = -(padding_value.top +
                 border_offset +
@@ -3659,9 +3649,7 @@ fn recursive_layered_apply_layout(
                 padding_value.right +
                 border_offset
               resolved_port_y = resolved_port_y +
-                padding_value.top +
-                graph_offset.y -
-                port_height_value / 2.0
+                (padding_value.top + graph_offset.y - port_height_value / 2.0)
               owner_position.x = graph_size.x +
                 padding_value.right +
                 border_offset -
@@ -3669,9 +3657,7 @@ fn recursive_layered_apply_layout(
             }
             South => {
               resolved_port_x = resolved_port_x +
-                padding_value.left +
-                graph_offset.x -
-                port_width_value / 2.0
+                (padding_value.left + graph_offset.x - port_width_value / 2.0)
               resolved_port_y = graph_size.y +
                 padding_value.top +
                 padding_value.bottom +
@@ -3684,9 +3670,7 @@ fn recursive_layered_apply_layout(
             West => {
               resolved_port_x = -port_width_value - border_offset
               resolved_port_y = resolved_port_y +
-                padding_value.top +
-                graph_offset.y -
-                port_height_value / 2.0
+                (padding_value.top + graph_offset.y - port_height_value / 2.0)
               owner_position.x = -(padding_value.left +
                 border_offset +
                 graph_offset.x)

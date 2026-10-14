@@ -1324,7 +1324,7 @@ fn interactive_layered_graph_visitor_set_coordinates_orthogonal_to_layout_direct
           @options.layered_options_position,
           @core.new_kvector_xy(@graph.node_x(node), y_position),
         )
-        y_position = y_position + @graph.node_height(node) + spacing
+        y_position = y_position + (@graph.node_height(node) + spacing)
       }
     }
     Rightward => {
@@ -1335,7 +1335,7 @@ fn interactive_layered_graph_visitor_set_coordinates_orthogonal_to_layout_direct
           @options.layered_options_position,
           @core.new_kvector_xy(@graph.node_x(node), y_position),
         )
-        y_position = y_position + @graph.node_height(node) + spacing
+        y_position = y_position + (@graph.node_height(node) + spacing)
       }
     }
     Leftward => {
@@ -1346,7 +1346,7 @@ fn interactive_layered_graph_visitor_set_coordinates_orthogonal_to_layout_direct
           @options.layered_options_position,
           @core.new_kvector_xy(@graph.node_x(node), y_position),
         )
-        y_position = y_position + @graph.node_height(node) + spacing
+        y_position = y_position + (@graph.node_height(node) + spacing)
       }
     }
     Downward => {
@@ -1358,7 +1358,7 @@ fn interactive_layered_graph_visitor_set_coordinates_orthogonal_to_layout_direct
           @options.layered_options_position,
           @core.new_kvector_xy(x_position, @graph.node_y(node)),
         )
-        x_position = x_position + @graph.node_width(node) + spacing
+        x_position = x_position + (@graph.node_width(node) + spacing)
       }
     }
     Upward => {
@@ -1370,7 +1370,7 @@ fn interactive_layered_graph_visitor_set_coordinates_orthogonal_to_layout_direct
           @options.layered_options_position,
           @core.new_kvector_xy(x_position, @graph.node_y(node)),
         )
-        x_position = x_position + @graph.node_width(node) + spacing
+        x_position = x_position + (@graph.node_width(node) + spacing)
       }
     }
   }

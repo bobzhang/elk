@@ -279,8 +279,8 @@ pub fn KVector::wiggle(
   random : @random.Rand,
   amount : Double,
 ) -> Unit {
-  self.x = self.x + random.double() * amount - amount / 2.0
-  self.y = self.y + random.double() * amount - amount / 2.0
+  self.x = self.x + (random.double() * amount - amount / 2.0)
+  self.y = self.y + (random.double() * amount - amount / 2.0)
 }
 
 ///|

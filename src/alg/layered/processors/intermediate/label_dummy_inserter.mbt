@@ -166,8 +166,7 @@ fn label_dummy_inserter_process(
           if label.get_property_string(@core.edge_labels_placement) == "CENTER" {
             if layout_direction.is_vertical() {
               dummy_size.x = dummy_size.x +
-                label.get_size().x +
-                label_label_spacing
+                (label.get_size().x + label_label_spacing)
               if label.get_size().y > dummy_size.y {
                 dummy_size.y = label.get_size().y
               }
@@ -176,8 +175,7 @@ fn label_dummy_inserter_process(
                 dummy_size.x = label.get_size().x
               }
               dummy_size.y = dummy_size.y +
-                label.get_size().y +
-                label_label_spacing
+                (label.get_size().y + label_label_spacing)
             }
 
             represented_labels.push(label)
@@ -189,12 +187,10 @@ fn label_dummy_inserter_process(
 
         if layout_direction.is_vertical() {
           dummy_size.x = dummy_size.x - label_label_spacing
-          dummy_size.y = dummy_size.y + edge_label_spacing + thickness
+          dummy_size.y = dummy_size.y + (edge_label_spacing + thickness)
         } else {
           dummy_size.y = dummy_size.y +
-            edge_label_spacing -
-            label_label_spacing +
-            thickness
+            (edge_label_spacing - label_label_spacing + thickness)
         }
 
         // LNode currently stores label arrays by copy, so write back after we populate it.

@@ -105,7 +105,7 @@ fn label_dummy_remover_place_labels_for_horizontal_layout(
     label.get_position().x = label_pos.x +
       (label_space.x - label.get_size().x) / 2.0
     label.get_position().y = label_pos.y
-    label_pos.y = label_pos.y + label.get_size().y + label_spacing
+    label_pos.y = label_pos.y + (label.get_size().y + label_spacing)
   }
 }
 
@@ -145,7 +145,7 @@ fn label_dummy_remover_place_labels_for_vertical_layout(
       label.get_position().y = label_pos.y + label_space.y - label.get_size().y
     }
 
-    label_pos.x = label_pos.x + label.get_size().x + label_spacing
+    label_pos.x = label_pos.x + (label.get_size().x + label_spacing)
   }
 }
 
@@ -192,7 +192,7 @@ fn label_dummy_remover_process(
 
       let curr_label_pos = @core.new_kvector_copy(node.get_position())
       if labels_below_edge {
-        curr_label_pos.y = curr_label_pos.y + thickness + edge_label_spacing
+        curr_label_pos.y = curr_label_pos.y + (thickness + edge_label_spacing)
       }
 
       let label_space = @core.new_kvector_xy(

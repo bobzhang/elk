@@ -108,7 +108,8 @@ fn comment_preprocessor_process_box(
   if !only_top && !only_bottom && !real_node.get_labels().is_empty() {
     let mut label_pos = 0.0
     for label in real_node.get_labels() {
-      label_pos = label_pos + label.get_position().y + label.get_size().y / 2.0
+      label_pos = label_pos +
+        (label.get_position().y + label.get_size().y / 2.0)
     }
     label_pos = label_pos / real_node.get_labels().length().to_double()
     top_first = label_pos >= real_node.get_size().y / 2.0

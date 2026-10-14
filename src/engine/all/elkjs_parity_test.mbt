@@ -1130,3 +1130,143 @@ test "layered: edge label spacing set on the graph" {
     ),
   )
 }
+
+///|
+test "layered: stacked labels with label spacing set on the graph" {
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "LINEAR_SEGMENTS", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": true, "elk.direction": "RIGHT", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]", "elk.spacing.labelLabel": "1.3"},
+    #|"children": [{"id": "n0", "width": 72.368, "height": 29.62}, {"id": "n1", "width": 136.932,
+    #|"height": 24.603}, {"id": "n2", "width": 91.911, "height": 42.316}, {"id": "n3",
+    #|"width": 109.473, "height": 25.819}, {"id": "n4", "width": 111.985, "height": 40.025}],
+    #|"edges": [{"id": "e0", "sources": ["n0"], "targets": ["n3"], "labels": [{"text": "L",
+    #|"width": 48.5841, "height": 10.2948, "layoutOptions": {"edgeLabels.inline": "false"}},
+    #|{"text": "L", "width": 15.0581, "height": 11.8578, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e1", "sources": ["n4"], "targets": ["n2"], "labels": [{"text": "L", "width": 16.2737,
+    #|"height": 10.3003, "layoutOptions": {"edgeLabels.inline": "true"}}, {"text": "L",
+    #|"width": 51.4966, "height": 16.3668, "layoutOptions": {"edgeLabels.inline": "false"}},
+    #|{"text": "L", "width": 37.7426, "height": 14.4649, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e2", "sources": ["n1"], "targets": ["n2"], "labels": [{"text": "L", "width": 10.2208,
+    #|"height": 13.5349, "layoutOptions": {"edgeLabels.inline": "true"}}, {"text": "L",
+    #|"width": 55.4274, "height": 17.4102, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e3", "sources": ["n2"], "targets": ["n3"], "labels": [{"text": "L", "width": 24.3277,
+    #|"height": 14.3567, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 46.3082, "height": 19.3504, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e4", "sources": ["n1"], "targets": ["n4"], "labels": [{"text": "L", "width": 27.1454,
+    #|"height": 9.6601, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 5.7036, "height": 19.818, "layoutOptions": {"edgeLabels.inline": "true"}},
+    #|{"text": "L", "width": 32.2697, "height": 8.4735, "layoutOptions": {"edgeLabels.inline": "false"}}]},
+    #|{"id": "e5", "sources": ["n3"], "targets": ["n0"], "labels": [{"text": "L", "width": 59.2095,
+    #|"height": 18.8614, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 8.0776, "height": 13.6582, "layoutOptions": {"edgeLabels.inline": "true"}},
+    #|{"text": "L", "width": 13.1075, "height": 14.3741, "layoutOptions": {"edgeLabels.inline": "true"}}]}]}
+  inspect(
+    mermaid_parity_layout(input),
+    content=(
+      #|root 1055.953x157.79078815930166
+      #|n0: 971.5849999999999, 75.15370000000001 72.368x29.62
+      #|n1: 12, 57.85244318730627 136.932x24.603
+      #|n2: 504.6833, 60.76162035258217 91.911x42.316
+      #|n3: 722.9024999999999, 61.82431349851727 109.473x25.819
+      #|n4: 261.20169999999996, 32.52068815930165 111.985x40.025
+      #|e0: 971.5849999999999,87.49370000000002 852.3754999999999,87.49370000000002 852.3754999999999,74.73381349851726 832.3754999999999,74.73381349851726
+      #|e0 label: 877.6881999999998, 92.49370000000002
+      #|e0 label: 894.4511999999999, 104.08850000000002
+      #|e1: 373.1867,52.533188159301645 393.1867,52.533188159301645 393.1867,81.91962035258217 504.6833,81.91962035258217
+      #|e1 label: 430.79814999999996, 33.187620352582165
+      #|e1 label: 413.1867, 44.78792035258217
+      #|e1 label: 420.0637, 62.45472035258217
+      #|e2: 148.932,70.15394318730627 168.932,70.15394318730627 168.932,129.54568815930168 205.06685,129.54568815930168 438.93499999999995,129.54568815930168 484.6833,129.54568815930168 484.6833,81.91962035258217 504.6833,81.91962035258217
+      #|e2 label: 312.0838, 112.54568815930166
+      #|e2 label: 289.4805, 127.38058815930167
+      #|e3: 596.5943,81.91962035258217 616.5943,81.91962035258217 616.5943,74.73381349851726 722.9024999999999,74.73381349851726
+      #|e3 label: 647.5845499999999, 79.73381349851726
+      #|e3 label: 636.5943, 95.39051349851727
+      #|e4: 148.932,70.15394318730627 241.2017,70.15394318730628 241.2017,52.533188159301645 261.20169999999996,52.533188159301645
+      #|e4 label: 191.49415, 24.602343187306268
+      #|e4 label: 202.21505, 35.56244318730627
+      #|e4 label: 188.932, 56.68044318730627
+      #|e5: 832.3754999999999,74.73381349851726 852.3754999999999,74.73381349851726 852.3754999999999,66.49370000000002 951.5849999999999,66.49370000000002 951.5849999999999,87.49370000000002 971.5849999999999,87.49370000000002
+      #|e5 label: 872.3754999999999, 12
+      #|e5 label: 897.9414499999999, 32.1614
+      #|e5 label: 895.4264999999999, 47.119600000000005
+    ),
+  )
+}
+
+///|
+test "layered: stacked inline and side labels" {
+  let input =
+    #|{"id": "root", "layoutOptions": {"elk.hierarchyHandling": "INCLUDE_CHILDREN", "elk.algorithm": "elk.layered",
+    #|"elk.layered.nodePlacement.strategy": "LINEAR_SEGMENTS", "elk.layered.nodePlacement.bk.fixedAlignment": "BALANCED",
+    #|"elk.layered.mergeEdges": true, "elk.direction": "RIGHT", "spacing.baseValue": 40,
+    #|"elk.layered.crossingMinimization.forceNodeModelOrder": false, "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+    #|"elk.layered.unnecessaryBendpoints": true, "elk.layered.cycleBreaking.strategy": "DEPTH_FIRST",
+    #|"elk.layered.layering.strategy": "NETWORK_SIMPLEX", "elk.layered.layering.coffmanGraham.layerBound": 4,
+    #|"elk.layered.wrapping.multiEdge.improveCuts": true, "elk.layered.wrapping.multiEdge.improveWrappedEdges": true,
+    #|"elk.layered.edgeRouting.selfLoopDistribution": "EQUALLY", "elk.layered.mergeHierarchyEdges": true,
+    #|"elk.spacing.portsSurrounding": "[top=12,left=12,bottom=12,right=12]", "elk.spacing.labelLabel": "1.3",
+    #|"elk.spacing.edgeLabel": "3.1"}, "children": [{"id": "n0", "width": 72.368, "height": 29.62},
+    #|{"id": "n1", "width": 136.932, "height": 24.603}, {"id": "n2", "width": 91.911, "height": 42.316},
+    #|{"id": "n3", "width": 109.473, "height": 25.819}, {"id": "n4", "width": 111.985,
+    #|"height": 40.025}], "edges": [{"id": "e0", "sources": ["n0"], "targets": ["n3"],
+    #|"labels": [{"text": "L", "width": 48.5841, "height": 10.2948, "layoutOptions": {"edgeLabels.inline": "false"}},
+    #|{"text": "L", "width": 15.0581, "height": 11.8578, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e1", "sources": ["n4"], "targets": ["n2"], "labels": [{"text": "L", "width": 16.2737,
+    #|"height": 10.3003, "layoutOptions": {"edgeLabels.inline": "true"}}, {"text": "L",
+    #|"width": 51.4966, "height": 16.3668, "layoutOptions": {"edgeLabels.inline": "false"}},
+    #|{"text": "L", "width": 37.7426, "height": 14.4649, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e2", "sources": ["n1"], "targets": ["n2"], "labels": [{"text": "L", "width": 10.2208,
+    #|"height": 13.5349, "layoutOptions": {"edgeLabels.inline": "true"}}, {"text": "L",
+    #|"width": 55.4274, "height": 17.4102, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e3", "sources": ["n2"], "targets": ["n3"], "labels": [{"text": "L", "width": 24.3277,
+    #|"height": 14.3567, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 46.3082, "height": 19.3504, "layoutOptions": {"edgeLabels.inline": "true"}}]},
+    #|{"id": "e4", "sources": ["n1"], "targets": ["n4"], "labels": [{"text": "L", "width": 27.1454,
+    #|"height": 9.6601, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 5.7036, "height": 19.818, "layoutOptions": {"edgeLabels.inline": "true"}},
+    #|{"text": "L", "width": 32.2697, "height": 8.4735, "layoutOptions": {"edgeLabels.inline": "false"}}]},
+    #|{"id": "e5", "sources": ["n3"], "targets": ["n0"], "labels": [{"text": "L", "width": 59.2095,
+    #|"height": 18.8614, "layoutOptions": {"edgeLabels.inline": "false"}}, {"text": "L",
+    #|"width": 8.0776, "height": 13.6582, "layoutOptions": {"edgeLabels.inline": "true"}},
+    #|{"text": "L", "width": 13.1075, "height": 14.3741, "layoutOptions": {"edgeLabels.inline": "true"}}]}]}
+  inspect(
+    mermaid_parity_layout(input),
+    content=(
+      #|root 1055.953x156.82313606377636
+      #|n0: 971.5849999999999, 74.25370000000001 72.368x29.62
+      #|n1: 12, 56.88696305339127 136.932x24.603
+      #|n2: 504.6833, 59.88056034351967 91.911x42.316
+      #|n3: 722.9024999999999, 60.96215494495727 109.473x25.819
+      #|n4: 261.20169999999996, 31.553036063776332 111.985x40.025
+      #|e0: 971.5849999999999,86.59370000000001 852.3754999999999,86.59370000000001 852.3754999999999,73.87165494495727 832.3754999999999,73.87165494495727
+      #|e0 label: 877.6881999999998, 90.6937
+      #|e0 label: 894.4511999999999, 102.28850000000003
+      #|e1: 373.1867,51.565536063776335 393.1867,51.565536063776335 393.1867,81.03856034351966 504.6833,81.03856034351966
+      #|e1 label: 430.79814999999996, 33.20656034351967
+      #|e1 label: 413.1867, 44.80686034351967
+      #|e1 label: 420.0637, 62.473660343519676
+      #|e2: 148.932,69.18846305339127 168.932,69.18846305339127 168.932,128.57803606377635 205.06685,128.57803606377635 438.93499999999995,128.57803606377635 484.6833,128.57803606377635 484.6833,81.03856034351966 504.6833,81.03856034351966
+      #|e2 label: 312.0838, 111.57803606377635
+      #|e2 label: 289.4805, 126.41293606377636
+      #|e3: 596.5943,81.03856034351966 616.5943,81.03856034351966 616.5943,73.87165494495727 722.9024999999999,73.87165494495727
+      #|e3 label: 647.5845499999999, 77.97165494495727
+      #|e3 label: 636.5943, 93.62835494495727
+      #|e4: 148.932,69.18846305339127 241.2017,69.18846305339127 241.2017,51.565536063776335 261.20169999999996,51.565536063776335
+      #|e4 label: 191.49415, 24.536863053391276
+      #|e4 label: 202.21505, 35.496963053391276
+      #|e4 label: 188.932, 56.61496305339128
+      #|e5: 832.3754999999999,73.87165494495727 852.3754999999999,73.87165494495727 852.3754999999999,65.59370000000001 951.5849999999999,65.59370000000001 951.5849999999999,86.59370000000001 971.5849999999999,86.59370000000001
+      #|e5 label: 872.3754999999999, 12
+      #|e5 label: 897.9414499999999, 32.1614
+      #|e5 label: 895.4264999999999, 47.119600000000005
+    ),
+  )
+}

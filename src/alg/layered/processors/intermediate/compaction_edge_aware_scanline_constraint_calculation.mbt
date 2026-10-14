@@ -319,14 +319,12 @@ fn edge_aware_scanline_alter_hitbox(
   match origin_lookup.get_vertical_segment_or_null(n) {
     Some(vs) => {
       if !vs.ignore_spacing.up {
-        hitbox.y = hitbox.y - delta - edge_aware_scanline_small_epsilon
+        hitbox.y = hitbox.y - (delta + edge_aware_scanline_small_epsilon)
         hitbox.height = hitbox.height +
-          delta +
-          edge_aware_scanline_small_epsilon
+          (delta + edge_aware_scanline_small_epsilon)
       } else if !vs.ignore_spacing.down {
         hitbox.height = hitbox.height +
-          delta +
-          edge_aware_scanline_small_epsilon
+          (delta + edge_aware_scanline_small_epsilon)
       }
       n.set_hitbox(hitbox)
     }
@@ -372,14 +370,12 @@ fn edge_aware_scanline_alter_grouped_hitbox_orthogonal(
       Some(vs) => {
         let hitbox = n.hitbox()
         if vs.ignore_spacing.up {
-          hitbox.y = hitbox.y + delta + edge_aware_scanline_small_epsilon
+          hitbox.y = hitbox.y + (delta + edge_aware_scanline_small_epsilon)
           hitbox.height = hitbox.height -
-            delta -
-            edge_aware_scanline_small_epsilon
+            (delta + edge_aware_scanline_small_epsilon)
         } else if vs.ignore_spacing.down {
           hitbox.height = hitbox.height -
-            delta -
-            edge_aware_scanline_small_epsilon
+            (delta + edge_aware_scanline_small_epsilon)
         }
         n.set_hitbox(hitbox)
       }

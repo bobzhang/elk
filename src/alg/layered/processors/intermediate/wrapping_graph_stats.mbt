@@ -39,10 +39,7 @@ fn graph_stats_determine_layer_height(
     let size = node.get_size()
     let margin = node.get_margin()
     layer_height = layer_height +
-      size.y +
-      margin.bottom +
-      margin.top +
-      graph_stats.in_layer_spacing
+      (size.y + margin.bottom + margin.top + graph_stats.in_layer_spacing)
 
     for incoming in node.get_incoming_edges() {
       match incoming.get_source() {
@@ -59,9 +56,11 @@ fn graph_stats_determine_layer_height(
                       let origin_size = origin.get_size()
                       let origin_margin = origin.get_margin()
                       layer_height = layer_height +
-                        origin_size.y +
-                        origin_margin.bottom +
-                        origin_margin.top
+                        (
+                          origin_size.y +
+                          origin_margin.bottom +
+                          origin_margin.top
+                        )
                     }
                     None => ()
                   }

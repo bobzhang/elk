@@ -179,7 +179,8 @@ fn interactive_crossing_minimizer_process(
     let mut node_count = 0
     for node in layer.get_nodes() {
       if node.get_position().x > 0.0 {
-        horiz_pos = horiz_pos + node.get_position().x + node.get_size().x / 2.0
+        horiz_pos = horiz_pos +
+          (node.get_position().x + node.get_size().x / 2.0)
         node_count = node_count + 1
       }
       for port in node.get_ports() {

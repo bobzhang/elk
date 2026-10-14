@@ -318,8 +318,11 @@ fn BarycenterHeuristic::calculate_barycenter(
 
   if state.degree > 0 {
     state.summed_weight = state.summed_weight +
-      self.random.next_float().to_double() * barycenter_heuristic_random_amount -
-      barycenter_heuristic_random_amount / 2.0
+      (
+        self.random.next_float().to_double() *
+        barycenter_heuristic_random_amount -
+        barycenter_heuristic_random_amount / 2.0
+      )
     state.barycenter = Some(state.summed_weight / state.degree.to_double())
   }
 }

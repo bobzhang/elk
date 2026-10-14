@@ -540,7 +540,7 @@ fn box_layout_provider_place_boxes_sorted(
         row_indices.push(index)
       }
       xpos = padding_value.left
-      ypos = ypos + highest_box + min_spacing
+      ypos = ypos + (highest_box + min_spacing)
       highest_box = 0.0
       broadest_row = box_layout_provider_max(
         broadest_row,
@@ -554,7 +554,7 @@ fn box_layout_provider_place_boxes_sorted(
       xpos + width + padding_value.right,
     )
     highest_box = box_layout_provider_max(highest_box, height)
-    xpos = xpos + width + min_spacing
+    xpos = xpos + (width + min_spacing)
 
     index = index + 1
   }
@@ -604,7 +604,7 @@ fn box_layout_provider_place_boxes_sorted(
         )
       }
 
-      xpos = xpos + @graph.node_width(box) + min_spacing
+      xpos = xpos + (@graph.node_width(box) + min_spacing)
       index = index + 1
     }
   }
@@ -724,7 +724,7 @@ fn box_layout_provider_place_inner_boxes(
         bottoms.clear()
       }
       xpos = padding_value.left
-      ypos = ypos + highest_box + min_spacing
+      ypos = ypos + (highest_box + min_spacing)
       highest_box = 0.0
       broadest_row = box_layout_provider_max(
         broadest_row,
@@ -741,7 +741,7 @@ fn box_layout_provider_place_inner_boxes(
       xpos + width + padding_value.right,
     )
     highest_box = box_layout_provider_max(highest_box, height)
-    xpos = xpos + width + min_spacing
+    xpos = xpos + (width + min_spacing)
     last_index = Some(index)
     index = index + 1
   }
@@ -796,7 +796,7 @@ fn box_layout_provider_place_inner_boxes(
         )
       }
 
-      xpos = xpos + box_layout_provider_group_get_width(box) + min_spacing
+      xpos = xpos + (box_layout_provider_group_get_width(box) + min_spacing)
       updated_group.groups[index] = box
       index = index + 1
     }

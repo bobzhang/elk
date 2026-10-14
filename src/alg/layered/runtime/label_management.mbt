@@ -32,8 +32,7 @@ pub fn label_management_processor_do_manage_labels(
     }
     if vertical_layout {
       required_label_space.x = required_label_space.x +
-        label_label_spacing +
-        label.get_size().x
+        (label_label_spacing + label.get_size().x)
       if label_size.y > required_label_space.y {
         required_label_space.y = label_size.y
       }
@@ -42,8 +41,7 @@ pub fn label_management_processor_do_manage_labels(
         required_label_space.x = label_size.x
       }
       required_label_space.y = required_label_space.y +
-        label_label_spacing +
-        label.get_size().y
+        (label_label_spacing + label.get_size().y)
     }
   }
   if vertical_layout {

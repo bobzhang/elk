@@ -110,11 +110,11 @@ fn topdownpacking_left_right_top_down_node_placer_process_impl(
       "\{@graph.node_identifier(node)} placed in (\{current_col}|\{current_row})",
     )
 
-    curr_x = curr_x + @graph.node_width(node) + node_node_spacing
+    curr_x = curr_x + (@graph.node_width(node) + node_node_spacing)
     current_col = current_col + 1
     if current_col >= cols {
       curr_x = padding.left
-      curr_y = curr_y + desired_node_width / aspect_ratio + node_node_spacing
+      curr_y = curr_y + (desired_node_width / aspect_ratio + node_node_spacing)
       current_col = 0
       current_row = current_row + 1
     }

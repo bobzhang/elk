@@ -1,13 +1,4 @@
 ///|
-fn innermost_node_margin_calculator_min(a : Double, b : Double) -> Double {
-  if a < b {
-    a
-  } else {
-    b
-  }
-}
-
-///|
 fn innermost_node_margin_calculator_max(a : Double, b : Double) -> Double {
   if a > b {
     a
@@ -17,67 +8,73 @@ fn innermost_node_margin_calculator_max(a : Double, b : Double) -> Double {
 }
 
 ///|
+/// The margin of a node around its labels, its ports and their labels,
+/// with the arithmetic of ELK's `NodeMarginCalculator`: a bounding box in
+/// the coordinates of the graph, grown by uniting it with each element,
+/// from which the margins are then taken. The size of that box is a
+/// difference of its edges, so a margin can come out a last bit away from
+/// how far the element behind it sticks out.
 fn innermost_node_margin_calculator_process_node(node : @runtime.LNode) -> Unit {
+  let node_position = node.get_position()
   let node_size = node.get_size()
-  let mut min_x = 0.0
-  let mut min_y = 0.0
-  let mut max_x = node_size.x
-  let mut max_y = node_size.y
+  let bounding_box = @core.new_elk_rectangle_xywh(
+    node_position.x,
+    node_position.y,
+    node_size.x,
+    node_size.y,
+  )
+  let element_box = @core.new_elk_rectangle()
 
   for label in node.get_labels() {
     let label_pos = label.get_position()
     let label_size = label.get_size()
-    min_x = innermost_node_margin_calculator_min(min_x, label_pos.x)
-    min_y = innermost_node_margin_calculator_min(min_y, label_pos.y)
-    max_x = innermost_node_margin_calculator_max(
-      max_x,
-      label_pos.x + label_size.x,
+    element_box.set_rect(
+      label_pos.x + node_position.x,
+      label_pos.y + node_position.y,
+      label_size.x,
+      label_size.y,
     )
-    max_y = innermost_node_margin_calculator_max(
-      max_y,
-      label_pos.y + label_size.y,
-    )
+    bounding_box.union(element_box)
   }
 
   for port in node.get_ports() {
     let port_pos = port.get_position()
     let port_size = port.get_size()
-
-    min_x = innermost_node_margin_calculator_min(min_x, port_pos.x)
-    min_y = innermost_node_margin_calculator_min(min_y, port_pos.y)
-    max_x = innermost_node_margin_calculator_max(
-      max_x,
-      port_pos.x + port_size.x,
-    )
-    max_y = innermost_node_margin_calculator_max(
-      max_y,
-      port_pos.y + port_size.y,
-    )
+    let port_x = port_pos.x + node_position.x
+    let port_y = port_pos.y + node_position.y
+    element_box.set_rect(port_x, port_y, port_size.x, port_size.y)
+    bounding_box.union(element_box)
 
     for label in port.get_labels() {
       let label_pos = label.get_position()
       let label_size = label.get_size()
-      let label_x = port_pos.x + label_pos.x
-      let label_y = port_pos.y + label_pos.y
-
-      min_x = innermost_node_margin_calculator_min(min_x, label_x)
-      min_y = innermost_node_margin_calculator_min(min_y, label_y)
-      max_x = innermost_node_margin_calculator_max(
-        max_x,
-        label_x + label_size.x,
+      element_box.set_rect(
+        label_pos.x + port_x,
+        label_pos.y + port_y,
+        label_size.x,
+        label_size.y,
       )
-      max_y = innermost_node_margin_calculator_max(
-        max_y,
-        label_y + label_size.y,
-      )
+      bounding_box.union(element_box)
     }
   }
 
   let margin = node.get_margin()
-  margin.top = innermost_node_margin_calculator_max(0.0, -min_y)
-  margin.left = innermost_node_margin_calculator_max(0.0, -min_x)
-  margin.bottom = innermost_node_margin_calculator_max(0.0, max_y - node_size.y)
-  margin.right = innermost_node_margin_calculator_max(0.0, max_x - node_size.x)
+  margin.top = innermost_node_margin_calculator_max(
+    0.0,
+    node_position.y - bounding_box.y,
+  )
+  margin.bottom = innermost_node_margin_calculator_max(
+    0.0,
+    bounding_box.y + bounding_box.height - (node_position.y + node_size.y),
+  )
+  margin.left = innermost_node_margin_calculator_max(
+    0.0,
+    node_position.x - bounding_box.x,
+  )
+  margin.right = innermost_node_margin_calculator_max(
+    0.0,
+    bounding_box.x + bounding_box.width - (node_position.x + node_size.x),
+  )
 }
 
 ///|
